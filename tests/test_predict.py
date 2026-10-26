@@ -1,0 +1,56 @@
+"""Tests for src/predict.py, using the fake model saved by conftest.py."""
+import pytest
+
+from src.config import TARGET
+from src.predict import load_artifacts, predict, predict_batch
+from tests.test_data import make_fake
+
+
+@pytest.fixture(scope="module")
+def artifacts(saved_model_dir):
+    return load_artifacts(saved_model_dir / "model.joblib", saved_model_dir / "metadata.json")
+
+
+@pytest.fixture
+def applicant():
+    return make_fake(1).drop(columns=TARGET).iloc[0].to_dict()
+
+
+def test_predict_valid_applicant(artifacts, applicant):
+    out = predict(applicant, artifacts)
+    assert set(out) == {"pd", "decision", "reasons", "shap"}
+    assert 0 <= out["pd"] <= 1
+    assert out["decision"] in {"approve", "refer", "decline"}
+
+
+def test_predict_missing_field_gives_clear_error(artifacts, applicant):
+    del applicant["PAY_0"]
+    with pytest.raises(ValueError, match="Missing applicant fields: PAY_0"):
+        predict(applicant, artifacts)
+
+
+def test_predict_does_not_need_protected_attributes(artifacts, applicant):
+    for field in ("SEX", "MARRIAGE", "AGE"):
+        applicant.pop(field)
+    assert 0 <= predict(applicant, artifacts)["pd"] <= 1
+
+
+def test_predict_batch_of_100(artifacts):
+    df = make_fake(100, seed=1).drop(columns=TARGET)
+    out = predict_batch(df, artifacts)
+    assert len(out) == 100
+    assert out["pd"].between(0, 1).all()
+    assert set(out["decision"]) <= {"approve", "refer", "decline"}
+    assert list(out.columns[:-2]) == list(df.columns)  # input columns kept, unchanged
+
+
+def test_batch_and_single_agree(artifacts):
+    df = make_fake(5, seed=2).drop(columns=TARGET)
+    batch = predict_batch(df, artifacts)
+    for i in range(5):
+        assert predict(df.iloc[i].to_dict(), artifacts)["pd"] == pytest.approx(batch["pd"].iloc[i])
+
+
+def test_missing_model_files_explain_what_to_do(tmp_path):
+    with pytest.raises(FileNotFoundError, match="python -m src.train"):
+        load_artifacts(tmp_path / "model.joblib", tmp_path / "metadata.json")
