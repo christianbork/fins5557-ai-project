@@ -87,13 +87,13 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - [x] Notebook section 2: show the new features against the default rate.
 - **Checks:** tests for safe division (zero and negative bills give finite values, no NaN/inf) and for the pipeline producing the same columns on train and validation.
 
-### Step 3: Models (`src/train.py`)
-- [ ] Train three pipelines (preprocessor + model): logistic regression (`class_weight="balanced"`), random forest (`class_weight="balanced"`), XGBoost (`scale_pos_weight` = negatives / positives). Course reference: Code Bank W05-02 for the scorecard approach, topic 02 for the models.
-- [ ] Light tuning with 5-fold stratified CV on the training set only (small grids, a few minutes in total; ask before anything longer).
-- [ ] Compare on the **validation** set: AUC, Gini (2·AUC − 1), KS, Brier score, balanced accuracy. Save a comparison table to `reports/model_comparison.csv`.
-- [ ] Choose the final model using the justification rule in section 1.
-- [ ] Run as `python -m src.train`. It saves `models/model.joblib` and `models/metadata.json` (training date, data row count, chosen model, metrics, library versions, threshold).
-- [ ] Notebook section 3: comparison table and ROC curves.
+### Step 3: Models (`src/train.py`) [done]
+- [x] Train three pipelines (preprocessor + model): logistic regression (`class_weight="balanced"`), random forest (`class_weight="balanced"`), XGBoost (`scale_pos_weight` = negatives / positives). Course reference: Code Bank W05-02 for the scorecard approach, topic 02 for the models.
+- [x] Light tuning with 5-fold stratified CV on the training set only (small grids, a few minutes in total; ask before anything longer).
+- [x] Compare on the **validation** set: AUC, Gini (2·AUC − 1), KS, Brier score, balanced accuracy. Save a comparison table to `reports/model_comparison.csv`.
+- [x] Choose the final model using the justification rule in section 1.
+- [x] Run as `python -m src.train`. It saves `models/model.joblib` and `models/metadata.json` (training date, data row count, chosen model, metrics, library versions, threshold).
+- [x] Notebook section 3: comparison table and ROC curves.
 - **Checks:** the script runs end to end from a clean checkout plus the raw data. Test: the saved model loads and returns probabilities between 0 and 1.
 - **Decision for Christian:** whether `models/model.joblib` gets committed (needed for deployment, small file). If yes, add `!models/model.joblib` and `!models/*.json` to `.gitignore`.
 

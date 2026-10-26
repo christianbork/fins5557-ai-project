@@ -16,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 RAW_PATH = DATA_DIR / "raw" / "uci_credit_default.csv"  # gitignored, downloaded on first use
 MODELS_DIR = ROOT / "models"
+MODEL_PATH = MODELS_DIR / "model.joblib"
+METADATA_PATH = MODELS_DIR / "metadata.json"
+REPORTS_DIR = ROOT / "reports"
 
 # ---- Data -----------------------------------------------------------------
 UCI_DATASET_ID = 350  # UCI "Default of Credit Card Clients" (Taiwan, 2005), CC BY 4.0
@@ -51,6 +54,13 @@ FEATURE_SETS = {
     },
 }
 FEATURE_SET = "full"  # change this one setting to train on a different feature set
+
+# ---- Training ---------------------------------------------------------------
+CV_FOLDS = 5  # stratified K-fold on the training split, used for tuning only
+# Model choice rule: take the best validation AUC, but only pick a tree model over logistic
+# regression if it beats it by at least this much. Otherwise the simpler, more explainable
+# model wins (easier to justify to a regulator and to explain to a declined customer).
+MIN_AUC_GAIN = 0.01
 
 
 def get_secret(name: str, default: str | None = None) -> str | None:
