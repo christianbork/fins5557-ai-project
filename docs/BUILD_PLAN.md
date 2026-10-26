@@ -80,11 +80,11 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - [x] Fill in the **Findings** block in section 1 (default rate, strongest signal, data issues, fairness preview) with the actual numbers.
 - **Checks:** `git status` does not list the CSV. Default rate is about 22%. `clean()` leaves EDUCATION in {1,2,3,4} and MARRIAGE in {1,2,3}.
 
-### Step 2: Features (`src/features.py`)
-- [ ] `add_features(df)`: utilisation (`BILL_AMT1 / LIMIT_BAL`), payment ratio (`PAY_AMT1 / BILL_AMT1`, safe when the bill is ≤ 0), number of months late in the last 6 (`PAY_* > 0`), max months late, average utilisation over 6 months, bill trend (`BILL_AMT1 - BILL_AMT6`).
-- [ ] `build_preprocessor()`: a scikit-learn `ColumnTransformer`. Scale the numeric columns (for logistic regression) and one-hot encode `EDUCATION`. Fitted on training data only.
-- [ ] Keep the list of feature columns in `src/config.py`, so a reduced "thin-file" feature set could be added later by changing one setting.
-- [ ] Notebook section 2: show the new features against the default rate.
+### Step 2: Features (`src/features.py`) [done]
+- [x] `add_features(df)`: utilisation (`BILL_AMT1 / LIMIT_BAL`), payment ratio (`PAY_AMT1 / BILL_AMT2`, the bill that September's payment settles; safe when the bill is ≤ 0), number of months late in the last 6 (`PAY_* > 0`), max months late, average utilisation over 6 months, bill trend (`BILL_AMT1 - BILL_AMT6`).
+- [x] `build_preprocessor()`: a scikit-learn `ColumnTransformer`. Scale the numeric columns (for logistic regression) and one-hot encode `EDUCATION`. Fitted on training data only.
+- [x] Keep the list of feature columns in `src/config.py`, so a reduced "thin-file" feature set could be added later by changing one setting.
+- [x] Notebook section 2: show the new features against the default rate.
 - **Checks:** tests for safe division (zero and negative bills give finite values, no NaN/inf) and for the pipeline producing the same columns on train and validation.
 
 ### Step 3: Models (`src/train.py`)

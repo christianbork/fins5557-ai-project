@@ -26,6 +26,32 @@ RANDOM_STATE = 100  # same seed as the notebooks, so results are reproducible
 TEST_SIZE = 0.20
 VAL_SIZE = 0.20  # share of the full dataset; the remaining 60% is training
 
+# ---- Features ---------------------------------------------------------------
+# Engineered in src/features.py from the raw bureau-style columns.
+ENGINEERED_FEATURES = [
+    "utilisation",  # last bill / credit limit
+    "payment_ratio",  # last payment / the bill it paid (BILL_AMT2), 1.0 when nothing was owed
+    "months_late_6m",  # number of the last 6 months with a late payment
+    "max_months_late",  # worst arrears in the last 6 months
+    "avg_utilisation_6m",  # average bill / credit limit over 6 months
+    "bill_trend",  # BILL_AMT1 - BILL_AMT6: positive means debt is growing
+]
+_RAW_NUMERIC = [
+    "LIMIT_BAL",
+    "PAY_0", "PAY_2", "PAY_3", "PAY_4", "PAY_5", "PAY_6",
+    *[f"BILL_AMT{i}" for i in range(1, 7)],
+    *[f"PAY_AMT{i}" for i in range(1, 7)],
+]
+# Each feature set lists the numeric and categorical model inputs. Protected attributes
+# (PROTECTED) never appear here. A reduced "thin-file" set can be added as another entry.
+FEATURE_SETS = {
+    "full": {
+        "numeric": [*_RAW_NUMERIC, *ENGINEERED_FEATURES],
+        "categorical": ["EDUCATION"],
+    },
+}
+FEATURE_SET = "full"  # change this one setting to train on a different feature set
+
 
 def get_secret(name: str, default: str | None = None) -> str | None:
     """Return a secret from the environment, then Streamlit secrets, else default."""
