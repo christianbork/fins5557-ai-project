@@ -1,0 +1,10 @@
+# Core course stack. Pin exact versions before submission (pip freeze).
+pandas
+numpy
+scikit-learn
+xgboost
+shap
+matplotlib
+streamlit
+python-dotenv
+google-generativeai
