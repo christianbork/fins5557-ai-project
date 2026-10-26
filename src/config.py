@@ -5,6 +5,7 @@ On Streamlit Cloud, add the same keys under App settings -> Secrets.
 Keys are never hardcoded or printed.
 """
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -74,10 +75,17 @@ CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier sc
 
 
 def get_secret(name: str, default: str | None = None) -> str | None:
-    """Return a secret from the environment, then Streamlit secrets, else default."""
+    """Return a secret from the environment, then Streamlit secrets, else default.
+
+    Streamlit secrets are only checked when Streamlit is already loaded (i.e. inside the app).
+    Importing Streamlit anywhere else has a side effect: it switches matplotlib to a backend
+    that can't display charts, which silently breaks the plots in the notebook.
+    """
     value = os.getenv(name)
     if value:
         return value
+    if "streamlit" not in sys.modules:
+        return default
     try:
         import streamlit as st
 
