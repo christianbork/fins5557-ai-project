@@ -1,0 +1,24 @@
+{
+  "auc": 0.7864325372181676,
+  "gini": 0.5728650744363353,
+  "ks": 0.42604446876999147,
+  "brier": 0.13418103051894478,
+  "balanced_accuracy": 0.6932402483377469,
+  "threshold": 0.14,
+  "confusion_matrix": {
+    "approved_repaid": 2704,
+    "declined_repaid": 1969,
+    "approved_defaulted": 255,
+    "declined_defaulted": 1072
+  },
+  "approval_rate": 0.49316666666666664,
+  "default_rate_approved": 0.0861777627576884,
+  "default_rate_all": 0.22116666666666668,
+  "decision_shares": {
+    "approve": 0.4156666666666667,
+    "refer": 0.14133333333333334,
+    "decline": 0.443
+  },
+  "realised_profit": 38552400.0,
+  "mean_pd": 0.224161347165271
+}

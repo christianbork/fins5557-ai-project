@@ -80,33 +80,33 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - [x] Fill in the **Findings** block in section 1 (default rate, strongest signal, data issues, fairness preview) with the actual numbers.
 - **Checks:** `git status` does not list the CSV. Default rate is about 22%. `clean()` leaves EDUCATION in {1,2,3,4} and MARRIAGE in {1,2,3}.
 
-### Step 2: Features (`src/features.py`)
-- [ ] `add_features(df)`: utilisation (`BILL_AMT1 / LIMIT_BAL`), payment ratio (`PAY_AMT1 / BILL_AMT1`, safe when the bill is ≤ 0), number of months late in the last 6 (`PAY_* > 0`), max months late, average utilisation over 6 months, bill trend (`BILL_AMT1 - BILL_AMT6`).
-- [ ] `build_preprocessor()`: a scikit-learn `ColumnTransformer`. Scale the numeric columns (for logistic regression) and one-hot encode `EDUCATION`. Fitted on training data only.
-- [ ] Keep the list of feature columns in `src/config.py`, so a reduced "thin-file" feature set could be added later by changing one setting.
-- [ ] Notebook section 2: show the new features against the default rate.
+### Step 2: Features (`src/features.py`) [done]
+- [x] `add_features(df)`: utilisation (`BILL_AMT1 / LIMIT_BAL`), payment ratio (`PAY_AMT1 / BILL_AMT2`, the bill that September's payment settles; safe when the bill is ≤ 0), number of months late in the last 6 (`PAY_* > 0`), max months late, average utilisation over 6 months, bill trend (`BILL_AMT1 - BILL_AMT6`).
+- [x] `build_preprocessor()`: a scikit-learn `ColumnTransformer`. Scale the numeric columns (for logistic regression) and one-hot encode `EDUCATION`. Fitted on training data only.
+- [x] Keep the list of feature columns in `src/config.py`, so a reduced "thin-file" feature set could be added later by changing one setting.
+- [x] Notebook section 2: show the new features against the default rate.
 - **Checks:** tests for safe division (zero and negative bills give finite values, no NaN/inf) and for the pipeline producing the same columns on train and validation.
 
-### Step 3: Models (`src/train.py`)
-- [ ] Train three pipelines (preprocessor + model): logistic regression (`class_weight="balanced"`), random forest (`class_weight="balanced"`), XGBoost (`scale_pos_weight` = negatives / positives). Course reference: Code Bank W05-02 for the scorecard approach, topic 02 for the models.
-- [ ] Light tuning with 5-fold stratified CV on the training set only (small grids, a few minutes in total; ask before anything longer).
-- [ ] Compare on the **validation** set: AUC, Gini (2·AUC − 1), KS, Brier score, balanced accuracy. Save a comparison table to `reports/model_comparison.csv`.
-- [ ] Choose the final model using the justification rule in section 1.
-- [ ] Run as `python -m src.train`. It saves `models/model.joblib` and `models/metadata.json` (training date, data row count, chosen model, metrics, library versions, threshold).
-- [ ] Notebook section 3: comparison table and ROC curves.
+### Step 3: Models (`src/train.py`) [done]
+- [x] Train three pipelines (preprocessor + model): logistic regression (`class_weight="balanced"`), random forest (`class_weight="balanced"`), XGBoost (`scale_pos_weight` = negatives / positives). Course reference: Code Bank W05-02 for the scorecard approach, topic 02 for the models.
+- [x] Light tuning with 5-fold stratified CV on the training set only (small grids, a few minutes in total; ask before anything longer).
+- [x] Compare on the **validation** set: AUC, Gini (2·AUC − 1), KS, Brier score, balanced accuracy. Save a comparison table to `reports/model_comparison.csv`.
+- [x] Choose the final model using the justification rule in section 1.
+- [x] Run as `python -m src.train`. It saves `models/model.joblib` and `models/metadata.json` (training date, data row count, chosen model, metrics, library versions, threshold).
+- [x] Notebook section 3: comparison table and ROC curves.
 - **Checks:** the script runs end to end from a clean checkout plus the raw data. Test: the saved model loads and returns probabilities between 0 and 1.
-- **Decision for Christian:** whether `models/model.joblib` gets committed (needed for deployment, small file). If yes, add `!models/model.joblib` and `!models/*.json` to `.gitignore`.
+- **Decided:** `models/model.joblib` (about 6 MB) and `models/*.json` are committed, because the deployed app needs them.
 
-### Step 4: Calibration and threshold (`src/threshold.py`)
-- [ ] Calibrate the chosen model on the validation set (`CalibratedClassifierCV` with isotonic or sigmoid, whichever has the lower Brier score). Plot a reliability curve in notebook section 4.
-- [ ] `expected_profit(pd, threshold, lgd, margin, ead)` and `choose_threshold(...)` that picks the cut-off maximising expected profit on validation. Put the assumptions in `config.py` (e.g. `LGD = 0.60`, annual margin, EAD = credit limit).
-- [ ] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (e.g. ±5 percentage points, in config).
-- [ ] Report final test-set metrics once, at the chosen threshold, including the confusion matrix.
+### Step 4: Calibration and threshold (`src/threshold.py`) [done]
+- [x] Calibrate the chosen model on the validation set (`CalibratedClassifierCV` with isotonic or sigmoid, whichever has the lower Brier score). Plot a reliability curve in notebook section 4.
+- [x] `expected_profit(pd, threshold, lgd, margin, ead)` and `choose_threshold(...)` that picks the cut-off maximising expected profit on validation. Put the assumptions in `config.py` (e.g. `LGD = 0.60`, annual margin, EAD = credit limit).
+- [x] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (in config). **Decided: ±2 points** (±5 would refer 37% of applicants, ±2 refers about 15%).
+- [x] Report final test-set metrics once, at the chosen threshold, including the confusion matrix.
 - **Checks:** tests for `decide()` at band edges, and that the profit curve has a sensible maximum.
 
-### Step 5: Prediction interface (`src/predict.py`)
-- [ ] `load_artifacts()` (cached by the app with `st.cache_resource`).
-- [ ] `predict(applicant: dict) -> {"pd": float, "decision": str, "reasons": list[str], "shap": dict}`, plus `predict_batch(df) -> DataFrame` (vectorised, no row loop).
+### Step 5: Prediction interface (`src/predict.py`) [done]
+- [x] `load_artifacts()` (cached by the app with `st.cache_resource`).
+- [x] `predict(applicant: dict) -> {"pd": float, "decision": str, "reasons": list[str], "shap": dict}`, plus `predict_batch(df) -> DataFrame` (vectorised, no row loop).
 - **Checks:** tests with a valid applicant dict, a missing field (clear error), and a batch of 100 rows.
 
 ### Step 6: Explainability (`src/explain.py`)

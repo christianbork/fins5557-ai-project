@@ -1,0 +1,4 @@
+model,cv_auc,auc,gini,ks,brier,balanced_accuracy
+logistic_regression,0.7614,0.7627,0.5254,0.4144,0.1893,0.7053
+random_forest,0.7837,0.7836,0.5672,0.4358,0.1769,0.7132
+xgboost,0.7817,0.7829,0.5658,0.4373,0.1769,0.7151
