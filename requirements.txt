@@ -1,10 +1,11 @@
-# Core course stack. Pin exact versions before submission (pip freeze).
-pandas
-numpy
-scikit-learn
-xgboost
-shap
-matplotlib
-streamlit
-python-dotenv
-google-generativeai
+# Runtime packages: what the deployed app needs. Versions pinned to match our .venv.
+pandas==3.1.0
+numpy==2.5.4
+scikit-learn==1.9.1
+xgboost==3.4.1
+shap==0.54.1
+matplotlib==3.11.2
+streamlit==1.66.1
+python-dotenv==1.2.4
+joblib==1.6.0
+google-generativeai==0.8.6

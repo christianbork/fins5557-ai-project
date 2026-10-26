@@ -1,0 +1,7 @@
+# Development tools: notebooks, data download, tests and linting.
+# Install with: pip install -r requirements-dev.txt  (includes requirements.txt)
+-r requirements.txt
+ucimlrepo==0.0.7
+pytest==9.1.1
+ruff==0.17.2
+ipykernel==7.4.0
