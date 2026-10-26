@@ -19,6 +19,9 @@ data/*
 !data/.gitkeep
 *.pkl
 *.joblib
+# The deployed app needs the trained model (about 6 MB) and its metadata, so these are committed.
+!models/model.joblib
+!models/*.json
 
 # OS / editor
 .DS_Store

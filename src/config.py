@@ -62,6 +62,16 @@ CV_FOLDS = 5  # stratified K-fold on the training split, used for tuning only
 # model wins (easier to justify to a regulator and to explain to a declined customer).
 MIN_AUC_GAIN = 0.01
 
+# ---- Credit decision assumptions (stated in the report) ---------------------------
+# Profit of approving one customer: no default -> earn MARGIN x EAD; default -> lose LGD x EAD.
+# Expected loss = PD x LGD x EAD (the Basel formula).
+LGD = 0.60  # loss given default: share of the exposure lost after recoveries
+MARGIN = 0.12  # net annual margin on the exposure, after funding and operating costs
+EAD_COLUMN = "LIMIT_BAL"  # exposure at default = the credit limit (conservative: assumes fully drawn)
+# Break-even PD = MARGIN / (MARGIN + LGD) = 16.7%: above it, a customer is expected to lose money.
+REFER_BAND = 0.02  # PDs within +/- 2 points of the cut-off go to an analyst (about 15% of applicants)
+CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier score is used
+
 
 def get_secret(name: str, default: str | None = None) -> str | None:
     """Return a secret from the environment, then Streamlit secrets, else default."""

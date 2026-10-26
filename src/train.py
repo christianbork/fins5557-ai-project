@@ -1,19 +1,23 @@
-"""Station 3 (models): train, tune and compare three credit-default models, then save the chosen one.
+"""Station 3 (models): train, tune and compare three credit-default models, then calibrate and save
+the chosen one.
 
-Run from the project root:
+Run from the project root (about a minute):
 
     python -m src.train
 
-It trains logistic regression (the traditional scorecard baseline), a random forest and
-XGBoost, tunes each with stratified cross-validation on the training split only, compares
-them on the validation split, picks one with the rule in config (MIN_AUC_GAIN) and saves:
+1. Trains logistic regression (the traditional scorecard baseline), a random forest and
+   XGBoost, tuning each with stratified cross-validation on the training split only.
+2. Compares them on the validation split and picks one with the rule in config (MIN_AUC_GAIN).
+3. Calibrates the chosen model and sets the cost-based threshold (src/threshold.py).
+4. Reports the test split once, at that threshold.
 
-    models/model.joblib               the chosen pipeline (features + preprocessing + model)
-    models/metadata.json              what was trained, when, on what, and how well it did
-    reports/model_comparison.csv      validation metrics for all three models
-    reports/validation_predictions.csv  validation PDs per model, for ROC plots (gitignored)
-
-The test split is not touched here; it is used once, for final reporting, in Step 4.
+Saves:
+    models/model.joblib                 calibrated pipeline: raw applicant columns in, PD out
+    models/metadata.json                what was trained, when, on what, threshold and results
+    reports/model_comparison.csv        validation metrics for all three models
+    reports/profit_curve.csv            profit and approval rate at each candidate cut-off
+    reports/test_metrics.json           final test-split results
+    reports/validation_predictions.csv  validation scores per model, for plots (gitignored)
 """
 from __future__ import annotations
 
@@ -29,7 +33,6 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import balanced_accuracy_score, brier_score_loss, roc_auc_score, roc_curve
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
@@ -37,15 +40,21 @@ from xgboost import XGBClassifier
 
 from src.config import (
     CV_FOLDS,
+    EAD_COLUMN,
     FEATURE_SET,
+    LGD,
+    MARGIN,
     METADATA_PATH,
     MIN_AUC_GAIN,
     MODEL_PATH,
     RANDOM_STATE,
+    REFER_BAND,
     REPORTS_DIR,
 )
 from src.data import features_target, load_clean, split
 from src.features import add_features, build_preprocessor, feature_columns
+from src.metrics import evaluate
+from src.threshold import break_even_pd, calibrate_and_set_threshold
 
 BASELINE = "logistic_regression"
 
@@ -63,7 +72,8 @@ def make_models(y_train: pd.Series) -> dict:
 
     Class weighting makes a missed defaulter cost more during training than a false alarm,
     so the models don't just predict "no default" for everyone. It also pushes the predicted
-    probabilities upwards, which is why Step 4 recalibrates them before they are used as PDs.
+    probabilities upwards, which is why the chosen model is recalibrated before its scores
+    are used as PDs.
     """
     negatives, positives = np.bincount(y_train)
     return {
@@ -95,32 +105,6 @@ def build_pipeline(model, feature_set: str = FEATURE_SET) -> Pipeline:
         ("preprocess", build_preprocessor(feature_set)),
         ("model", model),
     ])
-
-
-def ks_statistic(y_true, y_score) -> float:
-    """Kolmogorov-Smirnov: the largest gap between the score distributions of defaulters and
-    non-defaulters. Same measure as Code Bank W05-05's ks_statistic(), computed from the ROC
-    curve (KS = max(TPR - FPR)) instead of a Python loop.
-    """
-    fpr, tpr, _ = roc_curve(y_true, y_score)
-    return float(np.max(tpr - fpr))
-
-
-def evaluate(y_true, y_score, threshold: float = 0.5) -> dict:
-    """Validation metrics used in credit scoring.
-
-    AUC / Gini / KS measure ranking (does the model put defaulters above non-defaulters?).
-    Brier score measures probability accuracy (lower is better). Balanced accuracy uses a
-    0.5 cut-off for now; the real, cost-based threshold is chosen in Step 4.
-    """
-    auc = roc_auc_score(y_true, y_score)
-    return {
-        "auc": auc,
-        "gini": 2 * auc - 1,
-        "ks": ks_statistic(y_true, y_score),
-        "brier": brier_score_loss(y_true, y_score),
-        "balanced_accuracy": balanced_accuracy_score(y_true, (np.asarray(y_score) >= threshold).astype(int)),
-    }
 
 
 def choose_model(comparison: pd.DataFrame, min_gain: float = MIN_AUC_GAIN) -> tuple[str, str]:
@@ -179,7 +163,7 @@ def train_all(train: pd.DataFrame, val: pd.DataFrame, param_grids: dict = PARAM_
     }
 
 
-def build_metadata(result: dict, n_train: int, n_val: int) -> dict:
+def build_metadata(result: dict, decision: dict, input_columns: list[str], n_rows: dict) -> dict:
     """Everything needed to know later what the saved model is (model risk documentation)."""
     chosen = result["chosen"]
     numeric, categorical = feature_columns()
@@ -190,11 +174,18 @@ def build_metadata(result: dict, n_train: int, n_val: int) -> dict:
         "best_params": result["best_params"][chosen],
         "validation_metrics": {k: round(float(v), 4) for k, v in result["comparison"].loc[chosen].items()},
         "all_models": result["comparison"].round(4).to_dict(orient="index"),
-        "rows": {"train": n_train, "validation": n_val},
+        "calibration": {"method": decision["method"],
+                        "validation_brier": {k: round(float(v), 4) for k, v in decision["brier"].items()}},
+        "threshold": decision["threshold"],
+        "refer_band": REFER_BAND,
+        "assumptions": {"lgd": LGD, "margin": MARGIN, "ead": EAD_COLUMN,
+                        "break_even_pd": round(break_even_pd(), 4)},
+        "test_metrics": decision["test"],
+        "input_columns": input_columns,
+        "rows": n_rows,
         "feature_set": FEATURE_SET,
         "features": {"numeric": numeric, "categorical": categorical},
         "random_state": RANDOM_STATE,
-        "threshold": None,  # set in Step 4 (expected-loss cut-off)
         "versions": {
             "python": platform.python_version(),
             **{pkg: version(pkg) for pkg in ["scikit-learn", "xgboost", "pandas", "numpy", "joblib"]},
@@ -202,29 +193,43 @@ def build_metadata(result: dict, n_train: int, n_val: int) -> dict:
     }
 
 
-def save_artifacts(pipeline, metadata: dict, model_path: Path = MODEL_PATH,
+def save_artifacts(model, metadata: dict, model_path: Path = MODEL_PATH,
                    metadata_path: Path = METADATA_PATH) -> None:
     model_path.parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump(pipeline, model_path)
+    joblib.dump(model, model_path)
     metadata_path.write_text(json.dumps(metadata, indent=2))
 
 
 def main() -> None:
     start = time.perf_counter()
-    train, val, _test = split(load_clean())
+    train, val, test = split(load_clean())
     print(f"Training on {len(train):,} rows, validating on {len(val):,} ({CV_FOLDS}-fold CV for tuning)")
     result = train_all(train, val)
+    chosen = result["chosen"]
+    print(f"\nChosen: {chosen}. {result['reason']}")
+
+    X_val, y_val = features_target(val)
+    X_test, y_test = features_target(test)
+    decision = calibrate_and_set_threshold(result["pipelines"][chosen], X_val, y_val, X_test, y_test,
+                                           raw_val_scores=result["val_predictions"][chosen])
 
     REPORTS_DIR.mkdir(exist_ok=True)
     result["comparison"].round(4).to_csv(REPORTS_DIR / "model_comparison.csv")
-    result["val_predictions"].to_csv(REPORTS_DIR / "validation_predictions.csv", index=False)
+    decision["curve"].round(4).to_csv(REPORTS_DIR / "profit_curve.csv", index=False)
+    (REPORTS_DIR / "test_metrics.json").write_text(json.dumps(decision["test"], indent=2))
+    result["val_predictions"].assign(calibrated_pd=decision["val_pd"]).to_csv(
+        REPORTS_DIR / "validation_predictions.csv", index=False)
 
-    chosen = result["chosen"]
-    save_artifacts(result["pipelines"][chosen], build_metadata(result, len(train), len(val)))
+    n_rows = {"train": len(train), "validation": len(val), "test": len(test)}
+    save_artifacts(decision["model"], build_metadata(result, decision, list(X_val.columns), n_rows))
 
-    print()
-    print(result["comparison"].round(3).to_string())
-    print(f"\nChosen: {chosen}. {result['reason']}")
+    t = decision["test"]
+    print(f"Calibration: {decision['method']} (validation Brier "
+          + ", ".join(f"{k} {v:.4f}" for k, v in decision["brier"].items()) + ")")
+    print(f"Threshold: decline at PD >= {decision['threshold']:.3f} (break-even PD {break_even_pd():.3f}), "
+          f"refer band +/- {REFER_BAND}")
+    print(f"Test: AUC {t['auc']:.3f}, Brier {t['brier']:.4f}, approval rate {t['approval_rate']:.1%}, "
+          f"default rate among approved {t['default_rate_approved']:.1%} (vs {t['default_rate_all']:.1%} overall)")
     print(f"Saved {MODEL_PATH.relative_to(MODEL_PATH.parents[1])} and metadata "
           f"in {time.perf_counter() - start:.0f}s")
 

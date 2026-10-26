@@ -1,0 +1,152 @@
+{
+  "trained_at": "2026-10-26T04:10:40+00:00",
+  "chosen_model": "random_forest",
+  "reason": "random_forest has the highest validation AUC (0.784), 0.021 above logistic regression (0.763), which clears the 0.01 margin needed to justify a more complex model.",
+  "best_params": {
+    "max_depth": 8,
+    "min_samples_leaf": 20
+  },
+  "validation_metrics": {
+    "cv_auc": 0.7837,
+    "auc": 0.7836,
+    "gini": 0.5672,
+    "ks": 0.4358,
+    "brier": 0.1769,
+    "balanced_accuracy": 0.7132
+  },
+  "all_models": {
+    "logistic_regression": {
+      "cv_auc": 0.7614,
+      "auc": 0.7627,
+      "gini": 0.5254,
+      "ks": 0.4144,
+      "brier": 0.1893,
+      "balanced_accuracy": 0.7053
+    },
+    "random_forest": {
+      "cv_auc": 0.7837,
+      "auc": 0.7836,
+      "gini": 0.5672,
+      "ks": 0.4358,
+      "brier": 0.1769,
+      "balanced_accuracy": 0.7132
+    },
+    "xgboost": {
+      "cv_auc": 0.7817,
+      "auc": 0.7829,
+      "gini": 0.5658,
+      "ks": 0.4373,
+      "brier": 0.1769,
+      "balanced_accuracy": 0.7151
+    }
+  },
+  "calibration": {
+    "method": "sigmoid",
+    "validation_brier": {
+      "uncalibrated": 0.1769,
+      "sigmoid": 0.1347,
+      "isotonic": 0.135
+    }
+  },
+  "threshold": 0.14,
+  "refer_band": 0.02,
+  "assumptions": {
+    "lgd": 0.6,
+    "margin": 0.12,
+    "ead": "LIMIT_BAL",
+    "break_even_pd": 0.1667
+  },
+  "test_metrics": {
+    "auc": 0.7864325372181676,
+    "gini": 0.5728650744363353,
+    "ks": 0.42604446876999147,
+    "brier": 0.13418103051894478,
+    "balanced_accuracy": 0.6932402483377469,
+    "threshold": 0.14,
+    "confusion_matrix": {
+      "approved_repaid": 2704,
+      "declined_repaid": 1969,
+      "approved_defaulted": 255,
+      "declined_defaulted": 1072
+    },
+    "approval_rate": 0.49316666666666664,
+    "default_rate_approved": 0.0861777627576884,
+    "default_rate_all": 0.22116666666666668,
+    "decision_shares": {
+      "approve": 0.4156666666666667,
+      "refer": 0.14133333333333334,
+      "decline": 0.443
+    },
+    "realised_profit": 38552400.0,
+    "mean_pd": 0.224161347165271
+  },
+  "input_columns": [
+    "LIMIT_BAL",
+    "EDUCATION",
+    "PAY_0",
+    "PAY_2",
+    "PAY_3",
+    "PAY_4",
+    "PAY_5",
+    "PAY_6",
+    "BILL_AMT1",
+    "BILL_AMT2",
+    "BILL_AMT3",
+    "BILL_AMT4",
+    "BILL_AMT5",
+    "BILL_AMT6",
+    "PAY_AMT1",
+    "PAY_AMT2",
+    "PAY_AMT3",
+    "PAY_AMT4",
+    "PAY_AMT5",
+    "PAY_AMT6"
+  ],
+  "rows": {
+    "train": 18000,
+    "validation": 6000,
+    "test": 6000
+  },
+  "feature_set": "full",
+  "features": {
+    "numeric": [
+      "LIMIT_BAL",
+      "PAY_0",
+      "PAY_2",
+      "PAY_3",
+      "PAY_4",
+      "PAY_5",
+      "PAY_6",
+      "BILL_AMT1",
+      "BILL_AMT2",
+      "BILL_AMT3",
+      "BILL_AMT4",
+      "BILL_AMT5",
+      "BILL_AMT6",
+      "PAY_AMT1",
+      "PAY_AMT2",
+      "PAY_AMT3",
+      "PAY_AMT4",
+      "PAY_AMT5",
+      "PAY_AMT6",
+      "utilisation",
+      "payment_ratio",
+      "months_late_6m",
+      "max_months_late",
+      "avg_utilisation_6m",
+      "bill_trend"
+    ],
+    "categorical": [
+      "EDUCATION"
+    ]
+  },
+  "random_state": 100,
+  "versions": {
+    "python": "3.12.10",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0"
+  }
+}

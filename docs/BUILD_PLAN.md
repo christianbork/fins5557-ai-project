@@ -95,18 +95,18 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - [x] Run as `python -m src.train`. It saves `models/model.joblib` and `models/metadata.json` (training date, data row count, chosen model, metrics, library versions, threshold).
 - [x] Notebook section 3: comparison table and ROC curves.
 - **Checks:** the script runs end to end from a clean checkout plus the raw data. Test: the saved model loads and returns probabilities between 0 and 1.
-- **Decision for Christian:** whether `models/model.joblib` gets committed (needed for deployment, small file). If yes, add `!models/model.joblib` and `!models/*.json` to `.gitignore`.
+- **Decided:** `models/model.joblib` (about 6 MB) and `models/*.json` are committed, because the deployed app needs them.
 
-### Step 4: Calibration and threshold (`src/threshold.py`)
-- [ ] Calibrate the chosen model on the validation set (`CalibratedClassifierCV` with isotonic or sigmoid, whichever has the lower Brier score). Plot a reliability curve in notebook section 4.
-- [ ] `expected_profit(pd, threshold, lgd, margin, ead)` and `choose_threshold(...)` that picks the cut-off maximising expected profit on validation. Put the assumptions in `config.py` (e.g. `LGD = 0.60`, annual margin, EAD = credit limit).
-- [ ] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (e.g. ±5 percentage points, in config).
-- [ ] Report final test-set metrics once, at the chosen threshold, including the confusion matrix.
+### Step 4: Calibration and threshold (`src/threshold.py`) [done]
+- [x] Calibrate the chosen model on the validation set (`CalibratedClassifierCV` with isotonic or sigmoid, whichever has the lower Brier score). Plot a reliability curve in notebook section 4.
+- [x] `expected_profit(pd, threshold, lgd, margin, ead)` and `choose_threshold(...)` that picks the cut-off maximising expected profit on validation. Put the assumptions in `config.py` (e.g. `LGD = 0.60`, annual margin, EAD = credit limit).
+- [x] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (in config). **Decided: ±2 points** (±5 would refer 37% of applicants, ±2 refers about 15%).
+- [x] Report final test-set metrics once, at the chosen threshold, including the confusion matrix.
 - **Checks:** tests for `decide()` at band edges, and that the profit curve has a sensible maximum.
 
-### Step 5: Prediction interface (`src/predict.py`)
-- [ ] `load_artifacts()` (cached by the app with `st.cache_resource`).
-- [ ] `predict(applicant: dict) -> {"pd": float, "decision": str, "reasons": list[str], "shap": dict}`, plus `predict_batch(df) -> DataFrame` (vectorised, no row loop).
+### Step 5: Prediction interface (`src/predict.py`) [done]
+- [x] `load_artifacts()` (cached by the app with `st.cache_resource`).
+- [x] `predict(applicant: dict) -> {"pd": float, "decision": str, "reasons": list[str], "shap": dict}`, plus `predict_batch(df) -> DataFrame` (vectorised, no row loop).
 - **Checks:** tests with a valid applicant dict, a missing field (clear error), and a batch of 100 rows.
 
 ### Step 6: Explainability (`src/explain.py`)
