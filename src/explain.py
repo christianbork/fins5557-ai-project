@@ -124,6 +124,13 @@ def explain(df: pd.DataFrame, explainer: dict) -> pd.DataFrame:
     return per_column.T.groupby(level=0, sort=False).sum().T
 
 
+def contributions_by_reason(contributions: pd.Series | dict) -> pd.Series:
+    """Per-input contributions added up by reason phrase, largest effect first (for the app's chart)."""
+    contributions = pd.Series(contributions, dtype=float)
+    by_phrase = contributions.groupby([REASON_PHRASES[f] for f in contributions.index]).sum()
+    return by_phrase.reindex(by_phrase.abs().sort_values(ascending=False).index)
+
+
 def top_reasons(contributions: pd.Series, k: int = 3) -> list[str]:
     """The k factors that raised this applicant's risk the most, as plain-English phrases.
 

@@ -20,16 +20,19 @@ tests/            Tests
 ```
 
 ## Run locally
+The app needs only the committed model in `models/`, not the Kaggle data.
 ```bash
 python -m venv .venv
 .venv\Scripts\activate          # Windows (macOS/Linux: source .venv/bin/activate)
 pip install -r requirements.txt
-copy .env.example .env          # then add your API key to .env
 streamlit run app.py
 ```
+Decline letters use the standard template by default. To have a local language model draft them instead (customer data stays on your machine), install [Ollama](https://ollama.com), run `ollama pull llama3.2:3b`, and set `LLM_BACKEND=ollama` in a `.env` file. Model-written letters are drafts for the analyst to check before sending.
+
+To retrain or run the notebook, install the dev tools (`pip install -r requirements-dev.txt`) and get the data (see **Data**). Tests: `pytest -q`; lint: `ruff check .`.
 
 ## Deployment
-Deployed on Streamlit Community Cloud. API keys are stored in the app's Secrets settings, never in the code.
+Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "template"` in the app's Secrets settings, so the public demo never calls a language model and only shows invented example applicants. No keys are stored in the code.
 
 ## Team
 | Name | zID | Role |
