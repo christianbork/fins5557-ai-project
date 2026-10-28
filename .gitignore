@@ -17,6 +17,8 @@ venv/
 # Data and models (keep large or private files out of Git)
 data/*
 !data/.gitkeep
+# Invented example applicants for the app (not Kaggle rows), so these are committed.
+!data/sample/
 *.pkl
 *.joblib
 # The deployed app needs the trained model (about 6 MB) and its metadata, so these are committed.
