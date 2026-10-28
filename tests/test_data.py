@@ -13,7 +13,7 @@ from src.config import (
     RAW_TARGET,
     TARGET,
 )
-from src.data import age_years, clean, features_target, load_raw, split, validate_schema
+from src.data import age_years, clean, download_raw, features_target, load_raw, split, validate_schema
 
 CATEGORY_VALUES = {
     "NAME_CONTRACT_TYPE": ["Cash loans", "Revolving loans"],
@@ -144,3 +144,25 @@ def test_age_years():
 
 def test_categorical_inputs_are_covered_by_fake_data():
     assert set(CATEGORY_VALUES) == set(CATEGORICAL_INPUTS)
+
+
+def test_download_fetches_only_the_application_file(tmp_path, monkeypatch):
+    """kagglehub is faked: no network or Kaggle login is needed."""
+    import sys
+    import types
+
+    source = tmp_path / "cache" / "application_train.csv"
+    source.parent.mkdir()
+    make_fake(5).rename(columns={TARGET: RAW_TARGET}).to_csv(source, index=False)
+    calls = []
+
+    def fake_download(handle, path=None, force_download=False):
+        calls.append((handle, path))
+        return str(source)
+
+    monkeypatch.setitem(sys.modules, "kagglehub", types.SimpleNamespace(competition_download=fake_download))
+    out = download_raw(tmp_path / "raw" / "application_train.csv")
+    assert calls == [("home-credit-default-risk", "application_train.csv")]
+    assert len(load_raw(out)) == 5
+    download_raw(out)  # file already there: no second download
+    assert len(calls) == 1

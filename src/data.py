@@ -8,12 +8,17 @@ Typical use (notebooks and src/train.py):
     train, val, test = split(df)     # stratified 60/20/20
     X_train, y_train = features_target(train)
 
-Getting the data: the file comes from Kaggle (see KAGGLE_URL in src/config.py). Log in, accept
-the competition rules, download application_train.csv and put it in data/raw/. The competition
-rules don't allow redistribution, so the file is gitignored and never committed.
+Getting the data (each teammate does this with their own Kaggle account; the file is never shared):
+
+    1. On kaggle.com: log in, verify your phone and accept the Home Credit competition rules.
+    2. Once per laptop: python -c "import kagglehub; kagglehub.login()"  (paste a Kaggle API token)
+    3. python -m src.data      downloads application_train.csv into data/raw/
+
+The competition rules don't allow redistribution, so the file is gitignored and never committed.
 """
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 import numpy as np
@@ -39,13 +44,35 @@ from src.config import (
 COLUMNS = [ID_COLUMN, RAW_TARGET, *RAW_INPUTS, *PROTECTED]
 
 
+KAGGLE_COMPETITION = "home-credit-default-risk"
+RAW_FILE = "application_train.csv"
+
+
+def download_raw(path: Path = RAW_PATH, force: bool = False) -> Path:
+    """Download application_train.csv from Kaggle with kagglehub and copy it to data/raw/.
+
+    Only this one file is fetched, not the whole 2.7 GB competition. Needs a Kaggle login
+    (kagglehub.login(), or KAGGLE_USERNAME / KAGGLE_KEY in .env) and the competition rules
+    accepted on kaggle.com; kagglehub's own error says which one is missing.
+    """
+    path = Path(path)
+    if path.exists() and not force:
+        return path
+    import kagglehub  # dev-only package: the deployed app never downloads data
+
+    downloaded = kagglehub.competition_download(KAGGLE_COMPETITION, path=RAW_FILE, force_download=force)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(downloaded, path)
+    return path
+
+
 def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:
     """Read the columns we use from application_train.csv and rename TARGET to `default`."""
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(
-            f"{path} not found. Download application_train.csv from {KAGGLE_URL} "
-            "(log in and accept the competition rules first) and save it in data/raw/."
+            f"{path} not found. Accept the competition rules at {KAGGLE_URL}, then run "
+            "`python -m src.data` to download it (see the instructions at the top of src/data.py)."
         )
     df = pd.read_csv(path, usecols=lambda c: c in COLUMNS)
     return df.rename(columns={RAW_TARGET: TARGET})
@@ -134,3 +161,9 @@ def features_target(df: pd.DataFrame):
 def age_years(df: pd.DataFrame) -> pd.Series:
     """Applicant age in years from DAYS_BIRTH (for the fairness audit and EDA only)."""
     return (-df["DAYS_BIRTH"] / 365.25).round(1)
+
+
+if __name__ == "__main__":
+    out = download_raw()
+    df = load_clean(out)
+    print(f"{out}: {len(df):,} applications, default rate {df[TARGET].mean():.1%}")
