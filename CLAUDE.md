@@ -4,7 +4,9 @@
 - UNSW FINS5557 Applied AI in Finance, T3 2026. Group project, Track A (Tech Team), team of 3.
 - Goal: a working AI-powered finance app, deployed to a public URL, with a GitHub repo, a report (15 pages max) and a 5-7 min demo video.
 - **Due: Friday 6 November 2026 (Week 8), 11:59 PM.**
-- **What we're building:** a credit card default screener (UCI Taiwan data). ML model → calibrated PD → approve/refer/decline from a cost-based threshold → SHAP reasons → LLM-drafted decline letter, plus a fairness audit and PSI drift monitoring.
+- **What we're building:** a consumer loan default screener on the **Home Credit** data (Kaggle, `application_train.csv`; switched from UCI Taiwan on 28 Oct). ML model → calibrated PD → approve/refer/decline from a cost-based threshold → SHAP reasons → LLM-drafted decline letter, plus a fairness audit and PSI drift monitoring.
+- **Data rules:** the Kaggle file lives in `data/raw/` and is never committed (competition rules). Cite the source in the README and report. Don't copy real rows into the app or tests; tests use fake data from `tests/test_data.py::make_fake`.
+- **AI environment (decided):** hybrid. Real customer data only goes through a local model (`LLM_BACKEND=ollama`, closed environment). The public Streamlit demo uses `template` and example applicants only.
 - **The build plan is in `docs/BUILD_PLAN.md`.** Work through it one step at a time, in order, and tick off each step when its checks pass. It also lists the decisions made so far and the ideas that are not decided yet.
 - Course materials, Code Bank and brief/rubric PDFs live in:
   `C:\Users\chris\OneDrive\Desktop\Masters\Semester 3\Applied AI`
@@ -12,7 +14,7 @@
 
 ## How to work in this repo
 - Python 3.12, virtual env in `.venv`. Install with `pip install -r requirements-dev.txt` (includes `requirements.txt`).
-- Stack: pandas, scikit-learn, xgboost, shap, streamlit, python-dotenv. LLM backend set by `LLM_BACKEND` in `.env` (`template`, `gemini` or `ollama`).
+- Stack: pandas, scikit-learn, xgboost, shap, streamlit, python-dotenv. LLM backend set by `LLM_BACKEND` in `.env` (`template`, `ollama` or `gemini`).
 - `app.py` is the Streamlit entry point; real logic goes in modules under `src/` (keep the UI thin).
 - **One notebook only: `notebooks/project.ipynb`.** Add a section for each step instead of creating new notebooks. Working code is moved into `src/` and imported back.
 - Run `pytest -q` and `ruff check .` after each change.

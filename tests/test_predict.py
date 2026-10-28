@@ -24,13 +24,13 @@ def test_predict_valid_applicant(artifacts, applicant):
 
 
 def test_predict_missing_field_gives_clear_error(artifacts, applicant):
-    del applicant["PAY_0"]
-    with pytest.raises(ValueError, match="Missing applicant fields: PAY_0"):
+    del applicant["AMT_CREDIT"]
+    with pytest.raises(ValueError, match="Missing applicant fields: AMT_CREDIT"):
         predict(applicant, artifacts)
 
 
 def test_predict_does_not_need_protected_attributes(artifacts, applicant):
-    for field in ("SEX", "MARRIAGE", "AGE"):
+    for field in ("CODE_GENDER", "DAYS_BIRTH", "NAME_FAMILY_STATUS", "SK_ID_CURR"):
         applicant.pop(field)
     assert 0 <= predict(applicant, artifacts)["pd"] <= 1
 
@@ -42,6 +42,12 @@ def test_predict_batch_of_100(artifacts):
     assert out["pd"].between(0, 1).all()
     assert set(out["decision"]) <= {"approve", "refer", "decline"}
     assert list(out.columns[:-2]) == list(df.columns)  # input columns kept, unchanged
+
+
+def test_predict_with_missing_optional_values(artifacts, applicant):
+    """Thin-file applicants: no external scores and no car age still get a PD."""
+    applicant.update(EXT_SOURCE_1=None, EXT_SOURCE_2=None, EXT_SOURCE_3=None, OWN_CAR_AGE=None)
+    assert 0 <= predict(applicant, artifacts)["pd"] <= 1
 
 
 def test_batch_and_single_agree(artifacts):

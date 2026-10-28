@@ -54,7 +54,7 @@ def test_profit_curve_has_interior_maximum():
     """With informative, calibrated PDs, the best cut-off should be neither 'approve nobody' nor
     'approve everybody', and should sit near the break-even PD."""
     rng = np.random.default_rng(0)
-    pds = rng.beta(2, 7, 20_000)  # mean ~22%, like the real data
+    pds = rng.beta(2, 7, 20_000)  # mean ~22%: a test distribution, not the real data
     y = (rng.random(pds.size) < pds).astype(int)  # calibrated by construction
     curve = profit_curve(pds, y, ead=1.0)
     best = choose_threshold(curve)

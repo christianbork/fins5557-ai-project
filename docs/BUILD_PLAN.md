@@ -1,41 +1,46 @@
-# Build plan: credit card default screener
+# Build plan: consumer loan default screener (Home Credit)
 
 This is the step-by-step build plan for the FINS5557 group project. Claude Code (and teammates) should work through it **one step at a time, in order**, ticking off each step when its checks pass. Read `CLAUDE.md` first for the working rules.
 
-**Deadline:** Friday 6 November 2026, 11:59pm. **Gates:** basic app deployed Tue 27 Oct, full version deployed Fri 30 Oct, code freeze Mon 2 Nov.
+**Deadline:** Friday 6 November 2026, 11:59pm. **Gates (revised 28 Oct after switching data):** Home Credit pipeline retrained Thu 29 Oct, full version deployed Sun 1 Nov, code freeze Tue 3 Nov.
+
+> **28 Oct: we switched from the UCI Taiwan data to Home Credit.** The professor confirmed we should use the best data, even if it can't go in the public repo, as long as we show where it came from. Home Credit is application data (what a lender knows when someone applies), has a realistic ~8% default rate, keeps the fairness attributes and fits the thin-file story. Steps 1 to 5 were built on Taiwan; Step 5b below redoes them on Home Credit. The training, calibration, threshold and prediction code carries over unchanged.
 
 ---
 
 ## 1. What we're building
 
-A Streamlit app for a credit analyst at a credit card lender. For each applicant it shows:
+A Streamlit app for a credit analyst at a consumer lender (cash and revolving loans). For each loan applicant it shows:
 
 1. a **calibrated probability of default (PD)** from a machine-learning model,
 2. an **approve / refer / decline** decision from a cost-based threshold,
 3. the **top reasons** behind the score (SHAP),
 4. a **decline letter** drafted by an LLM (with a template fallback).
 
-Behind that sit a **fairness audit** (outcomes by sex, age band and education) and **drift monitoring** (PSI on a new batch vs the training data).
+Behind that sit a **fairness audit** (outcomes by gender, age band, family status and education) and **drift monitoring** (PSI on a new batch vs the training data).
 
 ### Decisions so far
 
 | Topic | Decision |
 |---|---|
-| Data | UCI "Default of Credit Card Clients" (Taiwan, 2005), 30,000 rows, CC BY 4.0. Downloaded by `src/data.py`, saved to `data/raw/` (gitignored). |
-| Target | `default` (1 = defaulted next month), about 22% positive. |
-| Protected attributes | `SEX`, `MARRIAGE`, `AGE`: **never model inputs**, only used for the fairness audit. `EDUCATION` stays an input but is also audited. |
+| Data | **Home Credit Default Risk** (Kaggle, 2018): `application_train.csv`, 307,511 loan applications, one row each. From https://www.kaggle.com/competitions/home-credit-default-risk/data (log in, accept the competition rules, download the file into `data/raw/`). Competition rules: not redistributed, so `data/raw/` stays gitignored; the report and README cite the source. Only `application_train.csv` is used for now (the bureau and previous-application tables could be added later). |
+| Target | `TARGET` renamed `default`: 1 = payment difficulties on the loan. About 8% positive. |
+| Inputs | 23 raw fields known at application, listed in `src/config.py` (`NUMERIC_INPUTS`, `CATEGORICAL_INPUTS`): income, loan amount, repayment, goods price, family size, employment, ID/registration age, car age, region rating, the three external scores (`EXT_SOURCE_1/2/3`), bureau enquiries, contract/income/education/housing/occupation/organisation type. Left out on purpose: the "defaults in social circle" fields (guilt by association) and ~50 mostly empty building statistics. |
+| Protected attributes | `CODE_GENDER`, `DAYS_BIRTH` (age), `NAME_FAMILY_STATUS`: **never model inputs**, only used for the fairness audit. `NAME_EDUCATION_TYPE` stays an input but is also audited. |
+| Missing values | Kept as information: numeric gaps get the training median plus a 0/1 "was missing" column; categorical gaps become "Unknown". A missing external score usually means a thin credit file. `DAYS_EMPLOYED = 365243` is Home Credit's "not employed" code and becomes a flag, not a number. |
 | Split | Stratified 60/20/20 train/validation/test with seed 100, done before any fitting. The test set is used **once**, for final reporting. |
 | Models | Logistic regression (baseline), random forest, XGBoost. Pick on validation results. If XGBoost isn't clearly better than logistic regression, say so and justify the choice. |
-| Threshold | From expected loss, not 0.5: EL = PD × LGD × EAD. Choose the cut-off that maximises expected profit, with a "refer" band around it. Assumptions (LGD, margin) live in `src/config.py` and are stated in the report. |
-| Generative AI | Only for the decline letter. All LLM calls go through `src/llm.py` with `LLM_BACKEND` = `template` (default, no AI), `gemini` or `ollama`. Build the template first. Gemini vs local Ollama is **undecided** (waiting on the professor). |
-| App | Streamlit. `app.py` = screening page; extra pages in `pages/`. Deployed on Streamlit Community Cloud. |
+| Threshold | From expected loss, not 0.5: EL = PD × LGD × EAD. Assumptions in `src/config.py`: LGD 60%, net margin over the loan's life 15%, EAD = loan amount (`AMT_CREDIT`), so break-even PD = 20%. The code picks the cut-off that maximises realised profit on validation, with a ±2-point refer band; the report compares it with the break-even PD and shows a sensitivity table (LGD 40–80%, margin 10–20%). |
+| Generative AI | Only for the decline letter (and the tax-statement reader, if built). All LLM calls go through `src/llm.py` with `LLM_BACKEND` = `template` (default, no AI), `ollama` or `gemini`. **Decided (28 Oct): hybrid.** Closed environment for real customer data: `ollama` running locally, so no customer data leaves our machines (the professor leans towards closed). The public Streamlit Cloud demo can't run Ollama and only handles example applicants, so it uses `template` (or `gemini`). The report explains this choice. Build the template first, then Ollama. |
+| App | Streamlit. `app.py` = screening page; extra pages in `pages/`. Deployed on Streamlit Community Cloud with `LLM_BACKEND=template`. The deployed app needs the trained model file but never the raw data; example applicants shown in the app must be invented or heavily altered, not copied rows from the Kaggle file. |
 | Notebooks | **One notebook only:** `notebooks/project.ipynb`, with a section per step. Don't create new notebooks; add sections. |
 
 ### Not decided yet (don't build unless asked)
 
 - Neural network (MLP) as a fourth model in the comparison.
 - Pre-application quick screen from an uploaded tax statement (two-stage flow).
-- Running the LLM locally with Ollama (closed environment).
+- Regime / robustness test: resample the test set to a different default rate and recalibrate (cheap), and PSI between groups.
+- Adding the bureau / previous-application tables for extra features.
 
 ---
 
@@ -45,9 +50,9 @@ Behind that sit a **fairness audit** (outcomes by sex, age band and education) a
 app.py                  Screening page (Streamlit entry point, keep it thin)
 pages/                  1_Batch_scoring.py, 2_Model_and_fairness.py, 3_Monitoring.py
 src/
-  config.py             Paths, constants, assumptions, API keys        [done]
-  data.py               Download, validate, clean, split                [done]
-  features.py           Engineered features + preprocessing pipeline
+  config.py             Paths, constants, inputs, assumptions, API keys [done, Home Credit]
+  data.py               Load, validate, clean, split                    [done, Home Credit]
+  features.py           Engineered features + preprocessing pipeline     [done, Home Credit]
   train.py              Train and compare models, calibrate, save artefacts
   threshold.py          Expected-loss threshold and decision bands
   predict.py            predict(applicant: dict) -> dict  (used by the app)
@@ -74,20 +79,20 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - [x] `src/config.py`, `src/data.py`, `tests/test_data.py` (6 tests), `pyproject.toml`.
 - [x] `notebooks/project.ipynb` with setup and data sections.
 
-### Step 1: Real data and EDA [done]
+### Step 1: Real data and EDA [done on Taiwan; redone in Step 5b]
 - [x] Download the real data: `python -c "from src.data import load_raw; print(load_raw().shape)"`. Expect `(30000, 24)`, and the file at `data/raw/uci_credit_default.csv`.
 - [x] Run sections 0 and 1 of `notebooks/project.ipynb`.
 - [x] Fill in the **Findings** block in section 1 (default rate, strongest signal, data issues, fairness preview) with the actual numbers.
 - **Checks:** `git status` does not list the CSV. Default rate is about 22%. `clean()` leaves EDUCATION in {1,2,3,4} and MARRIAGE in {1,2,3}.
 
-### Step 2: Features (`src/features.py`) [done]
+### Step 2: Features (`src/features.py`) [done on Taiwan; redone in Step 5b]
 - [x] `add_features(df)`: utilisation (`BILL_AMT1 / LIMIT_BAL`), payment ratio (`PAY_AMT1 / BILL_AMT2`, the bill that September's payment settles; safe when the bill is ≤ 0), number of months late in the last 6 (`PAY_* > 0`), max months late, average utilisation over 6 months, bill trend (`BILL_AMT1 - BILL_AMT6`).
 - [x] `build_preprocessor()`: a scikit-learn `ColumnTransformer`. Scale the numeric columns (for logistic regression) and one-hot encode `EDUCATION`. Fitted on training data only.
 - [x] Keep the list of feature columns in `src/config.py`, so a reduced "thin-file" feature set could be added later by changing one setting.
 - [x] Notebook section 2: show the new features against the default rate.
 - **Checks:** tests for safe division (zero and negative bills give finite values, no NaN/inf) and for the pipeline producing the same columns on train and validation.
 
-### Step 3: Models (`src/train.py`) [done]
+### Step 3: Models (`src/train.py`) [done on Taiwan; redone in Step 5b]
 - [x] Train three pipelines (preprocessor + model): logistic regression (`class_weight="balanced"`), random forest (`class_weight="balanced"`), XGBoost (`scale_pos_weight` = negatives / positives). Course reference: Code Bank W05-02 for the scorecard approach, topic 02 for the models.
 - [x] Light tuning with 5-fold stratified CV on the training set only (small grids, a few minutes in total; ask before anything longer).
 - [x] Compare on the **validation** set: AUC, Gini (2·AUC − 1), KS, Brier score, balanced accuracy. Save a comparison table to `reports/model_comparison.csv`.
@@ -97,17 +102,27 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - **Checks:** the script runs end to end from a clean checkout plus the raw data. Test: the saved model loads and returns probabilities between 0 and 1.
 - **Decided:** `models/model.joblib` (about 6 MB) and `models/*.json` are committed, because the deployed app needs them.
 
-### Step 4: Calibration and threshold (`src/threshold.py`) [done]
+### Step 4: Calibration and threshold (`src/threshold.py`) [done on Taiwan; redone in Step 5b]
 - [x] Calibrate the chosen model on the validation set (`CalibratedClassifierCV` with isotonic or sigmoid, whichever has the lower Brier score). Plot a reliability curve in notebook section 4.
 - [x] `expected_profit(pd, threshold, lgd, margin, ead)` and `choose_threshold(...)` that picks the cut-off maximising expected profit on validation. Put the assumptions in `config.py` (e.g. `LGD = 0.60`, annual margin, EAD = credit limit).
 - [x] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (in config). **Decided: ±2 points** (±5 would refer 37% of applicants, ±2 refers about 15%).
 - [x] Report final test-set metrics once, at the chosen threshold, including the confusion matrix.
 - **Checks:** tests for `decide()` at band edges, and that the profit curve has a sensible maximum.
 
-### Step 5: Prediction interface (`src/predict.py`) [done]
+### Step 5: Prediction interface (`src/predict.py`) [done on Taiwan; redone in Step 5b]
 - [x] `load_artifacts()` (cached by the app with `st.cache_resource`).
 - [x] `predict(applicant: dict) -> {"pd": float, "decision": str, "reasons": list[str], "shap": dict}`, plus `predict_batch(df) -> DataFrame` (vectorised, no row loop).
 - **Checks:** tests with a valid applicant dict, a missing field (clear error), and a batch of 100 rows.
+
+### Step 5b: Switch to Home Credit (redo Steps 1 to 5 on the new data)
+Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protected attributes, assumptions), `src/data.py`, `src/features.py`, the tests (47 passing on fake Home Credit-shaped data) and notebook sections 1 and 2 (old Taiwan findings removed, placeholders added). Still to do:
+- [ ] Get the data: download `application_train.csv` from the Kaggle page and save it as `data/raw/application_train.csv`. Check `git status` does not list it.
+- [ ] `python -c "from src.data import load_clean; print(load_clean().shape)"`: expect 307,511 rows.
+- [ ] Run notebook sections 0 to 2 and fill in both **Findings** blocks with the real numbers (default rate, external scores, missingness / thin files, affordability, fairness preview, strongest engineered features).
+- [ ] Retrain: `python -m src.train` (about 5 to 10 minutes; it overwrites the old Taiwan model, metadata and reports). Check the model file is under 100 MB before committing (GitHub's limit); if the random forest is too big, reduce its trees or depth.
+- [ ] Run notebook sections 3 and 4 and fill in their **Findings** blocks. Check the refer band share is still sensible (aim for 10–20%) and adjust `REFER_BAND` if not.
+- [ ] Update `README.md`: data source with the Kaggle link, how to get the file, and that it is not in the repo.
+- **Checks:** `pytest -q` and `ruff check .` pass; test AUC is close to validation AUC; mean test PD is close to the actual default rate.
 
 ### Step 6: Explainability (`src/explain.py`)
 - [ ] SHAP `TreeExplainer` for tree models (or `LinearExplainer` if logistic regression wins), built once and cached. Course reference: topic 03.
