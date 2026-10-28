@@ -11,7 +11,8 @@ Typical use (notebooks and src/train.py):
 Getting the data (each teammate does this with their own Kaggle account; the file is never shared):
 
     1. On kaggle.com: log in, verify your phone and accept the Home Credit competition rules.
-    2. Once per laptop: python -c "import kagglehub; kagglehub.login()"  (paste a Kaggle API token)
+    2. Once per laptop: save a Kaggle API token to ~/.kaggle/access_token (command in the README;
+       kagglehub.login() in a terminal only lasts for that one Python process)
     3. python -m src.data      downloads application_train.csv into data/raw/
 
 The competition rules don't allow redistribution, so the file is gitignored and never committed.
@@ -52,7 +53,7 @@ def download_raw(path: Path = RAW_PATH, force: bool = False) -> Path:
     """Download application_train.csv from Kaggle with kagglehub and copy it to data/raw/.
 
     Only this one file is fetched, not the whole 2.7 GB competition. Needs a Kaggle login
-    (kagglehub.login(), or KAGGLE_USERNAME / KAGGLE_KEY in .env) and the competition rules
+    (~/.kaggle/access_token, or KAGGLE_USERNAME / KAGGLE_KEY in .env) and the competition rules
     accepted on kaggle.com; kagglehub's own error says which one is missing.
     """
     path = Path(path)
