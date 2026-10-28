@@ -21,18 +21,20 @@ import numpy as np
 import pandas as pd
 
 from src.config import METADATA_PATH, MODEL_PATH
+from src.explain import build_explainer, explain, top_reasons
 from src.threshold import decide
 
 
 def load_artifacts(model_path: Path = MODEL_PATH, metadata_path: Path = METADATA_PATH) -> dict:
-    """Load the model and its metadata once. Slow-ish (a 300-tree forest), hence cached by the app."""
+    """Load the model, its metadata and the SHAP explainer once (cached by the app)."""
     missing = [str(p) for p in (model_path, metadata_path) if not Path(p).exists()]
     if missing:
         raise FileNotFoundError(f"Model files not found: {missing}. Train the model first: python -m src.train")
     metadata = json.loads(Path(metadata_path).read_text())
     if metadata.get("threshold") is None:
         raise ValueError("Model metadata has no threshold. Retrain with: python -m src.train")
-    return {"model": joblib.load(model_path), "metadata": metadata}
+    model = joblib.load(model_path)
+    return {"model": model, "metadata": metadata, "explainer": build_explainer(model)}
 
 
 def _check_columns(df: pd.DataFrame, required: list[str]) -> None:
@@ -54,14 +56,21 @@ def predict(applicant: dict, artifacts: dict) -> dict:
     """Score one applicant.
 
     Returns {"pd": float, "decision": "approve" | "refer" | "decline", "reasons": [...], "shap": {...}}.
-    "reasons" and "shap" are filled in by the explainability step (src/explain.py, Step 6).
+    "reasons" are the top 3 factors that raised the risk (src/explain.py); "shap" is each input's
+    contribution in log-odds, for the app's waterfall chart. Both stay empty if the model has no
+    explainer (a non-tree model).
     Input range checks (age, valid codes...) are added in src/validation.py (Step 7); here a
     missing field raises a ValueError naming it.
     """
     if not isinstance(applicant, dict):
         raise TypeError("applicant must be a dict of field name -> value")
-    pds, decisions = _score(pd.DataFrame([applicant]), artifacts)
-    return {"pd": float(pds[0]), "decision": str(decisions[0]), "reasons": [], "shap": {}}
+    df = pd.DataFrame([applicant])
+    pds, decisions = _score(df, artifacts)
+    reasons, contributions = [], {}
+    if artifacts.get("explainer") is not None:
+        row = explain(df[artifacts["metadata"]["input_columns"]], artifacts["explainer"]).iloc[0]
+        reasons, contributions = top_reasons(row), row.round(4).to_dict()
+    return {"pd": float(pds[0]), "decision": str(decisions[0]), "reasons": reasons, "shap": contributions}
 
 
 def predict_batch(df: pd.DataFrame, artifacts: dict) -> pd.DataFrame:
