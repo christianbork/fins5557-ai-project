@@ -145,13 +145,13 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - **Checks:** tests that the template works with no key, and that a failing backend falls back to the template.
 
 ### Step 9: Screening page (`app.py`) and first deployment
-- [ ] Form (`st.form`) with grouped inputs, help text and a "Load example applicant" button (examples from a small committed sample file, e.g. `data/sample/sample_applicants.csv`; add `!data/sample/` to `.gitignore`).
-- [ ] On submit: validate → spinner → PD, decision badge, SHAP waterfall, top reasons, out-of-range warnings → "Draft letter" button (decline/refer only) showing the letter in an editable text box labelled as a draft for the analyst to check, plus any fallback warning.
-- [ ] Instructions state the scope: a second-stage screen for applicants who already pass the lender's basic policy rules (see Decisions: selection bias).
-- [ ] States: `st.spinner` while working, `st.success` / `st.warning` / `st.error` for outcomes and problems.
-- [ ] Performance optimisation: cache the model and explainer with `st.cache_resource`, the sample data with `st.cache_data`. Time the first vs later loads with `time.perf_counter()` and record the numbers in `reports/performance.md` for the report.
+- [x] Form (`st.form`) with grouped inputs, help text and a "Load example applicant" button (examples from a small committed sample file, e.g. `data/sample/sample_applicants.csv`; add `!data/sample/` to `.gitignore`). Done: 6 invented examples (approve, refer, decline, thin file, pensioner, out-of-range), each checked to land on its decision; the form asks in years and `src/applicant.py` converts to the model's day fields.
+- [x] On submit: validate → spinner → PD, decision badge, SHAP waterfall, top reasons, out-of-range warnings → "Draft letter" button (decline/refer only) showing the letter in an editable text box labelled as a draft for the analyst to check, plus any fallback warning.
+- [x] Instructions state the scope: a second-stage screen for applicants who already pass the lender's basic policy rules (see Decisions: selection bias).
+- [x] States: `st.spinner` while working, `st.success` / `st.warning` / `st.error` for outcomes and problems.
+- [x] Performance optimisation: cache the model and explainer with `st.cache_resource`, the sample data with `st.cache_data`. Time the first vs later loads with `time.perf_counter()` and record the numbers in `reports/performance.md` for the report. Result: reruns 0.157 s → 0.040 s (4× faster).
 - [ ] Deploy to Streamlit Community Cloud (Python 3.12, entry point `app.py`). Add the live URL to the README.
-- **Checks:** the app works locally and on the public URL in a private browser window. Invalid input shows an error instead of crashing.
+- **Checks:** the app works locally and on the public URL in a private browser window. Invalid input shows an error instead of crashing. Local checks pass (`tests/test_app.py`: every example, the letter flow and an invalid input; also run in a clean environment with only `requirements.txt`); the public URL check is still to do after deployment.
 
 ### Step 10: Fairness (`src/fairness.py`) and the Model page
 - [ ] Group metrics on the test set by sex, age band and education: approval rate, true positive rate, false positive rate. Disparate-impact ratio (approval rate vs the most-approved group), flagged below 0.8. Course reference: topic 04.
