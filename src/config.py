@@ -150,5 +150,11 @@ def get_secret(name: str, default: str | None = None) -> str | None:
 
 # ---- API keys and AI settings ----------------------------------------------
 GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
-# Which LLM writes the decline letter: "template" (no AI, always works), "gemini" or "ollama".
+# Which backend writes the decline letter (src/llm.py): "template" (fixed wording, no language
+# model, always works; used by the public demo) or "ollama" (a local model: customer data never
+# leaves the machine). A Gemini backend is not built (it would need a new package).
 LLM_BACKEND = get_secret("LLM_BACKEND", "template")
+OLLAMA_URL = get_secret("OLLAMA_URL", "http://localhost:11434")
+OLLAMA_MODEL = get_secret("OLLAMA_MODEL", "llama3.2:3b")  # pulled once with: ollama pull llama3.2:3b
+LLM_TIMEOUT_SECONDS = 60  # a small local model on a laptop CPU takes about 10-30 s per letter
+LENDER_NAME = "Example Consumer Finance"  # invented: the app is a demo, not a real lender
