@@ -55,6 +55,7 @@ from src.data import features_target, load_clean, split
 from src.features import add_features, build_preprocessor, feature_columns
 from src.metrics import evaluate
 from src.threshold import break_even_pd, calibrate_and_set_threshold
+from src.validation import build_reference_stats, save_reference_stats
 
 BASELINE = "logistic_regression"
 
@@ -226,6 +227,7 @@ def main() -> None:
 
     n_rows = {"train": len(train), "validation": len(val), "test": len(test)}
     save_artifacts(decision["model"], build_metadata(result, decision, list(X_val.columns), n_rows))
+    save_reference_stats(build_reference_stats(features_target(train)[0]))  # input checks + monitoring
 
     t = decision["test"]
     print(f"Calibration: {decision['method']} (validation Brier "

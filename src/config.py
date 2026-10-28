@@ -18,6 +18,7 @@ DATA_DIR = ROOT / "data"
 MODELS_DIR = ROOT / "models"
 MODEL_PATH = MODELS_DIR / "model.joblib"
 METADATA_PATH = MODELS_DIR / "metadata.json"
+REFERENCE_STATS_PATH = MODELS_DIR / "reference_stats.json"  # training ranges and shares, no rows
 REPORTS_DIR = ROOT / "reports"
 
 # ---- Data -----------------------------------------------------------------
@@ -114,6 +115,17 @@ EAD_COLUMN = "AMT_CREDIT"  # exposure at default = the loan amount (conservative
 # Break-even PD = MARGIN / (MARGIN + LGD) = 20%: above it, a loan is expected to lose money.
 REFER_BAND = 0.02  # PDs within +/- 2 points of the cut-off go to an analyst (check the share after training)
 CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier score is used
+
+# ---- Input validation and the out-of-range guard ---------------------------------
+# The model only saw loans Home Credit had already approved (selection bias, see BUILD_PLAN).
+# An input below the lowest or above the highest value in the training data is outside what the
+# model knows (tree models can't extrapolate), so such an applicant is referred to an analyst
+# instead of being approved automatically. Decided (28 Oct): the full training range, not the
+# middle 99%, which would flag 1% per field even for ordinary applicants (7.8% of validation
+# applicants, who defaulted less than average) and triple the analysts' refer workload.
+GUARD_QUANTILES = (0.0, 1.0)
+MAX_BATCH_ROWS = 10_000  # batch scoring limit, keeps the app responsive
+MAX_UPLOAD_MB = 5
 
 
 def get_secret(name: str, default: str | None = None) -> str | None:
