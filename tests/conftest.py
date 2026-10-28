@@ -5,6 +5,7 @@ import pytest
 from src.data import clean, features_target, split
 from src.threshold import calibrate_and_set_threshold
 from src.train import build_metadata, save_artifacts, train_all
+from src.validation import build_reference_stats, save_reference_stats
 from tests.test_data import make_fake
 
 TINY_GRIDS = {
@@ -34,4 +35,5 @@ def saved_model_dir(trained, tmp_path_factory):
     meta = build_metadata(result, decision, list(X_val.columns),
                           {"train": len(train), "validation": len(val), "test": len(test)})
     save_artifacts(decision["model"], meta, out / "model.joblib", out / "metadata.json")
+    save_reference_stats(build_reference_stats(features_target(train)[0]), out / "reference_stats.json")
     return out

@@ -8,7 +8,8 @@ from tests.test_data import make_fake
 
 @pytest.fixture(scope="module")
 def artifacts(saved_model_dir):
-    return load_artifacts(saved_model_dir / "model.joblib", saved_model_dir / "metadata.json")
+    return load_artifacts(saved_model_dir / "model.joblib", saved_model_dir / "metadata.json",
+                          saved_model_dir / "reference_stats.json")
 
 
 @pytest.fixture
@@ -18,7 +19,7 @@ def applicant():
 
 def test_predict_valid_applicant(artifacts, applicant):
     out = predict(applicant, artifacts)
-    assert set(out) == {"pd", "decision", "reasons", "shap"}
+    assert set(out) == {"pd", "decision", "reasons", "shap", "warnings"}
     assert 0 <= out["pd"] <= 1
     assert out["decision"] in {"approve", "refer", "decline"}
 
@@ -41,7 +42,7 @@ def test_predict_batch_of_100(artifacts):
     assert len(out) == 100
     assert out["pd"].between(0, 1).all()
     assert set(out["decision"]) <= {"approve", "refer", "decline"}
-    assert list(out.columns[:-2]) == list(df.columns)  # input columns kept, unchanged
+    assert list(out.columns[:-3]) == list(df.columns)  # input columns kept, unchanged
 
 
 def test_predict_with_missing_optional_values(artifacts, applicant):

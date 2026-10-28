@@ -131,10 +131,10 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] Notebook section 5: global SHAP summary plot, most common decline reasons and one worked applicant.
 - **Checks:** reasons only ever list features that increase risk for a decline. Test the phrase mapping covers every model feature.
 
-### Step 7: Input validation (`src/validation.py`)
-- [ ] `validate_applicant(dict) -> list[str]`: errors naming the field and the allowed range (age 18–100, `LIMIT_BAL` > 0, valid codes for EDUCATION, PAY_*, etc.).
-- [ ] Out-of-range guard (selection bias, see Decisions): inputs outside the training range (from `models/reference_stats.json`) give a warning and force **refer** instead of approve.
-- [ ] `validate_batch(df) -> (valid_rows, errors)`: column and type checks, row-level errors, a maximum file size and row count.
+### Step 7: Input validation (`src/validation.py`) [done]
+- [x] `validate_applicant(dict, reference) -> list[str]`: errors naming the field, the allowed range and the value entered (`NUMERIC_RULES`: amounts ≥ 1, external scores 0–1, region rating 1–3, whole numbers for counts, repayment ≤ loan; categories must be ones seen in training). Optional fields (external scores, car age, occupation, goods price, bureau enquiries) may be blank. Only 1 of 61,502 real validation applicants fails (a missing repayment).
+- [x] Out-of-range guard (selection bias, see Decisions): inputs outside the training range (from `models/reference_stats.json`) give a warning and force **refer** instead of approve; declines stay declines. **Decided (28 Oct): the full training min–max**, not the middle 99% (that flagged 7.8% of ordinary applicants, who defaulted less than average, and tripled the refer share). Flags about 0.01% of in-population applicants. `models/reference_stats.json` (ranges, deciles and category shares, no rows) is written by `python -m src.train`, or alone by `python -m src.validation`; Step 11 reuses it.
+- [x] `validate_batch(df, reference) -> (valid_rows, errors)`: column and type checks, row-level errors, and `read_csv_upload()` with limits in config (`MAX_BATCH_ROWS` 10,000, `MAX_UPLOAD_MB` 5). 10,000 rows validate in about 0.4 s.
 - **Checks:** tests for each rule and for a CSV with a missing column.
 
 ### Step 8: Decline letter (`src/llm.py`)
