@@ -105,7 +105,7 @@ Each step lists what to build and **checks** that must pass before ticking it of
 ### Step 4: Calibration and threshold (`src/threshold.py`) [done on Taiwan; redone in Step 5b]
 - [x] Calibrate the chosen model on the validation set (`CalibratedClassifierCV` with isotonic or sigmoid, whichever has the lower Brier score). Plot a reliability curve in notebook section 4.
 - [x] `expected_profit(pd, threshold, lgd, margin, ead)` and `choose_threshold(...)` that picks the cut-off maximising expected profit on validation. Put the assumptions in `config.py` (e.g. `LGD = 0.60`, annual margin, EAD = credit limit).
-- [x] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (in config). **Decided: ±2 points** (±5 would refer 37% of applicants, ±2 refers about 15%).
+- [x] `decide(pd) -> "approve" | "refer" | "decline"` with a refer band around the cut-off (in config). **Decided: ±2 points** (on Taiwan: ±5 would refer 37% of applicants, ±2 refers about 15%; on Home Credit ±2 refers 3.2%, see Step 5b).
 - [x] Report final test-set metrics once, at the chosen threshold, including the confusion matrix.
 - **Checks:** tests for `decide()` at band edges, and that the profit curve has a sensible maximum.
 
@@ -114,14 +114,14 @@ Each step lists what to build and **checks** that must pass before ticking it of
 - [x] `predict(applicant: dict) -> {"pd": float, "decision": str, "reasons": list[str], "shap": dict}`, plus `predict_batch(df) -> DataFrame` (vectorised, no row loop).
 - **Checks:** tests with a valid applicant dict, a missing field (clear error), and a batch of 100 rows.
 
-### Step 5b: Switch to Home Credit (redo Steps 1 to 5 on the new data)
+### Step 5b: Switch to Home Credit (redo Steps 1 to 5 on the new data) [done]
 Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protected attributes, assumptions), `src/data.py`, `src/features.py`, the tests (47 passing on fake Home Credit-shaped data) and notebook sections 1 and 2 (old Taiwan findings removed, placeholders added). Still to do:
-- [ ] Get the data: accept the rules on the Kaggle page (log in, verify your phone), run `pip install -r requirements-dev.txt` (adds `kagglehub`), save a Kaggle API token to `~/.kaggle/access_token` once (command in the README Data section; `kagglehub.login()` in a terminal only lasts for that one Python process), then `python -m src.data`. It downloads only `application_train.csv` into `data/raw/` and prints the row count and default rate. Check `git status` does not list it.
-- [ ] Expect 307,511 applications and a default rate of about 8%.
-- [ ] Run notebook sections 0 to 2 and fill in both **Findings** blocks with the real numbers (default rate, external scores, missingness / thin files, affordability, fairness preview, strongest engineered features).
-- [ ] Retrain: `python -m src.train` (about 5 to 10 minutes; it overwrites the old Taiwan model, metadata and reports). Check the model file is under 100 MB before committing (GitHub's limit); if the random forest is too big, reduce its trees or depth.
-- [ ] Run notebook sections 3 and 4 and fill in their **Findings** blocks. Check the refer band share is still sensible (aim for 10–20%) and adjust `REFER_BAND` if not.
-- [ ] Update `README.md`: a **Data** section with the Kaggle link, the steps to get the file (own Kaggle account, accept the rules, save to `data/raw/`), that it is not in the repo and must not be shared, and that use for this course was approved by the lecturer.
+- [x] Get the data: accept the rules on the Kaggle page (log in, verify your phone), run `pip install -r requirements-dev.txt` (adds `kagglehub`), save a Kaggle API token to `~/.kaggle/access_token` once (command in the README Data section; `kagglehub.login()` in a terminal only lasts for that one Python process), then `python -m src.data`. It downloads only `application_train.csv` into `data/raw/` and prints the row count and default rate. Check `git status` does not list it.
+- [x] Expect 307,511 applications and a default rate of about 8%.
+- [x] Run notebook sections 0 to 2 and fill in both **Findings** blocks with the real numbers (default rate, external scores, missingness / thin files, affordability, fairness preview, strongest engineered features).
+- [x] Retrain: `python -m src.train` (about 5 to 10 minutes; it overwrites the old Taiwan model, metadata and reports). Check the model file is under 100 MB before committing (GitHub's limit); if the random forest is too big, reduce its trees or depth.
+- [x] Run notebook sections 3 and 4 and fill in their **Findings** blocks. Check the refer band share is still sensible (aim for 10–20%) and adjust `REFER_BAND` if not. **Decided (28 Oct): keep ±2.** On Home Credit it refers 3.2% (approve 92.4%, decline 4.3%); 10% would need ±7, which turns most declines into referrals. The 10–20% aim came from Taiwan's 22% default rate.
+- [x] Update `README.md`: a **Data** section with the Kaggle link, the steps to get the file (own Kaggle account, accept the rules, save to `data/raw/`), that it is not in the repo and must not be shared, and that use for this course was approved by the lecturer.
 - **Checks:** `pytest -q` and `ruff check .` pass; test AUC is close to validation AUC; mean test PD is close to the actual default rate.
 
 ### Step 6: Explainability (`src/explain.py`)
