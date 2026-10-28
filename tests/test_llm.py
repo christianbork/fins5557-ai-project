@@ -66,6 +66,31 @@ def test_prompt_contains_only_decision_and_reasons():
     assert not any(attr in prompt for attr in PROTECTED)  # no protected attribute codes or values
 
 
+def test_refer_prompt_gets_no_reasons():
+    prompt = build_prompt("refer", REASONS)
+    assert not any(r in prompt for r in REASONS)
+    assert "no decision has been made yet" in prompt
+
+
+@pytest.mark.parametrize(
+    ("reply", "problem"),
+    [
+        (
+            GOOD_LETTER.replace("mainly because of", "because the loan was too long and"),
+            "judged a reason ('too')",
+        ),
+        (
+            GOOD_LETTER.replace("ask for a review by a credit officer", "contact us"),
+            "review by a credit officer",
+        ),
+    ],
+)
+def test_letters_that_judge_reasons_or_skip_the_review_right_are_replaced(monkeypatch, reply, problem):
+    monkeypatch.setattr(llm, "_call_ollama", fake_ollama(reply))
+    letter = draft_letter("decline", REASONS, backend="ollama")
+    assert letter["backend"] == "template" and problem in letter["warning"]
+
+
 def test_good_model_letter_is_used(monkeypatch):
     monkeypatch.setattr(llm, "_call_ollama", fake_ollama(GOOD_LETTER))
     letter = draft_letter("decline", REASONS, backend="ollama")

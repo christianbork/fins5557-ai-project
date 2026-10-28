@@ -1,5 +1,10 @@
 """Step 8 (decline letter): draft the letter sent to an applicant from the decision and its reasons.
 
+A language-model letter is a **draft for the analyst to check and edit**, never sent automatically.
+Tested on llama3.2:3b (28 Oct): the guardrails below catch hard violations (one in six letters
+judged a reason, "longer than we consider suitable", and fell back to the template), but softer
+wording ("might not be the most suitable option") still gets through. A human stays in the loop.
+
 Course reference: Code Bank W06-03 (one function over several LLM providers, with a fallback).
 
     letter = draft_letter("decline", result["reasons"])
@@ -20,9 +25,10 @@ Guardrails around the language model:
   free text that could carry instructions (prompt injection).
 - A timeout, and any error falls back to the template, with a warning the app shows.
 - Output: the letter is rejected (and the template used) if it is empty or too long, contains a
-  number or percentage (the model must not invent scores, rates or deadlines), or mentions a
-  protected attribute (age, sex, family status, race, religion...): declining someone for these
-  reasons would be unlawful discrimination, so the letter must never suggest it.
+  number or percentage (the model must not invent scores, rates or deadlines), mentions a
+  protected attribute (age, sex, family status, race, religion...: declining someone for these
+  reasons would be unlawful discrimination, so the letter must never suggest it), judges a reason
+  ("too long", "did not meet"), or leaves out the right to a review by a credit officer.
 """
 
 from __future__ import annotations
@@ -41,6 +47,12 @@ MAX_LETTER_CHARS = 2500
 PROTECTED_WORDS = re.compile(
     r"\b(age|aged|old|young|gender|sex|male|female|married|marital|single|divorced|widow\w*|pregnan\w*|"
     r"race|racial|ethnic\w*|religio\w*|disabilit\w*|health)\b",
+    re.IGNORECASE,
+)
+# A reason names a factor, not a verdict: several effects are U-shaped or reversed (longer loans
+# default less in this data), so "your loan is too long" could be false for this applicant.
+DIRECTION_WORDS = re.compile(
+    r"\b(too|higher|lower|longer|shorter|greater|insufficient|poor|did not meet|didn't meet|does not meet)\b",
     re.IGNORECASE,
 )
 SIGN_OFF = f"Yours sincerely,\nCredit Assessment Team\n{LENDER_NAME}"
@@ -81,19 +93,33 @@ def template_letter(decision: str, reasons: list[str]) -> str:
 # ---- Language model (Ollama, local) ------------------------------------------------------
 def build_prompt(decision: str, reasons: list[str]) -> str:
     """The only text the language model sees: the decision and the reason phrases, nothing else."""
-    outcome = "declined" if decision == "decline" else "referred to a credit officer for review"
+    if decision == "decline":
+        task = (
+            "Write a letter telling the applicant that their loan application was declined, and which "
+            "factors the decision was mainly based on."
+        )
+    else:
+        task = (
+            "Write a letter telling the applicant that no decision has been made yet: a credit officer will "
+            "review their application and may contact them for more information."
+        )
+        reasons = []  # nothing decided yet, so the model isn't given reasons it could present as final
     listed = "\n".join(f"- {r}" for r in reasons) or "- Overall assessment of the application"
     return (
         "You write short, clear and polite letters to loan applicants for a consumer lender.\n"
-        f"Write a letter telling the applicant that their loan application was {outcome}.\n\n"
+        f"{task}\n\n"
         "Rules:\n"
-        "- Explain the reasons listed below in plain, friendly English. Do not add any other reasons.\n"
+        "- Name each reason below as a factor the assessment looked at, in plain, friendly English. Do not "
+        "say whether it was too high, too low, too long or too short, or that it did not meet requirements: "
+        "the reasons say what mattered most, not a verdict on each one. Do not add any other reasons.\n"
+        "- Do not add facts about interest, fees, credit bureaus or how the lender works, and do not say the "
+        "decision is not about their credit.\n"
         "- Do not use any numbers, percentages, scores, rates or deadlines.\n"
         "- Do not mention or guess anything personal about the applicant, such as their age, sex, family, "
         "health, background or beliefs.\n"
         "- Do not promise that a future application will be approved.\n"
         "- Say that they can ask which credit information was used and ask for a review by a credit officer.\n"
-        "- Keep it under 200 words. Start with 'Dear Applicant,' and end with exactly:\n"
+        "- Keep it under 150 words. Start with 'Dear Applicant,' and end with exactly:\n"
         f"{SIGN_OFF}\n\n"
         f"Reasons:\n{listed}\n"
     )
@@ -121,6 +147,10 @@ def check_letter(text: str) -> str | None:
         return "the letter contained a number or percentage"
     if match := PROTECTED_WORDS.search(text):
         return f"the letter mentioned a protected attribute ('{match.group(0)}')"
+    if match := DIRECTION_WORDS.search(text):
+        return f"the letter judged a reason ('{match.group(0)}'), which may not be true for this applicant"
+    if "credit officer" not in text.lower():
+        return "the letter didn't mention the right to a review by a credit officer"
     return None
 
 
