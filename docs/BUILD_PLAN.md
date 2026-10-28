@@ -125,10 +125,10 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] Update `README.md`: a **Data** section with the Kaggle link, the steps to get the file (own Kaggle account, accept the rules, save to `data/raw/`), that it is not in the repo and must not be shared, and that use for this course was approved by the lecturer.
 - **Checks:** `pytest -q` and `ruff check .` pass; test AUC is close to validation AUC; mean test PD is close to the actual default rate.
 
-### Step 6: Explainability (`src/explain.py`)
-- [ ] SHAP `TreeExplainer` for tree models (or `LinearExplainer` if logistic regression wins), built once and cached. Course reference: topic 03.
-- [ ] `top_reasons(shap_row, k=3)` mapping features to plain-English phrases (e.g. `PAY_0` → "Recent payment was late", `utilisation` → "High use of credit limit").
-- [ ] Notebook section 5: global SHAP summary plot and one worked applicant.
+### Step 6: Explainability (`src/explain.py`) [done]
+- [x] SHAP `TreeExplainer` for tree models (or `LinearExplainer` if logistic regression wins), built once and cached. Course reference: topic 03.
+- [x] `top_reasons(shap_row, k=3)` mapping features to plain-English phrases (`REASON_PHRASES`, e.g. `EXT_SOURCE_*` → "External credit scores", `credit_term` → "Length of the loan"). Phrases name the factor, not a direction, because several effects are U-shaped or reversed. `predict()` now fills `reasons` and `shap`.
+- [x] Notebook section 5: global SHAP summary plot, most common decline reasons and one worked applicant.
 - **Checks:** reasons only ever list features that increase risk for a decline. Test the phrase mapping covers every model feature.
 
 ### Step 7: Input validation (`src/validation.py`)
