@@ -137,16 +137,16 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] `validate_batch(df, reference) -> (valid_rows, errors)`: column and type checks, row-level errors, and `read_csv_upload()` with limits in config (`MAX_BATCH_ROWS` 10,000, `MAX_UPLOAD_MB` 5). 10,000 rows validate in about 0.4 s.
 - **Checks:** tests for each rule and for a CSV with a missing column.
 
-### Step 8: Decline letter (`src/llm.py`)
-- [ ] `draft_letter(decision, reasons) -> str` that switches on `LLM_BACKEND`.
-- [ ] Build `template` first: a fixed, well-written letter that fills in the reasons.
-- [ ] Then the AI backends behind the same function: `gemini` (consider the newer `google-genai` package; `google-generativeai` is the old one) and/or `ollama`. Ask Christian before installing either package.
-- [ ] Guardrails: the prompt gets only the decision and the reasons, never protected attributes or the raw PD. A timeout. On any error, fall back to the template and say so in the UI.
+### Step 8: Decline letter (`src/llm.py`) [done]
+- [x] `draft_letter(decision, reasons) -> {"text", "backend", "warning"}` that switches on `LLM_BACKEND`, for decline and refer letters (Code Bank W06-03).
+- [x] Build `template` first: a fixed, well-written letter that fills in the reasons.
+- [x] Then the AI backends behind the same function: `ollama` built with the standard library (no new package), tested on `llama3.2:3b` (about 15–30 s per letter on a laptop CPU). `gemini` not built (would need `google-genai`; not needed for the hybrid decision).
+- [x] Guardrails: the prompt gets only the decision and the reasons (only phrases from `REASON_PHRASES`, so no free text or prompt injection), never protected attributes or the raw PD; refer prompts get no reasons. A timeout. On any error, fall back to the template and say so in the UI. Output checks reject letters with numbers, protected-attribute words, judged reasons ("too long") or no mention of the review right. **Decided (28 Oct): a model letter is a draft the analyst checks and edits, never sent automatically**: in testing, 1 in 6 letters judged a reason and was replaced, and softer wording still got through.
 - **Checks:** tests that the template works with no key, and that a failing backend falls back to the template.
 
 ### Step 9: Screening page (`app.py`) and first deployment
 - [ ] Form (`st.form`) with grouped inputs, help text and a "Load example applicant" button (examples from a small committed sample file, e.g. `data/sample/sample_applicants.csv`; add `!data/sample/` to `.gitignore`).
-- [ ] On submit: validate → spinner → PD, decision badge, SHAP waterfall, top reasons → "Draft letter" button.
+- [ ] On submit: validate → spinner → PD, decision badge, SHAP waterfall, top reasons, out-of-range warnings → "Draft letter" button (decline/refer only) showing the letter in an editable text box labelled as a draft for the analyst to check, plus any fallback warning.
 - [ ] Instructions state the scope: a second-stage screen for applicants who already pass the lender's basic policy rules (see Decisions: selection bias).
 - [ ] States: `st.spinner` while working, `st.success` / `st.warning` / `st.error` for outcomes and problems.
 - [ ] Performance optimisation: cache the model and explainer with `st.cache_resource`, the sample data with `st.cache_data`. Time the first vs later loads with `time.perf_counter()` and record the numbers in `reports/performance.md` for the report.
