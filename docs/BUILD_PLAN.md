@@ -23,7 +23,7 @@ Behind that sit a **fairness audit** (outcomes by gender, age band, family statu
 
 | Topic | Decision |
 |---|---|
-| Data | **Home Credit Default Risk** (Kaggle, 2018): `application_train.csv`, 307,511 loan applications, one row each. From https://www.kaggle.com/competitions/home-credit-default-risk/data (log in, accept the competition rules, download the file into `data/raw/`). Competition rules: not redistributed, so `data/raw/` stays gitignored; the report and README cite the source. Only `application_train.csv` is used for now (the bureau and previous-application tables could be added later). |
+| Data | **Home Credit Default Risk** (Kaggle, 2018): `application_train.csv`, 307,511 loan applications, one row each. From https://www.kaggle.com/competitions/home-credit-default-risk/data (log in, accept the competition rules, download the file into `data/raw/`). **Competition rules:** the sponsor's clause limits use to the competition and forbids passing the data to anyone who hasn't accepted the rules. Our professor approved using it for this project (28 Oct). So: `data/raw/` stays gitignored, the file is **never shared between teammates** (each teammate downloads it with their own Kaggle account after accepting the rules), and the report and README cite the source and this approval. Only `application_train.csv` is used for now (the bureau and previous-application tables could be added later). |
 | Target | `TARGET` renamed `default`: 1 = payment difficulties on the loan. About 8% positive. |
 | Inputs | 23 raw fields known at application, listed in `src/config.py` (`NUMERIC_INPUTS`, `CATEGORICAL_INPUTS`): income, loan amount, repayment, goods price, family size, employment, ID/registration age, car age, region rating, the three external scores (`EXT_SOURCE_1/2/3`), bureau enquiries, contract/income/education/housing/occupation/organisation type. Left out on purpose: the "defaults in social circle" fields (guilt by association) and ~50 mostly empty building statistics. |
 | Protected attributes | `CODE_GENDER`, `DAYS_BIRTH` (age), `NAME_FAMILY_STATUS`: **never model inputs**, only used for the fairness audit. `NAME_EDUCATION_TYPE` stays an input but is also audited. |
@@ -116,12 +116,12 @@ Each step lists what to build and **checks** that must pass before ticking it of
 
 ### Step 5b: Switch to Home Credit (redo Steps 1 to 5 on the new data)
 Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protected attributes, assumptions), `src/data.py`, `src/features.py`, the tests (47 passing on fake Home Credit-shaped data) and notebook sections 1 and 2 (old Taiwan findings removed, placeholders added). Still to do:
-- [ ] Get the data: download `application_train.csv` from the Kaggle page and save it as `data/raw/application_train.csv`. Check `git status` does not list it.
+- [ ] Get the data: download `application_train.csv` from the Kaggle page (log in, verify your phone, accept the rules) and move it from Downloads to `data/raw/application_train.csv`. Check `git status` does not list it.
 - [ ] `python -c "from src.data import load_clean; print(load_clean().shape)"`: expect 307,511 rows.
 - [ ] Run notebook sections 0 to 2 and fill in both **Findings** blocks with the real numbers (default rate, external scores, missingness / thin files, affordability, fairness preview, strongest engineered features).
 - [ ] Retrain: `python -m src.train` (about 5 to 10 minutes; it overwrites the old Taiwan model, metadata and reports). Check the model file is under 100 MB before committing (GitHub's limit); if the random forest is too big, reduce its trees or depth.
 - [ ] Run notebook sections 3 and 4 and fill in their **Findings** blocks. Check the refer band share is still sensible (aim for 10–20%) and adjust `REFER_BAND` if not.
-- [ ] Update `README.md`: data source with the Kaggle link, how to get the file, and that it is not in the repo.
+- [ ] Update `README.md`: a **Data** section with the Kaggle link, the steps to get the file (own Kaggle account, accept the rules, save to `data/raw/`), that it is not in the repo and must not be shared, and that use for this course was approved by the lecturer.
 - **Checks:** `pytest -q` and `ruff check .` pass; test AUC is close to validation AUC; mean test PD is close to the actual default rate.
 
 ### Step 6: Explainability (`src/explain.py`)
