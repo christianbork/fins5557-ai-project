@@ -1,7 +1,7 @@
 """Station 3 (models): train, tune and compare three credit-default models, then calibrate and save
 the chosen one.
 
-Run from the project root (about a minute):
+Run from the project root (about 10 minutes on the 184k training rows):
 
     python -m src.train
 
@@ -62,13 +62,13 @@ BASELINE = "logistic_regression"
 PARAM_GRIDS = {
     # C = inverse regularisation strength: smaller C shrinks the coefficients more.
     "logistic_regression": {"model__C": [0.01, 0.1, 1.0]},
-    "random_forest": {"model__max_depth": [8, 12], "model__min_samples_leaf": [5, 20]},
+    "random_forest": {"model__max_depth": [8, 12], "model__min_samples_leaf": [50, 200]},
     "xgboost": {"model__max_depth": [3, 5], "model__learning_rate": [0.05, 0.1]},
 }
 
 
 def make_models(y_train: pd.Series) -> dict:
-    """The three candidate models, each set up for the ~22% default rate.
+    """The three candidate models, each set up for the ~8% default rate.
 
     Class weighting makes a missed defaulter cost more during training than a false alarm,
     so the models don't just predict "no default" for everyone. It also pushes the predicted
@@ -79,10 +79,14 @@ def make_models(y_train: pd.Series) -> dict:
     return {
         "logistic_regression": LogisticRegression(class_weight="balanced", max_iter=2000),
         "random_forest": RandomForestClassifier(
-            n_estimators=300, class_weight="balanced", random_state=RANDOM_STATE, n_jobs=1
+            n_estimators=200,
+            max_samples=0.3,  # each tree sees a 30% bootstrap sample: much faster on 184k rows
+            class_weight="balanced",
+            random_state=RANDOM_STATE,
+            n_jobs=1,
         ),
         "xgboost": XGBClassifier(
-            n_estimators=300,
+            n_estimators=400,
             scale_pos_weight=negatives / positives,  # XGBoost's version of class weighting
             eval_metric="logloss",
             tree_method="hist",

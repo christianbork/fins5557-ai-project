@@ -41,8 +41,9 @@ def test_saved_model_loads_and_returns_probabilities(trained, saved_model_dir):
 
 
 def test_model_ignores_protected_attributes(trained):
-    """Changing SEX, MARRIAGE or AGE must not change anyone's PD."""
+    """Changing gender, age or family status must not change anyone's PD."""
     model, val = trained[1]["model"], trained[3]
     X = val.drop(columns="default")
-    changed = X.assign(SEX=3 - X["SEX"], MARRIAGE=1, AGE=99)
+    changed = X.assign(CODE_GENDER=X["CODE_GENDER"].map({"F": "M", "M": "F"}), DAYS_BIRTH=-25_000,
+                       NAME_FAMILY_STATUS="Widow")
     np.testing.assert_array_equal(model.predict_proba(X), model.predict_proba(changed))
