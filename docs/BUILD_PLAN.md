@@ -28,6 +28,7 @@ Behind that sit a **fairness audit** (outcomes by gender, age band, family statu
 | Inputs | 23 raw fields known at application, listed in `src/config.py` (`NUMERIC_INPUTS`, `CATEGORICAL_INPUTS`): income, loan amount, repayment, goods price, family size, employment, ID/registration age, car age, region rating, the three external scores (`EXT_SOURCE_1/2/3`), bureau enquiries, contract/income/education/housing/occupation/organisation type. Left out on purpose: the "defaults in social circle" fields (guilt by association) and ~50 mostly empty building statistics. |
 | Protected attributes | `CODE_GENDER`, `DAYS_BIRTH` (age), `NAME_FAMILY_STATUS`: **never model inputs**, only used for the fairness audit. `NAME_EDUCATION_TYPE` stays an input but is also audited. |
 | Missing values | Kept as information: numeric gaps get the training median plus a 0/1 "was missing" column; categorical gaps become "Unknown". A missing external score usually means a thin credit file. `DAYS_EMPLOYED = 365243` is Home Credit's "not employed" code and becomes a flag, not a number. |
+| Population (selection bias) | **Decided (28 Oct).** Every row is a loan Home Credit already approved; applicants it rejected have no outcome, so the model has never seen them (the reject-inference problem). It may be too lenient on the weakest applicants, and some patterns reflect the lender's past choices (e.g. long loans default *less*). Proper reject inference isn't feasible: the refused applications in `previous_application.csv` lack most of our inputs. So: (1) the app is scoped as a **second-stage screen** for applicants who already pass the lender's basic policy rules, stated in the app and README; (2) the report has a limitations paragraph; (3) Step 7 refers applicants outside the training ranges instead of auto-approving; (4) Step 11 PSI monitoring flags a population unlike the training data. |
 | Split | Stratified 60/20/20 train/validation/test with seed 100, done before any fitting. The test set is used **once**, for final reporting. |
 | Models | Logistic regression (baseline), random forest, XGBoost. Pick on validation results. If XGBoost isn't clearly better than logistic regression, say so and justify the choice. |
 | Threshold | From expected loss, not 0.5: EL = PD × LGD × EAD. Assumptions in `src/config.py`: LGD 60%, net margin over the loan's life 15%, EAD = loan amount (`AMT_CREDIT`), so break-even PD = 20%. The code picks the cut-off that maximises realised profit on validation, with a ±2-point refer band; the report compares it with the break-even PD and shows a sensitivity table (LGD 40–80%, margin 10–20%). |
@@ -132,6 +133,7 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 
 ### Step 7: Input validation (`src/validation.py`)
 - [ ] `validate_applicant(dict) -> list[str]`: errors naming the field and the allowed range (age 18–100, `LIMIT_BAL` > 0, valid codes for EDUCATION, PAY_*, etc.).
+- [ ] Out-of-range guard (selection bias, see Decisions): inputs outside the training range (from `models/reference_stats.json`) give a warning and force **refer** instead of approve.
 - [ ] `validate_batch(df) -> (valid_rows, errors)`: column and type checks, row-level errors, a maximum file size and row count.
 - **Checks:** tests for each rule and for a CSV with a missing column.
 
@@ -145,6 +147,7 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 ### Step 9: Screening page (`app.py`) and first deployment
 - [ ] Form (`st.form`) with grouped inputs, help text and a "Load example applicant" button (examples from a small committed sample file, e.g. `data/sample/sample_applicants.csv`; add `!data/sample/` to `.gitignore`).
 - [ ] On submit: validate → spinner → PD, decision badge, SHAP waterfall, top reasons → "Draft letter" button.
+- [ ] Instructions state the scope: a second-stage screen for applicants who already pass the lender's basic policy rules (see Decisions: selection bias).
 - [ ] States: `st.spinner` while working, `st.success` / `st.warning` / `st.error` for outcomes and problems.
 - [ ] Performance optimisation: cache the model and explainer with `st.cache_resource`, the sample data with `st.cache_data`. Time the first vs later loads with `time.perf_counter()` and record the numbers in `reports/performance.md` for the report.
 - [ ] Deploy to Streamlit Community Cloud (Python 3.12, entry point `app.py`). Add the live URL to the README.
@@ -158,7 +161,7 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 ### Step 11: Monitoring (`src/monitoring.py`)
 - [ ] Save training reference statistics (deciles per feature) to `models/reference_stats.json` in `train.py`.
 - [ ] `compute_psi(expected, actual, bins=10)` per feature: < 0.1 stable, 0.1–0.25 watch, > 0.25 alert. Course reference: Code Bank W02-10, W02-14, W05-07.
-- [ ] Ship a small "shifted" sample batch for the demo (e.g. higher utilisation, younger customers).
+- [ ] Ship a small "shifted" sample batch for the demo (e.g. weaker external scores, shorter employment, younger customers): weaker than the approved population the model was trained on, to show monitoring catching the selection-bias risk.
 - [ ] `pages/3_Monitoring.py`: upload a batch (or use the sample), show a PSI table and bar chart with traffic-light colours.
 - **Checks:** PSI of identical distributions is 0; the shifted sample triggers at least one alert.
 
