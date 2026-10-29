@@ -5,6 +5,7 @@ They use the committed model in models/ and the invented examples in data/sample
 
 import pandas as pd
 import pytest
+import streamlit as st
 from streamlit.testing.v1 import AppTest
 
 from src import llm
@@ -96,3 +97,41 @@ def test_monitoring_page_asks_for_an_upload():
     page = monitoring_page()
     page.radio[0].set_value(page.radio[0].options[2]).run()
     assert not page.exception and "Upload a file" in page.info[0].value
+
+
+def batch_page() -> AppTest:
+    return AppTest.from_file(str(ROOT / "pages" / "1_Batch_scoring.py"), default_timeout=120).run()
+
+
+def use_examples(page: AppTest) -> AppTest:
+    return page.radio[0].set_value(page.radio[0].options[1]).run()
+
+
+def test_batch_page_asks_for_an_upload():
+    page = batch_page()
+    assert not page.exception and "Upload a file" in page.info[0].value
+
+
+def test_batch_page_scores_the_examples():
+    page = use_examples(batch_page())
+    assert not page.exception and not page.error
+    assert "Scored 6 applicant(s)" in page.success[0].value
+    results = page.dataframe[0].value
+    assert list(results["decision"]) == ["approve", "refer", "decline", "approve", "approve", "refer"]
+    assert (results.loc[results["decision"] != "approve", "reasons"] != "").all()
+
+
+def test_batch_page_lists_bad_rows_and_scores_the_rest(tmp_path, monkeypatch):
+    examples = pd.read_csv(DATA_DIR / "sample" / "sample_applicants.csv")
+    bad = examples.iloc[[0]].assign(example="Bad row", EXT_SOURCE_2=1.5)
+    (tmp_path / "sample").mkdir()
+    pd.concat([examples, bad]).to_csv(tmp_path / "sample" / "sample_applicants.csv", index=False)
+    monkeypatch.setattr("src.config.DATA_DIR", tmp_path)
+    st.cache_data.clear()  # earlier tests cached the real example file
+    page = use_examples(batch_page())
+    st.cache_data.clear()
+    assert not page.exception
+    assert "1 of 7 row(s) have input errors" in page.warning[0].value
+    assert "Scored 6 applicant(s)" in page.success[0].value
+    error_table = page.dataframe[0].value
+    assert error_table.iloc[0]["Column"] == "EXT_SOURCE_2" and error_table.iloc[0]["Line in file"] == 8
