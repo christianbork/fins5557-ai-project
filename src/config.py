@@ -131,6 +131,12 @@ GUARD_QUANTILES = (0.0, 1.0)
 MAX_BATCH_ROWS = 10_000  # batch scoring limit, keeps the app responsive
 MAX_UPLOAD_MB = 5
 
+# ---- Fairness audit (Step 10, src/fairness.py) ---------------------------------------------
+DI_THRESHOLD = 0.80  # disparate-impact ratio below this is flagged (the "four-fifths rule")
+DP_THRESHOLD = 0.05  # approval-rate gap above this is flagged (CFPB safe harbour, Code Bank W04-06)
+EO_THRESHOLD = 0.05  # equalised-odds gap above this is flagged (same threshold as W04-06 uses for parity)
+MIN_GROUP_SIZE = 100  # smaller groups are reported but not judged: their rates are too noisy
+
 
 def get_secret(name: str, default: str | None = None) -> str | None:
     """Return a secret from the environment, then Streamlit secrets, else default.
