@@ -107,6 +107,7 @@ TUNING_SCORING = {"roc_auc": "roc_auc", "pr_auc": "average_precision"}
 # regression if it beats it by at least this much. Otherwise the simpler, more explainable
 # model wins (easier to justify to a regulator and to explain to a declined customer).
 MIN_AUC_GAIN = 0.01
+MODEL_NAMES = {"logistic_regression": "Logistic regression", "random_forest": "Random forest", "xgboost": "XGBoost"}  # for display in the app
 
 # ---- Credit decision assumptions (stated in the report) ---------------------------
 # Profit of approving one loan: no default -> earn MARGIN x EAD over the loan's life;

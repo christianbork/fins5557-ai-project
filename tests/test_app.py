@@ -65,3 +65,10 @@ def test_invalid_input_shows_an_error_not_a_crash(app):
     assert not app.exception
     assert any("Loan amount: must be at least 1" in e.value for e in app.error)
     assert not app.metric  # nothing scored
+
+
+def test_model_and_fairness_page_loads():
+    page = AppTest.from_file(str(ROOT / "pages" / "2_Model_and_fairness.py"), default_timeout=120).run()
+    assert not page.exception and not page.error
+    assert [t.label for t in page.tabs] == ["Sex", "Age band", "Family status", "Education"]
+    assert page.metric[0].value == "XGBoost"
