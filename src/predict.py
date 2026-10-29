@@ -11,6 +11,7 @@ This is the only module the app needs for scoring:
 The cut-off and refer band come from models/metadata.json, so the app always uses the
 threshold that was chosen when the model was trained.
 """
+
 from __future__ import annotations
 
 import json
@@ -26,19 +27,28 @@ from src.threshold import decide
 from src.validation import load_reference_stats, out_of_range
 
 
-def load_artifacts(model_path: Path = MODEL_PATH, metadata_path: Path = METADATA_PATH,
-                   reference_path: Path = REFERENCE_STATS_PATH) -> dict:
+def load_artifacts(
+    model_path: Path = MODEL_PATH,
+    metadata_path: Path = METADATA_PATH,
+    reference_path: Path = REFERENCE_STATS_PATH,
+) -> dict:
     """Load the model, its metadata, the training reference ranges and the SHAP explainer once
     (cached by the app)."""
     missing = [str(p) for p in (model_path, metadata_path, reference_path) if not Path(p).exists()]
     if missing:
-        raise FileNotFoundError(f"Model files not found: {missing}. Train the model first: python -m src.train")
+        raise FileNotFoundError(
+            f"Model files not found: {missing}. Train the model first: python -m src.train"
+        )
     metadata = json.loads(Path(metadata_path).read_text())
     if metadata.get("threshold") is None:
         raise ValueError("Model metadata has no threshold. Retrain with: python -m src.train")
     model = joblib.load(model_path)
-    return {"model": model, "metadata": metadata, "reference": load_reference_stats(reference_path),
-            "explainer": build_explainer(model)}
+    return {
+        "model": model,
+        "metadata": metadata,
+        "reference": load_reference_stats(reference_path),
+        "explainer": build_explainer(model),
+    }
 
 
 def _check_columns(df: pd.DataFrame, required: list[str]) -> None:
@@ -82,12 +92,29 @@ def predict(applicant: dict, artifacts: dict) -> dict:
     if artifacts.get("explainer") is not None:
         row = explain(df[artifacts["metadata"]["input_columns"]], artifacts["explainer"]).iloc[0]
         reasons, contributions = top_reasons(row), row.round(4).to_dict()
-    return {"pd": float(pds[0]), "decision": str(decisions[0]), "reasons": reasons, "shap": contributions,
-            "warnings": warnings.iloc[0]}
+    return {
+        "pd": float(pds[0]),
+        "decision": str(decisions[0]),
+        "reasons": reasons,
+        "shap": contributions,
+        "warnings": warnings.iloc[0],
+    }
 
 
-def predict_batch(df: pd.DataFrame, artifacts: dict) -> pd.DataFrame:
+def predict_batch(df: pd.DataFrame, artifacts: dict, with_reasons: bool = False) -> pd.DataFrame:
     """Score many applicants at once. Returns a copy of df with "pd", "decision" and "warnings"
-    (out-of-range inputs, joined with "; ") columns added."""
+    (out-of-range inputs, joined with "; ") columns added.
+
+    with_reasons=True also adds "reasons" (top 3, joined with "; ") for refer and decline rows,
+    the ones that need an explanation; SHAP runs only on those rows, so it stays quick.
+    """
     pds, decisions, warnings = _score(df, artifacts)
-    return df.assign(pd=pds, decision=decisions, warnings=warnings.str.join("; "))
+    out = df.assign(pd=pds, decision=decisions, warnings=warnings.str.join("; "))
+    if with_reasons:
+        out["reasons"] = ""
+        needs = out["decision"].ne("approve").to_numpy()
+        if needs.any() and artifacts.get("explainer") is not None:
+            rows = df.loc[needs, artifacts["metadata"]["input_columns"]]
+            contrib = explain(rows, artifacts["explainer"])
+            out.loc[needs, "reasons"] = ["; ".join(top_reasons(row)) for _, row in contrib.iterrows()]
+    return out

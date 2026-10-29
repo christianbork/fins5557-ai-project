@@ -61,3 +61,11 @@ def test_batch_and_single_agree(artifacts):
 def test_missing_model_files_explain_what_to_do(tmp_path):
     with pytest.raises(FileNotFoundError, match="python -m src.train"):
         load_artifacts(tmp_path / "model.joblib", tmp_path / "metadata.json")
+
+
+def test_predict_batch_adds_reasons_only_where_needed(artifacts):
+    df = make_fake(200, seed=4).drop(columns=TARGET)
+    out = predict_batch(df, artifacts, with_reasons=True)
+    assert (out.loc[out["decision"] == "approve", "reasons"] == "").all()
+    if artifacts.get("explainer") is not None:  # the fake model may be logistic regression (no explainer)
+        assert (out.loc[out["decision"] != "approve", "reasons"] != "").all()
