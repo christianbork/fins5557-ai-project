@@ -5,3 +5,10 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 110
 extend-exclude = ["notebooks"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

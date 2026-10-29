@@ -255,7 +255,7 @@ def test_gemini_request_uses_timeout_no_retries_and_only_the_prompt(monkeypatch)
     assert (
         seen["contents"] == "the prompt"
         and seen["model"] == llm.GEMINI_MODEL
-        and seen["api_key"] == "test-key"
+        and seen["api_key"] == "test-key"  # pragma: allowlist secret (fake key)
     )
 
 

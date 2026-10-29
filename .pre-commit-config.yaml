@@ -1,0 +1,19 @@
+# Checks run on every commit. Set up once per clone: pre-commit install
+# Run on all files by hand: pre-commit run --all-files
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.2  # same version as ruff in requirements-dev.txt
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0  # same version as detect-secrets in requirements-dev.txt
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]  # known false positives (none so far)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files  # nothing over 50 MB (the model is about 6 MB)
+        args: ["--maxkb=51200"]
+      - id: check-merge-conflict

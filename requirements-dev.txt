@@ -4,5 +4,8 @@
 kagglehub==1.0.3  # downloads the Home Credit data (python -m src.data)
 scipy==1.18.1  # search distributions for the model tuning in src/train.py (also a scikit-learn dependency)
 pytest==9.1.1
+pytest-cov==7.1.0  # coverage report: pytest --cov
 ruff==0.17.2
+pre-commit==4.7.0  # ruff and a secret scan before each commit: pre-commit install
+detect-secrets==1.5.0  # the secret scan (also run by pre-commit); baseline in .secrets.baseline
 ipykernel==7.4.0

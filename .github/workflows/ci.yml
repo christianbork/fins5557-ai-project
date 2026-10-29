@@ -25,6 +25,10 @@ jobs:
       - name: Install
         run: pip install -r requirements-dev.txt
       - name: Lint (ruff)
-        run: ruff check .
-      - name: Test (pytest)
-        run: pytest -q
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Secret scan (detect-secrets)
+        run: git ls-files -z | xargs -0 detect-secrets-hook --baseline .secrets.baseline
+      - name: Test (pytest, with coverage of src/)
+        run: pytest -q --cov
