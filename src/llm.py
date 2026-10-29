@@ -42,6 +42,7 @@ import urllib.error
 import urllib.request
 
 from src.config import (
+    GEMINI_BACKUP_MODEL,
     GEMINI_MODEL,
     GOOGLE_API_KEY,
     LENDER_NAME,
@@ -169,8 +170,9 @@ class MissingKeyError(RuntimeError):
 
 
 def _call_gemini(prompt: str) -> str:
-    """One request to Google's Gemini API, with the timeout and no automatic retries (so a slow
-    or failing call falls back to the template within LLM_TIMEOUT_SECONDS).
+    """A request to Google's Gemini API, with the timeout and no automatic retries. If the main
+    model is overloaded (503) or out of quota (429), the backup model is tried once; any other
+    error, or a second failure, goes to draft_letter's template fallback.
 
     google-genai is imported here rather than at the top, so the template and Ollama backends
     work without it.
@@ -178,7 +180,7 @@ def _call_gemini(prompt: str) -> str:
     if not GOOGLE_API_KEY:
         raise MissingKeyError
     from google import genai
-    from google.genai import types
+    from google.genai import errors, types
 
     client = genai.Client(
         api_key=GOOGLE_API_KEY,
@@ -187,12 +189,16 @@ def _call_gemini(prompt: str) -> str:
             retry_options=types.HttpRetryOptions(attempts=1),
         ),
     )
-    response = client.models.generate_content(
-        model=GEMINI_MODEL,
-        contents=prompt,
-        config=types.GenerateContentConfig(temperature=0.2, max_output_tokens=2048),
-    )
-    return (response.text or "").strip()
+    config = types.GenerateContentConfig(temperature=0.2, max_output_tokens=2048)
+    for model in (GEMINI_MODEL, GEMINI_BACKUP_MODEL):
+        try:
+            response = client.models.generate_content(model=model, contents=prompt, config=config)
+            return (response.text or "").strip()
+        except errors.APIError as e:
+            busy = isinstance(e, errors.ServerError) or e.code == 429
+            if not busy or model == GEMINI_BACKUP_MODEL:
+                raise
+    raise AssertionError("unreachable")
 
 
 def _gemini_problem(e: Exception) -> str:

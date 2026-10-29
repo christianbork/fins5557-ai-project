@@ -17,7 +17,7 @@ import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
-from src.config import DATA_DIR, GEMINI_MODEL, LLM_BACKEND, OLLAMA_MODEL
+from src.config import DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
 from src.llm import draft_letter
 from src.predict import load_artifacts, predict
@@ -278,7 +278,7 @@ if "result" in st.session_state:
         st.subheader("Letter to the applicant")
         writers = {
             "ollama": f"the local language model ({OLLAMA_MODEL})",
-            "gemini": f"Google Gemini ({GEMINI_MODEL})",
+            "gemini": "Google Gemini",
             "template": "the standard template",
         }
         writer = writers.get(LLM_BACKEND, writers["template"])

@@ -222,3 +222,51 @@ def test_gemini_request_uses_timeout_no_retries_and_only_the_prompt(monkeypatch)
     assert llm._call_gemini("the prompt") == "letter"
     assert seen["timeout"] == llm.LLM_TIMEOUT_SECONDS * 1000 and seen["attempts"] == 1
     assert seen["contents"] == "the prompt" and seen["model"] == llm.GEMINI_MODEL and seen["api_key"] == "test-key"
+
+
+def _fake_gemini_client(monkeypatch, outcomes):
+    """Patch google.genai.Client so each generate_content call pops the next outcome (text or exception)."""
+    calls = []
+
+    class FakeModels:
+        def generate_content(self, model, contents, config):
+            calls.append(model)
+            outcome = outcomes.pop(0)
+            if isinstance(outcome, Exception):
+                raise outcome
+            return SimpleNamespace(text=outcome)
+
+    class FakeClient:
+        def __init__(self, api_key, http_options):
+            self.models = FakeModels()
+
+    monkeypatch.setattr(llm, "GOOGLE_API_KEY", "test-key")
+    monkeypatch.setattr("google.genai.Client", FakeClient)
+    return calls
+
+
+def test_overloaded_gemini_model_tries_the_backup(monkeypatch):
+    busy = _api_error(genai_errors.ServerError, 503, "overloaded", "UNAVAILABLE")
+    calls = _fake_gemini_client(monkeypatch, [busy, "backup letter"])
+    assert llm._call_gemini("prompt") == "backup letter"
+    assert calls == [llm.GEMINI_MODEL, llm.GEMINI_BACKUP_MODEL]
+
+
+def test_quota_error_also_tries_the_backup(monkeypatch):
+    quota = _api_error(genai_errors.ClientError, 429, "quota", "RESOURCE_EXHAUSTED")
+    calls = _fake_gemini_client(monkeypatch, [quota, "backup letter"])
+    assert llm._call_gemini("prompt") == "backup letter" and len(calls) == 2
+
+
+def test_other_gemini_errors_do_not_try_the_backup(monkeypatch):
+    calls = _fake_gemini_client(monkeypatch, [_api_error(genai_errors.ClientError, 404, "no model", "NOT_FOUND")])
+    with pytest.raises(genai_errors.ClientError):
+        llm._call_gemini("prompt")
+    assert calls == [llm.GEMINI_MODEL]
+
+
+def test_both_gemini_models_busy_falls_back_to_template(monkeypatch):
+    busy = _api_error(genai_errors.ServerError, 503, "overloaded", "UNAVAILABLE")
+    _fake_gemini_client(monkeypatch, [busy, busy])
+    letter = draft_letter("decline", REASONS, backend="gemini")
+    assert letter["backend"] == "template" and "server error (503)" in letter["warning"]

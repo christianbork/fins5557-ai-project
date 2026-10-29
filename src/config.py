@@ -159,7 +159,11 @@ GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
 # machine) or "gemini" (Google's API: for the public demo, which only handles invented applicants).
 # Whatever the backend, the prompt holds only the decision and fixed reason phrases, no applicant data.
 LLM_BACKEND = get_secret("LLM_BACKEND", "template")
-GEMINI_MODEL = get_secret("GEMINI_MODEL", "gemini-2.5-flash")
+# Tested 29 Oct on 6 letters: 3.1-flash-lite passed all 6 (4-14 s); 3.5-flash lost 2 to "overloaded" (503)
+# errors; 2.5-flash no longer serves requests. The backup is tried once if the main model is overloaded
+# or out of quota.
+GEMINI_MODEL = get_secret("GEMINI_MODEL", "gemini-3.1-flash-lite")
+GEMINI_BACKUP_MODEL = get_secret("GEMINI_BACKUP_MODEL", "gemini-3.5-flash")
 OLLAMA_URL = get_secret("OLLAMA_URL", "http://localhost:11434")
 OLLAMA_MODEL = get_secret("OLLAMA_MODEL", "llama3.2:3b")  # pulled once with: ollama pull llama3.2:3b
 LLM_TIMEOUT_SECONDS = 60  # a small local model on a laptop CPU takes about 10-30 s per letter
