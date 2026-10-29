@@ -5,9 +5,9 @@ model's PDs and decisions for the batch compare with the test split. Works on th
 it needs only models/ and the synthetic sample batches, never the Kaggle data.
 """
 
-import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
+from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.monitoring import PSI_ALERT, PSI_STABLE, SAMPLE_PATHS, bin_detail, psi_table
 from src.predict import load_artifacts, predict_batch
@@ -94,7 +94,8 @@ else:
 
 chart_col, table_col = st.columns([3, 2])
 with chart_col:
-    fig, ax = plt.subplots(figsize=(7, 6))
+    fig = Figure(figsize=(7, 6))
+    ax = fig.subplots()
     shown = table.iloc[::-1]
     ax.barh(shown["input"], shown["psi"].clip(lower=1e-4), color=shown["status"].map(STATUS_COLOURS))
     ax.axvline(PSI_STABLE, color=STATUS_COLOURS["watch"], linestyle="--", linewidth=1)
@@ -126,7 +127,8 @@ with table_col:
 st.subheader("Where does the shift come from?")
 field = st.selectbox("Input", table["input"].tolist(), help="Inputs are ordered by PSI, largest first.")
 detail = bin_detail(batch, reference, field)
-fig, ax = plt.subplots(figsize=(9, 3.2))
+fig = Figure(figsize=(9, 3.2))
+ax = fig.subplots()
 x = range(len(detail))
 ax.bar([i - 0.2 for i in x], detail["training"], width=0.4, label="training", color="#85929e")
 ax.bar([i + 0.2 for i in x], detail["batch"], width=0.4, label="this batch", color="#2471a3")
