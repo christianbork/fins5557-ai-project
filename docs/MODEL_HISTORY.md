@@ -1,0 +1,8 @@
+# Model history
+
+One row per model version, so the report can show how the model improved and why. Each version is a git tag; its artefacts (model, metadata, reports) are kept in `archive/<version>/` (v0's are in the tagged commit).
+
+| Version | Date | Data | Chosen model | Tuning | Imbalance handling | Validation AUC | Test AUC | Test Brier | Cut-off (break-even) | Approval rate | Default rate among approved | What changed and why |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **v0** `v0-taiwan` | 26 Oct 2026 | UCI Taiwan credit cards: 30,000 customers, 22.1% default | Random forest (`max_depth` 8, `min_samples_leaf` 20), sigmoid calibration | Grid search, 5-fold CV: 3 (logistic) / 4 (forest) / 4 (XGBoost) combinations; 300 trees fixed | Fixed: `class_weight="balanced"`, XGBoost `scale_pos_weight` = neg/pos | 0.784 | 0.786 | 0.134 | 14.0% (16.7%; LGD 60%, margin 12%, EAD = credit limit) | 49.3% | 8.6% (vs 22.1% overall) | First working pipeline: calibrated PD, profit cut-off, refer band. |
+| **v1** `v1-home-credit-baseline` | 28 Oct 2026 | Home Credit `application_train.csv`: 307,511 applications, 8.1% default | XGBoost (`max_depth` 3, `learning_rate` 0.1, 400 trees), isotonic calibration | Grid search, 3-fold CV: 3 / 4 / 4 combinations; forest `max_features` and XGBoost tree count not tuned | Fixed: `class_weight="balanced"`, `scale_pos_weight` = neg/pos ≈ 11.4 | 0.757 | 0.756 | 0.068 | 22.5% (20.0%; LGD 60%, margin 15%, EAD = loan amount) | 93.5% | 6.5% (vs 8.1% overall) | Switched to Home Credit: application data (what a lender knows at application), realistic 8% default rate, keeps the fairness attributes. Lower AUC than v0 is expected: Taiwan's repayment history is a much stronger signal than application data. |
