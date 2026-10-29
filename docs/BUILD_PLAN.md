@@ -174,17 +174,19 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [ ] Deploy to Streamlit Community Cloud (Python 3.12, entry point `app.py`). Add the live URL to the README.
 - **Checks:** the app works locally and on the public URL in a private browser window. Invalid input shows an error instead of crashing. Local checks pass (`tests/test_app.py`: every example, the letter flow and an invalid input; also run in a clean environment with only `requirements.txt`); the public URL check is still to do after deployment.
 
-### Step 10: Fairness (`src/fairness.py`) and the Model page
-- [ ] Group metrics on the test set by sex, age band and education: approval rate, true positive rate, false positive rate. Disparate-impact ratio (approval rate vs the most-approved group), flagged below 0.8. Course reference: topic 04.
-- [ ] `pages/2_Model_and_fairness.py`: model comparison table, ROC and calibration plots, threshold and profit curve, fairness table with flags.
+### Step 10: Fairness (`src/fairness.py`) and the Model page [done]
+- [x] Group metrics on the test set by sex, age band, family status and education: approval rate, good customers approved, defaulters approved, mean PD vs default rate. Disparate-impact ratio (approval rate vs the most-approved group), flagged below 0.8; parity and equalised-odds gaps flagged above 0.05 (Code Bank W04-06). Groups under 100 applicants are not judged, and their rates are removed from the published `reports/fairness.csv` (a rate over one or a few people is their own data). `src/reporting.py` (`python -m src.reporting`, also run by `src.train`) writes the fairness table and the chart data as aggregates, because the deployed app has no raw data. Notebook section 6 adds a proxy analysis.
+- [x] `pages/2_Model_and_fairness.py`: model comparison table (and v1 vs v2), ROC and calibration plots, profit curve with both cut-offs, fairness table with flags.
 - **Checks:** tests on a small hand-made example where the answer is known.
+- **Results (29 Oct):** no group below the four-fifths rule (lowest: under-30s, 0.85); PDs accurate within every group (mean PD within 1.2 points of the default rate); but creditworthy under-30s are approved 86.9% vs 98.8% for over-60s. Most of the age effect comes through the external credit scores. Policy options are in the notebook Findings. **Decided (29 Oct): accept and document** (decisions follow accurately measured risk; the age-linked inputs have a clear credit rationale); the model is not changed.
 
-### Step 11: Monitoring (`src/monitoring.py`)
-- [ ] Save training reference statistics (deciles per feature) to `models/reference_stats.json` in `train.py`.
-- [ ] `compute_psi(expected, actual, bins=10)` per feature: < 0.1 stable, 0.1–0.25 watch, > 0.25 alert. Course reference: Code Bank W02-10, W02-14, W05-07.
-- [ ] Ship a small "shifted" sample batch for the demo (e.g. weaker external scores, shorter employment, younger customers): weaker than the approved population the model was trained on, to show monitoring catching the selection-bias risk.
-- [ ] `pages/3_Monitoring.py`: upload a batch (or use the sample), show a PSI table and bar chart with traffic-light colours.
+### Step 11: Monitoring (`src/monitoring.py`) [done]
+- [x] Save training reference statistics (deciles per feature) to `models/reference_stats.json` in `train.py`. Done: each numeric input also stores PSI bins (decile edges with ties removed, plus bins for missing and the "not employed" code) and their training shares; regenerate alone with `python -m src.validation`.
+- [x] `compute_psi(expected, actual)` per feature (`psi_table()` for a whole batch; categories under 1% of training pooled, as the encoder pools them): < 0.1 stable, 0.1–0.25 watch, > 0.25 alert. Course reference: Code Bank W02-10, W02-14, W05-07.
+- [x] Ship a small "shifted" sample batch for the demo (e.g. weaker external scores, shorter employment, younger customers): weaker than the approved population the model was trained on, to show monitoring catching the selection-bias risk. Done: `data/sample/monitoring_normal.csv` and `monitoring_shifted.csv`, 1,000 **synthetic** applicants each, drawn from the training summary statistics (`python -m src.monitoring`).
+- [x] `pages/3_Monitoring.py`: upload a batch (or use the sample), show a PSI table and bar chart with traffic-light colours, a drill-down per input, and the batch's mean PD and decision mix against the test split.
 - **Checks:** PSI of identical distributions is 0; the shifted sample triggers at least one alert.
+- **Results (29 Oct):** both checks pass. Validation and test splits are stable on all 23 inputs (largest PSI 0.0005); a 1,000-applicant test sample reaches only 0.023. The normal synthetic batch is stable; the shifted one raises 8 alerts and lifts the mean PD from 7.6% to 11.3%. Limits of PSI (one input at a time, no view of accuracy) are in notebook section 7.
 
 ### Step 12: Batch scoring page [done]
 - [x] `pages/1_Batch_scoring.py`: upload CSV → validate → score → preview → download results. Done: also the 6 invented examples as a demo file, an empty template and the example file to download; rows with errors listed by line in the file (and downloadable); results show PD, decision, top reasons for refers and declines (`predict_batch(..., with_reasons=True)`, SHAP only on those rows), guard warnings and expected loss. 10,000 rows score in 0.35 s, or 3 s with reasons.

@@ -36,6 +36,7 @@ from src.config import (
     RAW_INPUTS,
     REFERENCE_STATS_PATH,
 )
+from src.monitoring import psi_bins
 
 # field: (lowest allowed, highest allowed or None, required, whole number)
 # Hard limits only: values outside them are impossible or meaningless. Unusual but possible
@@ -62,7 +63,7 @@ OPTIONAL_CATEGORICAL = {"OCCUPATION_TYPE"}  # blank becomes "Unknown", as in tra
 
 # ---- Reference statistics (from the training split) -------------------------------------
 def build_reference_stats(X: pd.DataFrame) -> dict:
-    """Guard ranges, deciles (for PSI) and category shares of the training inputs. No rows."""
+    """Guard ranges, deciles, PSI bins (src/monitoring.py) and category shares of the training inputs. No rows."""
     numeric = {}
     for col in NUMERIC_INPUTS:
         values = X[col].dropna()
@@ -74,6 +75,7 @@ def build_reference_stats(X: pd.DataFrame) -> dict:
             "high": float(high),
             "deciles": [float(v) for v in values.quantile(np.arange(1, 10) / 10)],
             "missing_share": round(float(X[col].isna().mean()), 6),
+            "psi_bins": psi_bins(X[col], DAYS_EMPLOYED_SENTINEL if col == "DAYS_EMPLOYED" else None),
         }
     categorical = {
         col: X[col].fillna("Unknown").value_counts(normalize=True).round(6).to_dict()

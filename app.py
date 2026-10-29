@@ -17,7 +17,7 @@ import pandas as pd
 import streamlit as st
 
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
-from src.config import DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
+from src.config import DATA_DIR, LLM_BACKEND, MODEL_NAMES, OLLAMA_MODEL
 from src.explain import contributions_by_reason
 from src.llm import draft_letter
 from src.predict import load_artifacts, predict
@@ -136,7 +136,7 @@ with st.sidebar:
     )
     st.header("Model")
     st.markdown(
-        f"- {meta['chosen_model'].replace('_', ' ').title()}, calibrated ({meta['calibration']['method']})\n"
+        f"- {MODEL_NAMES[meta['chosen_model']]}, calibrated ({meta['calibration']['method']})\n"
         f"- Test AUC {meta['test_metrics']['auc']:.3f}\n"
         f"- Decline above PD {threshold + band:.1%}, approve below {threshold - band:.1%}, refer in between\n"
         f"- Break-even PD {assumptions['break_even_pd']:.0%} (LGD {assumptions['lgd']:.0%}, "

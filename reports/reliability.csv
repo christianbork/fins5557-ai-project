@@ -1,0 +1,21 @@
+series,mean_predicted,observed,n
+xgboost (raw score),0.0355,0.0104,6151
+xgboost (raw score),0.0623,0.0195,6150
+xgboost (raw score),0.0848,0.0285,6150
+xgboost (raw score),0.109,0.0364,6150
+xgboost (raw score),0.1364,0.0514,6150
+xgboost (raw score),0.1703,0.062,6150
+xgboost (raw score),0.2138,0.0779,6150
+xgboost (raw score),0.2727,0.107,6150
+xgboost (raw score),0.3612,0.146,6150
+xgboost (raw score),0.5394,0.2682,6151
+calibrated PD,0.0096,0.0104,6151
+calibrated PD,0.02,0.0223,6150
+calibrated PD,0.0279,0.026,6150
+calibrated PD,0.0363,0.0367,6150
+calibrated PD,0.0496,0.0499,6150
+calibrated PD,0.0624,0.0637,6150
+calibrated PD,0.0786,0.0789,6150
+calibrated PD,0.1068,0.1068,6150
+calibrated PD,0.1469,0.1476,6150
+calibrated PD,0.2694,0.2648,6151

@@ -18,6 +18,9 @@ Saves:
     reports/profit_curve.csv            profit and approval rate at each candidate cut-off
     reports/test_metrics.json           final test-split results
     reports/validation_predictions.csv  validation scores per model, for plots (gitignored)
+    reports/tuning_results.csv          every tuning candidate's CV scores
+    reports/threshold_comparison.csv    profit vs balanced-accuracy cut-off on the test split
+    reports/fairness.csv, roc_points.csv, reliability.csv   aggregates for the app (src/reporting.py)
 """
 
 from __future__ import annotations
@@ -59,6 +62,7 @@ from src.config import (
 from src.data import features_target, load_clean, split
 from src.features import add_features, build_preprocessor, feature_columns
 from src.metrics import balanced_accuracy_threshold, evaluate
+from src.reporting import write_app_reports
 from src.threshold import break_even_pd, calibrate_and_set_threshold
 from src.validation import build_reference_stats, save_reference_stats
 
@@ -344,6 +348,13 @@ def main() -> None:
     n_rows = {"train": len(train), "validation": len(val), "test": len(test)}
     save_artifacts(decision["model"], build_metadata(result, decision, list(X_val.columns), n_rows))
     save_reference_stats(build_reference_stats(features_target(train)[0]))  # input checks + monitoring
+    write_app_reports(  # fairness audit and chart data for the app's Model and fairness page
+        test,
+        decision["model"].predict_proba(X_test)[:, 1],
+        decision["threshold"],
+        result["val_predictions"].assign(calibrated_pd=decision["val_pd"]),
+        chosen,
+    )
 
     t = decision["test"]
     print(
