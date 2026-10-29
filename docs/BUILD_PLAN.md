@@ -192,14 +192,14 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] `pages/1_Batch_scoring.py`: upload CSV → validate → score → preview → download results. Done: also the 6 invented examples as a demo file, an empty template and the example file to download; rows with errors listed by line in the file (and downloadable); results show PD, decision, top reasons for refers and declines (`predict_batch(..., with_reasons=True)`, SHAP only on those rows), guard warnings and expected loss. 10,000 rows score in 0.35 s, or 3 s with reasons.
 - **Checks:** a bad CSV shows row-level errors; valid rows still score. Both pass (`tests/test_app.py`).
 
-### Step 13: CI and code quality
-- [ ] `.github/workflows/ci.yml` that runs `pip install -r requirements-dev.txt`, `ruff check .` and `pytest -q` on every pull request (Python 3.12). CI must not need the raw data or an API key: use small fixtures.
-- [ ] CI badge in the README.
-- **Checks:** green tick on a pull request.
+### Step 13: CI and code quality [done]
+- [x] `.github/workflows/ci.yml` that runs `pip install -r requirements-dev.txt`, `ruff check .` and `pytest -q` on every pull request (Python 3.12). CI must not need the raw data or an API key: use small fixtures.
+- [x] CI badge in the README.
+- **Checks:** green tick on a pull request. Passed on PR #12 (29 Oct, 183 passed).
 
 ### Step 14: Finish
-- [ ] README complete: overview, live URL, video link, screenshots, setup, architecture, team, data citation, licence.
-- [ ] Fresh clone + install + run works.
+- [ ] README complete: overview, live URL, video link, screenshots, setup, architecture, team, data citation, licence. Done 29 Oct except the live URL, video link, screenshots and teammates' names (placeholders).
+- [x] Fresh clone + install + run works. Checked 29 Oct: a fresh clone of `main` with only `requirements.txt` runs all four pages without errors.
 - [ ] Repo made public before submission.
 
 ---
