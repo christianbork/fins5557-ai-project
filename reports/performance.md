@@ -17,6 +17,6 @@ Laptop (Windows 11, Python 3.12, CPU only), measured with Streamlit's `AppTest` 
 | Score one applicant: PD, decision, guard and SHAP reasons (`predict()`) | 71 ms |
 | Draft a letter: template / local `llama3.2:3b` (Step 8) | < 1 ms / 15-30 s |
 
-**Result:** caching makes each rerun about **4× faster** (0.157 s → 0.040 s). The absolute saving is modest (about 0.12 s per click) because the chosen XGBoost model is small (0.5 MB, depth-3 trees). It grows with the model's size and the server's speed (Streamlit Community Cloud runs on shared CPUs), and it also stops every user's click from re-reading the model file.
+**Result:** caching makes each rerun about **4× faster** (0.157 s → 0.040 s). The absolute saving is modest (about 0.12 s per click) because the chosen XGBoost model is small (0.5 MB, depth-3 trees). These timings were measured with model v1; model v2 (29 Oct) is 1.2 MB with depth-5 trees, so loading it takes a little longer and caching saves slightly more. It grows with the model's size and the server's speed (Streamlit Community Cloud runs on shared CPUs), and it also stops every user's click from re-reading the model file.
 
 The slow step a user can notice is the optional local language model letter (15-30 s), which is why the app shows a spinner with "This can take up to a minute" and falls back to the template on a 60 s timeout.
