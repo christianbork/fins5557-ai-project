@@ -63,6 +63,7 @@ from src.data import features_target, load_clean, split
 from src.features import add_features, build_preprocessor, feature_columns
 from src.labels import model_choice_reason
 from src.metrics import balanced_accuracy_threshold, evaluate
+from src.model_card import write_model_card
 from src.reporting import write_app_reports
 from src.threshold import break_even_pd, calibrate_and_set_threshold
 from src.validation import build_reference_stats, save_reference_stats
@@ -345,6 +346,7 @@ def main() -> None:
         result["val_predictions"].assign(calibrated_pd=decision["val_pd"]),
         chosen,
     )
+    write_model_card()  # docs/MODEL_CARD.md from the metadata and reports just written
 
     t = decision["test"]
     print(

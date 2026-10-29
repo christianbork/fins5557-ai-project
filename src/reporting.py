@@ -3,7 +3,8 @@
 The deployed app never has the Kaggle data, so everything the page shows is written here as
 aggregates only (group rates, curve points), with no applicant rows:
 
-    python -m src.reporting      # also run at the end of python -m src.train
+    python -m src.reporting              # also run at the end of python -m src.train
+    python -m src.reporting model-card   # docs/MODEL_CARD.md only (src/model_card.py)
 
 Writes to reports/:
     fairness.csv     fairness audit on the test split (src/fairness.py); groups smaller than
@@ -78,6 +79,13 @@ def write_app_reports(
 
 
 if __name__ == "__main__":
+    import sys
+
+    if sys.argv[1:] == ["model-card"]:  # needs only models/ and reports/, not the Kaggle data
+        from src.model_card import write_model_card
+
+        print(f"Wrote {write_model_card()}")
+        sys.exit()
     from src.data import features_target, load_clean, split
     from src.predict import load_artifacts
 
