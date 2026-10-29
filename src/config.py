@@ -99,6 +99,10 @@ RARE_CATEGORY_SHARE = 0.01  # categories rarer than 1% of training rows are grou
 
 # ---- Training ---------------------------------------------------------------
 CV_FOLDS = 3  # stratified K-fold on the training split, used for tuning only (3 keeps it to minutes on 184k rows)
+N_ITER = 30  # random settings tried per tree model (RandomizedSearchCV); logistic regression uses a full grid
+# CV scores for tuning: refit (choose settings) on AUC, also record PR-AUC, which focuses on the
+# rare defaulters. Model v2 (Step 5c); v1 used small fixed grids and fixed class weights.
+TUNING_SCORING = {"roc_auc": "roc_auc", "pr_auc": "average_precision"}
 # Model choice rule: take the best validation AUC, but only pick a tree model over logistic
 # regression if it beats it by at least this much. Otherwise the simpler, more explainable
 # model wins (easier to justify to a regulator and to explain to a declined customer).

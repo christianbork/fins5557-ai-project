@@ -1,54 +1,113 @@
 {
-  "trained_at": "2026-10-28T02:21:18+00:00",
+  "trained_at": "2026-10-29T08:22:03+00:00",
   "chosen_model": "xgboost",
   "reason": "xgboost has the highest validation AUC (0.757), 0.017 above logistic regression (0.740), which clears the 0.01 margin needed to justify a more complex model.",
   "best_params": {
-    "learning_rate": 0.1,
-    "max_depth": 3
+    "colsample_bytree": 0.7802,
+    "learning_rate": 0.0359,
+    "max_depth": 5,
+    "min_child_weight": 20,
+    "n_estimators": 486,
+    "scale_pos_weight": 3.3745,
+    "subsample": 0.7756
+  },
+  "tuning": {
+    "method": "randomised search (30 settings per tree model), full grid for logistic regression",
+    "cv_folds": 3,
+    "refit_metric": "roc_auc",
+    "best_params_all_models": {
+      "logistic_regression": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "random_forest": {
+        "min_samples_leaf": 20,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "class_weight": "balanced"
+      },
+      "xgboost": {
+        "colsample_bytree": 0.7802,
+        "learning_rate": 0.0359,
+        "max_depth": 5,
+        "min_child_weight": 20,
+        "n_estimators": 486,
+        "scale_pos_weight": 3.3745,
+        "subsample": 0.7756
+      }
+    }
   },
   "validation_metrics": {
-    "cv_auc": 0.76,
-    "auc": 0.7566,
-    "gini": 0.5132,
-    "ks": 0.3806,
-    "brier": 0.1925,
-    "balanced_accuracy": 0.6884
+    "cv_auc": 0.7616,
+    "cv_pr_auc": 0.245,
+    "auc": 0.7567,
+    "gini": 0.5134,
+    "ks": 0.38,
+    "pr_auc": 0.2397,
+    "brier": 0.0876,
+    "balanced_accuracy": 0.69,
+    "tpr": 0.6614,
+    "tnr": 0.7185,
+    "precision": 0.1711,
+    "f1": 0.2718,
+    "ba_threshold": 0.233
   },
   "all_models": {
     "logistic_regression": {
       "cv_auc": 0.7459,
+      "cv_pr_auc": 0.2265,
       "auc": 0.7401,
       "gini": 0.4802,
       "ks": 0.361,
+      "pr_auc": 0.2192,
       "brier": 0.2037,
-      "balanced_accuracy": 0.6801
+      "balanced_accuracy": 0.6805,
+      "tpr": 0.6779,
+      "tnr": 0.683,
+      "precision": 0.1581,
+      "f1": 0.2564,
+      "ba_threshold": 0.4944
     },
     "random_forest": {
-      "cv_auc": 0.7482,
-      "auc": 0.743,
-      "gini": 0.4861,
-      "ks": 0.3621,
-      "brier": 0.1981,
-      "balanced_accuracy": 0.6765
+      "cv_auc": 0.7499,
+      "cv_pr_auc": 0.2312,
+      "auc": 0.745,
+      "gini": 0.4901,
+      "ks": 0.3654,
+      "pr_auc": 0.2268,
+      "brier": 0.1844,
+      "balanced_accuracy": 0.6827,
+      "tpr": 0.7055,
+      "tnr": 0.6598,
+      "precision": 0.1541,
+      "f1": 0.2529,
+      "ba_threshold": 0.4491
     },
     "xgboost": {
-      "cv_auc": 0.76,
-      "auc": 0.7566,
-      "gini": 0.5132,
-      "ks": 0.3806,
-      "brier": 0.1925,
-      "balanced_accuracy": 0.6884
+      "cv_auc": 0.7616,
+      "cv_pr_auc": 0.245,
+      "auc": 0.7567,
+      "gini": 0.5134,
+      "ks": 0.38,
+      "pr_auc": 0.2397,
+      "brier": 0.0876,
+      "balanced_accuracy": 0.69,
+      "tpr": 0.6614,
+      "tnr": 0.7185,
+      "precision": 0.1711,
+      "f1": 0.2718,
+      "ba_threshold": 0.233
     }
   },
   "calibration": {
     "method": "isotonic",
     "validation_brier": {
-      "uncalibrated": 0.1925,
+      "uncalibrated": 0.0876,
       "sigmoid": 0.0681,
-      "isotonic": 0.068
+      "isotonic": 0.0681
     }
   },
-  "threshold": 0.225,
+  "threshold": 0.21,
   "refer_band": 0.02,
   "assumptions": {
     "lgd": 0.6,
@@ -57,28 +116,53 @@
     "break_even_pd": 0.2
   },
   "test_metrics": {
-    "auc": 0.7564698957294786,
-    "gini": 0.5129397914589573,
-    "ks": 0.38313788154564704,
-    "brier": 0.06803398071229297,
-    "balanced_accuracy": 0.6002623532936007,
-    "threshold": 0.225,
+    "auc": 0.757317097499184,
+    "gini": 0.5146341949983679,
+    "ks": 0.3842291776276662,
+    "pr_auc": 0.23554233545492315,
+    "brier": 0.06794124892669987,
+    "balanced_accuracy": 0.6011758580892951,
+    "tpr": 0.25458207452165155,
+    "tnr": 0.9477696416569387,
+    "precision": 0.29973915105525256,
+    "f1": 0.27532128076671747,
+    "threshold": 0.21,
     "confusion_matrix": {
-      "approved_repaid": 53755,
-      "declined_repaid": 2783,
-      "approved_defaulted": 3725,
-      "declined_defaulted": 1240
+      "approved_repaid": 53585,
+      "declined_repaid": 2953,
+      "approved_defaulted": 3701,
+      "declined_defaulted": 1264
     },
-    "approval_rate": 0.9345885566557729,
-    "default_rate_approved": 0.06480514961725818,
+    "approval_rate": 0.9314342389802124,
+    "default_rate_approved": 0.0646056628146493,
     "default_rate_all": 0.08072776937710356,
     "decision_shares": {
-      "approve": 0.9206867957660602,
-      "refer": 0.03419345397785474,
-      "decline": 0.04511975025608507
+      "approve": 0.9167032502479554,
+      "refer": 0.020291693088142042,
+      "decline": 0.06300505666390258
     },
-    "realised_profit": 3624862222.8,
-    "mean_pd": 0.08143347681216788
+    "realised_profit": 3621925179.675,
+    "mean_pd": 0.08150514557112624
+  },
+  "threshold_comparison": {
+    "profit": {
+      "cutoff": 0.21,
+      "approval_rate": 0.9314,
+      "tpr": 0.2546,
+      "tnr": 0.9478,
+      "precision": 0.2997,
+      "balanced_accuracy": 0.6012,
+      "realised_profit": 3621925179.675
+    },
+    "balanced_accuracy": {
+      "cutoff": 0.087,
+      "approval_rate": 0.6814,
+      "tpr": 0.6713,
+      "tnr": 0.7123,
+      "precision": 0.1701,
+      "balanced_accuracy": 0.6918,
+      "realised_profit": 3178209835.125
+    }
   },
   "input_columns": [
     "AMT_INCOME_TOTAL",

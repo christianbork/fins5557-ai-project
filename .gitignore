@@ -24,6 +24,8 @@ data/*
 # The deployed app needs the trained model (about 6 MB) and its metadata, so these are committed.
 !models/model.joblib
 !models/*.json
+# Earlier model versions kept for comparison (docs/MODEL_HISTORY.md).
+!archive/*/model.joblib
 
 # OS / editor
 .DS_Store

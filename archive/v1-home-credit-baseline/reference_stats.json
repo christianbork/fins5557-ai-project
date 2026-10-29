@@ -1,0 +1,369 @@
+{
+  "rows": 184506,
+  "guard_quantiles": [
+    0.0,
+    1.0
+  ],
+  "numeric": {
+    "AMT_INCOME_TOTAL": {
+      "low": 25650.0,
+      "high": 18000090.0,
+      "deciles": [
+        81000.0,
+        99000.0,
+        112500.0,
+        135000.0,
+        148500.0,
+        162000.0,
+        180000.0,
+        225000.0,
+        270000.0
+      ],
+      "missing_share": 0.0
+    },
+    "AMT_CREDIT": {
+      "low": 45000.0,
+      "high": 4050000.0,
+      "deciles": [
+        180000.0,
+        254700.0,
+        306000.0,
+        432000.0,
+        512446.5,
+        604152.0,
+        755190.0,
+        900000.0,
+        1133748.0
+      ],
+      "missing_share": 0.0
+    },
+    "AMT_ANNUITY": {
+      "low": 1980.0,
+      "high": 230161.5,
+      "deciles": [
+        11074.5,
+        14710.5,
+        18216.0,
+        21888.0,
+        24907.5,
+        28048.5,
+        32017.5,
+        37638.0,
+        46003.5
+      ],
+      "missing_share": 4.9e-05
+    },
+    "AMT_GOODS_PRICE": {
+      "low": 40500.0,
+      "high": 4050000.0,
+      "deciles": [
+        180000.0,
+        225000.0,
+        270000.0,
+        373500.0,
+        450000.0,
+        517500.0,
+        675000.0,
+        823500.0,
+        1093500.0
+      ],
+      "missing_share": 0.000873
+    },
+    "CNT_CHILDREN": {
+      "low": 0.0,
+      "high": 19.0,
+      "deciles": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        2.0
+      ],
+      "missing_share": 0.0
+    },
+    "CNT_FAM_MEMBERS": {
+      "low": 1.0,
+      "high": 20.0,
+      "deciles": [
+        1.0,
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        3.0,
+        3.0
+      ],
+      "missing_share": 5e-06
+    },
+    "DAYS_EMPLOYED": {
+      "low": -17583.0,
+      "high": 0.0,
+      "deciles": [
+        -5324.0,
+        -3667.0,
+        -2789.0,
+        -2160.0,
+        -1649.0,
+        -1253.0,
+        -922.0,
+        -619.0,
+        -335.0
+      ],
+      "missing_share": 0.0
+    },
+    "DAYS_REGISTRATION": {
+      "low": -23738.0,
+      "high": 0.0,
+      "deciles": [
+        -9933.0,
+        -8236.0,
+        -6780.0,
+        -5463.0,
+        -4497.0,
+        -3529.0,
+        -2528.0,
+        -1484.0,
+        -686.0
+      ],
+      "missing_share": 0.0
+    },
+    "DAYS_ID_PUBLISH": {
+      "low": -7197.0,
+      "high": 0.0,
+      "deciles": [
+        -4724.0,
+        -4430.0,
+        -4173.0,
+        -3882.0,
+        -3251.0,
+        -2650.0,
+        -2035.0,
+        -1375.0,
+        -729.0
+      ],
+      "missing_share": 0.0
+    },
+    "OWN_CAR_AGE": {
+      "low": 0.0,
+      "high": 91.0,
+      "deciles": [
+        2.0,
+        4.0,
+        6.0,
+        7.0,
+        9.0,
+        12.0,
+        14.0,
+        17.0,
+        22.0
+      ],
+      "missing_share": 0.660596
+    },
+    "REGION_RATING_CLIENT_W_CITY": {
+      "low": 1.0,
+      "high": 3.0,
+      "deciles": [
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        3.0
+      ],
+      "missing_share": 0.0
+    },
+    "EXT_SOURCE_1": {
+      "low": 0.014568132412445587,
+      "high": 0.9626927705613059,
+      "deciles": [
+        0.2121387218468939,
+        0.29647118126148814,
+        0.3693510248629312,
+        0.43782911546335657,
+        0.5055339178941789,
+        0.5735259341415355,
+        0.6410539636791812,
+        0.7105262434992534,
+        0.7874815633274621
+      ],
+      "missing_share": 0.562946
+    },
+    "EXT_SOURCE_2": {
+      "low": 8.173616518884397e-08,
+      "high": 0.8549996664047012,
+      "deciles": [
+        0.21507941583530826,
+        0.3393096747336996,
+        0.4403536847123342,
+        0.5120267336026023,
+        0.5662085102246779,
+        0.6082446281460147,
+        0.6456086223770403,
+        0.6818183633019959,
+        0.7220252225508738
+      ],
+      "missing_share": 0.0022
+    },
+    "EXT_SOURCE_3": {
+      "low": 0.0005272652387098817,
+      "high": 0.8876642018413868,
+      "deciles": [
+        0.2276129150623945,
+        0.3296550543128238,
+        0.4083588531230431,
+        0.475849908720221,
+        0.5352762504724826,
+        0.5902333386185574,
+        0.6430255641096323,
+        0.6940926425266661,
+        0.7490217048463391
+      ],
+      "missing_share": 0.198774
+    },
+    "AMT_REQ_CREDIT_BUREAU_YEAR": {
+      "low": 0.0,
+      "high": 25.0,
+      "deciles": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        2.0,
+        3.0,
+        3.0,
+        4.0
+      ],
+      "missing_share": 0.135166
+    }
+  },
+  "categorical": {
+    "NAME_CONTRACT_TYPE": {
+      "Cash loans": 0.904637,
+      "Revolving loans": 0.095363
+    },
+    "FLAG_OWN_CAR": {
+      "N": 0.660591,
+      "Y": 0.339409
+    },
+    "FLAG_OWN_REALTY": {
+      "Y": 0.694763,
+      "N": 0.305237
+    },
+    "NAME_INCOME_TYPE": {
+      "Working": 0.517035,
+      "Commercial associate": 0.232762,
+      "Pensioner": 0.178845,
+      "State servant": 0.071212,
+      "Unemployed": 7e-05,
+      "Student": 3.3e-05,
+      "Businessman": 2.7e-05,
+      "Maternity leave": 1.6e-05
+    },
+    "NAME_EDUCATION_TYPE": {
+      "Secondary / secondary special": 0.710535,
+      "Higher education": 0.24338,
+      "Incomplete higher": 0.033294,
+      "Lower secondary": 0.012233,
+      "Academic degree": 0.000558
+    },
+    "NAME_HOUSING_TYPE": {
+      "House / apartment": 0.887348,
+      "With parents": 0.048242,
+      "Municipal apartment": 0.036096,
+      "Rented apartment": 0.015978,
+      "Office apartment": 0.008607,
+      "Co-op apartment": 0.003729
+    },
+    "OCCUPATION_TYPE": {
+      "Unknown": 0.313079,
+      "Laborers": 0.179208,
+      "Sales staff": 0.104387,
+      "Core staff": 0.089195,
+      "Managers": 0.069922,
+      "Drivers": 0.061104,
+      "High skill tech staff": 0.037218,
+      "Accountants": 0.031994,
+      "Medicine staff": 0.027668,
+      "Security staff": 0.021875,
+      "Cooking staff": 0.019403,
+      "Cleaning staff": 0.015252,
+      "Private service staff": 0.008515,
+      "Low-skill Laborers": 0.006639,
+      "Waiters/barmen staff": 0.004206,
+      "Secretaries": 0.004168,
+      "Realty agents": 0.002623,
+      "HR staff": 0.001913,
+      "IT staff": 0.001631
+    },
+    "ORGANIZATION_TYPE": {
+      "Business Entity Type 3": 0.222323,
+      "XNA": 0.178867,
+      "Self-employed": 0.124733,
+      "Other": 0.054562,
+      "Medicine": 0.036086,
+      "Business Entity Type 2": 0.034416,
+      "Government": 0.034259,
+      "School": 0.028704,
+      "Trade: type 7": 0.025029,
+      "Kindergarten": 0.022558,
+      "Construction": 0.021983,
+      "Business Entity Type 1": 0.019447,
+      "Transport: type 4": 0.017479,
+      "Trade: type 3": 0.011371,
+      "Industry: type 9": 0.010807,
+      "Industry: type 3": 0.010498,
+      "Security": 0.010487,
+      "Housing": 0.009702,
+      "Industry: type 11": 0.008878,
+      "Military": 0.008488,
+      "Agriculture": 0.008097,
+      "Bank": 0.008027,
+      "Police": 0.00781,
+      "Transport: type 2": 0.007198,
+      "Postal": 0.006965,
+      "Security Ministries": 0.006406,
+      "Trade: type 2": 0.006141,
+      "Restaurant": 0.006005,
+      "Services": 0.005003,
+      "University": 0.004455,
+      "Industry: type 7": 0.004211,
+      "Transport: type 3": 0.003929,
+      "Electricity": 0.003322,
+      "Industry: type 1": 0.003257,
+      "Hotel": 0.003149,
+      "Industry: type 4": 0.002824,
+      "Trade: type 6": 0.001995,
+      "Insurance": 0.001989,
+      "Telecom": 0.001978,
+      "Industry: type 5": 0.001886,
+      "Emergency": 0.001832,
+      "Industry: type 2": 0.001425,
+      "Advertising": 0.001415,
+      "Realtor": 0.001333,
+      "Industry: type 12": 0.001263,
+      "Culture": 0.001236,
+      "Trade: type 1": 0.001073,
+      "Mobile": 0.001008,
+      "Legal Services": 0.000921,
+      "Cleaning": 0.0009,
+      "Transport: type 1": 0.00064,
+      "Industry: type 10": 0.000396,
+      "Industry: type 6": 0.000347,
+      "Religion": 0.000255,
+      "Trade: type 4": 0.000211,
+      "Trade: type 5": 0.000184,
+      "Industry: type 13": 0.000157,
+      "Industry: type 8": 8.1e-05
+    }
+  }
+}

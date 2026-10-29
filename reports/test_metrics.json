@@ -1,24 +1,29 @@
 {
-  "auc": 0.7564698957294786,
-  "gini": 0.5129397914589573,
-  "ks": 0.38313788154564704,
-  "brier": 0.06803398071229297,
-  "balanced_accuracy": 0.6002623532936007,
-  "threshold": 0.225,
+  "auc": 0.757317097499184,
+  "gini": 0.5146341949983679,
+  "ks": 0.3842291776276662,
+  "pr_auc": 0.23554233545492315,
+  "brier": 0.06794124892669987,
+  "balanced_accuracy": 0.6011758580892951,
+  "tpr": 0.25458207452165155,
+  "tnr": 0.9477696416569387,
+  "precision": 0.29973915105525256,
+  "f1": 0.27532128076671747,
+  "threshold": 0.21,
   "confusion_matrix": {
-    "approved_repaid": 53755,
-    "declined_repaid": 2783,
-    "approved_defaulted": 3725,
-    "declined_defaulted": 1240
+    "approved_repaid": 53585,
+    "declined_repaid": 2953,
+    "approved_defaulted": 3701,
+    "declined_defaulted": 1264
   },
-  "approval_rate": 0.9345885566557729,
-  "default_rate_approved": 0.06480514961725818,
+  "approval_rate": 0.9314342389802124,
+  "default_rate_approved": 0.0646056628146493,
   "default_rate_all": 0.08072776937710356,
   "decision_shares": {
-    "approve": 0.9206867957660602,
-    "refer": 0.03419345397785474,
-    "decline": 0.04511975025608507
+    "approve": 0.9167032502479554,
+    "refer": 0.020291693088142042,
+    "decline": 0.06300505666390258
   },
-  "realised_profit": 3624862222.8,
-  "mean_pd": 0.08143347681216788
+  "realised_profit": 3621925179.675,
+  "mean_pd": 0.08150514557112624
 }

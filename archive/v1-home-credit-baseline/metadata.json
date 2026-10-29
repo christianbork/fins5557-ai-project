@@ -1,0 +1,161 @@
+{
+  "trained_at": "2026-10-28T02:21:18+00:00",
+  "chosen_model": "xgboost",
+  "reason": "xgboost has the highest validation AUC (0.757), 0.017 above logistic regression (0.740), which clears the 0.01 margin needed to justify a more complex model.",
+  "best_params": {
+    "learning_rate": 0.1,
+    "max_depth": 3
+  },
+  "validation_metrics": {
+    "cv_auc": 0.76,
+    "auc": 0.7566,
+    "gini": 0.5132,
+    "ks": 0.3806,
+    "brier": 0.1925,
+    "balanced_accuracy": 0.6884
+  },
+  "all_models": {
+    "logistic_regression": {
+      "cv_auc": 0.7459,
+      "auc": 0.7401,
+      "gini": 0.4802,
+      "ks": 0.361,
+      "brier": 0.2037,
+      "balanced_accuracy": 0.6801
+    },
+    "random_forest": {
+      "cv_auc": 0.7482,
+      "auc": 0.743,
+      "gini": 0.4861,
+      "ks": 0.3621,
+      "brier": 0.1981,
+      "balanced_accuracy": 0.6765
+    },
+    "xgboost": {
+      "cv_auc": 0.76,
+      "auc": 0.7566,
+      "gini": 0.5132,
+      "ks": 0.3806,
+      "brier": 0.1925,
+      "balanced_accuracy": 0.6884
+    }
+  },
+  "calibration": {
+    "method": "isotonic",
+    "validation_brier": {
+      "uncalibrated": 0.1925,
+      "sigmoid": 0.0681,
+      "isotonic": 0.068
+    }
+  },
+  "threshold": 0.225,
+  "refer_band": 0.02,
+  "assumptions": {
+    "lgd": 0.6,
+    "margin": 0.15,
+    "ead": "AMT_CREDIT",
+    "break_even_pd": 0.2
+  },
+  "test_metrics": {
+    "auc": 0.7564698957294786,
+    "gini": 0.5129397914589573,
+    "ks": 0.38313788154564704,
+    "brier": 0.06803398071229297,
+    "balanced_accuracy": 0.6002623532936007,
+    "threshold": 0.225,
+    "confusion_matrix": {
+      "approved_repaid": 53755,
+      "declined_repaid": 2783,
+      "approved_defaulted": 3725,
+      "declined_defaulted": 1240
+    },
+    "approval_rate": 0.9345885566557729,
+    "default_rate_approved": 0.06480514961725818,
+    "default_rate_all": 0.08072776937710356,
+    "decision_shares": {
+      "approve": 0.9206867957660602,
+      "refer": 0.03419345397785474,
+      "decline": 0.04511975025608507
+    },
+    "realised_profit": 3624862222.8,
+    "mean_pd": 0.08143347681216788
+  },
+  "input_columns": [
+    "AMT_INCOME_TOTAL",
+    "AMT_CREDIT",
+    "AMT_ANNUITY",
+    "AMT_GOODS_PRICE",
+    "CNT_CHILDREN",
+    "CNT_FAM_MEMBERS",
+    "DAYS_EMPLOYED",
+    "DAYS_REGISTRATION",
+    "DAYS_ID_PUBLISH",
+    "OWN_CAR_AGE",
+    "REGION_RATING_CLIENT_W_CITY",
+    "EXT_SOURCE_1",
+    "EXT_SOURCE_2",
+    "EXT_SOURCE_3",
+    "AMT_REQ_CREDIT_BUREAU_YEAR",
+    "NAME_CONTRACT_TYPE",
+    "FLAG_OWN_CAR",
+    "FLAG_OWN_REALTY",
+    "NAME_INCOME_TYPE",
+    "NAME_EDUCATION_TYPE",
+    "NAME_HOUSING_TYPE",
+    "OCCUPATION_TYPE",
+    "ORGANIZATION_TYPE"
+  ],
+  "rows": {
+    "train": 184506,
+    "validation": 61502,
+    "test": 61503
+  },
+  "feature_set": "full",
+  "features": {
+    "numeric": [
+      "AMT_INCOME_TOTAL",
+      "AMT_CREDIT",
+      "AMT_ANNUITY",
+      "AMT_GOODS_PRICE",
+      "CNT_CHILDREN",
+      "CNT_FAM_MEMBERS",
+      "DAYS_EMPLOYED",
+      "DAYS_REGISTRATION",
+      "DAYS_ID_PUBLISH",
+      "OWN_CAR_AGE",
+      "REGION_RATING_CLIENT_W_CITY",
+      "EXT_SOURCE_1",
+      "EXT_SOURCE_2",
+      "EXT_SOURCE_3",
+      "AMT_REQ_CREDIT_BUREAU_YEAR",
+      "credit_income_ratio",
+      "annuity_income_ratio",
+      "credit_term",
+      "goods_credit_ratio",
+      "years_employed",
+      "not_employed",
+      "ext_source_mean",
+      "ext_source_missing",
+      "income_per_person"
+    ],
+    "categorical": [
+      "NAME_CONTRACT_TYPE",
+      "FLAG_OWN_CAR",
+      "FLAG_OWN_REALTY",
+      "NAME_INCOME_TYPE",
+      "NAME_EDUCATION_TYPE",
+      "NAME_HOUSING_TYPE",
+      "OCCUPATION_TYPE",
+      "ORGANIZATION_TYPE"
+    ]
+  },
+  "random_state": 100,
+  "versions": {
+    "python": "3.12.10",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0"
+  }
+}
