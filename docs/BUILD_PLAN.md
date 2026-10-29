@@ -174,10 +174,11 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [ ] Deploy to Streamlit Community Cloud (Python 3.12, entry point `app.py`). Add the live URL to the README.
 - **Checks:** the app works locally and on the public URL in a private browser window. Invalid input shows an error instead of crashing. Local checks pass (`tests/test_app.py`: every example, the letter flow and an invalid input; also run in a clean environment with only `requirements.txt`); the public URL check is still to do after deployment.
 
-### Step 10: Fairness (`src/fairness.py`) and the Model page
-- [ ] Group metrics on the test set by sex, age band and education: approval rate, true positive rate, false positive rate. Disparate-impact ratio (approval rate vs the most-approved group), flagged below 0.8. Course reference: topic 04.
-- [ ] `pages/2_Model_and_fairness.py`: model comparison table, ROC and calibration plots, threshold and profit curve, fairness table with flags.
+### Step 10: Fairness (`src/fairness.py`) and the Model page [done]
+- [x] Group metrics on the test set by sex, age band, family status and education: approval rate, good customers approved, defaulters approved, mean PD vs default rate. Disparate-impact ratio (approval rate vs the most-approved group), flagged below 0.8; parity and equalised-odds gaps flagged above 0.05 (Code Bank W04-06). Groups under 100 applicants are not judged, and their rates are removed from the published `reports/fairness.csv` (a rate over one or a few people is their own data). `src/reporting.py` (`python -m src.reporting`, also run by `src.train`) writes the fairness table and the chart data as aggregates, because the deployed app has no raw data. Notebook section 6 adds a proxy analysis.
+- [x] `pages/2_Model_and_fairness.py`: model comparison table (and v1 vs v2), ROC and calibration plots, profit curve with both cut-offs, fairness table with flags.
 - **Checks:** tests on a small hand-made example where the answer is known.
+- **Results (29 Oct):** no group below the four-fifths rule (lowest: under-30s, 0.85); PDs accurate within every group (mean PD within 1.2 points of the default rate); but creditworthy under-30s are approved 86.9% vs 98.8% for over-60s. Most of the age effect comes through the external credit scores. Policy options are in the notebook Findings. **Decided (29 Oct): accept and document** (decisions follow accurately measured risk; the age-linked inputs have a clear credit rationale); the model is not changed.
 
 ### Step 11: Monitoring (`src/monitoring.py`)
 - [ ] Save training reference statistics (deciles per feature) to `models/reference_stats.json` in `train.py`.
