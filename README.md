@@ -1,22 +1,56 @@
-# FINS5557 Applied AI Project
+# Loan default screener
 
-> One-line description of the app (fill in once the idea is final).
+[![CI](https://github.com/christianbork/fins5557-ai-project/actions/workflows/ci.yml/badge.svg)](https://github.com/christianbork/fins5557-ai-project/actions/workflows/ci.yml)
+
+> An AI credit-screening app for a consumer lender: a machine-learning model estimates each applicant's probability of default (PD), a cost-based rule turns it into approve / refer / decline, SHAP explains the main reasons, and a language model drafts the letter, with a fairness audit and drift monitoring behind it. FINS5557 Applied AI in Finance, UNSW, T3 2026 (Track A).
 
 **Live app:** _add Streamlit Cloud URL_ | **Demo video:** _add link_
 
 ## Overview
-- **Problem:** ...
-- **Target users:** ...
-- **AI/ML technique:** ...
+- **Problem:** a consumer lender has to decide quickly and consistently which loan applicants to approve, explain every decline, and show that its decisions are profitable, fair and still valid as the applicant population changes.
+- **Target users:** credit analysts at a consumer lender (cash and revolving loans).
+- **AI/ML techniques:**
+  - **Machine learning:** logistic regression (scorecard baseline), random forest and XGBoost, tuned with cross-validation; XGBoost chosen (test AUC 0.757), with isotonic calibration so the scores are real PDs (mean test PD 8.2% vs 8.1% actual).
+  - **Decision rule from the lender's economics:** expected loss = PD × LGD × EAD; the cut-off (21.0%) maximises profit and sits next to the 20% break-even PD (LGD 60%, margin 15%); a ±2-point band is referred to an analyst.
+  - **Explainable AI:** SHAP gives the top reasons behind each score, in plain English.
+  - **Generative AI:** Google Gemini (public demo) or a local Ollama model (real customer data) drafts the decline or refer letter, behind guardrails: the prompt holds no applicant data, outputs are checked, and any failure falls back to a fixed template. The letter is a draft for the analyst to check.
+- **Governance:** input validation, a guard that refers applicants outside the training range (the model only saw loans Home Credit had already approved), a fairness audit by sex, age, family status and education, and PSI drift monitoring.
+
+## Using the app
+| Page | What it does |
+|---|---|
+| **Screening** (`app.py`) | Enter one applicant, or load one of 6 invented examples, then **Assess applicant**: PD, decision, expected loss and profit, the main reasons and a chart of what moved the score. For a decline or refer, **Draft letter**, check and edit it, then download it. |
+| **Batch scoring** | Upload a CSV (or use the examples): rows with errors are listed by line, the rest are scored; download the results with PD, decision, reasons and expected loss. |
+| **Model and fairness** | How the model was chosen (v1 vs v2), ROC and reliability charts, the profit curve with the profit and balanced-accuracy cut-offs, and the fairness table with flags. |
+| **Monitoring** | PSI per input for a new batch against the training data (a normal and a shifted synthetic sample are built in), plus how the model's decisions for the batch compare with the test split. |
+
+_Screenshots: add once deployed._
+
+## How it works
+```
+applicant (form or CSV)
+  -> src/applicant.py    form in years -> model fields
+  -> src/validation.py   input errors; out-of-range guard (refer, never auto-approve)
+  -> src/predict.py      calibrated XGBoost pipeline -> PD -> approve / refer / decline (src/threshold.py)
+  -> src/explain.py      SHAP -> top 3 reasons
+  -> src/llm.py          letter: template | Ollama (local) | Gemini (demo), with guardrails
+offline: src/data.py -> src/features.py -> src/train.py (tuning, calibration, cut-off)
+         -> src/fairness.py, src/reporting.py, src/monitoring.py -> models/ and reports/ (aggregates only)
+```
 
 ## Project structure
 ```
-app.py            Streamlit entry point
-src/              Application code (models, data processing, LLM calls)
-  config.py       Loads API keys from .env / Streamlit secrets
-notebooks/        Exploration and model development
-data/             Local data (not committed)
-tests/            Tests
+app.py                  Screening page (Streamlit entry point)
+pages/                  Batch scoring, Model and fairness, Monitoring
+src/                    All logic (the pages only lay it out)
+models/                 Trained model, metadata, training reference statistics (no applicant rows)
+reports/                Model comparison, tuning, profit curve, cut-offs, fairness, chart data, performance
+archive/                Earlier model versions; see docs/MODEL_HISTORY.md
+data/sample/            Invented example applicants and synthetic monitoring batches (data/raw/ is not committed)
+notebooks/project.ipynb The analysis notebook, one section per step
+docs/                   BUILD_PLAN.md (steps and decisions), MODEL_HISTORY.md
+tests/                  pytest suite (fake data; no Kaggle file or API key needed)
+.github/workflows/      CI: ruff and pytest on every pull request
 ```
 
 ## Run locally
@@ -37,9 +71,12 @@ Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.p
 ## Team
 | Name | zID | Role |
 |---|---|---|
-| Christian | | |
+| Christian Bork | | |
 | | | |
 | | | |
+
+## Licence
+MIT, see [LICENSE](LICENSE). The Home Credit data is not covered: it stays under the Kaggle competition rules (see **Data**).
 
 ## Data
 **Home Credit Default Risk** (Home Credit Group, Kaggle competition, 2018): `application_train.csv`, 307,511 consumer loan applications, one row each, with what the lender knew at application and whether the client later had payment difficulties (8.1% did).
