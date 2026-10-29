@@ -2,6 +2,7 @@
 # Install with: pip install -r requirements-dev.txt  (includes requirements.txt)
 -r requirements.txt
 kagglehub==1.0.3  # downloads the Home Credit data (python -m src.data)
+scipy==1.18.1  # search distributions for the model tuning in src/train.py (also a scikit-learn dependency)
 pytest==9.1.1
 ruff==0.17.2
 ipykernel==7.4.0
