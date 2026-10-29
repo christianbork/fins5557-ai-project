@@ -13,7 +13,7 @@ import streamlit as st
 from src.applicant import label
 from src.config import CURRENCY_NOTE, DATA_DIR, MAX_BATCH_ROWS, MAX_UPLOAD_MB, RAW_INPUTS
 from src.formatting import MONEY_COLUMN, PCT_COLUMN, count, money, pct
-from src.labels import COLUMNS, DECISIONS, column_label, decision_label
+from src.labels import COLUMNS, DECISIONS, decision_label, headers
 from src.predict import load_artifacts, predict_batch
 from src.validation import read_csv_upload, validate_batch
 
@@ -149,11 +149,10 @@ view = scored[scored["decision"].isin(decisions)][
     [*id_cols, "AMT_CREDIT", "pd", "decision", "reasons", "warnings"]
 ].assign(pd=lambda d: d["pd"] * 100, decision=lambda d: d["decision"].map(decision_label))
 st.dataframe(
-    view.head(500),
-    column_config={c: column_label(c) for c in view.columns}
-    | {
-        "AMT_CREDIT": st.column_config.NumberColumn("Loan amount", format=MONEY_COLUMN),
-        "pd": st.column_config.ProgressColumn("PD", format=PCT_COLUMN, min_value=0, max_value=100),
+    headers(view.head(500)),
+    column_config={
+        "Loan amount": st.column_config.NumberColumn(format=MONEY_COLUMN),
+        "PD": st.column_config.ProgressColumn(format=PCT_COLUMN, min_value=0, max_value=100),
     },
     hide_index=True,
     width="stretch",

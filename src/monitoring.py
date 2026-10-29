@@ -46,8 +46,8 @@ from src.config import (
 
 PSI_STABLE, PSI_ALERT = 0.10, 0.25
 FLOOR = 1e-6  # stands in for an empty bin, so ln() stays finite (as in W02-10)
-UNSEEN = "(not seen in training)"
-RARE = f"(rare categories, < {RARE_CATEGORY_SHARE:.0%} of training)"
+UNSEEN = "Not seen in training"
+RARE = f"Rare categories (< {RARE_CATEGORY_SHARE:.0%} of training)"
 # Inputs that only take whole numbers, so synthetic values are drawn as integers
 WHOLE = {
     "CNT_CHILDREN",
@@ -67,10 +67,10 @@ SAMPLE_PATHS = {
 
 # ---- Bins ----------------------------------------------------------------------------------
 def numeric_bin_labels(edges: list[float], sentinel: float | None = None) -> list[str]:
-    labels = [f"<= {edges[0]:,.4g}"] if edges else ["all values"]
+    labels = [f"<= {edges[0]:,.4g}"] if edges else ["All values"]
     labels += [f"{lo:,.4g} to {hi:,.4g}" for lo, hi in pairwise(edges)]
     labels += [f"> {edges[-1]:,.4g}"] if edges else []
-    return labels + (["not employed"] if sentinel is not None else []) + ["missing"]
+    return labels + (["Not employed"] if sentinel is not None else []) + ["Missing"]
 
 
 def numeric_bin_shares(values: pd.Series, edges: list[float], sentinel: float | None = None) -> np.ndarray:

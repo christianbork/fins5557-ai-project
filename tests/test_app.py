@@ -3,6 +3,8 @@
 They use the committed model in models/ and the invented examples in data/sample/.
 """
 
+import re
+
 import pandas as pd
 import pytest
 import streamlit as st
@@ -117,8 +119,8 @@ def test_batch_page_scores_the_examples():
     assert not page.exception and not page.error
     assert "Scored 6 applicants" in page.success[0].value
     results = page.dataframe[0].value
-    assert list(results["decision"]) == ["Approve", "Refer", "Decline", "Approve", "Approve", "Refer"]
-    assert (results.loc[results["decision"] != "Approve", "reasons"] != "").all()
+    assert list(results["Decision"]) == ["Approve", "Refer", "Decline", "Approve", "Approve", "Refer"]
+    assert (results.loc[results["Decision"] != "Approve", "Main reasons (refer / decline)"] != "").all()
 
 
 def test_batch_page_lists_bad_rows_and_scores_the_rest(tmp_path, monkeypatch):
@@ -135,3 +137,54 @@ def test_batch_page_lists_bad_rows_and_scores_the_rest(tmp_path, monkeypatch):
     assert "Scored 6 applicants" in page.success[0].value
     error_table = page.dataframe[0].value
     assert error_table.iloc[0]["Column"] == "EXT_SOURCE_2" and error_table.iloc[0]["Line in file"] == 8
+
+
+# ---- What users see: display labels and formats on every page (Step 13b) -------------------
+RAW_CODE = re.compile(r"_|^[a-z]")  # a code such as AMT_CREDIT, approval_rate or pd
+RAW_DECISION = re.compile(r"\b(approve|refer|decline)\b")
+EMPTY_TEXT = re.compile(r"\b(None|nan|NaN)\b")
+TEXT_ELEMENTS = ("markdown", "caption", "info", "warning", "error", "success", "subheader", "header", "title")
+
+
+def every_page_in_use(app) -> list[AppTest]:
+    """Each page with its results showing: a declined applicant with a letter, the example batch,
+    the model page and the shifted monitoring batch."""
+    assess(app, EXAMPLES[2])
+    next(b for b in app.button if b.label == "Draft letter").click().run()
+    monitoring = monitoring_page()
+    monitoring.radio[0].set_value(monitoring.radio[0].options[1]).run()
+    model = AppTest.from_file(str(ROOT / "pages" / "2_Model_and_fairness.py"), default_timeout=120).run()
+    return [app, use_examples(batch_page()), model, monitoring]
+
+
+def test_tables_show_display_labels_and_no_empty_markers(app):
+    for page in every_page_in_use(app):
+        assert not page.exception
+        for table in page.dataframe:
+            df = table.value
+            names = [str(c) for c in df.columns] + [str(n) for n in df.index.names if n is not None]
+            assert not [n for n in names if RAW_CODE.search(n)], f"raw column names: {names}"
+            cells = df.astype(str).to_numpy().ravel()
+            assert not [c for c in cells if EMPTY_TEXT.fullmatch(c)], f"empty markers in {names}"
+            assert not df.isna().to_numpy().any(), f"empty cells (shown as None) in {names}"
+            if "Decision" in df.columns:
+                assert set(df["Decision"]) <= {"Approve", "Refer", "Decline"}
+
+
+def test_text_has_no_empty_markers_or_lower_case_decision_labels(app):
+    for page in every_page_in_use(app):
+        texts = [e.value for kind in TEXT_ELEMENTS for e in getattr(page, kind)]
+        texts += [f"{m.label} {m.value}" for m in page.metric]
+        assert not [t for t in texts if EMPTY_TEXT.search(t)]
+        labels = [m.label for m in page.metric] + [o for s in page.multiselect for o in s.options]
+        assert not [t for t in labels if RAW_DECISION.search(t)]
+
+
+def test_every_money_value_shows_a_dollar_sign(app):
+    pages = every_page_in_use(app)
+    screening, batch = pages[0], pages[1]
+    money = [m.value for m in screening.metric if m.label.startswith("Expected")]
+    money += [m.value for m in batch.metric if m.label == "Expected loss"]
+    assert len(money) == 3 and all(v.startswith(("$", "-$")) for v in money), money
+    for page in pages[:3]:  # every page that shows money says which currency it is shown in
+        assert any("Amounts in USD" in c.value for c in page.caption)

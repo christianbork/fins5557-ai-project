@@ -105,7 +105,7 @@ if r["v1"] is not None:
                         pct(t["approval_rate"]),
                         pct(t["default_rate_approved"]),
                     ]
-                    for version, m, t in [("v1 (28 Oct)", v1, v1t), ("v2 (29 Oct)", meta, test)]
+                    for version, m, t in [("Model v1 (28 Oct)", v1, v1t), ("Model v2 (29 Oct)", meta, test)]
                 },
                 index=["Model", "Test AUC", "Cut-off", "Approval rate", "Default rate among approved"],
             )
