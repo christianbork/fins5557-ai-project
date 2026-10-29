@@ -70,6 +70,38 @@ def test_invalid_input_shows_an_error_not_a_crash(app):
     assert not app.metric  # nothing scored
 
 
+def test_scoring_failure_shows_a_short_message_and_logs_the_detail(app, monkeypatch, caplog):
+    import src.predict
+
+    monkeypatch.setattr(
+        src.predict, "predict", lambda *a: (_ for _ in ()).throw(RuntimeError("internal detail"))
+    )
+    with caplog.at_level("ERROR", logger="app.screening"):
+        app.button(key="FormSubmitter:applicant-Assess applicant").click().run()
+    assert not app.exception
+    assert "Something went wrong while scoring this applicant" in app.error[0].value
+    assert "internal detail" not in app.error[0].value
+    assert "internal detail" in caplog.text  # the traceback is in the log
+
+
+@pytest.mark.parametrize("page", ["app.py", "pages/1_Batch_scoring.py", "pages/3_Monitoring.py"])
+def test_missing_model_shows_a_short_message_without_the_path(monkeypatch, page):
+    import src.predict
+
+    def missing(*args):
+        raise FileNotFoundError("Model files not found: ['C:/secret/models/model.joblib']")
+
+    monkeypatch.setattr(src.predict, "load_artifacts", missing)
+    st.cache_resource.clear()  # earlier tests cached the real model
+    try:
+        at = AppTest.from_file(str(ROOT / page), default_timeout=120).run()
+    finally:
+        st.cache_resource.clear()
+    assert not at.exception
+    assert "The model couldn't be loaded" in at.error[0].value
+    assert "secret" not in at.error[0].value
+
+
 def test_model_and_fairness_page_loads():
     page = AppTest.from_file(str(ROOT / "pages" / "2_Model_and_fairness.py"), default_timeout=120).run()
     assert not page.exception and not page.error

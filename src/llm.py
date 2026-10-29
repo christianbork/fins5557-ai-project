@@ -37,6 +37,7 @@ Guardrails around the language model:
 from __future__ import annotations
 
 import json
+import logging
 import re
 import urllib.error
 import urllib.request
@@ -53,6 +54,7 @@ from src.config import (
 )
 from src.explain import REASON_PHRASES
 
+log = logging.getLogger(__name__)
 BACKENDS = ("template", "ollama", "gemini")
 MAX_LETTER_CHARS = 2500
 # Words a letter must never contain: protected attributes under Australian anti-discrimination law.
@@ -268,6 +270,9 @@ def draft_letter(decision: str, reasons: list[str], backend: str = LLM_BACKEND) 
                 return {"text": text, "backend": backend, "warning": None}
         except Exception as e:  # noqa: BLE001 (any backend failure falls back to the template, explained)
             problem = describe(e)
+            # The type only: a Gemini error's text could echo request details (see _gemini_problem)
+            log.warning("Letter from %s failed (%s)", backend, type(e).__name__)
+    log.warning("Standard letter used: %s", problem)
     return {
         "text": template_letter(decision, reasons),
         "backend": "template",

@@ -10,12 +10,14 @@ import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 from matplotlib.ticker import FuncFormatter
 
+from src.app_logging import get_logger
 from src.formatting import count, format_table, pct, pct_points, ratio, score
 from src.labels import DAY_FIELDS, STATUSES, decision_label, headers, input_label, status_label
 from src.monitoring import PSI_ALERT, PSI_STABLE, SAMPLE_PATHS, bin_detail, psi_table
 from src.predict import load_artifacts, predict_batch
 from src.validation import read_csv_upload, validate_batch
 
+log = get_logger("app.monitoring")
 STATUS_COLOURS = {"stable": "#1e8449", "watch": "#d68910", "alert": "#c0392b"}
 SOURCES = {
     "Sample: applicants like the training data (synthetic)": "normal",
@@ -38,8 +40,11 @@ def read_sample(name: str) -> pd.DataFrame:
 
 try:
     artifacts = get_artifacts()
-except (FileNotFoundError, ValueError) as e:
-    st.error(f"The model couldn't be loaded, so monitoring isn't available right now. Details: {e}")
+except (FileNotFoundError, ValueError):
+    log.exception("Model files couldn't be loaded")
+    st.error(
+        "The model couldn't be loaded, so monitoring isn't available right now. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 reference, meta = artifacts["reference"], artifacts["metadata"]
 

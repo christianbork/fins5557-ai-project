@@ -16,6 +16,7 @@ import pandas as pd
 import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
+from src.app_logging import get_logger
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
@@ -26,6 +27,7 @@ from src.predict import load_artifacts, predict
 from src.validation import validate_applicant
 
 SAMPLE_PATH = DATA_DIR / "sample" / "sample_applicants.csv"
+log = get_logger("app.screening")
 BADGE_COLOURS = {"approve": "green", "refer": "orange", "decline": "red"}
 INT_FIELDS = {
     "CNT_CHILDREN",
@@ -111,8 +113,11 @@ def categories(field: str) -> list[str]:
 # ---- Page ----------------------------------------------------------------------------------
 try:
     artifacts = get_artifacts()
-except (FileNotFoundError, ValueError) as e:
-    st.error(f"The model couldn't be loaded, so applicants can't be scored right now. Details: {e}")
+except (FileNotFoundError, ValueError):
+    log.exception("Model files couldn't be loaded")
+    st.error(
+        "The model couldn't be loaded, so applicants can't be scored right now. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 meta = artifacts["metadata"]
 threshold, band = meta["threshold"], meta["refer_band"]
@@ -207,8 +212,11 @@ if submitted:
             with st.spinner("Scoring the applicant..."):
                 st.session_state["result"] = predict(applicant, artifacts)
                 st.session_state["ead"] = applicant["AMT_CREDIT"]
-        except Exception as e:  # noqa: BLE001 (show any scoring failure instead of crashing the page)
-            st.error(f"Something went wrong while scoring this applicant: {e}")
+        except Exception:  # show any scoring failure instead of crashing the page
+            log.exception("Scoring one applicant failed")
+            st.error(
+                "Something went wrong while scoring this applicant, so no decision was made. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+            )
 
 if "result" in st.session_state:
     result = st.session_state["result"]

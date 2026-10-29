@@ -139,6 +139,14 @@ def test_unsafe_model_letter_is_replaced(monkeypatch, reply, problem):
     assert problem in letter["warning"]
 
 
+def test_fallback_is_logged_without_the_error_text(monkeypatch, caplog):
+    monkeypatch.setattr(llm, "_call_ollama", fake_ollama(error=ValueError("request detail")))
+    with caplog.at_level("WARNING", logger="src.llm"):
+        draft_letter("decline", REASONS, backend="ollama")
+    assert "Letter from ollama failed (ValueError)" in caplog.text
+    assert "Standard letter used" in caplog.text
+
+
 def test_unknown_backend_falls_back(monkeypatch):
     letter = draft_letter("decline", REASONS, backend="gpt")
     assert letter["backend"] == "template" and "unknown LLM_BACKEND 'gpt'" in letter["warning"]

@@ -12,6 +12,7 @@ import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 from matplotlib.ticker import FuncFormatter
 
+from src.app_logging import get_logger
 from src.config import (
     CURRENCY_NOTE,
     DI_THRESHOLD,
@@ -26,6 +27,7 @@ from src.formatting import count, format_table, money, money_short, number, pct,
 from src.labels import RULES, flag_text, headers, model_choice_reason, model_label
 
 V1_METADATA = ROOT / "archive" / "v1-home-credit-baseline" / "metadata.json"
+log = get_logger("app.model")
 
 st.set_page_config(page_title="Model and fairness", page_icon="⚖️", layout="wide")
 
@@ -47,8 +49,11 @@ def load_reports() -> dict:
 
 try:
     r = load_reports()
-except FileNotFoundError as e:
-    st.error(f"A report file is missing, so this page can't be shown. Run `python -m src.reporting`. ({e})")
+except FileNotFoundError:
+    log.exception("A report file is missing (regenerate with python -m src.reporting)")
+    st.error(
+        "A summary file behind this page is missing, so it can't be shown right now. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 meta, comparison = r["meta"], r["comparison"]
 chosen, test = meta["chosen_model"], meta["test_metrics"]

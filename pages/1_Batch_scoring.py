@@ -10,6 +10,7 @@ import time
 import pandas as pd
 import streamlit as st
 
+from src.app_logging import get_logger
 from src.applicant import label
 from src.config import CURRENCY_NOTE, DATA_DIR, MAX_BATCH_ROWS, MAX_UPLOAD_MB, RAW_INPUTS
 from src.formatting import MONEY_COLUMN, PCT_COLUMN, count, money, pct
@@ -18,6 +19,7 @@ from src.predict import load_artifacts, predict_batch
 from src.validation import read_csv_upload, validate_batch
 
 EXAMPLES_PATH = DATA_DIR / "sample" / "sample_applicants.csv"
+log = get_logger("app.batch")
 SOURCES = {"Upload a CSV": "upload", "Use the 6 invented example applicants": "examples"}
 
 st.set_page_config(page_title="Batch scoring", page_icon="🗂️", layout="wide")
@@ -35,8 +37,11 @@ def read_examples() -> pd.DataFrame:
 
 try:
     artifacts = get_artifacts()
-except (FileNotFoundError, ValueError) as e:
-    st.error(f"The model couldn't be loaded, so batches can't be scored right now. Details: {e}")
+except (FileNotFoundError, ValueError):
+    log.exception("Model files couldn't be loaded")
+    st.error(
+        "The model couldn't be loaded, so batches can't be scored right now. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 meta = artifacts["metadata"]
 lgd = meta["assumptions"]["lgd"]
@@ -110,8 +115,11 @@ try:
     with st.spinner(f"Scoring {count(len(valid), 'applicant')}..."):
         scored = predict_batch(valid, artifacts, with_reasons=True)
     seconds = time.perf_counter() - start
-except Exception as e:  # noqa: BLE001 (show any scoring failure instead of crashing the page)
-    st.error(f"Something went wrong while scoring this file: {e}")
+except Exception:  # show any scoring failure instead of crashing the page
+    log.exception("Scoring a batch of %d rows failed", len(valid))
+    st.error(
+        "Something went wrong while scoring this file, so no results were produced. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 scored["expected_loss"] = scored["pd"] * lgd * scored["AMT_CREDIT"]
 
