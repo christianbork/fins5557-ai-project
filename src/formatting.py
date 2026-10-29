@@ -13,10 +13,16 @@ Amounts are in the dataset's own units, shown with a $ as a stated assumption (c
 from __future__ import annotations
 
 import math
+from collections.abc import Callable
+
+import pandas as pd
 
 from src.config import CURRENCY_SYMBOL
 
 MISSING = "–"  # en dash
+# Formats for st.column_config.NumberColumn / ProgressColumn, for tables that stay numeric (sortable)
+MONEY_COLUMN = f"{CURRENCY_SYMBOL}%,.0f"
+PCT_COLUMN = "%.1f%%"  # the column must hold percentages (x 100), e.g. 47.5
 SHORT_UNITS = [(1e9, "bn", 2), (1e6, "m", 2), (1e3, "k", 1)]  # (size, suffix, decimals)
 
 
@@ -83,3 +89,14 @@ def count(n, noun: str, plural: str | None = None) -> str:
         return MISSING
     n = int(n)
     return f"{n:,} {noun if n == 1 else plural or noun + 's'}"
+
+
+def format_table(df: pd.DataFrame, formats: dict[str, Callable] | None = None) -> pd.DataFrame:
+    """Every cell as display text: formats maps a column to one of the functions above; other
+    columns are shown as they are. Empty cells become missing() (st.dataframe would show "None")."""
+    formats = formats or {}
+    out = df.copy()
+    for col in out.columns:
+        fmt = formats.get(col, lambda x: MISSING if _is_missing(x) else str(x))
+        out[col] = [fmt(x) for x in out[col]]
+    return out

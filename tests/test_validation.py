@@ -157,7 +157,7 @@ def test_guard_flags_values_outside_training_range(batch, reference):
     batch = batch.copy()
     batch.loc[batch.index[0], "AMT_INCOME_TOTAL"] = reference["numeric"]["AMT_INCOME_TOTAL"]["high"] * 10
     warnings = out_of_range(batch, reference)
-    assert warnings.iloc[0][0].startswith("AMT_INCOME_TOTAL (")
+    assert warnings.iloc[0][0].startswith("Annual income ($")
     assert "outside the range of past approved applicants" in warnings.iloc[0][0]
 
 
@@ -184,7 +184,7 @@ def test_guard_turns_approve_into_refer(saved_model_dir):
     applicant["AMT_INCOME_TOTAL"] = artifacts["reference"]["numeric"]["AMT_INCOME_TOTAL"]["high"] * 10
     out = predict(applicant, artifacts)
     assert out["decision"] == "refer"
-    assert out["warnings"] and out["warnings"][0].startswith("AMT_INCOME_TOTAL")
+    assert out["warnings"] and out["warnings"][0].startswith("Annual income")
 
 
 def test_guard_never_softens_a_decline(saved_model_dir):

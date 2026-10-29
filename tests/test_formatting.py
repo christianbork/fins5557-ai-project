@@ -1,9 +1,21 @@
 """Tests for src/formatting.py."""
 
 import numpy as np
+import pandas as pd
 import pytest
 
-from src.formatting import count, missing, money, money_short, number, pct, pct_points, ratio, score
+from src.formatting import (
+    count,
+    format_table,
+    missing,
+    money,
+    money_short,
+    number,
+    pct,
+    pct_points,
+    ratio,
+    score,
+)
 
 EMPTY = [None, float("nan"), np.nan, np.float64("nan")]
 
@@ -94,3 +106,10 @@ def test_count(n, expected):
 def test_count_irregular_plural():
     assert count(1, "row has", "rows have") == "1 row has"
     assert count(3, "row has", "rows have") == "3 rows have"
+
+
+def test_format_table_shows_text_and_dashes_never_none():
+    df = pd.DataFrame({"rate": [0.5, np.nan], "group": ["Female", None], "n": [10, 1]})
+    out = format_table(df, {"rate": pct, "n": number})
+    assert out.to_dict("list") == {"rate": ["50.0%", "–"], "group": ["Female", "–"], "n": ["10", "1"]}
+    assert df["rate"].isna().sum() == 1  # the input is not changed

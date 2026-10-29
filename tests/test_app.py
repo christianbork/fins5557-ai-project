@@ -35,9 +35,9 @@ def test_page_loads_without_errors(app):
     ("example", "badge"),
     [
         (EXAMPLES[0], ":green-badge[Approve]"),
-        (EXAMPLES[1], ":orange-badge[Refer to an analyst]"),
+        (EXAMPLES[1], ":orange-badge[Refer]"),
         (EXAMPLES[2], ":red-badge[Decline]"),
-        (EXAMPLES[5], ":orange-badge[Refer to an analyst]"),
+        (EXAMPLES[5], ":orange-badge[Refer]"),
     ],
 )
 def test_examples_get_their_decision(app, example, badge):
@@ -64,7 +64,7 @@ def test_invalid_input_shows_an_error_not_a_crash(app):
     app.number_input(key="f_AMT_CREDIT").set_value(0.0)  # form values only apply on submit
     app.button(key="FormSubmitter:applicant-Assess applicant").click().run()
     assert not app.exception
-    assert any("Loan amount: must be at least 1" in e.value for e in app.error)
+    assert any("Loan amount ($): must be at least 1" in e.value for e in app.error)
     assert not app.metric  # nothing scored
 
 
@@ -115,10 +115,10 @@ def test_batch_page_asks_for_an_upload():
 def test_batch_page_scores_the_examples():
     page = use_examples(batch_page())
     assert not page.exception and not page.error
-    assert "Scored 6 applicant(s)" in page.success[0].value
+    assert "Scored 6 applicants" in page.success[0].value
     results = page.dataframe[0].value
-    assert list(results["decision"]) == ["approve", "refer", "decline", "approve", "approve", "refer"]
-    assert (results.loc[results["decision"] != "approve", "reasons"] != "").all()
+    assert list(results["decision"]) == ["Approve", "Refer", "Decline", "Approve", "Approve", "Refer"]
+    assert (results.loc[results["decision"] != "Approve", "reasons"] != "").all()
 
 
 def test_batch_page_lists_bad_rows_and_scores_the_rest(tmp_path, monkeypatch):
@@ -131,7 +131,7 @@ def test_batch_page_lists_bad_rows_and_scores_the_rest(tmp_path, monkeypatch):
     page = use_examples(batch_page())
     st.cache_data.clear()
     assert not page.exception
-    assert "1 of 7 row(s) have input errors" in page.warning[0].value
-    assert "Scored 6 applicant(s)" in page.success[0].value
+    assert "1 of 7 rows have input errors" in page.warning[0].value
+    assert "Scored 6 applicants" in page.success[0].value
     error_table = page.dataframe[0].value
     assert error_table.iloc[0]["Column"] == "EXT_SOURCE_2" and error_table.iloc[0]["Line in file"] == 8

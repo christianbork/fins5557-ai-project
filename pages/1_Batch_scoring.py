@@ -11,7 +11,9 @@ import pandas as pd
 import streamlit as st
 
 from src.applicant import label
-from src.config import DATA_DIR, MAX_BATCH_ROWS, MAX_UPLOAD_MB, RAW_INPUTS
+from src.config import CURRENCY_NOTE, DATA_DIR, MAX_BATCH_ROWS, MAX_UPLOAD_MB, RAW_INPUTS
+from src.formatting import MONEY_COLUMN, PCT_COLUMN, count, money, pct
+from src.labels import COLUMNS, DECISIONS, column_label, decision_label
 from src.predict import load_artifacts, predict_batch
 from src.validation import read_csv_upload, validate_batch
 
@@ -42,7 +44,7 @@ lgd = meta["assumptions"]["lgd"]
 st.title("Batch scoring")
 st.caption(
     "Score many applicants at once: the same checks, model and decision rule as the screening page. "
-    f"Up to {MAX_BATCH_ROWS:,} rows and {MAX_UPLOAD_MB} MB per file."
+    f"Up to {count(MAX_BATCH_ROWS, 'row')} and {MAX_UPLOAD_MB} MB per file."
 )
 
 with st.expander("What the file needs"):
@@ -86,24 +88,16 @@ except ValueError as e:  # whole-file problems: no rows, too many rows, missing 
 
 if len(errors):
     rejected = errors["row"].nunique()
-    st.warning(f"{rejected:,} of {len(batch):,} row(s) have input errors and were not scored. The rest were.")
-    with st.expander(f"Rows with errors ({len(errors):,} problem(s))", expanded=rejected <= 20):
+    st.warning(
+        f"{rejected:,} of {count(len(batch), 'row has', 'rows have')} input errors and were not scored. "
+        "The rest were."
+    )
+    with st.expander(f"Rows with errors ({count(len(errors), 'problem')})", expanded=rejected <= 20):
         shown = errors.assign(
             csv_line=errors["row"] + 2,  # +1 for the header, +1 because CSV lines count from 1
             field_label=errors["field"].map(label),
-        )[["csv_line", "field", "field_label", "problem"]]
-        st.dataframe(
-            shown.rename(
-                columns={
-                    "csv_line": "Line in file",
-                    "field": "Column",
-                    "field_label": "Field",
-                    "problem": "Problem",
-                }
-            ),
-            hide_index=True,
-            width="stretch",
-        )
+        )[["csv_line", "field", "field_label", "problem"]].rename(columns=COLUMNS)
+        st.dataframe(shown, hide_index=True, width="stretch")
         st.download_button(
             "Download the error list (CSV)", shown.to_csv(index=False), file_name="batch_errors.csv"
         )
@@ -113,7 +107,7 @@ if valid.empty:
 
 try:
     start = time.perf_counter()
-    with st.spinner(f"Scoring {len(valid):,} applicant(s)..."):
+    with st.spinner(f"Scoring {count(len(valid), 'applicant')}..."):
         scored = predict_batch(valid, artifacts, with_reasons=True)
     seconds = time.perf_counter() - start
 except Exception as e:  # noqa: BLE001 (show any scoring failure instead of crashing the page)
@@ -121,26 +115,31 @@ except Exception as e:  # noqa: BLE001 (show any scoring failure instead of cras
     st.stop()
 scored["expected_loss"] = scored["pd"] * lgd * scored["AMT_CREDIT"]
 
-st.success(f"Scored {len(scored):,} applicant(s) in {seconds:.1f} s.")
+st.success(f"Scored {count(len(scored), 'applicant')} in {seconds:.1f} s.")
 shares = scored["decision"].value_counts(normalize=True)
 cols = st.columns(5)
-cols[0].metric("Approve", f"{shares.get('approve', 0):.1%}")
-cols[1].metric("Refer", f"{shares.get('refer', 0):.1%}")
-cols[2].metric("Decline", f"{shares.get('decline', 0):.1%}")
+for col, (code, name) in zip(cols, DECISIONS.items(), strict=False):
+    col.metric(name, pct(shares.get(code, 0)))
 cols[3].metric(
-    "Mean PD", f"{scored['pd'].mean():.1%}", help=f"Test split: {meta['test_metrics']['mean_pd']:.1%}"
+    "Mean PD",
+    pct(scored["pd"].mean()),
+    help=f"Probability of default, averaged over the batch. Test split: {pct(meta['test_metrics']['mean_pd'])}.",
 )
 cols[4].metric(
-    "Expected loss", f"{scored['expected_loss'].sum():,.0f}", help="Sum of PD × LGD × loan amount."
+    "Expected loss",
+    money(scored["expected_loss"].sum()),
+    help="Sum of PD × LGD × loan amount (LGD = loss given default).",
 )
-if (scored["warnings"] != "").any():
+st.caption(CURRENCY_NOTE)
+guarded = (scored["warnings"] != "").sum()
+if guarded:
     st.warning(
-        f"{(scored['warnings'] != '').sum():,} applicant(s) had an input outside the range of past approved "
-        "applicants and were referred to an analyst instead of approved (see the warnings column)."
+        f"{count(guarded, 'applicant')} had an input outside the range of past approved applicants and "
+        f"{'was' if guarded == 1 else 'were'} referred to an analyst instead of approved (see the Warnings column)."
     )
 
 st.subheader("Results")
-decisions = st.multiselect("Show", ["approve", "refer", "decline"], default=["approve", "refer", "decline"])
+decisions = st.multiselect("Show", list(DECISIONS), default=list(DECISIONS), format_func=decision_label)
 id_cols = [
     c
     for c in scored.columns
@@ -148,25 +147,28 @@ id_cols = [
 ]
 view = scored[scored["decision"].isin(decisions)][
     [*id_cols, "AMT_CREDIT", "pd", "decision", "reasons", "warnings"]
-]
+].assign(pd=lambda d: d["pd"] * 100, decision=lambda d: d["decision"].map(decision_label))
 st.dataframe(
     view.head(500),
-    column_config={
-        "AMT_CREDIT": st.column_config.NumberColumn("Loan amount", format="%,.0f"),
-        "pd": st.column_config.ProgressColumn("PD", format="percent", min_value=0, max_value=1),
-        "decision": "Decision",
-        "reasons": "Main reasons (refer / decline)",
-        "warnings": "Warnings",
+    column_config={c: column_label(c) for c in view.columns}
+    | {
+        "AMT_CREDIT": st.column_config.NumberColumn("Loan amount", format=MONEY_COLUMN),
+        "pd": st.column_config.ProgressColumn("PD", format=PCT_COLUMN, min_value=0, max_value=100),
     },
     hide_index=True,
     width="stretch",
 )
 if len(view) > 500:
     st.caption(f"Showing the first 500 of {len(view):,} rows; the download has all of them.")
+# The input columns keep their codes, so the file can be uploaded again; the added columns get headers.
+added = ["pd", "decision", "reasons", "warnings", "expected_loss"]
+results = scored.assign(decision=scored["decision"].map(decision_label)).rename(
+    columns={c: COLUMNS[c] for c in added}
+)
 st.download_button(
     "Download all results (CSV)",
-    scored.to_csv(index=False),
+    results.round(4).to_csv(index=False),
     file_name="batch_results.csv",
     type="primary",
-    help="Your columns plus pd, decision, reasons, warnings and expected_loss.",
+    help="Your columns plus PD, decision, reasons, warnings and expected loss (USD display assumption).",
 )
