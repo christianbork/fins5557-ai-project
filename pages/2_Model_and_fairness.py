@@ -7,9 +7,9 @@ deployed app. Regenerate them with `python -m src.train` or `python -m src.repor
 
 import json
 
-import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
+from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.config import (
     DI_THRESHOLD,
@@ -127,7 +127,8 @@ if r["v1"] is not None:
 
 roc_col, rel_col = st.columns(2)
 with roc_col:
-    fig, ax = plt.subplots(figsize=(5, 4.2))
+    fig = Figure(figsize=(5, 4.2))
+    ax = fig.subplots()
     for model, points in r["roc"].groupby("model"):
         ax.plot(
             points["fpr"],
@@ -144,7 +145,8 @@ with roc_col:
     ax.legend(fontsize=8, loc="lower right")
     st.pyplot(fig, clear_figure=True)
 with rel_col:
-    fig, ax = plt.subplots(figsize=(5, 4.2))
+    fig = Figure(figsize=(5, 4.2))
+    ax = fig.subplots()
     for series, points in r["reliability"].groupby("series", sort=False):
         ax.plot(points["mean_predicted"], points["observed"], "o-", label=series)
     top = r["reliability"][["mean_predicted", "observed"]].to_numpy().max()
@@ -171,7 +173,8 @@ st.write(
     f"The cut-off that earned the most on the validation split is **{meta['threshold']:.1%}**. Applicants within "
     f"{meta['refer_band']:.0%} of it are referred to an analyst."
 )
-fig, ax = plt.subplots(figsize=(9, 3.6))
+fig = Figure(figsize=(9, 3.6))
+ax = fig.subplots()
 profit = r["profit"]
 ax.plot(profit["threshold"], profit["realised_profit"] / 1e9, color="#1f618d")
 ax.axvline(
