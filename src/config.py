@@ -119,6 +119,11 @@ MARGIN = 0.15  # net margin over the loan's life, after funding and operating co
 EAD_COLUMN = "AMT_CREDIT"  # exposure at default = the loan amount (conservative: no repayments yet)
 # Break-even PD = MARGIN / (MARGIN + LGD) = 20%: above it, a loan is expected to lose money.
 REFER_BAND = 0.02  # PDs within +/- 2 points of the cut-off go to an analyst (check the share after training)
+# Display only (decided 29 Oct): Home Credit's data doesn't state its currency, so amounts are shown in USD
+# for readability, with this note on every page that shows money. No conversion is applied.
+CURRENCY_SYMBOL = "$"
+CURRENCY_CODE = "USD"
+CURRENCY_NOTE = "Amounts in USD (display assumption: Home Credit's data doesn't state its currency)."
 CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier score is used
 
 # ---- Input validation and the out-of-range guard ---------------------------------
