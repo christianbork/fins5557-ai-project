@@ -14,6 +14,7 @@ from __future__ import annotations
 import pandas as pd
 
 from src.applicant import FIELDS, label
+from src.config import MIN_AUC_GAIN
 from src.formatting import score
 
 DECISIONS = {"approve": "Approve", "refer": "Refer", "decline": "Decline"}
@@ -121,7 +122,9 @@ def flag_text(flags: str) -> str:
     return "; ".join(f[:1].upper() + f[1:] for f in flags.split("; ")) if flags else ""
 
 
-def model_choice_reason(comparison: pd.DataFrame, baseline: str, min_gain: float) -> str:
+def model_choice_reason(
+    comparison: pd.DataFrame, baseline: str = "logistic_regression", min_gain: float = MIN_AUC_GAIN
+) -> str:
     """The sentence explaining the model choice (src.train.choose_model), from the validation AUCs
     in comparison (rows = model codes), using display names."""
     best = comparison["auc"].idxmax()
