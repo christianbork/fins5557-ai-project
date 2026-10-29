@@ -168,7 +168,11 @@ def test_ollama_request_uses_timeout_and_no_streaming(monkeypatch):
 # ---- Gemini (public demo backend) ------------------------------------------------------------
 def test_gemini_good_letter_is_used(monkeypatch):
     monkeypatch.setattr(llm, "_call_gemini", fake_ollama(GOOD_LETTER))
-    assert draft_letter("decline", REASONS, backend="gemini") == {"text": GOOD_LETTER, "backend": "gemini", "warning": None}
+    assert draft_letter("decline", REASONS, backend="gemini") == {
+        "text": GOOD_LETTER,
+        "backend": "gemini",
+        "warning": None,
+    }
 
 
 def test_gemini_without_a_key_falls_back(monkeypatch):
@@ -178,7 +182,9 @@ def test_gemini_without_a_key_falls_back(monkeypatch):
 
 
 def test_unsafe_gemini_letter_is_replaced(monkeypatch):
-    monkeypatch.setattr(llm, "_call_gemini", fake_ollama("Dear Applicant, at your age we can't lend. Credit officer."))
+    monkeypatch.setattr(
+        llm, "_call_gemini", fake_ollama("Dear Applicant, at your age we can't lend. Credit officer.")
+    )
     letter = draft_letter("decline", REASONS, backend="gemini")
     assert letter["backend"] == "template" and "protected attribute ('age')" in letter["warning"]
 
@@ -190,11 +196,26 @@ def _api_error(cls, code, message, status):
 @pytest.mark.parametrize(
     ("make_error", "warning"),
     [
-        (lambda: _api_error(genai_errors.ClientError, 429, "Quota exceeded", "RESOURCE_EXHAUSTED"), "quota is used up"),
-        (lambda: _api_error(genai_errors.ClientError, 404, "model not found", "NOT_FOUND"), "isn't available"),
-        (lambda: _api_error(genai_errors.ClientError, 400, "API key not valid", "INVALID_ARGUMENT"), "key was rejected"),
-        (lambda: _api_error(genai_errors.ClientError, 400, "bad request", "INVALID_ARGUMENT"), "refused the request (400"),
-        (lambda: _api_error(genai_errors.ServerError, 503, "overloaded", "UNAVAILABLE"), "server error (503)"),
+        (
+            lambda: _api_error(genai_errors.ClientError, 429, "Quota exceeded", "RESOURCE_EXHAUSTED"),
+            "quota is used up",
+        ),
+        (
+            lambda: _api_error(genai_errors.ClientError, 404, "model not found", "NOT_FOUND"),
+            "isn't available",
+        ),
+        (
+            lambda: _api_error(genai_errors.ClientError, 400, "API key not valid", "INVALID_ARGUMENT"),
+            "key was rejected",
+        ),
+        (
+            lambda: _api_error(genai_errors.ClientError, 400, "bad request", "INVALID_ARGUMENT"),
+            "refused the request (400",
+        ),
+        (
+            lambda: _api_error(genai_errors.ServerError, 503, "overloaded", "UNAVAILABLE"),
+            "server error (503)",
+        ),
         (lambda: httpx.ReadTimeout("slow"), "took longer than"),
         (lambda: httpx.ConnectError("offline"), "couldn't reach Gemini"),
         (lambda: RuntimeError("something else"), "unexpected error from Gemini (RuntimeError)"),
@@ -222,14 +243,20 @@ def test_gemini_request_uses_timeout_no_retries_and_only_the_prompt(monkeypatch)
 
     class FakeClient:
         def __init__(self, api_key, http_options):
-            seen.update(api_key=api_key, timeout=http_options.timeout, attempts=http_options.retry_options.attempts)
+            seen.update(
+                api_key=api_key, timeout=http_options.timeout, attempts=http_options.retry_options.attempts
+            )
             self.models = FakeModels()
 
     monkeypatch.setattr(llm, "GOOGLE_API_KEY", "test-key")
     monkeypatch.setattr("google.genai.Client", FakeClient)
     assert llm._call_gemini("the prompt") == "letter"
     assert seen["timeout"] == llm.LLM_TIMEOUT_SECONDS * 1000 and seen["attempts"] == 1
-    assert seen["contents"] == "the prompt" and seen["model"] == llm.GEMINI_MODEL and seen["api_key"] == "test-key"
+    assert (
+        seen["contents"] == "the prompt"
+        and seen["model"] == llm.GEMINI_MODEL
+        and seen["api_key"] == "test-key"
+    )
 
 
 def _fake_gemini_client(monkeypatch, outcomes):
@@ -267,7 +294,9 @@ def test_quota_error_also_tries_the_backup(monkeypatch):
 
 
 def test_other_gemini_errors_do_not_try_the_backup(monkeypatch):
-    calls = _fake_gemini_client(monkeypatch, [_api_error(genai_errors.ClientError, 404, "no model", "NOT_FOUND")])
+    calls = _fake_gemini_client(
+        monkeypatch, [_api_error(genai_errors.ClientError, 404, "no model", "NOT_FOUND")]
+    )
     with pytest.raises(genai_errors.ClientError):
         llm._call_gemini("prompt")
     assert calls == [llm.GEMINI_MODEL]

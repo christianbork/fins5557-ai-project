@@ -1,4 +1,5 @@
 """Tests for src/features.py, using the small fake dataset from test_data.py."""
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -18,7 +19,9 @@ def test_safe_divide_bad_denominators_give_missing():
 def test_engineered_features_values():
     df = make_fake(2)
     df[["AMT_INCOME_TOTAL", "AMT_CREDIT", "AMT_ANNUITY", "AMT_GOODS_PRICE", "CNT_FAM_MEMBERS"]] = [
-        [100_000, 300_000, 15_000, 270_000, 2], [50_000, 100_000, 0, 100_000, 1]]
+        [100_000, 300_000, 15_000, 270_000, 2],
+        [50_000, 100_000, 0, 100_000, 1],
+    ]
     df[["EXT_SOURCE_1", "EXT_SOURCE_2", "EXT_SOURCE_3"]] = [[np.nan, 0.4, 0.6], [np.nan, np.nan, np.nan]]
     out = add_features(df)
     assert out["credit_income_ratio"].tolist() == [3.0, 2.0]

@@ -4,6 +4,7 @@ Locally, keys come from a .env file (see .env.example).
 On Streamlit Cloud, add the same keys under App settings -> Secrets.
 Keys are never hardcoded or printed.
 """
+
 import os
 import sys
 from pathlib import Path
@@ -98,7 +99,9 @@ FEATURE_SET = "full"  # change this one setting to train on a different feature 
 RARE_CATEGORY_SHARE = 0.01  # categories rarer than 1% of training rows are grouped together
 
 # ---- Training ---------------------------------------------------------------
-CV_FOLDS = 3  # stratified K-fold on the training split, used for tuning only (3 keeps it to minutes on 184k rows)
+CV_FOLDS = (
+    3  # stratified K-fold on the training split, used for tuning only (3 keeps it to minutes on 184k rows)
+)
 N_ITER = 30  # random settings tried per tree model (RandomizedSearchCV); logistic regression uses a full grid
 # CV scores for tuning: refit (choose settings) on AUC, also record PR-AUC, which focuses on the
 # rare defaulters. Model v2 (Step 5c); v1 used small fixed grids and fixed class weights.

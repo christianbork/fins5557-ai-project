@@ -1,4 +1,5 @@
 """Tests for src/threshold.py: decisions at the band edges, the profit maths and the profit curve."""
+
 import numpy as np
 import pytest
 
@@ -13,15 +14,18 @@ from src.threshold import (
 )
 
 
-@pytest.mark.parametrize("pd_, expected", [
-    (0.0, "approve"),
-    (0.1999, "approve"),
-    (0.20, "refer"),  # lower edge (threshold - band) is referred
-    (0.25, "refer"),
-    (0.30, "refer"),  # upper edge (threshold + band) is referred
-    (0.3001, "decline"),
-    (1.0, "decline"),
-])
+@pytest.mark.parametrize(
+    "pd_, expected",
+    [
+        (0.0, "approve"),
+        (0.1999, "approve"),
+        (0.20, "refer"),  # lower edge (threshold - band) is referred
+        (0.25, "refer"),
+        (0.30, "refer"),  # upper edge (threshold + band) is referred
+        (0.3001, "decline"),
+        (1.0, "decline"),
+    ],
+)
 def test_decide_band_edges(pd_, expected):
     assert decide(pd_, threshold=0.25, band=0.05) == expected
 
@@ -78,7 +82,9 @@ def test_threshold_comparison_reports_both_rules(trained):
     comparison = trained[1]["threshold_comparison"]
     assert list(comparison.index) == ["profit", "balanced_accuracy"]
     assert comparison.loc["profit", "cutoff"] == trained[1]["threshold"]
-    assert {"approval_rate", "tpr", "tnr", "precision", "balanced_accuracy", "realised_profit"} <= set(comparison)
+    assert {"approval_rate", "tpr", "tnr", "precision", "balanced_accuracy", "realised_profit"} <= set(
+        comparison
+    )
 
 
 def test_balanced_accuracy_cut_off_declines_more_when_defaulters_are_rare():

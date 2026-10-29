@@ -1,5 +1,6 @@
 """Tests for src/data.py. They use a small fake dataset shaped like Home Credit's
 application_train.csv, so no download is needed (CI never sees the real data)."""
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -20,8 +21,12 @@ CATEGORY_VALUES = {
     "FLAG_OWN_CAR": ["Y", "N"],
     "FLAG_OWN_REALTY": ["Y", "N"],
     "NAME_INCOME_TYPE": ["Working", "Pensioner", "Commercial associate", "State servant"],
-    "NAME_EDUCATION_TYPE": ["Secondary / secondary special", "Higher education", "Incomplete higher",
-                            "Lower secondary"],
+    "NAME_EDUCATION_TYPE": [
+        "Secondary / secondary special",
+        "Higher education",
+        "Incomplete higher",
+        "Lower secondary",
+    ],
     "NAME_HOUSING_TYPE": ["House / apartment", "With parents", "Rented apartment"],
     "OCCUPATION_TYPE": ["Laborers", "Sales staff", "Core staff", "Managers", None],
     "ORGANIZATION_TYPE": ["Business Entity Type 3", "Self-employed", "School", "XNA", "Bank"],
@@ -33,26 +38,32 @@ def make_fake(n: int = 1000, seed: int = 0) -> pd.DataFrame:
     rng = np.random.default_rng(seed)
     income = rng.integers(5, 60, n) * 5_000.0
     credit = income * rng.uniform(0.5, 6, n)
-    df = pd.DataFrame({
-        ID_COLUMN: np.arange(100_000, 100_000 + n),
-        "AMT_INCOME_TOTAL": income,
-        "AMT_CREDIT": credit.round(),
-        "AMT_ANNUITY": (credit / rng.integers(10, 60, n)).round(),
-        "AMT_GOODS_PRICE": (credit * rng.uniform(0.8, 1.0, n)).round(),
-        "CNT_CHILDREN": rng.integers(0, 4, n),
-        "DAYS_EMPLOYED": np.where(rng.random(n) < 0.18, DAYS_EMPLOYED_SENTINEL, -rng.integers(30, 12_000, n)),
-        "DAYS_REGISTRATION": -rng.integers(0, 20_000, n).astype(float),
-        "DAYS_ID_PUBLISH": -rng.integers(0, 7_000, n),
-        "OWN_CAR_AGE": np.where(rng.random(n) < 0.65, np.nan, rng.integers(0, 30, n)),
-        "REGION_RATING_CLIENT_W_CITY": rng.integers(1, 4, n),
-        "EXT_SOURCE_1": np.where(rng.random(n) < 0.56, np.nan, rng.random(n)),
-        "EXT_SOURCE_2": np.where(rng.random(n) < 0.01, np.nan, rng.random(n)),
-        "EXT_SOURCE_3": np.where(rng.random(n) < 0.20, np.nan, rng.random(n)),
-        "AMT_REQ_CREDIT_BUREAU_YEAR": np.where(rng.random(n) < 0.13, np.nan, rng.integers(0, 6, n)),
-        "CODE_GENDER": rng.choice(["F", "M"], n, p=[0.66, 0.34]),
-        "DAYS_BIRTH": -rng.integers(21 * 365, 69 * 365, n),
-        "NAME_FAMILY_STATUS": rng.choice(["Married", "Single / not married", "Civil marriage", "Widow"], n),
-    })
+    df = pd.DataFrame(
+        {
+            ID_COLUMN: np.arange(100_000, 100_000 + n),
+            "AMT_INCOME_TOTAL": income,
+            "AMT_CREDIT": credit.round(),
+            "AMT_ANNUITY": (credit / rng.integers(10, 60, n)).round(),
+            "AMT_GOODS_PRICE": (credit * rng.uniform(0.8, 1.0, n)).round(),
+            "CNT_CHILDREN": rng.integers(0, 4, n),
+            "DAYS_EMPLOYED": np.where(
+                rng.random(n) < 0.18, DAYS_EMPLOYED_SENTINEL, -rng.integers(30, 12_000, n)
+            ),
+            "DAYS_REGISTRATION": -rng.integers(0, 20_000, n).astype(float),
+            "DAYS_ID_PUBLISH": -rng.integers(0, 7_000, n),
+            "OWN_CAR_AGE": np.where(rng.random(n) < 0.65, np.nan, rng.integers(0, 30, n)),
+            "REGION_RATING_CLIENT_W_CITY": rng.integers(1, 4, n),
+            "EXT_SOURCE_1": np.where(rng.random(n) < 0.56, np.nan, rng.random(n)),
+            "EXT_SOURCE_2": np.where(rng.random(n) < 0.01, np.nan, rng.random(n)),
+            "EXT_SOURCE_3": np.where(rng.random(n) < 0.20, np.nan, rng.random(n)),
+            "AMT_REQ_CREDIT_BUREAU_YEAR": np.where(rng.random(n) < 0.13, np.nan, rng.integers(0, 6, n)),
+            "CODE_GENDER": rng.choice(["F", "M"], n, p=[0.66, 0.34]),
+            "DAYS_BIRTH": -rng.integers(21 * 365, 69 * 365, n),
+            "NAME_FAMILY_STATUS": rng.choice(
+                ["Married", "Single / not married", "Civil marriage", "Widow"], n
+            ),
+        }
+    )
     df["CNT_FAM_MEMBERS"] = (df["CNT_CHILDREN"] + rng.integers(1, 3, n)).astype(float)
     for col, values in CATEGORY_VALUES.items():
         df[col] = rng.choice(np.array(values, dtype=object), n)

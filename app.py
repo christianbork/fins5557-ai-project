@@ -212,7 +212,9 @@ if submitted:
         try:
             with st.spinner("Scoring the applicant..."):
                 st.session_state["result"] = predict(applicant, artifacts)
-                st.session_state["assessment_id"] = log_assessment(applicant, st.session_state["result"], meta)
+                st.session_state["assessment_id"] = log_assessment(
+                    applicant, st.session_state["result"], meta
+                )
                 st.session_state["ead"] = applicant["AMT_CREDIT"]
         except Exception:  # show any scoring failure instead of crashing the page
             log.exception("Scoring one applicant failed")

@@ -11,6 +11,7 @@ Typical use (notebooks and src/train.py):
 The pipeline pattern (preprocessing + model in one sklearn object) follows Code Bank W06-04,
 extended with a ColumnTransformer so numeric and categorical columns are treated differently.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -105,18 +106,27 @@ def build_preprocessor(feature_set: str = FEATURE_SET) -> ColumnTransformer:
     It must be fitted on training data only, which happens automatically inside the model Pipeline.
     """
     numeric, categorical = feature_columns(feature_set)
-    numeric_steps = Pipeline([
-        ("impute", SimpleImputer(strategy="median", add_indicator=True, keep_empty_features=True)),
-        ("scale", StandardScaler()),
-    ])
-    categorical_steps = Pipeline([
-        ("impute", SimpleImputer(strategy="constant", fill_value="Unknown")),
-        ("encode", OneHotEncoder(handle_unknown="infrequent_if_exist", min_frequency=RARE_CATEGORY_SHARE,
-                                 sparse_output=False)),
-    ])
+    numeric_steps = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="median", add_indicator=True, keep_empty_features=True)),
+            ("scale", StandardScaler()),
+        ]
+    )
+    categorical_steps = Pipeline(
+        [
+            ("impute", SimpleImputer(strategy="constant", fill_value="Unknown")),
+            (
+                "encode",
+                OneHotEncoder(
+                    handle_unknown="infrequent_if_exist",
+                    min_frequency=RARE_CATEGORY_SHARE,
+                    sparse_output=False,
+                ),
+            ),
+        ]
+    )
     return ColumnTransformer(
         [("num", numeric_steps, numeric), ("cat", categorical_steps, categorical)],
         remainder="drop",
         verbose_feature_names_out=False,
     )
-
