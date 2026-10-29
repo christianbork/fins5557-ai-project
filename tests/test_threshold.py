@@ -5,6 +5,7 @@ import pytest
 from src.threshold import (
     break_even_pd,
     choose_threshold,
+    compare_thresholds,
     decide,
     expected_profit,
     profit_curve,
@@ -71,3 +72,24 @@ def test_calibrate_and_set_threshold_result(trained):
     assert decision["method"] in decision["brier"]
     assert set(decision["test"]["decision_shares"]) == {"approve", "refer", "decline"}
     assert sum(decision["test"]["decision_shares"].values()) == pytest.approx(1)
+
+
+def test_threshold_comparison_reports_both_rules(trained):
+    comparison = trained[1]["threshold_comparison"]
+    assert list(comparison.index) == ["profit", "balanced_accuracy"]
+    assert comparison.loc["profit", "cutoff"] == trained[1]["threshold"]
+    assert {"approval_rate", "tpr", "tnr", "precision", "balanced_accuracy", "realised_profit"} <= set(comparison)
+
+
+def test_balanced_accuracy_cut_off_declines_more_when_defaulters_are_rare():
+    """At an 8% default rate balanced accuracy treats a missed defaulter as ~11x a lost good customer,
+    the profit rule (LGD 60%, margin 15%) as 4x, so the balanced-accuracy cut-off is lower."""
+    rng = np.random.default_rng(1)
+    y = (rng.random(20_000) < 0.08).astype(int)
+    pd_ = np.clip(rng.beta(2, 20, 20_000) + 0.12 * y, 0, 1)  # PDs that rank defaulters higher
+    profit_cut = choose_threshold(profit_curve(pd_, y, ead=1.0))
+    table = compare_thresholds(pd_, y, pd_, y, 1.0, profit_cut)
+    assert table.loc["balanced_accuracy", "cutoff"] < table.loc["profit", "cutoff"]
+    assert table.loc["balanced_accuracy", "approval_rate"] < table.loc["profit", "approval_rate"]
+    assert table.loc["balanced_accuracy", "tpr"] > table.loc["profit", "tpr"]
+    assert table.loc["profit", "realised_profit"] >= table.loc["balanced_accuracy", "realised_profit"]

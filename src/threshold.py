@@ -10,6 +10,7 @@ Called by `python -m src.train` after the model is chosen:
 3. Decide: approve below the cut-off, decline above it, refer a band around it to an analyst.
 4. Report the test split once, at the chosen cut-off.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -27,13 +28,14 @@ from src.config import (
     RANDOM_STATE,
     REFER_BAND,
 )
-from src.metrics import evaluate
+from src.metrics import balanced_accuracy_threshold, evaluate
 
 APPROVE, REFER, DECLINE = "approve", "refer", "decline"
 THRESHOLD_GRID = np.round(np.arange(0.01, 0.80, 0.005), 3)
 
 
 # ---- 1. Calibration --------------------------------------------------------------
+
 
 def calibrate(model, X_val, y_val, method: str) -> CalibratedClassifierCV:
     """Fit a calibrator on top of the already-trained model (the model itself is frozen, not refitted)."""
@@ -49,8 +51,13 @@ def compare_calibration(model, X_val, y_val, methods=CALIBRATION_METHODS, folds:
     """
     cv = StratifiedKFold(n_splits=folds, shuffle=True, random_state=RANDOM_STATE)
     oof = {
-        m: cross_val_predict(CalibratedClassifierCV(FrozenEstimator(model), method=m), X_val, y_val,
-                             cv=cv, method="predict_proba")[:, 1]
+        m: cross_val_predict(
+            CalibratedClassifierCV(FrozenEstimator(model), method=m),
+            X_val,
+            y_val,
+            cv=cv,
+            method="predict_proba",
+        )[:, 1]
         for m in methods
     }
     brier = {m: brier_score_loss(y_val, p) for m, p in oof.items()}
@@ -58,6 +65,7 @@ def compare_calibration(model, X_val, y_val, methods=CALIBRATION_METHODS, folds:
 
 
 # ---- 2. Profit and threshold -----------------------------------------------------
+
 
 def break_even_pd(lgd: float = LGD, margin: float = MARGIN) -> float:
     """PD at which approving is expected to break even: (1 - PD) x margin = PD x LGD."""
@@ -85,15 +93,20 @@ def realised_profit(pd_, y, threshold: float, lgd: float = LGD, margin: float = 
     return float(np.sum(approved * ead * np.where(y == 1, -lgd, margin)))
 
 
-def profit_curve(pd_, y, ead, thresholds=THRESHOLD_GRID, lgd: float = LGD, margin: float = MARGIN) -> pd.DataFrame:
+def profit_curve(
+    pd_, y, ead, thresholds=THRESHOLD_GRID, lgd: float = LGD, margin: float = MARGIN
+) -> pd.DataFrame:
     """Realised and expected profit, and approval rate, at each candidate cut-off."""
     pd_ = np.asarray(pd_, dtype=float)
-    rows = [{
-        "threshold": t,
-        "approval_rate": float(np.mean(pd_ < t)),
-        "realised_profit": realised_profit(pd_, y, t, lgd, margin, ead),
-        "expected_profit": expected_profit(pd_, t, lgd, margin, ead),
-    } for t in thresholds]
+    rows = [
+        {
+            "threshold": t,
+            "approval_rate": float(np.mean(pd_ < t)),
+            "realised_profit": realised_profit(pd_, y, t, lgd, margin, ead),
+            "expected_profit": expected_profit(pd_, t, lgd, margin, ead),
+        }
+        for t in thresholds
+    ]
     return pd.DataFrame(rows)
 
 
@@ -103,6 +116,7 @@ def choose_threshold(curve: pd.DataFrame) -> float:
 
 
 # ---- 3. Decision -----------------------------------------------------------------
+
 
 def decide(pd_, threshold: float, band: float = REFER_BAND):
     """approve / refer / decline for one PD (returns a str) or many (returns an array).
@@ -121,6 +135,7 @@ def decide(pd_, threshold: float, band: float = REFER_BAND):
 
 # ---- 4. Final test report -----------------------------------------------------------
 
+
 def test_report(pd_, y, ead, threshold: float, band: float = REFER_BAND) -> dict:
     """Test-split results at the chosen cut-off, reported once.
 
@@ -135,8 +150,12 @@ def test_report(pd_, y, ead, threshold: float, band: float = REFER_BAND) -> dict
     return {
         **{k: float(v) for k, v in evaluate(y, pd_, threshold).items()},
         "threshold": threshold,
-        "confusion_matrix": {"approved_repaid": int(tn), "declined_repaid": int(fp),
-                             "approved_defaulted": int(fn), "declined_defaulted": int(tp)},
+        "confusion_matrix": {
+            "approved_repaid": int(tn),
+            "declined_repaid": int(fp),
+            "approved_defaulted": int(fn),
+            "declined_defaulted": int(tp),
+        },
         "approval_rate": float(approved.mean()),
         "default_rate_approved": float(y[approved].mean()) if approved.any() else None,
         "default_rate_all": float(y.mean()),
@@ -144,6 +163,32 @@ def test_report(pd_, y, ead, threshold: float, band: float = REFER_BAND) -> dict
         "realised_profit": realised_profit(pd_, y, threshold, ead=ead),
         "mean_pd": float(pd_.mean()),
     }
+
+
+def compare_thresholds(val_pd, y_val, test_pd, y_test, test_ead, profit_threshold: float) -> pd.DataFrame:
+    """The profit cut-off (what the app uses) next to the balanced-accuracy cut-off (the Big Data
+    exam's method), both chosen on the validation PDs and reported on the test split.
+
+    Balanced accuracy weighs the two classes equally, so with 8% defaulters a missed defaulter
+    implicitly costs (1 - 0.08) / 0.08, about 11 times a wrongly declined good customer. The
+    lender's economics say LGD / margin = 0.60 / 0.15 = 4 times (a default loses 60% of the loan,
+    a lost good customer forgoes a 15% margin). So the balanced-accuracy cut-off declines more people.
+    """
+    test_pd, y_test = np.asarray(test_pd, dtype=float), np.asarray(y_test)
+    cutoffs = {"profit": profit_threshold, "balanced_accuracy": balanced_accuracy_threshold(y_val, val_pd)}
+    rows = {}
+    for rule, cut in cutoffs.items():
+        m = evaluate(y_test, test_pd, cut)
+        rows[rule] = {
+            "cutoff": cut,
+            "approval_rate": float(np.mean(test_pd < cut)),
+            "tpr": m["tpr"],
+            "tnr": m["tnr"],
+            "precision": m["precision"],
+            "balanced_accuracy": m["balanced_accuracy"],
+            "realised_profit": realised_profit(test_pd, y_test, cut, ead=test_ead),
+        }
+    return pd.DataFrame(rows).T.rename_axis("rule")
 
 
 def calibrate_and_set_threshold(model, X_val, y_val, X_test, y_test, raw_val_scores=None) -> dict:
@@ -160,10 +205,19 @@ def calibrate_and_set_threshold(model, X_val, y_val, X_test, y_test, raw_val_sco
     return {
         "model": calibrated,
         "method": method,
-        "brier": {**({"uncalibrated": brier_score_loss(y_val, raw_val_scores)} if raw_val_scores is not None
-                     else {}), **cal["brier"]},
+        "brier": {
+            **(
+                {"uncalibrated": brier_score_loss(y_val, raw_val_scores)}
+                if raw_val_scores is not None
+                else {}
+            ),
+            **cal["brier"],
+        },
         "val_pd": val_pd,
         "curve": curve,
         "threshold": threshold,
         "test": test_report(test_pd, y_test, X_test[EAD_COLUMN], threshold),
+        "threshold_comparison": compare_thresholds(
+            val_pd, y_val, test_pd, y_test, X_test[EAD_COLUMN], threshold
+        ),
     }
