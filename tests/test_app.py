@@ -3,6 +3,7 @@
 They use the committed model in models/ and the invented examples in data/sample/.
 """
 
+import json
 import re
 
 import pandas as pd
@@ -220,3 +221,14 @@ def test_every_money_value_shows_a_dollar_sign(app):
     assert len(money) == 3 and all(v.startswith(("$", "-$")) for v in money), money
     for page in pages[:3]:  # every page that shows money says which currency it is shown in
         assert any("Amounts in USD" in c.value for c in page.caption)
+
+
+def test_assessment_and_letter_are_written_to_the_decision_log(app, monkeypatch, tmp_path):
+    path = tmp_path / "decisions.jsonl"
+    monkeypatch.setattr("src.audit.DECISION_LOG", True)
+    monkeypatch.setattr("src.audit.DECISION_LOG_PATH", path)
+    assess(app, EXAMPLES[2])
+    next(b for b in app.button if b.label == "Draft letter").click().run()
+    assessment, letter = (json.loads(line) for line in path.read_text(encoding="utf-8").splitlines())
+    assert assessment["decision"] == "decline" and assessment["inputs"]["AMT_CREDIT"] == 450000
+    assert letter["assessment_id"] == assessment["id"] and letter["letter_backend"] == "template"

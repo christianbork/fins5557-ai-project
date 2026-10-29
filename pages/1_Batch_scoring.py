@@ -12,6 +12,7 @@ import streamlit as st
 
 from src.app_logging import get_logger
 from src.applicant import label
+from src.audit import log_batch
 from src.config import CURRENCY_NOTE, DATA_DIR, MAX_BATCH_ROWS, MAX_UPLOAD_MB, RAW_INPUTS
 from src.formatting import MONEY_COLUMN, PCT_COLUMN, count, money, pct
 from src.labels import COLUMNS, DECISIONS, decision_label, headers
@@ -122,6 +123,11 @@ except Exception:  # show any scoring failure instead of crashing the page
     )
     st.stop()
 scored["expected_loss"] = scored["pd"] * lgd * scored["AMT_CREDIT"]
+# The page reruns on every click (e.g. the filter below), so each batch is logged once per session
+batch_key = int(pd.util.hash_pandas_object(valid, index=False).sum())
+if batch_key not in st.session_state.setdefault("logged_batches", set()):
+    log_batch(scored, meta)
+    st.session_state["logged_batches"].add(batch_key)
 
 st.success(f"Scored {count(len(scored), 'applicant')} in {seconds:.1f} s.")
 shares = scored["decision"].value_counts(normalize=True)

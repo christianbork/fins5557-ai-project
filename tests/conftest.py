@@ -37,3 +37,11 @@ def saved_model_dir(trained, tmp_path_factory):
     save_artifacts(decision["model"], meta, out / "model.joblib", out / "metadata.json")
     save_reference_stats(build_reference_stats(features_target(train)[0]), out / "reference_stats.json")
     return out
+
+
+@pytest.fixture(autouse=True)
+def no_decision_log(monkeypatch, tmp_path):
+    """Tests never write to logs/decisions.jsonl: the decision log is off unless a test turns it on,
+    and then it goes to a temp file."""
+    monkeypatch.setattr("src.audit.DECISION_LOG", False)
+    monkeypatch.setattr("src.audit.DECISION_LOG_PATH", tmp_path / "decisions.jsonl")

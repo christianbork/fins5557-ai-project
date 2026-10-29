@@ -179,3 +179,9 @@ OLLAMA_URL = get_secret("OLLAMA_URL", "http://localhost:11434")
 OLLAMA_MODEL = get_secret("OLLAMA_MODEL", "llama3.2:3b")  # pulled once with: ollama pull llama3.2:3b
 LLM_TIMEOUT_SECONDS = 60  # a small local model on a laptop CPU takes about 10-30 s per letter
 LENDER_NAME = "Example Consumer Finance"  # invented: the app is a demo, not a real lender
+
+# ---- Decision log (src/audit.py) ---------------------------------------------------------------
+# One JSON line per assessed applicant: on locally, off on the public demo (DECISION_LOG = "off" in
+# the app's Secrets), where it would only collect what visitors type in.
+DECISION_LOG = str(get_secret("DECISION_LOG", "on")).strip().lower() in ("on", "true", "1", "yes")
+DECISION_LOG_PATH = ROOT / "logs" / "decisions.jsonl"  # gitignored

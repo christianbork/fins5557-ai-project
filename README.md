@@ -63,10 +63,12 @@ streamlit run app.py
 ```
 Decline letters use the standard template by default. To have a local language model draft them instead (customer data stays on your machine), install [Ollama](https://ollama.com), run `ollama pull llama3.2:3b`, and set `LLM_BACKEND=ollama` in a `.env` file. To use Google Gemini instead (the public demo's setting), create a free API key at [Google AI Studio](https://aistudio.google.com) and put `LLM_BACKEND=gemini` and `GOOGLE_API_KEY=...` in `.env`. Model-written letters are drafts for the analyst to check before sending. Whichever backend is used, the prompt contains only the decision and fixed reason phrases, never applicant data, and any failure falls back to the template.
 
+**Decision log.** Every assessment is appended to `logs/decisions.jsonl` (gitignored), one JSON line each: time, model version, inputs, PD, decision, reasons, warnings, and which backend wrote any letter. It is the audit trail a real lender would keep, so any decision can be traced and explained later. It is on by default; set `DECISION_LOG=off` to turn it off.
+
 To retrain or run the notebook, install the dev tools (`pip install -r requirements-dev.txt`) and get the data (see **Data**). Tests: `pytest -q`; lint: `ruff check .`.
 
 ## Deployment
-Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "gemini"` and `GOOGLE_API_KEY` in the app's Secrets settings: the public demo drafts letters with Gemini's free tier, which is acceptable because it only handles invented example applicants and the prompt holds no applicant data. Real customer data would use the local Ollama backend instead (closed environment). No keys are stored in the code.
+Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "gemini"`, `GOOGLE_API_KEY` and `DECISION_LOG = "off"` in the app's Secrets settings (the public demo keeps no log of what visitors type in): the public demo drafts letters with Gemini's free tier, which is acceptable because it only handles invented example applicants and the prompt holds no applicant data. Real customer data would use the local Ollama backend instead (closed environment). No keys are stored in the code.
 
 ## Team
 | Name | zID | Role |

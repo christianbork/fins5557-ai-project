@@ -18,6 +18,7 @@ from matplotlib.figure import Figure  # not pyplot: Streamlit serves each sessio
 
 from src.app_logging import get_logger
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
+from src.audit import log_assessment, log_letter
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
 from src.formatting import money, pct, score
@@ -211,6 +212,7 @@ if submitted:
         try:
             with st.spinner("Scoring the applicant..."):
                 st.session_state["result"] = predict(applicant, artifacts)
+                st.session_state["assessment_id"] = log_assessment(applicant, st.session_state["result"], meta)
                 st.session_state["ead"] = applicant["AMT_CREDIT"]
         except Exception:  # show any scoring failure instead of crashing the page
             log.exception("Scoring one applicant failed")
@@ -297,6 +299,7 @@ if "result" in st.session_state:
             wait = " This can take up to a minute." if LLM_BACKEND == "ollama" else ""
             with st.spinner(f"Drafting the letter with {writer}...{wait}"):
                 letter = draft_letter(result["decision"], result["reasons"])
+            log_letter(st.session_state.get("assessment_id"), letter["backend"])
             st.session_state["letter"] = letter
             st.session_state["letter_text"] = letter["text"]
         if "letter" in st.session_state:

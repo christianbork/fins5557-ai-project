@@ -27,6 +27,9 @@ data/*
 # Earlier model versions kept for comparison (docs/MODEL_HISTORY.md).
 !archive/*/model.joblib
 
+# Decision log written by the app (src/audit.py): local only
+logs/
+
 # OS / editor
 .DS_Store
 Thumbs.db
