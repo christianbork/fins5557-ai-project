@@ -17,8 +17,9 @@ import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
-from src.config import DATA_DIR, LLM_BACKEND, MODEL_NAMES, OLLAMA_MODEL
+from src.config import DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
+from src.labels import MODEL_NAMES
 from src.llm import draft_letter
 from src.predict import load_artifacts, predict
 from src.validation import validate_applicant

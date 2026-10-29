@@ -17,10 +17,10 @@ from src.config import (
     EO_THRESHOLD,
     METADATA_PATH,
     MIN_GROUP_SIZE,
-    MODEL_NAMES,
     REPORTS_DIR,
     ROOT,
 )
+from src.labels import MODEL_NAMES
 
 V1_METADATA = ROOT / "archive" / "v1-home-credit-baseline" / "metadata.json"
 

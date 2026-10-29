@@ -61,6 +61,7 @@ from src.config import (
 )
 from src.data import features_target, load_clean, split
 from src.features import add_features, build_preprocessor, feature_columns
+from src.labels import model_choice_reason
 from src.metrics import balanced_accuracy_threshold, evaluate
 from src.reporting import write_app_reports
 from src.threshold import break_even_pd, calibrate_and_set_threshold
@@ -151,20 +152,9 @@ def build_pipeline(model, feature_set: str = FEATURE_SET) -> Pipeline:
 def choose_model(comparison: pd.DataFrame, min_gain: float = MIN_AUC_GAIN) -> tuple[str, str]:
     """Pick the final model from the validation comparison (rows = models). Returns (name, reason)."""
     best = comparison["auc"].idxmax()
-    base_auc = comparison.loc[BASELINE, "auc"]
-    gain = comparison.loc[best, "auc"] - base_auc
-    if best == BASELINE:
-        return BASELINE, f"Logistic regression has the highest validation AUC ({base_auc:.3f})."
-    if gain < min_gain:
-        return BASELINE, (
-            f"{best} has the highest validation AUC, but beats logistic regression by only "
-            f"{gain:.3f} (< {min_gain}), so the simpler, more explainable baseline is kept."
-        )
-    return best, (
-        f"{best} has the highest validation AUC ({comparison.loc[best, 'auc']:.3f}), "
-        f"{gain:.3f} above logistic regression ({base_auc:.3f}), which clears the "
-        f"{min_gain} margin needed to justify a more complex model."
-    )
+    gain = comparison.loc[best, "auc"] - comparison.loc[BASELINE, "auc"]
+    chosen = BASELINE if best == BASELINE or gain < min_gain else best
+    return chosen, model_choice_reason(comparison, BASELINE, min_gain)
 
 
 def _plain(value):
