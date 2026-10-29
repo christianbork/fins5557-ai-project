@@ -8,3 +8,4 @@ matplotlib==3.11.2
 streamlit==1.66.1
 python-dotenv==1.2.4
 joblib==1.6.0
+google-genai==2.34.0  # Gemini letters in the public demo (LLM_BACKEND=gemini)

@@ -9,15 +9,18 @@ Course reference: Code Bank W06-03 (one function over several LLM providers, wit
 
     letter = draft_letter("decline", result["reasons"])
     letter["text"]      # the letter
-    letter["backend"]   # "template" or "ollama": which one actually wrote it
+    letter["backend"]   # "template", "ollama" or "gemini": which one actually wrote it
     letter["warning"]   # None, or why the template was used instead of the chosen backend
 
-Backends (LLM_BACKEND in .env):
+Backends (LLM_BACKEND in .env, or in the app's Secrets on Streamlit Cloud):
 - "template": fixed wording with the reasons filled in. No language model: deterministic, free,
-  works offline, and the wording can be signed off by compliance once. The default, and what the
-  public demo uses.
+  works offline, and the wording can be signed off by compliance once. The default.
 - "ollama": a small local language model writes a more personal letter. It runs on our own
-  machine (closed environment), so no customer data is sent to an outside AI provider.
+  machine (closed environment). The backend for real customer data.
+- "gemini": Google's Gemini API (GEMINI_MODEL, key in GOOGLE_API_KEY). The backend for the public
+  demo, which only handles invented example applicants (hybrid decision, 28 Oct).
+Whatever the backend, the prompt contains no applicant data at all (see below), so nothing that
+identifies an applicant can reach a model provider.
 
 Guardrails around the language model:
 - Input: the prompt only gets the decision and the reason phrases, which must come from the fixed
@@ -38,10 +41,19 @@ import re
 import urllib.error
 import urllib.request
 
-from src.config import LENDER_NAME, LLM_BACKEND, LLM_TIMEOUT_SECONDS, OLLAMA_MODEL, OLLAMA_URL
+from src.config import (
+    GEMINI_BACKUP_MODEL,
+    GEMINI_MODEL,
+    GOOGLE_API_KEY,
+    LENDER_NAME,
+    LLM_BACKEND,
+    LLM_TIMEOUT_SECONDS,
+    OLLAMA_MODEL,
+    OLLAMA_URL,
+)
 from src.explain import REASON_PHRASES
 
-BACKENDS = ("template", "ollama")
+BACKENDS = ("template", "ollama", "gemini")
 MAX_LETTER_CHARS = 2500
 # Words a letter must never contain: protected attributes under Australian anti-discrimination law.
 PROTECTED_WORDS = re.compile(
@@ -137,6 +149,83 @@ def _call_ollama(prompt: str) -> str:
         return json.loads(response.read())["response"].strip()
 
 
+def _ollama_problem(e: Exception) -> str:
+    """Plain-English reason an Ollama call failed, for the app's warning."""
+    if isinstance(e, TimeoutError):
+        return f"the local model took longer than {LLM_TIMEOUT_SECONDS} s"
+    if isinstance(e, urllib.error.HTTPError):  # checked before URLError, which it extends
+        if e.code == 404:
+            return f"the model '{OLLAMA_MODEL}' isn't installed in Ollama (run: ollama pull {OLLAMA_MODEL})"
+        return f"Ollama returned an error ({e.code} {e.reason})"
+    if isinstance(e, urllib.error.URLError):
+        return f"couldn't reach Ollama at {OLLAMA_URL} ({e.reason}); is it running?"
+    if isinstance(e, KeyError | ValueError):  # unexpected or non-JSON reply
+        return f"unexpected reply from Ollama ({e})"
+    return f"unexpected error from Ollama ({type(e).__name__})"
+
+
+# ---- Language model (Gemini, Google's API: public demo) -------------------------------------
+class MissingKeyError(RuntimeError):
+    """No GOOGLE_API_KEY in .env or the app's Secrets."""
+
+
+def _call_gemini(prompt: str) -> str:
+    """A request to Google's Gemini API, with the timeout and no automatic retries. If the main
+    model is overloaded (503) or out of quota (429), the backup model is tried once; any other
+    error, or a second failure, goes to draft_letter's template fallback.
+
+    google-genai is imported here rather than at the top, so the template and Ollama backends
+    work without it.
+    """
+    if not GOOGLE_API_KEY:
+        raise MissingKeyError
+    from google import genai
+    from google.genai import errors, types
+
+    client = genai.Client(
+        api_key=GOOGLE_API_KEY,
+        http_options=types.HttpOptions(
+            timeout=LLM_TIMEOUT_SECONDS * 1000,  # milliseconds
+            retry_options=types.HttpRetryOptions(attempts=1),
+        ),
+    )
+    config = types.GenerateContentConfig(temperature=0.2, max_output_tokens=2048)
+    for model in (GEMINI_MODEL, GEMINI_BACKUP_MODEL):
+        try:
+            response = client.models.generate_content(model=model, contents=prompt, config=config)
+            return (response.text or "").strip()
+        except errors.APIError as e:
+            busy = isinstance(e, errors.ServerError) or e.code == 429
+            if not busy or model == GEMINI_BACKUP_MODEL:
+                raise
+    raise AssertionError("unreachable")
+
+
+def _gemini_problem(e: Exception) -> str:
+    """Plain-English reason a Gemini call failed. Never includes the error text itself, which
+    could echo request details."""
+    import httpx
+    from google.genai import errors
+
+    if isinstance(e, MissingKeyError):
+        return "no GOOGLE_API_KEY is set (add it to .env, or to the app's Secrets on Streamlit Cloud)"
+    if isinstance(e, errors.ClientError):
+        if e.code == 429:
+            return "the Gemini quota is used up for now (free-tier limit); try again in a minute"
+        if e.code == 404:
+            return f"the Gemini model '{GEMINI_MODEL}' isn't available (set GEMINI_MODEL to a current model)"
+        if e.code in (400, 401, 403) and "key" in str(e.message).lower():
+            return "the Gemini API key was rejected; check GOOGLE_API_KEY"
+        return f"Gemini refused the request ({e.code} {e.status})"
+    if isinstance(e, errors.ServerError):
+        return f"Gemini had a server error ({e.code}); try again shortly"
+    if isinstance(e, httpx.TimeoutException):
+        return f"Gemini took longer than {LLM_TIMEOUT_SECONDS} s"
+    if isinstance(e, httpx.HTTPError):
+        return "couldn't reach Gemini (no internet connection?)"
+    return f"unexpected error from Gemini ({type(e).__name__})"
+
+
 def check_letter(text: str) -> str | None:
     """Why a generated letter can't be sent (None if it passes the output guardrails)."""
     if not text.strip():
@@ -169,24 +258,16 @@ def draft_letter(decision: str, reasons: list[str], backend: str = LLM_BACKEND) 
     if backend not in BACKENDS:
         problem = f"unknown LLM_BACKEND '{backend}' (options: {', '.join(BACKENDS)})"
     else:
+        call, describe = (
+            (_call_ollama, _ollama_problem) if backend == "ollama" else (_call_gemini, _gemini_problem)
+        )
         try:
-            text = _call_ollama(build_prompt(decision, reasons))
+            text = call(build_prompt(decision, reasons))
             problem = check_letter(text)
             if problem is None:
-                return {"text": text, "backend": "ollama", "warning": None}
-        except TimeoutError:
-            problem = f"the local model took longer than {LLM_TIMEOUT_SECONDS} s"
-        except urllib.error.HTTPError as e:  # before URLError, which it extends
-            if e.code == 404:
-                problem = (
-                    f"the model '{OLLAMA_MODEL}' isn't installed in Ollama (run: ollama pull {OLLAMA_MODEL})"
-                )
-            else:
-                problem = f"Ollama returned an error ({e.code} {e.reason})"
-        except urllib.error.URLError as e:
-            problem = f"couldn't reach Ollama at {OLLAMA_URL} ({e.reason}); is it running?"
-        except (KeyError, ValueError) as e:  # unexpected or non-JSON reply
-            problem = f"unexpected reply from Ollama ({e})"
+                return {"text": text, "backend": backend, "warning": None}
+        except Exception as e:  # noqa: BLE001 (any backend failure falls back to the template, explained)
+            problem = describe(e)
     return {
         "text": template_letter(decision, reasons),
         "backend": "template",

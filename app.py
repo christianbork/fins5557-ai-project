@@ -11,10 +11,10 @@ and the example applicants are cached (st.cache_resource / st.cache_data) and lo
 server instead of on every rerun. Timings are in reports/performance.md.
 """
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
+from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
 from src.config import DATA_DIR, LLM_BACKEND, MODEL_NAMES, OLLAMA_MODEL
@@ -262,7 +262,8 @@ if "result" in st.session_state:
         )
     with chart_col:
         by_reason = contributions_by_reason(result["shap"]).head(8).iloc[::-1]
-        fig, ax = plt.subplots(figsize=(7, 3.4))
+        fig = Figure(figsize=(7, 3.4))
+        ax = fig.subplots()
         ax.barh(
             by_reason.index, by_reason.values, color=["#c0392b" if v > 0 else "#2471a3" for v in by_reason]
         )
@@ -275,11 +276,12 @@ if "result" in st.session_state:
     if result["decision"] in ("decline", "refer"):
         st.divider()
         st.subheader("Letter to the applicant")
-        writer = (
-            f"the local language model ({OLLAMA_MODEL})"
-            if LLM_BACKEND == "ollama"
-            else "the standard template"
-        )
+        writers = {
+            "ollama": f"the local language model ({OLLAMA_MODEL})",
+            "gemini": "Google Gemini",
+            "template": "the standard template",
+        }
+        writer = writers.get(LLM_BACKEND, writers["template"])
         if st.button("Draft letter"):
             wait = " This can take up to a minute." if LLM_BACKEND == "ollama" else ""
             with st.spinner(f"Drafting the letter with {writer}...{wait}"):
@@ -290,8 +292,9 @@ if "result" in st.session_state:
             letter = st.session_state["letter"]
             if letter["warning"]:
                 st.warning(letter["warning"])
-            source = "local language model" if letter["backend"] == "ollama" else "standard template"
-            st.caption(f"Written by the {source}. This is a draft: check it and edit it before sending.")
+            st.caption(
+                f"Written by {writers[letter['backend']]}. This is a draft: check it and edit it before sending."
+            )
             st.text_area("Draft letter", key="letter_text", height=380)
             st.download_button(
                 "Download letter (.txt)", st.session_state["letter_text"], file_name="letter.txt"
