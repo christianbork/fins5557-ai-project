@@ -1,0 +1,1001 @@
+AMT_INCOME_TOTAL,AMT_CREDIT,AMT_ANNUITY,AMT_GOODS_PRICE,CNT_CHILDREN,CNT_FAM_MEMBERS,DAYS_EMPLOYED,DAYS_REGISTRATION,DAYS_ID_PUBLISH,OWN_CAR_AGE,REGION_RATING_CLIENT_W_CITY,EXT_SOURCE_1,EXT_SOURCE_2,EXT_SOURCE_3,AMT_REQ_CREDIT_BUREAU_YEAR,NAME_CONTRACT_TYPE,FLAG_OWN_CAR,FLAG_OWN_REALTY,NAME_INCOME_TYPE,NAME_EDUCATION_TYPE,NAME_HOUSING_TYPE,OCCUPATION_TYPE,ORGANIZATION_TYPE
+200976.0,855957.0,30840.0,927192.0,0.0,2.0,-83.0,-123.0,-3847.0,17.0,1.0,0.3185,0.1335,0.3639,1.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,Laborers,XNA
+148638.0,480058.0,38985.0,309149.0,0.0,2.0,365243.0,-9786.0,-4178.0,14.0,2.0,,0.6636,0.7354,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Medicine staff,Other
+106781.0,1307482.0,47360.0,743209.0,1.0,2.0,365243.0,-6557.0,-4780.0,,2.0,,0.6505,0.6596,3.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Business Entity Type 3
+75999.0,729770.0,50616.0,487006.0,0.0,1.0,365243.0,-866.0,-1068.0,,1.0,,0.6425,0.377,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+289507.0,279664.0,32254.0,222639.0,0.0,1.0,-2544.0,-4851.0,-4897.0,,1.0,,0.7614,0.6072,2.0,Cash loans,N,Y,Working,Higher education,With parents,Sales staff,XNA
+150949.0,152310.0,19244.0,424938.0,1.0,2.0,-866.0,-9874.0,-1921.0,,2.0,,0.1674,,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Construction
+199760.0,1293240.0,12818.0,339081.0,0.0,3.0,-3229.0,-5453.0,-2871.0,,2.0,0.3313,0.5458,0.5037,3.0,Cash loans,N,Y,Working,Higher education,House / apartment,Core staff,Business Entity Type 3
+232099.0,213495.0,50145.0,1335502.0,0.0,2.0,-208.0,-2038.0,-3847.0,,2.0,,0.1705,0.6123,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+167960.0,677458.0,19722.0,513531.0,1.0,2.0,-2088.0,-5208.0,-3964.0,,1.0,,0.652,0.3584,0.0,Cash loans,N,Y,Working,Secondary / secondary special,Municipal apartment,Sales staff,Self-employed
+87651.0,187189.0,47823.0,143922.0,0.0,2.0,-783.0,-6939.0,-3695.0,,2.0,0.2372,0.7135,0.1686,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Security Ministries
+291996.0,363270.0,7844.0,408894.0,0.0,1.0,-2917.0,-10434.0,-1814.0,,2.0,0.7861,0.7619,,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Cleaning staff,XNA
+108692.0,569847.0,19340.0,407830.0,1.0,2.0,-1666.0,-4940.0,-4359.0,,2.0,0.5355,0.7191,0.2443,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Culture
+171185.0,709986.0,31782.0,1230868.0,0.0,3.0,-966.0,-2563.0,-4570.0,,2.0,,0.41,0.1431,,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,,Other
+153949.0,794420.0,38929.0,179141.0,2.0,3.0,-6268.0,-7436.0,-2441.0,,2.0,,0.729,0.7312,4.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Sales staff,Medicine
+158815.0,706144.0,22983.0,643467.0,0.0,2.0,-1035.0,-3798.0,-1929.0,25.0,2.0,,0.7322,0.5806,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Kindergarten
+156517.0,268204.0,41235.0,490818.0,0.0,2.0,-242.0,-9959.0,-3974.0,,3.0,,0.5486,0.6003,2.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Laborers,Business Entity Type 3
+299289.0,611065.0,31930.0,279519.0,0.0,2.0,-5784.0,-6145.0,-2514.0,11.0,1.0,,0.3913,0.7594,4.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Drivers,Industry: type 3
+143990.0,363530.0,14699.0,401861.0,0.0,2.0,-3312.0,-5520.0,-3964.0,,2.0,,0.3966,0.1642,0.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Drivers,Government
+206406.0,133797.0,43215.0,154421.0,0.0,2.0,365243.0,-8396.0,-2035.0,,2.0,0.7425,0.5285,0.7538,0.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Construction
+147676.0,674029.0,12983.0,301167.0,0.0,2.0,-215.0,-5592.0,-4687.0,,2.0,0.496,0.6526,0.2326,,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Accountants,Business Entity Type 1
+286475.0,255281.0,16630.0,512141.0,0.0,2.0,-779.0,-4587.0,-1665.0,,1.0,0.6274,0.1051,,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+291922.0,331660.0,31634.0,610786.0,0.0,3.0,-1343.0,-8651.0,-1009.0,,3.0,0.69,0.5017,,1.0,Cash loans,N,N,Working,Secondary / secondary special,Office apartment,,XNA
+123485.0,688699.0,17540.0,166140.0,1.0,2.0,365243.0,-3379.0,-1096.0,12.0,2.0,0.632,0.7279,0.1346,2.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Sales staff,Electricity
+100060.0,545880.0,20166.0,1335905.0,0.0,1.0,-1882.0,-7314.0,-3917.0,17.0,2.0,0.8613,0.6789,0.3085,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Other
+237216.0,271024.0,27782.0,437372.0,2.0,1.0,-375.0,-6054.0,-4381.0,7.0,2.0,,0.6915,0.5529,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Trade: type 7
+198457.0,593524.0,29478.0,972584.0,0.0,3.0,-643.0,-1516.0,-1752.0,,1.0,0.8139,0.2855,0.6515,1.0,Cash loans,N,N,Commercial associate,Lower secondary,House / apartment,High skill tech staff,Medicine
+171149.0,1187964.0,47818.0,1345710.0,3.0,2.0,-541.0,-3711.0,-1800.0,,1.0,0.6804,0.24,0.7466,2.0,Cash loans,N,Y,Working,Higher education,House / apartment,Core staff,Business Entity Type 1
+115591.0,941680.0,44989.0,161707.0,1.0,1.0,-5044.0,-5039.0,-4144.0,,2.0,,0.6772,,3.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,Core staff,Trade: type 2
+117293.0,395179.0,26517.0,374279.0,2.0,4.0,-241.0,-4805.0,-2505.0,,1.0,,0.6947,,1.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,With parents,,Services
+97356.0,136328.0,29268.0,485189.0,0.0,1.0,-695.0,-6056.0,-3615.0,,2.0,0.2095,0.7494,0.3861,3.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,School
+173303.0,1138067.0,16553.0,1325178.0,0.0,2.0,-4032.0,-5337.0,-1451.0,,2.0,0.564,0.3332,,1.0,Cash loans,N,N,Working,Secondary / secondary special,With parents,,Business Entity Type 2
+69663.0,1232173.0,26740.0,696258.0,0.0,2.0,365243.0,-2701.0,-4010.0,,3.0,,0.6771,0.5134,5.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Industry: type 2
+102580.0,121564.0,13634.0,1066036.0,0.0,1.0,-3358.0,-2123.0,-255.0,,2.0,0.5943,0.6465,0.3822,1.0,Cash loans,N,N,Working,Higher education,House / apartment,Medicine staff,Self-employed
+171969.0,443214.0,50384.0,415701.0,1.0,2.0,-535.0,-645.0,-4701.0,,2.0,,0.4076,,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Other
+78291.0,1264086.0,17098.0,1331272.0,2.0,2.0,365243.0,-489.0,-4903.0,,2.0,,0.7376,0.6951,3.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Drivers,Self-employed
+189161.0,442641.0,42033.0,223435.0,0.0,2.0,-748.0,-6361.0,-4476.0,,2.0,0.2877,0.2919,0.4205,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+76482.0,572450.0,20723.0,456082.0,1.0,3.0,-5321.0,-3731.0,-4637.0,21.0,2.0,,0.189,0.6246,,Revolving loans,Y,Y,Pensioner,Higher education,House / apartment,Laborers,XNA
+152738.0,226687.0,34576.0,345216.0,0.0,2.0,-4935.0,-4950.0,-1072.0,,2.0,,0.297,0.343,2.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Construction
+161425.0,147778.0,11120.0,421483.0,2.0,2.0,-1753.0,-4621.0,-4257.0,,2.0,0.8433,0.654,0.6958,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Government
+100284.0,1010928.0,7497.0,423971.0,0.0,2.0,-465.0,-10240.0,-4586.0,8.0,2.0,,0.6955,0.2051,4.0,Cash loans,Y,Y,Working,Incomplete higher,House / apartment,Cleaning staff,XNA
+301976.0,1046671.0,15935.0,945730.0,1.0,2.0,-1918.0,-10451.0,-1092.0,,2.0,0.2037,0.7505,0.5098,4.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,,Business Entity Type 1
+118201.0,120802.0,22522.0,906727.0,1.0,2.0,-1485.0,-3998.0,-4123.0,14.0,2.0,,0.6681,0.5583,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Police
+152568.0,627117.0,35479.0,484719.0,1.0,2.0,365243.0,-1366.0,-94.0,,2.0,0.481,0.7106,0.475,4.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Self-employed
+254803.0,158410.0,50529.0,407407.0,0.0,1.0,-2512.0,-6525.0,-4335.0,,2.0,,0.5245,0.743,5.0,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+162752.0,883230.0,21921.0,905762.0,1.0,2.0,365243.0,-4047.0,-1896.0,,1.0,,0.2017,0.4867,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+124754.0,1212945.0,47053.0,185499.0,1.0,3.0,-3342.0,-8345.0,-4519.0,,2.0,,0.4588,0.6273,2.0,Cash loans,N,Y,Commercial associate,Incomplete higher,House / apartment,Core staff,XNA
+71136.0,1016598.0,7954.0,230157.0,0.0,3.0,-369.0,-4948.0,-741.0,27.0,2.0,0.2331,0.6656,0.6344,0.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Other
+314236.0,314053.0,35431.0,518036.0,0.0,2.0,-703.0,-3197.0,-4177.0,,2.0,,0.5772,0.5163,,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Other
+161742.0,163123.0,20874.0,912800.0,0.0,2.0,-2137.0,-5063.0,-2180.0,,2.0,0.359,0.5379,0.5782,,Cash loans,N,Y,State servant,Higher education,House / apartment,Laborers,Business Entity Type 3
+152451.0,238258.0,27648.0,764596.0,0.0,3.0,-6160.0,-4940.0,-4382.0,,2.0,,0.4841,0.7606,0.0,Cash loans,N,Y,Working,Secondary / secondary special,Office apartment,,XNA
+158341.0,1284305.0,25511.0,1275539.0,0.0,2.0,-90.0,-479.0,-437.0,5.0,2.0,0.2873,0.6809,0.2201,2.0,Cash loans,Y,N,Working,Higher education,House / apartment,,Transport: type 4
+82830.0,147099.0,30627.0,410856.0,1.0,4.0,-6263.0,-2047.0,-4254.0,11.0,2.0,0.6961,0.4259,0.7343,2.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 2
+148992.0,220618.0,30009.0,412092.0,0.0,2.0,365243.0,-6539.0,-837.0,23.0,2.0,,0.6019,0.5948,0.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,XNA
+159555.0,697634.0,31029.0,634184.0,0.0,1.0,-434.0,-5860.0,-4773.0,7.0,2.0,0.6927,0.4867,0.6989,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,High skill tech staff,Medicine
+150316.0,178029.0,26355.0,470690.0,0.0,2.0,-1046.0,-3578.0,-4380.0,,2.0,,0.4792,0.7832,4.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Managers,Industry: type 9
+87672.0,504080.0,51793.0,152357.0,0.0,2.0,-5619.0,-910.0,-3490.0,,3.0,,0.5353,0.3316,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+189699.0,307499.0,35424.0,463790.0,0.0,1.0,365243.0,-5547.0,-2007.0,,2.0,,0.5723,0.4529,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Government
+74375.0,784212.0,23226.0,1148676.0,0.0,3.0,-147.0,-3098.0,-2249.0,,2.0,,0.3933,,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+111942.0,1168840.0,20439.0,579419.0,1.0,2.0,-3085.0,-6779.0,-2023.0,,2.0,0.1726,0.7063,0.5951,,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+64070.0,290911.0,16386.0,493908.0,0.0,2.0,-84.0,-73.0,-3250.0,,2.0,,0.2593,0.2208,1.0,Revolving loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+189026.0,132614.0,15066.0,209324.0,1.0,2.0,-323.0,-7644.0,-3947.0,13.0,2.0,0.1385,0.1401,,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Drivers,Business Entity Type 3
+139390.0,559620.0,35883.0,167847.0,0.0,2.0,-2779.0,-1613.0,-4913.0,,2.0,0.755,0.5568,,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+131160.0,472536.0,20665.0,493615.0,0.0,2.0,-649.0,-7390.0,-4727.0,6.0,2.0,0.4955,0.6864,0.6902,5.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Sales staff,XNA
+77698.0,288051.0,18152.0,355807.0,0.0,2.0,-2252.0,-3768.0,-4806.0,2.0,1.0,0.45,0.5913,0.6999,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Industry: type 3
+116367.0,860245.0,14522.0,253601.0,0.0,3.0,-1833.0,-1421.0,-1415.0,23.0,2.0,0.2215,0.7419,0.6613,,Cash loans,Y,Y,Working,Lower secondary,House / apartment,,Business Entity Type 3
+103161.0,515597.0,46047.0,1205896.0,2.0,2.0,-1139.0,-5371.0,-2615.0,22.0,2.0,,0.6743,0.1562,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Laborers,Industry: type 11
+111052.0,402920.0,37101.0,185210.0,1.0,1.0,-2318.0,-4189.0,-1581.0,,1.0,,0.6559,0.6576,3.0,Cash loans,N,N,Pensioner,Higher education,House / apartment,,Security Ministries
+124135.0,612362.0,46943.0,601666.0,0.0,2.0,-781.0,-1687.0,-4039.0,,1.0,0.3515,0.6122,0.5025,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Self-employed
+206886.0,597254.0,9498.0,495637.0,0.0,2.0,-2751.0,-9308.0,-3720.0,,3.0,0.4197,0.4509,0.7813,3.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Managers,Self-employed
+200819.0,272588.0,11746.0,1214511.0,0.0,2.0,365243.0,-8136.0,-1773.0,,2.0,,0.4856,,0.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,Government
+130964.0,649139.0,8613.0,1334929.0,0.0,1.0,-1642.0,-3452.0,-4818.0,,2.0,,0.7358,0.6318,,Cash loans,N,N,Commercial associate,Higher education,House / apartment,,Self-employed
+175169.0,470097.0,32741.0,420024.0,1.0,1.0,365243.0,-3671.0,-2442.0,,1.0,0.8259,0.6433,0.5228,5.0,Revolving loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+156711.0,303099.0,24480.0,394689.0,0.0,2.0,-2187.0,-1757.0,-281.0,20.0,2.0,0.5606,0.6157,,0.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 2
+176982.0,645054.0,7764.0,160187.0,1.0,2.0,-3550.0,-8969.0,-2504.0,,3.0,0.8307,0.3307,0.1676,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Industry: type 3
+126184.0,445995.0,52748.0,647132.0,0.0,2.0,-5741.0,-1913.0,-2591.0,,2.0,,0.76,0.262,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Kindergarten
+255483.0,298469.0,39547.0,157618.0,0.0,1.0,-5582.0,-2045.0,-1464.0,,2.0,0.502,0.4771,0.2994,0.0,Cash loans,N,Y,Working,Incomplete higher,House / apartment,Medicine staff,Business Entity Type 3
+162172.0,159961.0,20574.0,568245.0,0.0,3.0,365243.0,-10419.0,-4198.0,20.0,2.0,,0.5412,0.597,1.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,Rented apartment,Accountants,Business Entity Type 3
+96395.0,660397.0,24693.0,468499.0,1.0,3.0,-6936.0,-4684.0,-3714.0,,3.0,0.7169,0.261,0.7467,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+149615.0,107543.0,23347.0,135416.0,1.0,2.0,-2085.0,-5556.0,-441.0,,2.0,0.7725,0.6783,0.6922,1.0,Revolving loans,N,N,State servant,Secondary / secondary special,House / apartment,,Trade: type 7
+199389.0,137969.0,52010.0,531010.0,0.0,2.0,-618.0,-4061.0,-2374.0,2.0,2.0,0.7582,0.5201,,2.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Private service staff,Business Entity Type 2
+197897.0,111422.0,15492.0,313414.0,0.0,2.0,-1344.0,-10550.0,-4509.0,,2.0,,0.6709,0.4956,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+121434.0,210455.0,36720.0,553285.0,0.0,2.0,-867.0,-5539.0,-4261.0,,2.0,,0.6447,,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Police
+110343.0,668787.0,25636.0,223340.0,0.0,2.0,-2213.0,-832.0,-4465.0,,2.0,,0.7027,0.27,,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Agriculture
+164419.0,626508.0,53167.0,152392.0,0.0,2.0,-481.0,-11041.0,-2962.0,,2.0,0.3331,0.5676,0.7153,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Government
+209308.0,800315.0,29727.0,330043.0,2.0,2.0,-1320.0,-4957.0,-402.0,26.0,2.0,,0.7051,0.4928,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,XNA
+155702.0,174837.0,17678.0,221236.0,0.0,4.0,-3124.0,-8142.0,-1990.0,1.0,2.0,0.3084,0.7609,0.5851,3.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Laborers,Self-employed
+96292.0,290975.0,18940.0,184764.0,0.0,2.0,365243.0,-2545.0,-2881.0,,2.0,0.4891,0.6642,0.7666,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+179276.0,557808.0,32553.0,401757.0,2.0,2.0,365243.0,-3297.0,-2313.0,,2.0,0.794,0.3188,0.7194,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Accountants,XNA
+220837.0,647789.0,27608.0,161412.0,0.0,3.0,-848.0,-4657.0,-1249.0,10.0,2.0,0.3071,0.4414,,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+308767.0,1365631.0,43011.0,353268.0,0.0,2.0,-1886.0,-350.0,-2943.0,13.0,2.0,,0.652,,,Revolving loans,Y,Y,Pensioner,Secondary / secondary special,With parents,Private service staff,Government
+274777.0,949919.0,32802.0,343364.0,0.0,3.0,365243.0,-146.0,-2352.0,22.0,2.0,0.4762,0.101,0.6019,2.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Security staff,Industry: type 3
+112567.0,189883.0,48937.0,594133.0,0.0,2.0,-216.0,-647.0,-2655.0,,2.0,0.6431,0.6371,0.503,,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+193723.0,175630.0,27319.0,163200.0,0.0,3.0,-1959.0,-8160.0,-4541.0,,2.0,,0.6483,0.7541,2.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,School
+162474.0,298207.0,11364.0,244649.0,0.0,3.0,-4767.0,-7853.0,-1723.0,,2.0,0.2293,0.5948,0.7328,0.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,XNA
+275208.0,552825.0,24303.0,220944.0,0.0,2.0,-1859.0,-7387.0,-2035.0,,2.0,0.6948,0.7319,0.5953,2.0,Cash loans,N,N,Working,Secondary / secondary special,With parents,Core staff,Business Entity Type 3
+149310.0,298371.0,35465.0,537763.0,0.0,2.0,-1990.0,-8565.0,-1144.0,,2.0,,0.4016,0.1676,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+246648.0,1144522.0,36420.0,1097035.0,2.0,2.0,-2541.0,-4472.0,-4814.0,2.0,2.0,0.1883,0.6234,0.6,1.0,Cash loans,Y,Y,State servant,Higher education,House / apartment,,Trade: type 7
+149749.0,600181.0,29209.0,819262.0,0.0,2.0,-348.0,-8003.0,-4826.0,,2.0,,0.2798,0.6932,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,Core staff,Self-employed
+111925.0,503399.0,28613.0,722983.0,1.0,1.0,-4116.0,-5509.0,-3973.0,,2.0,,0.3075,0.619,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 2
+307358.0,839004.0,18794.0,443290.0,0.0,2.0,-1564.0,-3670.0,-3992.0,7.0,2.0,0.4851,0.674,0.6283,1.0,Cash loans,Y,Y,Pensioner,Incomplete higher,House / apartment,Laborers,Kindergarten
+101989.0,455928.0,8676.0,247439.0,0.0,3.0,-174.0,-3960.0,-4424.0,4.0,3.0,0.3949,0.6442,0.1913,1.0,Cash loans,Y,Y,Pensioner,Higher education,House / apartment,Laborers,Business Entity Type 3
+110792.0,184570.0,24718.0,402309.0,1.0,2.0,-1902.0,-5726.0,-1315.0,17.0,2.0,0.3945,0.3785,0.1641,2.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Managers,Self-employed
+65379.0,144899.0,8314.0,226071.0,1.0,2.0,-5891.0,-7367.0,-345.0,10.0,1.0,0.2638,0.4738,,3.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,,XNA
+71877.0,841711.0,29526.0,587638.0,0.0,4.0,-696.0,-4478.0,-1345.0,,3.0,,0.7279,0.199,4.0,Cash loans,N,N,Working,Secondary / secondary special,Municipal apartment,Sales staff,XNA
+128682.0,203911.0,19838.0,734320.0,0.0,4.0,-1018.0,-6682.0,-4075.0,5.0,1.0,0.644,0.3716,0.7352,0.0,Cash loans,Y,Y,Pensioner,Higher education,Municipal apartment,Drivers,Business Entity Type 3
+103700.0,476144.0,43303.0,159460.0,0.0,1.0,365243.0,-8803.0,-4635.0,,1.0,,0.2061,0.4694,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Medicine
+183243.0,756125.0,30630.0,991138.0,0.0,3.0,-2147.0,-7226.0,-3351.0,19.0,2.0,,0.7168,0.3223,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Realtor
+74875.0,530099.0,18545.0,1249810.0,1.0,2.0,-1958.0,-6985.0,-1051.0,,2.0,0.4781,0.1028,0.4775,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Industry: type 7
+264084.0,142839.0,31354.0,1307890.0,3.0,2.0,-3674.0,-2588.0,-1866.0,,2.0,0.2222,0.5611,0.5402,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,Sales staff,Business Entity Type 3
+221539.0,627112.0,29019.0,698823.0,0.0,1.0,-2047.0,-1006.0,-4066.0,9.0,2.0,0.4437,0.1985,0.7941,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Managers,Transport: type 2
+260437.0,274788.0,15449.0,265794.0,0.0,2.0,-779.0,-585.0,-4576.0,10.0,3.0,,0.6421,0.6317,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Laborers,Business Entity Type 3
+222179.0,440601.0,49323.0,244945.0,2.0,4.0,-1363.0,-5197.0,-1074.0,9.0,3.0,,0.6452,0.427,2.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,,Other
+167336.0,301962.0,21677.0,370458.0,2.0,2.0,-385.0,-5133.0,-1982.0,,2.0,,0.6031,0.1792,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+199032.0,126591.0,12508.0,382668.0,0.0,1.0,-900.0,-985.0,-2211.0,,2.0,0.1967,0.7006,0.6822,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,Co-op apartment,Laborers,XNA
+241379.0,479093.0,31364.0,450408.0,0.0,2.0,-317.0,-297.0,-873.0,,2.0,0.7714,0.2233,0.6313,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Other
+237788.0,587223.0,11278.0,538459.0,0.0,2.0,-393.0,-787.0,-4431.0,,3.0,,0.5072,,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,Municipal apartment,Sales staff,Business Entity Type 3
+100949.0,180581.0,10865.0,183199.0,0.0,2.0,-721.0,-5037.0,-617.0,6.0,1.0,,0.5586,0.2892,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Kindergarten
+302022.0,625720.0,22656.0,176916.0,2.0,2.0,-3582.0,-7867.0,-1189.0,,3.0,,0.6113,0.1371,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,School
+275454.0,269361.0,18475.0,1123460.0,0.0,2.0,-198.0,-1101.0,-1510.0,,2.0,,0.6913,0.3739,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 1
+176648.0,667278.0,52368.0,142166.0,0.0,2.0,-1773.0,-6266.0,-3870.0,,2.0,,0.577,,0.0,Cash loans,N,Y,Working,Secondary / secondary special,Rented apartment,Secretaries,Business Entity Type 3
+172673.0,138635.0,35584.0,424057.0,0.0,4.0,365243.0,-2360.0,-3918.0,,3.0,,0.4136,,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Construction
+166415.0,203304.0,12936.0,383182.0,0.0,3.0,-3063.0,-7814.0,-3204.0,,2.0,0.7091,0.5249,,4.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+177314.0,1343483.0,30892.0,379512.0,1.0,2.0,-728.0,-6488.0,-4077.0,7.0,1.0,0.6955,0.7473,0.4658,5.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Security staff,XNA
+268952.0,246398.0,21184.0,145645.0,0.0,2.0,-3702.0,-4744.0,-2062.0,,2.0,,0.2722,,0.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+110503.0,409633.0,31465.0,193330.0,2.0,3.0,365243.0,-11283.0,-4380.0,9.0,1.0,,0.1819,0.5728,,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Medicine staff,Business Entity Type 3
+115839.0,1348308.0,19360.0,422758.0,0.0,2.0,-2267.0,-80.0,-4837.0,17.0,2.0,,0.1009,,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Construction
+105953.0,1350923.0,9808.0,334708.0,0.0,2.0,-1735.0,-4906.0,-4523.0,16.0,2.0,,0.1148,0.4154,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+219009.0,114616.0,27672.0,694829.0,0.0,1.0,-5935.0,-492.0,-3169.0,,2.0,0.1936,0.5929,0.7311,2.0,Cash loans,N,Y,Working,Higher education,House / apartment,Managers,XNA
+63427.0,1012837.0,11955.0,1016568.0,2.0,1.0,-1715.0,-1687.0,-4600.0,,2.0,,0.5508,0.1846,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Self-employed
+124937.0,1247573.0,30683.0,217287.0,0.0,2.0,-1012.0,-858.0,-3161.0,26.0,2.0,,0.4481,,0.0,Revolving loans,Y,Y,Commercial associate,Secondary / secondary special,Office apartment,Drivers,Other
+119843.0,375285.0,36144.0,384775.0,0.0,1.0,-1816.0,-512.0,-326.0,,2.0,,0.7013,0.4724,5.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Agriculture
+113491.0,841283.0,35469.0,509812.0,1.0,2.0,-1398.0,-1304.0,-2622.0,16.0,2.0,,0.1271,,,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+155842.0,565990.0,17348.0,264302.0,0.0,1.0,365243.0,-10077.0,-4308.0,,2.0,0.4062,0.6544,,4.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Kindergarten
+104175.0,252909.0,29989.0,983209.0,0.0,2.0,-2644.0,-416.0,-3600.0,,2.0,0.3253,0.5156,,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Kindergarten
+259970.0,130001.0,7841.0,288653.0,0.0,1.0,-254.0,-11127.0,-4597.0,,2.0,0.8554,0.6139,,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Low-skill Laborers,Medicine
+119968.0,525461.0,29084.0,237741.0,0.0,2.0,-2076.0,-11598.0,-2358.0,,2.0,0.1799,0.7258,0.5816,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Accountants,XNA
+274200.0,309564.0,16565.0,367179.0,1.0,2.0,-1531.0,-4560.0,-4182.0,,2.0,,0.6448,0.5342,,Cash loans,N,N,Pensioner,Lower secondary,House / apartment,,Business Entity Type 3
+285265.0,209953.0,40913.0,469771.0,0.0,1.0,-664.0,-10327.0,-4077.0,,2.0,0.257,0.4809,,0.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Cooking staff,Business Entity Type 2
+122724.0,280806.0,16081.0,613086.0,0.0,2.0,-1017.0,-4646.0,-4408.0,11.0,1.0,,0.5464,,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Industry: type 3
+115339.0,1148734.0,22884.0,593883.0,0.0,2.0,-856.0,-3249.0,-4997.0,,2.0,,0.6608,0.4612,0.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 3
+170119.0,262162.0,46412.0,196133.0,1.0,2.0,365243.0,-2891.0,-572.0,15.0,2.0,,0.3527,,0.0,Revolving loans,Y,N,Working,Higher education,House / apartment,,Other
+128023.0,1036786.0,29640.0,179442.0,0.0,2.0,-283.0,-6577.0,-3175.0,,2.0,,0.6655,0.4831,5.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Self-employed
+64133.0,318211.0,13478.0,287368.0,0.0,4.0,-1483.0,-8909.0,-1552.0,,1.0,0.7531,0.3255,,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Kindergarten
+104952.0,463553.0,14932.0,450776.0,0.0,3.0,-4534.0,-5561.0,-311.0,21.0,2.0,,0.5801,0.695,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Kindergarten
+84413.0,944683.0,33210.0,1150179.0,0.0,2.0,-1581.0,-5142.0,-1984.0,0.0,2.0,,0.6435,0.5205,3.0,Revolving loans,Y,N,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 1
+128843.0,467206.0,10986.0,1058522.0,1.0,2.0,365243.0,-3703.0,-4809.0,,3.0,0.6199,0.1807,,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Security staff,Industry: type 11
+248026.0,274952.0,24410.0,1293829.0,3.0,2.0,-2168.0,-4352.0,-4422.0,,3.0,0.3192,0.7166,0.5614,3.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,Municipal apartment,Sales staff,XNA
+133315.0,206879.0,27538.0,844442.0,0.0,3.0,-6360.0,-1296.0,-3445.0,,2.0,,0.7282,0.5876,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 1
+63118.0,897083.0,47153.0,631018.0,0.0,1.0,-112.0,-6026.0,-3212.0,7.0,1.0,0.5887,0.6227,0.7031,3.0,Revolving loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+193571.0,578985.0,47189.0,144527.0,0.0,2.0,-667.0,-2275.0,-1622.0,,2.0,,0.1622,0.2497,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+234772.0,167567.0,8764.0,154000.0,0.0,1.0,-1721.0,-59.0,-4875.0,19.0,2.0,,0.634,0.5914,4.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Medicine staff,Transport: type 3
+228113.0,429289.0,7755.0,605358.0,0.0,2.0,-3572.0,-9410.0,-3051.0,,2.0,0.633,0.3152,0.7057,0.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Medicine staff,Bank
+123041.0,714872.0,48828.0,478782.0,2.0,1.0,-629.0,-3021.0,-3896.0,0.0,2.0,,0.4969,0.7105,5.0,Revolving loans,Y,Y,Working,Secondary / secondary special,House / apartment,Managers,Kindergarten
+101034.0,148591.0,23357.0,215930.0,0.0,2.0,-2411.0,-9463.0,-2518.0,7.0,2.0,0.4831,0.352,0.1885,2.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Services
+300558.0,161389.0,48670.0,378219.0,0.0,3.0,-804.0,-878.0,-4528.0,13.0,2.0,,0.7136,0.4842,2.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,Drivers,Business Entity Type 3
+114793.0,1195182.0,18855.0,449328.0,0.0,1.0,-2535.0,-9556.0,-1383.0,7.0,3.0,0.568,0.5771,0.6892,5.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,,Government
+158147.0,609550.0,32463.0,171943.0,1.0,2.0,-4126.0,-5633.0,-4249.0,,2.0,,0.505,0.5533,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Self-employed
+274682.0,664257.0,53375.0,482263.0,0.0,2.0,-3017.0,-249.0,-3027.0,3.0,3.0,0.8348,0.7349,0.7987,3.0,Revolving loans,Y,Y,Working,Higher education,House / apartment,,Government
+263648.0,1127155.0,12477.0,664948.0,0.0,4.0,-2892.0,-76.0,-4771.0,,2.0,,0.697,,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Self-employed
+252403.0,385838.0,37192.0,1194127.0,0.0,3.0,-1297.0,-8932.0,-1472.0,0.0,2.0,0.6643,0.6102,,0.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Laborers,XNA
+273979.0,956574.0,15074.0,1142277.0,0.0,3.0,365243.0,-10943.0,-4715.0,3.0,2.0,0.4205,0.56,0.6112,3.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 3
+189639.0,712853.0,46516.0,426091.0,3.0,4.0,-688.0,-1732.0,-4983.0,,2.0,0.8013,0.7581,0.5843,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+101343.0,270661.0,25013.0,508986.0,0.0,2.0,-207.0,-9826.0,-4468.0,9.0,2.0,,0.6721,0.6809,0.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,Sales staff,Business Entity Type 1
+97991.0,602018.0,27195.0,189408.0,0.0,1.0,365243.0,-7972.0,-4827.0,,1.0,,0.2382,,0.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Core staff,XNA
+182345.0,1266548.0,24860.0,598659.0,0.0,4.0,365243.0,-5650.0,-2689.0,,2.0,0.1884,0.4933,0.7651,0.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Bank
+154810.0,399473.0,22079.0,198983.0,0.0,3.0,-6111.0,-4957.0,-525.0,12.0,2.0,,0.5864,,5.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,,Medicine
+64221.0,1279974.0,9442.0,687053.0,0.0,1.0,-5827.0,-10668.0,-1466.0,,2.0,,0.7138,0.4803,3.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,,Government
+262730.0,247044.0,47010.0,219756.0,0.0,2.0,-751.0,-6248.0,-4448.0,,3.0,,0.3354,0.7961,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+80124.0,260157.0,30265.0,1213712.0,1.0,2.0,-661.0,-10278.0,-4793.0,7.0,1.0,,0.5557,0.1955,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Security Ministries
+209237.0,249265.0,46240.0,761949.0,0.0,2.0,365243.0,-9551.0,-4738.0,,2.0,0.5102,0.7579,0.1558,4.0,Cash loans,N,N,Pensioner,Higher education,Municipal apartment,,Other
+195656.0,976157.0,17806.0,178600.0,1.0,4.0,-1823.0,-3353.0,-4457.0,10.0,3.0,,0.6295,0.6818,3.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,XNA
+285584.0,273750.0,22869.0,149449.0,1.0,4.0,-1323.0,-10501.0,-4524.0,,2.0,,0.6745,0.1283,0.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,Drivers,Self-employed
+102926.0,141674.0,23698.0,1029405.0,0.0,1.0,365243.0,-2960.0,-4214.0,,2.0,0.6084,0.716,0.5472,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Other
+68011.0,258734.0,44440.0,895590.0,1.0,1.0,365243.0,-10382.0,-2971.0,,2.0,0.2852,0.3821,,4.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Security staff,Self-employed
+153386.0,303340.0,37727.0,1020097.0,0.0,3.0,-2016.0,-660.0,-3901.0,,2.0,,0.574,0.1896,0.0,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,Medicine staff,XNA
+293231.0,334597.0,23344.0,532740.0,1.0,4.0,-940.0,-10353.0,-1864.0,,1.0,0.5864,0.1992,0.5702,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Sales staff,Self-employed
+283428.0,175502.0,19578.0,172850.0,0.0,3.0,-1767.0,-1223.0,-1860.0,7.0,2.0,,0.5447,0.5154,,Cash loans,Y,N,Working,Incomplete higher,House / apartment,Core staff,Self-employed
+115909.0,756839.0,39914.0,645416.0,0.0,1.0,-1973.0,-3786.0,-3401.0,,2.0,0.6428,0.5145,,3.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,Construction
+127482.0,321676.0,20833.0,756597.0,1.0,2.0,-709.0,-7688.0,-2051.0,,3.0,0.4875,0.5718,0.7807,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,High skill tech staff,Self-employed
+289452.0,828370.0,19900.0,162037.0,1.0,3.0,-1931.0,-7865.0,-636.0,,2.0,0.3695,0.7332,0.632,5.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Drivers,XNA
+205607.0,988473.0,40979.0,910818.0,0.0,2.0,-282.0,-9074.0,-223.0,,1.0,0.2205,0.6375,,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Agriculture
+302479.0,1191587.0,11723.0,161958.0,0.0,3.0,-3944.0,-1021.0,-3037.0,,1.0,,0.7355,0.2937,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+210156.0,132158.0,15404.0,663907.0,0.0,1.0,-3075.0,-1668.0,-5004.0,,2.0,,0.5643,0.7043,2.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Cleaning staff,School
+154941.0,461690.0,30018.0,308569.0,2.0,2.0,-5284.0,-835.0,-4036.0,5.0,2.0,0.3356,0.1319,0.2326,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+84386.0,1221481.0,11327.0,1115531.0,1.0,2.0,-550.0,-2267.0,-101.0,,2.0,0.8033,0.658,0.5324,2.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,,XNA
+150882.0,163586.0,23014.0,778315.0,1.0,2.0,-6737.0,-2367.0,-4331.0,,2.0,,0.5813,,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+66336.0,1288021.0,24973.0,613193.0,1.0,1.0,-1656.0,-8931.0,-2563.0,,2.0,0.7994,0.4567,0.1718,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,Low-skill Laborers,School
+222535.0,910017.0,18946.0,267225.0,0.0,3.0,-1124.0,-8176.0,-2382.0,,2.0,0.8219,0.4127,0.8031,3.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Drivers,XNA
+191621.0,462327.0,15048.0,389173.0,0.0,3.0,-2804.0,-6016.0,-3768.0,4.0,2.0,,0.3804,,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Industry: type 11
+153904.0,203959.0,40497.0,462852.0,0.0,1.0,-4525.0,-9552.0,-1459.0,,2.0,,0.6839,0.3666,0.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,XNA
+117408.0,1342963.0,42985.0,455591.0,0.0,4.0,-2853.0,-1168.0,-1083.0,15.0,3.0,,0.5542,0.361,0.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+224921.0,179271.0,11404.0,142198.0,0.0,4.0,-5752.0,-1818.0,-706.0,13.0,2.0,0.2887,0.648,0.5033,0.0,Cash loans,Y,N,Working,Higher education,Rented apartment,Core staff,Business Entity Type 3
+120003.0,618942.0,53359.0,1112754.0,0.0,2.0,-6830.0,-5197.0,-4000.0,,2.0,0.5303,0.7215,0.4396,5.0,Revolving loans,N,Y,Working,Incomplete higher,House / apartment,Cleaning staff,XNA
+121485.0,169398.0,12204.0,1306636.0,0.0,1.0,-1869.0,-8756.0,-4857.0,,2.0,,0.6801,0.7803,3.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,High skill tech staff,XNA
+177422.0,679112.0,22759.0,1141907.0,1.0,2.0,-5838.0,-7639.0,-2992.0,,2.0,,0.5151,,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Insurance
+166474.0,515630.0,37247.0,208180.0,2.0,3.0,-369.0,-7096.0,-2357.0,,2.0,,0.5712,0.6668,5.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+105186.0,776526.0,8874.0,1276897.0,1.0,1.0,365243.0,-1722.0,-892.0,11.0,2.0,,0.7137,,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,Municipal apartment,,Transport: type 4
+215594.0,610465.0,16978.0,310928.0,0.0,1.0,365243.0,-5335.0,-2135.0,,3.0,,0.7034,0.4735,,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+83445.0,297181.0,44915.0,149750.0,2.0,2.0,-2736.0,-8004.0,-4264.0,27.0,3.0,,0.673,0.7166,2.0,Cash loans,Y,Y,Pensioner,Higher education,House / apartment,,Self-employed
+194444.0,297622.0,8430.0,286050.0,0.0,4.0,-828.0,-4749.0,-4436.0,,2.0,,0.443,0.7499,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,Office apartment,Managers,Bank
+107029.0,992523.0,23611.0,172537.0,1.0,3.0,365243.0,-7199.0,-3956.0,,2.0,,0.158,0.1597,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+144347.0,123485.0,22887.0,292708.0,0.0,2.0,-185.0,-2226.0,-4083.0,,2.0,,0.746,0.6985,,Cash loans,N,N,Pensioner,Secondary / secondary special,Rented apartment,Accountants,Self-employed
+168299.0,564455.0,9679.0,1007204.0,0.0,2.0,-2693.0,-8805.0,-4693.0,3.0,2.0,0.5916,0.6103,0.6591,3.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,,Other
+134984.0,490543.0,16886.0,623856.0,0.0,2.0,-945.0,-995.0,-4911.0,,2.0,,0.738,0.7142,5.0,Cash loans,N,Y,Pensioner,Incomplete higher,House / apartment,Core staff,XNA
+146925.0,184702.0,40962.0,317589.0,1.0,2.0,-544.0,-10682.0,-4981.0,,2.0,,0.2232,0.3592,4.0,Revolving loans,N,Y,Working,Higher education,House / apartment,Secretaries,Government
+70786.0,216921.0,36735.0,1165971.0,1.0,4.0,-238.0,-3566.0,-4487.0,,2.0,0.8582,0.4687,0.7853,5.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Medicine staff,Self-employed
+181973.0,199039.0,16781.0,183041.0,0.0,1.0,-2260.0,-9694.0,-490.0,,2.0,0.7566,0.5941,0.2838,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Other
+118601.0,472355.0,37008.0,201339.0,1.0,1.0,-2306.0,-561.0,-1396.0,7.0,2.0,0.3637,0.5929,,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+158841.0,344317.0,21894.0,283727.0,0.0,3.0,-858.0,-5241.0,-2015.0,,2.0,,0.2195,,1.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,Core staff,Business Entity Type 2
+96319.0,796527.0,12151.0,389298.0,0.0,1.0,-2047.0,-1675.0,-4556.0,,2.0,0.7931,0.5795,,,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Other
+166530.0,524226.0,33810.0,599477.0,0.0,3.0,-934.0,-3703.0,-2905.0,,2.0,0.6287,0.6069,0.6318,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Private service staff,University
+74932.0,738587.0,21111.0,162093.0,0.0,2.0,-1884.0,-9300.0,-4866.0,,2.0,0.2974,0.51,0.2793,2.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Sales staff,Business Entity Type 3
+97504.0,358084.0,16122.0,490731.0,0.0,2.0,-521.0,-4149.0,-3939.0,,1.0,,0.6602,0.5102,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Self-employed
+171346.0,275776.0,30762.0,1215401.0,0.0,2.0,-904.0,-5626.0,-4655.0,,2.0,0.8571,0.5856,0.5462,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,School
+193558.0,353731.0,29995.0,235076.0,1.0,2.0,-2809.0,-9183.0,-4825.0,,2.0,,0.5226,0.341,2.0,Revolving loans,N,N,Commercial associate,Higher education,House / apartment,,Medicine
+153907.0,244382.0,33117.0,367286.0,0.0,3.0,-6061.0,-2112.0,-1704.0,,2.0,0.6849,0.3494,,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+101596.0,767289.0,27265.0,137409.0,1.0,3.0,365243.0,-9264.0,-4209.0,,2.0,0.2828,0.6713,,,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Laborers,Other
+272462.0,795810.0,23346.0,231363.0,1.0,1.0,365243.0,-7594.0,-2426.0,23.0,3.0,,0.4531,,5.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+72300.0,1315181.0,24110.0,242063.0,1.0,2.0,-215.0,-9167.0,-4185.0,8.0,2.0,,0.5057,0.7432,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,Municipal apartment,,Business Entity Type 3
+106498.0,269368.0,30147.0,808912.0,2.0,2.0,-638.0,-5089.0,-2014.0,,2.0,0.5879,0.6751,0.4659,1.0,Cash loans,N,Y,Commercial associate,Incomplete higher,House / apartment,High skill tech staff,Transport: type 4
+198797.0,953724.0,14830.0,784217.0,0.0,2.0,-3788.0,-4239.0,-4968.0,,1.0,0.3694,0.1873,0.3924,2.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,XNA
+222605.0,700210.0,51978.0,1172043.0,1.0,4.0,-6870.0,-9419.0,-2576.0,,1.0,,0.4642,0.5567,0.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 1
+157449.0,787692.0,35596.0,206169.0,0.0,2.0,365243.0,-2248.0,-3345.0,,2.0,0.41,0.5456,0.6845,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+153407.0,1328187.0,44607.0,881820.0,0.0,1.0,-1815.0,-3981.0,-3883.0,12.0,3.0,0.6383,0.6818,,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Security staff,Business Entity Type 3
+121375.0,196247.0,35015.0,940444.0,0.0,2.0,-592.0,-6896.0,-346.0,,2.0,0.8301,0.5854,0.2025,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Medicine staff,Medicine
+87368.0,675317.0,12130.0,1089800.0,0.0,3.0,-5484.0,-11153.0,-4039.0,,1.0,,0.1874,0.5588,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Medicine
+171150.0,266166.0,29920.0,399465.0,1.0,2.0,-226.0,-4566.0,-4878.0,,2.0,,0.5058,0.7717,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Security Ministries
+126393.0,1274768.0,11193.0,637254.0,0.0,3.0,-2117.0,-2293.0,-3148.0,12.0,2.0,0.3231,0.6293,0.6914,,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+224290.0,1318207.0,22221.0,253957.0,0.0,2.0,-6559.0,-5196.0,-4757.0,17.0,2.0,,0.6756,0.521,,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Private service staff,Self-employed
+96240.0,116098.0,11689.0,940442.0,0.0,2.0,365243.0,-4771.0,-4723.0,,2.0,0.6485,0.1027,,0.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Government
+127058.0,1011942.0,50541.0,168828.0,1.0,2.0,-401.0,-879.0,-4232.0,1.0,2.0,,0.64,0.1722,0.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+177261.0,252711.0,15709.0,1158483.0,2.0,2.0,-648.0,-2297.0,-2115.0,,1.0,,0.6183,0.1553,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Medicine staff,Business Entity Type 3
+119264.0,273430.0,18027.0,289316.0,1.0,3.0,-3635.0,-5414.0,-3843.0,,2.0,0.2739,0.4749,0.4978,0.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Managers,Construction
+74479.0,282923.0,27243.0,460410.0,0.0,2.0,-159.0,-6021.0,-1900.0,20.0,2.0,,0.1049,0.7134,4.0,Revolving loans,Y,N,Working,Secondary / secondary special,House / apartment,High skill tech staff,Self-employed
+160879.0,1129630.0,22004.0,604391.0,0.0,2.0,-996.0,-1649.0,-1896.0,,3.0,0.3452,0.5257,0.7211,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+74099.0,344204.0,20014.0,607048.0,0.0,2.0,-1542.0,-9827.0,-3978.0,,3.0,,0.5594,,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,XNA
+71921.0,159979.0,15135.0,1312793.0,0.0,3.0,-2252.0,-335.0,-2436.0,6.0,2.0,0.2705,0.3676,0.5521,,Cash loans,Y,N,Working,Incomplete higher,House / apartment,,Business Entity Type 3
+111297.0,135168.0,27074.0,440541.0,0.0,3.0,365243.0,-3480.0,-4626.0,10.0,3.0,,0.2932,0.371,2.0,Cash loans,Y,Y,Pensioner,Higher education,House / apartment,,Transport: type 2
+98900.0,501633.0,33416.0,141675.0,0.0,4.0,-695.0,-781.0,-4262.0,,2.0,,0.6607,0.23,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+180668.0,599436.0,23930.0,207228.0,1.0,1.0,-992.0,-8990.0,-3301.0,,1.0,,0.5299,0.3739,4.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Cooking staff,Business Entity Type 3
+173968.0,611394.0,15088.0,864798.0,0.0,2.0,-3029.0,-774.0,-850.0,0.0,2.0,,0.5206,0.5505,2.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Cleaning staff,Business Entity Type 3
+221717.0,209411.0,7670.0,445505.0,1.0,2.0,-1383.0,-516.0,-3278.0,,3.0,,0.6415,0.7246,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Cleaning staff,Business Entity Type 3
+207286.0,852103.0,30977.0,292204.0,0.0,3.0,-2311.0,-474.0,-1414.0,,3.0,,0.7594,0.6992,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Other
+300634.0,262105.0,36270.0,614237.0,0.0,2.0,-2685.0,-5625.0,-4084.0,,2.0,0.4464,0.4446,0.6278,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Trade: type 7
+118687.0,521264.0,12168.0,407850.0,0.0,2.0,-1572.0,-6591.0,-3259.0,,2.0,0.5161,0.1054,0.1292,4.0,Revolving loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Self-employed
+265290.0,964594.0,8675.0,1357133.0,0.0,3.0,-368.0,-2471.0,-2783.0,2.0,1.0,,0.5689,0.733,4.0,Cash loans,Y,N,Working,Higher education,House / apartment,Accountants,Business Entity Type 1
+173215.0,1113492.0,25682.0,1250927.0,2.0,2.0,-624.0,-8905.0,-4422.0,,1.0,0.5466,0.3909,0.5757,0.0,Cash loans,N,Y,Working,Higher education,Municipal apartment,,Business Entity Type 3
+179128.0,139866.0,15477.0,625097.0,0.0,1.0,-253.0,-1075.0,-4567.0,20.0,2.0,,0.5248,0.264,3.0,Cash loans,Y,N,State servant,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 1
+98789.0,1107551.0,11457.0,166388.0,0.0,2.0,365243.0,-380.0,-4402.0,4.0,2.0,,0.5854,0.1643,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Medicine staff,Self-employed
+254320.0,507180.0,32107.0,190026.0,0.0,2.0,-3036.0,-7865.0,-4220.0,,2.0,0.4642,0.3633,0.4451,5.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,XNA
+219674.0,450498.0,24926.0,150872.0,0.0,2.0,-468.0,-1314.0,-3466.0,,3.0,,0.5793,0.6444,,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,Trade: type 3
+163579.0,927017.0,15732.0,161139.0,0.0,2.0,-5958.0,-6733.0,-4687.0,,2.0,,0.677,0.6759,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 2
+112417.0,721605.0,52669.0,179996.0,0.0,2.0,-543.0,-4494.0,-594.0,,2.0,,0.0963,0.6461,3.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+109410.0,296480.0,33296.0,1306603.0,0.0,1.0,-1798.0,-33.0,-2971.0,,1.0,,0.3728,0.5924,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Self-employed
+163003.0,169562.0,8428.0,1359120.0,0.0,2.0,-6508.0,-7161.0,-3067.0,,2.0,,0.6139,0.6979,,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Mobile
+193725.0,244494.0,35848.0,894670.0,0.0,2.0,-2578.0,-692.0,-355.0,0.0,2.0,0.2091,0.5842,0.38,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+211280.0,497511.0,21076.0,534381.0,0.0,1.0,-289.0,-5560.0,-4318.0,,2.0,,0.4592,0.2551,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+74192.0,258084.0,28025.0,374782.0,0.0,4.0,-3097.0,-2205.0,-4639.0,,2.0,0.5602,0.4375,0.6215,4.0,Cash loans,N,N,Working,Higher education,House / apartment,,Business Entity Type 3
+259576.0,488383.0,20098.0,421943.0,0.0,1.0,-1989.0,-2784.0,-456.0,,2.0,,0.3601,,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,School
+156643.0,890250.0,47182.0,194034.0,1.0,2.0,-52.0,-3015.0,-3719.0,,2.0,,0.5697,0.5554,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+100423.0,578967.0,29022.0,184488.0,0.0,3.0,-648.0,-10554.0,-1186.0,,2.0,,0.669,0.5847,0.0,Cash loans,N,N,Working,Higher education,House / apartment,Sales staff,Other
+210617.0,340594.0,15304.0,452569.0,3.0,2.0,-1387.0,-10610.0,-4244.0,,2.0,,0.3656,,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,,XNA
+192679.0,560425.0,40145.0,395330.0,2.0,2.0,-5567.0,-10752.0,-1576.0,10.0,1.0,,0.4496,0.5035,1.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Self-employed
+300113.0,211782.0,38981.0,502964.0,0.0,1.0,-737.0,-3401.0,-3386.0,,2.0,,0.4917,0.5315,4.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Secretaries,Government
+117473.0,317829.0,50419.0,176944.0,0.0,3.0,-1748.0,-6993.0,-674.0,14.0,2.0,0.7413,0.6107,0.7176,,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Electricity
+163961.0,478348.0,23895.0,417067.0,0.0,2.0,365243.0,-8272.0,-4144.0,,2.0,,0.6861,,5.0,Revolving loans,N,N,Pensioner,Higher education,House / apartment,,Business Entity Type 3
+302099.0,786395.0,30584.0,596344.0,0.0,2.0,-3961.0,-4070.0,-2863.0,5.0,2.0,0.6955,0.6333,0.3115,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Security Ministries
+117997.0,488498.0,12974.0,790716.0,0.0,4.0,-111.0,-2022.0,-2130.0,23.0,3.0,,0.4568,0.2672,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Self-employed
+93054.0,764104.0,26956.0,512471.0,0.0,2.0,-260.0,-10071.0,-4767.0,,2.0,,0.6521,,4.0,Cash loans,N,Y,Working,Higher education,House / apartment,,Business Entity Type 2
+202223.0,1097266.0,28531.0,484050.0,0.0,2.0,-1190.0,-5221.0,-2232.0,,2.0,,0.6993,,5.0,Revolving loans,N,Y,Pensioner,Higher education,House / apartment,Accountants,Self-employed
+216954.0,678335.0,11582.0,941337.0,0.0,2.0,-2513.0,-3240.0,-373.0,2.0,2.0,,0.7581,0.1599,4.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Other
+159373.0,975817.0,22110.0,495669.0,0.0,2.0,-3385.0,-6777.0,-4944.0,5.0,3.0,0.3817,0.1988,,3.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+117625.0,952605.0,33143.0,925806.0,0.0,1.0,-1175.0,-3510.0,-4875.0,12.0,2.0,,0.571,0.5876,3.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+108789.0,197833.0,22304.0,663099.0,0.0,2.0,-675.0,-787.0,-485.0,,2.0,,0.5003,,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,Medicine staff,Electricity
+299040.0,497797.0,26036.0,1130442.0,0.0,2.0,-2802.0,-8393.0,-4924.0,12.0,2.0,,0.4756,0.4841,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,XNA
+260926.0,809269.0,20786.0,1356392.0,2.0,2.0,365243.0,-2620.0,-4306.0,,2.0,0.5868,0.4385,0.5173,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Industry: type 11
+78515.0,659113.0,22122.0,857079.0,0.0,1.0,365243.0,-7548.0,-1432.0,15.0,1.0,,0.235,0.6428,4.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,,XNA
+86261.0,951167.0,25255.0,224251.0,0.0,2.0,-76.0,-5458.0,-3927.0,,2.0,,0.5847,0.4155,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,Kindergarten
+112786.0,1327273.0,31371.0,1051149.0,0.0,3.0,365243.0,-4808.0,-553.0,,2.0,,0.7195,,3.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,Business Entity Type 3
+155508.0,811898.0,50674.0,180939.0,1.0,2.0,-1070.0,-9405.0,-1297.0,14.0,2.0,,0.4522,,2.0,Cash loans,Y,Y,State servant,Higher education,House / apartment,,Self-employed
+174065.0,538911.0,12340.0,513827.0,0.0,3.0,365243.0,-1843.0,-3326.0,9.0,2.0,0.4299,0.1806,0.4306,0.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Drivers,Police
+103088.0,785550.0,31043.0,793874.0,0.0,2.0,-6202.0,-137.0,-868.0,,3.0,,0.5438,0.4184,,Cash loans,N,N,Working,Incomplete higher,House / apartment,Sales staff,Self-employed
+82618.0,1171428.0,31236.0,1351419.0,2.0,2.0,-788.0,-112.0,-4518.0,,3.0,0.5614,0.5988,0.7847,5.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Kindergarten
+79252.0,634691.0,31502.0,417996.0,2.0,2.0,365243.0,-7382.0,-4140.0,,2.0,,0.6145,,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,XNA
+246988.0,154979.0,31666.0,468382.0,0.0,1.0,365243.0,-10118.0,-4557.0,0.0,3.0,,0.1402,0.2525,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Cooking staff,Other
+173614.0,1110585.0,26001.0,1159485.0,0.0,1.0,-1350.0,-2524.0,-4007.0,,2.0,0.709,0.7405,,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Cleaning
+129484.0,419921.0,46941.0,207400.0,0.0,3.0,-2732.0,-6058.0,-4336.0,6.0,2.0,,0.5526,,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,XNA
+224078.0,288368.0,53151.0,400478.0,1.0,2.0,-4850.0,-336.0,-2290.0,20.0,2.0,,0.6631,0.6318,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+218185.0,466051.0,27378.0,250252.0,2.0,4.0,-6729.0,-42.0,-4969.0,,2.0,0.6535,0.3171,,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+142000.0,1364718.0,22340.0,480593.0,0.0,1.0,-1914.0,-1574.0,-4747.0,,3.0,0.5966,0.6654,0.6087,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+180595.0,668318.0,9030.0,374681.0,0.0,2.0,-1709.0,-1438.0,-4799.0,2.0,2.0,0.8162,0.4627,0.5127,0.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Government
+210101.0,1337543.0,19430.0,1317928.0,0.0,1.0,-1636.0,-4001.0,-2798.0,1.0,2.0,,0.5351,0.4813,0.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 3
+128410.0,798980.0,25378.0,397585.0,0.0,3.0,-789.0,-10411.0,-300.0,,3.0,,0.6155,0.5448,4.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Laborers,Postal
+71149.0,458247.0,29612.0,261222.0,0.0,2.0,-688.0,-8941.0,-2861.0,3.0,2.0,0.6421,0.508,,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Medicine staff,Construction
+189168.0,359074.0,8942.0,459244.0,0.0,2.0,-1002.0,-1093.0,-2015.0,,2.0,0.6927,0.4986,0.7306,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,Sales staff,Business Entity Type 3
+102083.0,1244857.0,13681.0,149696.0,0.0,2.0,-533.0,-1205.0,-1060.0,17.0,1.0,,0.6585,0.3453,4.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Construction
+103582.0,273300.0,26904.0,216140.0,1.0,1.0,-2744.0,-3516.0,-278.0,3.0,2.0,,0.2361,0.7893,1.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Kindergarten
+97147.0,893095.0,20281.0,410480.0,0.0,2.0,-1709.0,-8824.0,-666.0,,2.0,,0.5347,0.5865,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,XNA
+154952.0,264039.0,18184.0,1007839.0,0.0,2.0,-1281.0,-3842.0,-4934.0,14.0,2.0,,0.5563,0.444,0.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Managers,XNA
+65346.0,903073.0,19915.0,392411.0,0.0,3.0,-2962.0,-3107.0,-4207.0,,2.0,0.269,0.5536,0.1727,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Transport: type 3
+224362.0,837589.0,24206.0,162912.0,1.0,2.0,365243.0,-2468.0,-3686.0,,2.0,0.7902,0.4656,,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Accountants,Services
+115119.0,294576.0,30407.0,514147.0,0.0,1.0,-409.0,-3345.0,-4191.0,,3.0,0.5487,0.5973,0.667,5.0,Cash loans,N,N,State servant,Higher education,House / apartment,,Self-employed
+111488.0,348920.0,16114.0,599374.0,2.0,2.0,-3615.0,-6131.0,-4010.0,8.0,3.0,,0.718,0.5918,2.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,,Transport: type 2
+215008.0,322186.0,50577.0,228474.0,0.0,2.0,-181.0,-4380.0,-2226.0,,2.0,0.6273,0.746,0.6793,0.0,Cash loans,N,N,Working,Secondary / secondary special,Municipal apartment,,XNA
+279907.0,360550.0,27119.0,930453.0,0.0,2.0,-5748.0,-5832.0,-654.0,,2.0,0.4185,0.662,0.7353,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Medicine staff,Transport: type 4
+123297.0,327516.0,25417.0,146218.0,3.0,2.0,-861.0,-111.0,-3669.0,,2.0,0.4248,0.3894,,,Cash loans,N,Y,State servant,Secondary / secondary special,Municipal apartment,,Government
+169101.0,877254.0,43251.0,196891.0,0.0,2.0,365243.0,-525.0,-4210.0,23.0,2.0,0.8218,0.6357,,2.0,Revolving loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+103839.0,494715.0,31820.0,1089537.0,0.0,1.0,-6883.0,-5476.0,-1031.0,,2.0,0.6944,0.7389,,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+161788.0,776269.0,36562.0,156886.0,0.0,3.0,-3568.0,-594.0,-2733.0,,2.0,,0.6219,,,Cash loans,N,Y,Working,Higher education,House / apartment,Managers,XNA
+119725.0,250877.0,20729.0,161290.0,1.0,3.0,-1016.0,-1815.0,-3976.0,,3.0,0.629,0.698,0.24,0.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,Municipal apartment,,Self-employed
+201386.0,189333.0,23012.0,703775.0,0.0,2.0,365243.0,-5323.0,-4253.0,,2.0,,0.7513,0.3801,1.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Core staff,Transport: type 4
+110617.0,478888.0,17519.0,741814.0,0.0,1.0,-1339.0,-1851.0,-3714.0,18.0,2.0,0.4925,0.4029,0.7422,2.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,XNA
+161726.0,193589.0,50509.0,544564.0,0.0,1.0,-1410.0,-4654.0,-1837.0,,2.0,,0.7331,,2.0,Cash loans,N,N,Pensioner,Higher education,House / apartment,Core staff,Other
+66827.0,369604.0,8074.0,572391.0,0.0,2.0,365243.0,-7740.0,-4336.0,8.0,3.0,0.8504,0.7131,0.7568,5.0,Revolving loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Government
+214937.0,192518.0,54246.0,402974.0,0.0,2.0,365243.0,-5085.0,-361.0,,2.0,,0.7333,0.1332,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Low-skill Laborers,School
+127148.0,349512.0,26611.0,905459.0,0.0,4.0,-5022.0,-7338.0,-498.0,7.0,2.0,0.8195,0.542,0.2215,,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,School
+134839.0,331268.0,31515.0,660360.0,0.0,2.0,-951.0,-6018.0,-334.0,,2.0,0.1505,0.1392,0.7537,5.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Core staff,Business Entity Type 1
+107798.0,505467.0,26482.0,696076.0,0.0,1.0,-1068.0,-10836.0,-4425.0,,3.0,0.841,0.392,0.2709,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+83198.0,282463.0,45607.0,1159058.0,0.0,2.0,-6599.0,-3234.0,-4005.0,,2.0,0.6669,0.6548,,4.0,Cash loans,N,Y,Working,Higher education,House / apartment,,School
+105240.0,236204.0,15032.0,366287.0,0.0,2.0,-1115.0,-5087.0,-2501.0,11.0,2.0,0.8235,0.7252,,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,Municipal apartment,Laborers,XNA
+118751.0,1238722.0,26199.0,449688.0,0.0,1.0,-930.0,-523.0,-2896.0,,2.0,0.7952,0.7333,0.2723,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Medicine staff,Industry: type 2
+255773.0,637337.0,46674.0,387178.0,0.0,2.0,-445.0,-3974.0,-2062.0,,2.0,0.6179,0.2953,0.771,1.0,Revolving loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,Self-employed
+179074.0,618159.0,34636.0,209936.0,0.0,2.0,-3071.0,-5031.0,-3477.0,,2.0,,0.4155,0.3075,5.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,Low-skill Laborers,Business Entity Type 3
+132728.0,207042.0,20879.0,253717.0,1.0,2.0,-2419.0,-6635.0,-3178.0,,2.0,0.3282,0.676,0.6931,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,,Other
+85234.0,259747.0,31257.0,908484.0,2.0,2.0,-2646.0,-3419.0,-1389.0,17.0,2.0,,0.1723,0.2126,2.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,With parents,Laborers,Business Entity Type 3
+165796.0,440474.0,49462.0,678288.0,0.0,3.0,-841.0,-5391.0,-640.0,9.0,2.0,,,0.7375,4.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,School
+215112.0,301737.0,40460.0,298722.0,0.0,2.0,365243.0,-6651.0,-1592.0,,2.0,0.4174,0.5901,0.7049,,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Managers,Self-employed
+201423.0,1119182.0,26740.0,469089.0,1.0,2.0,365243.0,-9215.0,-3582.0,,1.0,0.5379,0.3403,0.4174,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Medicine staff,Business Entity Type 3
+89123.0,288344.0,53167.0,182198.0,0.0,3.0,-1932.0,-906.0,-3020.0,,2.0,,0.5716,0.6756,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+93352.0,356423.0,28042.0,187375.0,1.0,3.0,-3975.0,-4509.0,-1016.0,,2.0,0.7478,0.7116,0.3671,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,XNA
+157169.0,168222.0,23782.0,538060.0,2.0,2.0,-1903.0,-1566.0,-4991.0,6.0,2.0,0.4904,0.7237,0.613,0.0,Cash loans,Y,Y,Working,Higher education,Municipal apartment,Medicine staff,Business Entity Type 3
+237532.0,957449.0,48061.0,487825.0,0.0,3.0,-2635.0,-230.0,-4509.0,9.0,2.0,0.4072,0.1532,0.1949,,Cash loans,Y,Y,Working,Secondary / secondary special,Rented apartment,Drivers,Business Entity Type 3
+190248.0,1175694.0,32609.0,450983.0,2.0,2.0,-256.0,-5159.0,-4029.0,,2.0,,0.6192,,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+311527.0,301616.0,8733.0,817576.0,2.0,1.0,365243.0,-2767.0,-732.0,,2.0,,0.2821,0.2926,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+299064.0,738542.0,48342.0,449919.0,1.0,1.0,-2289.0,-2073.0,-3455.0,,2.0,0.1399,0.6547,0.5793,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,Government
+224893.0,582528.0,11126.0,193562.0,0.0,2.0,-3604.0,-11500.0,-506.0,8.0,1.0,,0.481,0.5436,4.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,School
+94450.0,515713.0,49312.0,184080.0,0.0,1.0,-180.0,-6966.0,-3160.0,,1.0,,0.3876,,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Government
+125601.0,483057.0,9827.0,465610.0,0.0,2.0,365243.0,-5070.0,-3398.0,,1.0,0.8313,0.2479,,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 1
+176175.0,147514.0,28993.0,979614.0,0.0,2.0,-5841.0,-588.0,-782.0,,2.0,0.6848,0.6033,0.5613,,Cash loans,N,Y,Pensioner,Secondary / secondary special,Municipal apartment,,Industry: type 3
+216727.0,398409.0,10997.0,586651.0,0.0,3.0,365243.0,-1530.0,-2219.0,,2.0,,0.5658,0.5321,1.0,Revolving loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Industry: type 3
+179935.0,655214.0,18982.0,605924.0,0.0,2.0,-1063.0,-5454.0,-4373.0,25.0,2.0,0.1317,0.6224,0.1565,5.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,,Business Entity Type 3
+265559.0,736429.0,35630.0,430259.0,0.0,2.0,-2467.0,-9066.0,-4550.0,6.0,2.0,,0.1769,0.2484,1.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,Sales staff,Trade: type 3
+268959.0,177661.0,21798.0,691429.0,1.0,2.0,-2008.0,-5360.0,-1820.0,11.0,1.0,,0.7555,0.7896,,Revolving loans,Y,N,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+219635.0,510899.0,29664.0,248069.0,0.0,1.0,-454.0,-8106.0,-4536.0,8.0,2.0,0.2817,0.6382,,,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,,Transport: type 4
+125799.0,351675.0,30934.0,1190629.0,1.0,3.0,-5247.0,-11310.0,-3069.0,17.0,2.0,,0.571,0.5395,4.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+96249.0,744903.0,39917.0,251968.0,1.0,4.0,-2875.0,-8287.0,-2046.0,,2.0,0.4981,0.5589,0.4833,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+131381.0,233234.0,51857.0,368773.0,0.0,2.0,-2444.0,-8798.0,-2923.0,,2.0,,0.6377,0.2513,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Trade: type 7
+96945.0,191245.0,31061.0,180208.0,0.0,2.0,-353.0,-1219.0,-136.0,,2.0,,0.7324,0.2707,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Private service staff,Business Entity Type 3
+143682.0,517721.0,15425.0,565035.0,0.0,2.0,-1284.0,-3355.0,-2313.0,,2.0,,0.5372,0.4316,,Revolving loans,N,Y,Commercial associate,Higher education,House / apartment,Laborers,XNA
+108833.0,124506.0,10920.0,195421.0,0.0,4.0,-1456.0,-10016.0,-895.0,,1.0,,0.6304,0.7054,3.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,Self-employed
+87498.0,200049.0,22831.0,946731.0,0.0,1.0,-802.0,-2325.0,-2817.0,,2.0,0.1905,0.6261,0.2518,2.0,Cash loans,N,N,Working,Secondary / secondary special,With parents,,Other
+273372.0,511929.0,25081.0,278998.0,1.0,4.0,-1264.0,-3270.0,-4436.0,,2.0,,0.7228,0.5584,3.0,Cash loans,N,N,Pensioner,Higher education,House / apartment,Laborers,Mobile
+149051.0,956661.0,34134.0,208140.0,0.0,4.0,-333.0,-1325.0,-3908.0,,2.0,,0.1993,0.3944,2.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Medicine
+203919.0,202513.0,53775.0,510690.0,1.0,1.0,-1149.0,-186.0,-1594.0,,2.0,,0.6293,0.6836,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Construction
+254359.0,1015088.0,49127.0,265789.0,2.0,1.0,-186.0,-7365.0,-4439.0,25.0,2.0,,0.449,0.4493,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Construction
+161029.0,393290.0,19890.0,606981.0,0.0,3.0,365243.0,-8640.0,-674.0,,2.0,,0.6726,0.2024,3.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Accountants,Kindergarten
+155002.0,742078.0,50398.0,558857.0,0.0,2.0,-3474.0,-3359.0,-242.0,,2.0,,0.5106,0.7748,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,Office apartment,Cooking staff,Government
+215379.0,1346162.0,43782.0,160618.0,0.0,3.0,365243.0,-4367.0,-2814.0,25.0,3.0,0.1694,0.2302,0.4505,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Core staff,Self-employed
+89171.0,257972.0,49991.0,602070.0,1.0,2.0,365243.0,-3436.0,-4794.0,,2.0,0.7286,0.4534,0.5156,2.0,Cash loans,N,Y,Commercial associate,Lower secondary,House / apartment,Laborers,Transport: type 4
+119380.0,643662.0,37404.0,575018.0,1.0,1.0,-3923.0,-4207.0,-3549.0,,3.0,0.5608,0.4755,0.7845,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+222288.0,385784.0,19447.0,819869.0,0.0,2.0,365243.0,-9285.0,-4878.0,5.0,2.0,,0.4113,0.2416,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Managers,Trade: type 3
+218552.0,597162.0,13017.0,246097.0,0.0,2.0,365243.0,-7672.0,-1247.0,5.0,2.0,,0.3628,0.6797,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+75833.0,481225.0,26931.0,269983.0,1.0,2.0,365243.0,-4141.0,-4063.0,,2.0,0.3211,0.3891,0.6922,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+294011.0,1324633.0,40681.0,611165.0,0.0,1.0,365243.0,-1236.0,-2711.0,20.0,1.0,,0.1047,0.3877,5.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,,School
+110115.0,684996.0,22492.0,153854.0,0.0,4.0,-6452.0,-349.0,-4736.0,,2.0,,0.6592,,2.0,Revolving loans,N,Y,Working,Higher education,House / apartment,Drivers,Other
+154625.0,738625.0,10875.0,566811.0,1.0,2.0,-635.0,-1366.0,-2764.0,,3.0,,0.5176,0.7924,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,Municipal apartment,,XNA
+109154.0,442409.0,15135.0,428620.0,0.0,3.0,365243.0,-2150.0,-3428.0,10.0,2.0,0.6471,0.5017,0.7547,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 2
+78876.0,353149.0,26458.0,376344.0,1.0,2.0,-2054.0,-5187.0,-4283.0,,2.0,0.4623,0.2698,,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Self-employed
+239838.0,568115.0,12002.0,324410.0,0.0,3.0,-1439.0,-2502.0,-1608.0,,2.0,,0.6054,0.8009,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+214768.0,572367.0,45125.0,631776.0,0.0,1.0,-1175.0,-3615.0,-4225.0,,2.0,0.4315,0.4457,,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Security staff,Business Entity Type 3
+78506.0,305520.0,8600.0,1214639.0,0.0,3.0,-2414.0,-1554.0,-4402.0,,2.0,0.6677,0.5452,0.1787,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Medicine staff,Industry: type 3
+195642.0,1202395.0,42279.0,851090.0,0.0,3.0,-1596.0,-11375.0,-4930.0,,2.0,,0.58,0.6398,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+203985.0,436826.0,51420.0,142289.0,0.0,1.0,365243.0,-4174.0,-1491.0,17.0,2.0,,0.5475,0.3821,,Cash loans,Y,Y,Working,Incomplete higher,House / apartment,Security staff,Business Entity Type 3
+254062.0,147642.0,30440.0,1277363.0,0.0,2.0,365243.0,-9339.0,-4045.0,,2.0,,0.7517,0.6817,5.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Managers,Trade: type 2
+306863.0,495297.0,24259.0,820094.0,1.0,2.0,-3633.0,-6540.0,-4696.0,24.0,2.0,,0.5177,0.2723,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+291658.0,254850.0,36021.0,137832.0,1.0,2.0,-1720.0,-10067.0,-1571.0,,1.0,,0.6111,0.7411,3.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Cooking staff,Other
+115783.0,552283.0,15303.0,150342.0,0.0,2.0,-1494.0,-1444.0,-2619.0,4.0,2.0,,0.7273,0.6994,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+159705.0,771457.0,22146.0,599579.0,2.0,2.0,365243.0,-3313.0,-4574.0,23.0,2.0,0.1321,0.6703,,3.0,Cash loans,Y,N,Pensioner,Higher education,House / apartment,,Medicine
+258219.0,129348.0,42498.0,441978.0,0.0,2.0,-622.0,-10421.0,-3387.0,,2.0,,0.2561,0.4225,2.0,Revolving loans,N,Y,Commercial associate,Higher education,House / apartment,Accountants,Emergency
+112011.0,1279512.0,27911.0,242547.0,0.0,2.0,-2310.0,-8206.0,-4640.0,,2.0,,0.7227,0.377,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,School
+186891.0,297120.0,30091.0,152432.0,1.0,3.0,-2227.0,-5299.0,-4945.0,,2.0,0.7852,0.6546,0.4415,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Military
+127668.0,267629.0,16997.0,237039.0,0.0,1.0,-1742.0,-8566.0,-4034.0,,3.0,,0.4226,0.7134,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Drivers,Government
+99539.0,532581.0,29918.0,211214.0,0.0,3.0,-4331.0,-10327.0,-293.0,23.0,2.0,,0.4618,0.6829,1.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,With parents,Laborers,Business Entity Type 3
+79983.0,743354.0,21488.0,634254.0,0.0,2.0,-279.0,-9960.0,-3294.0,0.0,2.0,,0.5138,0.611,,Revolving loans,Y,N,Working,Higher education,House / apartment,Private service staff,XNA
+153980.0,771331.0,47505.0,143660.0,0.0,2.0,-998.0,-5179.0,-4713.0,,1.0,,0.5806,,,Cash loans,N,Y,Commercial associate,Incomplete higher,With parents,,Business Entity Type 3
+304884.0,754767.0,32468.0,479835.0,0.0,3.0,365243.0,-6588.0,-3315.0,,1.0,0.5063,0.6063,,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+96061.0,480068.0,9069.0,348139.0,0.0,2.0,-79.0,-4892.0,-4956.0,6.0,2.0,,0.7563,0.686,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,High skill tech staff,Government
+170944.0,266905.0,28854.0,350570.0,0.0,2.0,365243.0,-3843.0,-4208.0,4.0,1.0,0.193,0.6115,0.586,0.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,With parents,Accountants,Business Entity Type 3
+208510.0,629939.0,20804.0,469537.0,1.0,2.0,365243.0,-24.0,-4395.0,,2.0,0.5613,0.6602,0.4913,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Medicine
+178813.0,173794.0,49706.0,189418.0,0.0,2.0,-848.0,-157.0,-4776.0,,2.0,,0.6764,0.4489,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 1
+201950.0,143557.0,53421.0,584986.0,0.0,2.0,365243.0,-2842.0,-285.0,27.0,2.0,,0.0962,0.6961,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Managers,Industry: type 7
+159180.0,937330.0,12867.0,496513.0,0.0,2.0,-1757.0,-10630.0,-4315.0,,2.0,,0.3951,,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 2
+126077.0,117150.0,26749.0,872866.0,0.0,4.0,-2192.0,-6635.0,-4683.0,,2.0,,0.6124,0.5848,0.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+101647.0,251985.0,28550.0,714970.0,0.0,2.0,-2167.0,-6725.0,-2589.0,,3.0,,0.6932,0.7555,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,XNA
+165074.0,290261.0,22105.0,239023.0,0.0,2.0,-2674.0,-5166.0,-3748.0,19.0,2.0,,0.6539,0.661,4.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Core staff,XNA
+129882.0,322200.0,16608.0,1012904.0,2.0,4.0,-1593.0,-908.0,-4079.0,,2.0,0.6431,0.5742,,2.0,Cash loans,N,Y,Working,Incomplete higher,House / apartment,Accountants,Business Entity Type 3
+186505.0,279524.0,31232.0,224678.0,0.0,1.0,365243.0,-3294.0,-4995.0,10.0,2.0,,0.457,0.7247,,Cash loans,Y,Y,Pensioner,Secondary / secondary special,With parents,Core staff,XNA
+160781.0,1184516.0,21976.0,1300537.0,0.0,3.0,-2213.0,-8737.0,-418.0,,2.0,0.1667,0.5697,,,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Self-employed
+102575.0,144335.0,19181.0,360282.0,2.0,4.0,365243.0,-5439.0,-886.0,,3.0,,0.388,0.4638,,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 2
+138262.0,181034.0,26450.0,152054.0,1.0,1.0,-3616.0,-514.0,-2562.0,,2.0,0.5015,0.7034,0.5443,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+65217.0,437967.0,19822.0,1169287.0,1.0,2.0,-1594.0,-4289.0,-4587.0,,2.0,,0.7386,,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,XNA
+78615.0,634823.0,26496.0,190272.0,1.0,1.0,-949.0,-8384.0,-4359.0,,2.0,,0.7333,0.6853,1.0,Revolving loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Core staff,XNA
+122570.0,778903.0,22885.0,773231.0,0.0,4.0,-366.0,-7901.0,-4994.0,,2.0,,0.7423,0.1484,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+158787.0,609620.0,26883.0,213398.0,0.0,2.0,-1968.0,-2161.0,-3931.0,,2.0,,0.4375,0.1808,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+283685.0,792043.0,24257.0,189557.0,1.0,1.0,-6111.0,-6646.0,-3076.0,5.0,2.0,,0.536,0.6481,3.0,Cash loans,Y,Y,Pensioner,Higher education,House / apartment,,Business Entity Type 3
+80131.0,170299.0,16003.0,1227027.0,0.0,2.0,-4494.0,-6944.0,-4763.0,,1.0,,0.3621,0.736,5.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,XNA
+107066.0,811327.0,10574.0,1209487.0,0.0,2.0,-5830.0,-314.0,-3973.0,3.0,2.0,,0.515,0.7155,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+107461.0,301823.0,45447.0,581522.0,0.0,2.0,-4918.0,-737.0,-4228.0,20.0,2.0,,0.6946,0.3722,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Managers,Kindergarten
+125365.0,324140.0,26551.0,855440.0,2.0,2.0,365243.0,-1178.0,-697.0,19.0,2.0,,0.5504,,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,XNA
+87442.0,760409.0,8901.0,1030536.0,2.0,2.0,-2754.0,-2350.0,-1956.0,,2.0,0.8186,0.3884,0.7268,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Drivers,XNA
+85531.0,427409.0,18669.0,910190.0,0.0,3.0,-316.0,-11210.0,-245.0,,3.0,,0.1512,,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Managers,XNA
+100770.0,402364.0,46806.0,509367.0,0.0,3.0,-6094.0,-2853.0,-4884.0,13.0,3.0,0.7529,0.247,,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Self-employed
+98772.0,315782.0,19726.0,196864.0,2.0,2.0,365243.0,-4896.0,-1133.0,9.0,2.0,,0.3726,,1.0,Cash loans,Y,N,Working,Secondary / secondary special,Municipal apartment,Accountants,Electricity
+171557.0,227264.0,19698.0,309199.0,0.0,2.0,-1360.0,-4547.0,-4376.0,,2.0,0.145,0.6751,0.7507,,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,,Business Entity Type 3
+128922.0,144655.0,27089.0,236370.0,1.0,2.0,-506.0,-9173.0,-4899.0,,3.0,0.18,0.1085,0.2585,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Core staff,XNA
+288784.0,1221954.0,43652.0,625087.0,1.0,1.0,-3176.0,-2576.0,-4128.0,12.0,2.0,,0.3415,0.458,3.0,Cash loans,Y,N,Working,Secondary / secondary special,Municipal apartment,Core staff,Trade: type 2
+262019.0,538727.0,29937.0,644894.0,0.0,2.0,-1422.0,-377.0,-4352.0,,3.0,,0.6459,0.345,3.0,Cash loans,N,Y,State servant,Higher education,House / apartment,Managers,Business Entity Type 3
+201486.0,244261.0,17276.0,283577.0,0.0,4.0,-482.0,-9029.0,-3950.0,,2.0,,0.4216,0.3487,1.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+201693.0,136227.0,9192.0,436933.0,1.0,2.0,-2052.0,-6728.0,-2554.0,,2.0,0.6922,0.6655,0.1875,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+123182.0,422089.0,50575.0,1164872.0,0.0,2.0,-4169.0,-276.0,-4069.0,,3.0,0.6807,0.5772,0.7961,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Agriculture
+154159.0,145878.0,17640.0,421868.0,0.0,2.0,-1415.0,-5642.0,-440.0,,3.0,,0.6527,0.1516,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Cooking staff,Business Entity Type 3
+177190.0,860735.0,20202.0,408768.0,0.0,3.0,365243.0,-3592.0,-2777.0,22.0,3.0,0.5353,0.2111,0.5239,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Agriculture
+277290.0,387033.0,17182.0,452773.0,1.0,2.0,-621.0,-578.0,-2703.0,,2.0,0.4597,0.5489,0.2635,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Government
+111177.0,634562.0,32615.0,190442.0,1.0,2.0,-434.0,-10818.0,-3472.0,,2.0,,0.562,0.2995,5.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Self-employed
+158069.0,153108.0,22548.0,223389.0,0.0,2.0,-3850.0,-7487.0,-4224.0,0.0,2.0,0.4394,0.4829,0.4187,2.0,Revolving loans,Y,Y,Commercial associate,Incomplete higher,With parents,Drivers,Business Entity Type 3
+274735.0,601733.0,50866.0,394335.0,0.0,3.0,-6096.0,-28.0,-1359.0,0.0,2.0,,0.699,0.5048,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Self-employed
+178144.0,530620.0,16504.0,773531.0,1.0,2.0,365243.0,-3912.0,-2183.0,,2.0,0.4472,0.6762,0.4908,4.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Sales staff,XNA
+175351.0,106183.0,36045.0,1001089.0,0.0,2.0,365243.0,-2289.0,-3285.0,10.0,2.0,,0.5823,,2.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Managers,Self-employed
+110818.0,1347527.0,33875.0,186809.0,1.0,3.0,-3509.0,-6238.0,-651.0,1.0,1.0,0.167,0.3616,0.4985,2.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+134410.0,444505.0,42852.0,514197.0,0.0,2.0,-5212.0,-7210.0,-2993.0,9.0,2.0,0.5346,0.4182,0.5746,,Cash loans,Y,N,State servant,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+153984.0,935286.0,14553.0,450856.0,1.0,3.0,-1706.0,-4075.0,-4118.0,,2.0,,0.2218,,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,XNA
+85560.0,259553.0,34788.0,151119.0,1.0,3.0,-1304.0,-4622.0,-1345.0,,2.0,,0.647,0.3027,3.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+111085.0,1032674.0,25000.0,432364.0,0.0,1.0,365243.0,-4261.0,-3631.0,,3.0,,0.2722,0.3633,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Security staff,Self-employed
+120077.0,477717.0,25803.0,220048.0,0.0,1.0,-6498.0,-470.0,-4895.0,,2.0,0.4291,0.2049,0.3569,1.0,Revolving loans,N,Y,Commercial associate,Incomplete higher,House / apartment,Waiters/barmen staff,Business Entity Type 3
+163016.0,964311.0,14266.0,204773.0,0.0,2.0,-1165.0,-5627.0,-2057.0,11.0,2.0,,0.4774,,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,XNA
+303789.0,1346870.0,16002.0,535070.0,0.0,3.0,-903.0,-5135.0,-4169.0,,2.0,,0.613,,,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,Waiters/barmen staff,Trade: type 7
+74936.0,499944.0,36122.0,400046.0,1.0,2.0,365243.0,-1357.0,-2699.0,2.0,2.0,,0.3876,0.6948,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Cooking staff,XNA
+129826.0,894555.0,10150.0,543848.0,0.0,4.0,-1393.0,-7588.0,-1066.0,6.0,1.0,0.8179,0.5766,0.1991,0.0,Cash loans,Y,Y,Pensioner,Incomplete higher,House / apartment,,Business Entity Type 3
+64399.0,574385.0,36763.0,169384.0,0.0,4.0,365243.0,-6579.0,-1852.0,,3.0,,0.5575,0.3456,0.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Laborers,Self-employed
+172571.0,117027.0,25605.0,619085.0,1.0,2.0,365243.0,-7130.0,-1973.0,13.0,2.0,0.2836,0.4792,0.7517,1.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Industry: type 9
+83498.0,647666.0,27309.0,740378.0,1.0,2.0,-836.0,-5994.0,-3266.0,,2.0,,0.6927,0.5431,5.0,Cash loans,N,Y,Working,Secondary / secondary special,Municipal apartment,Core staff,Industry: type 5
+101438.0,723618.0,27710.0,153298.0,0.0,2.0,-153.0,-7881.0,-4850.0,,2.0,,0.3266,0.6917,0.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Restaurant
+156703.0,257344.0,35961.0,564760.0,1.0,2.0,-381.0,-9586.0,-563.0,,2.0,,0.7502,0.6281,1.0,Cash loans,N,N,Commercial associate,Incomplete higher,House / apartment,Accountants,Other
+191721.0,391570.0,24122.0,447636.0,0.0,2.0,-1141.0,-419.0,-3487.0,,1.0,,0.2363,0.2396,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Medicine
+122247.0,460644.0,11724.0,767605.0,0.0,2.0,-639.0,-7277.0,-2343.0,,2.0,,0.6409,0.6348,2.0,Cash loans,N,N,Commercial associate,Incomplete higher,House / apartment,,Self-employed
+109736.0,844647.0,12329.0,879237.0,0.0,1.0,-1526.0,-5512.0,-4388.0,,2.0,0.4695,0.4444,,5.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Cooking staff,Self-employed
+105342.0,539389.0,26381.0,630937.0,0.0,3.0,-1390.0,-10811.0,-3614.0,,1.0,,0.4188,0.7367,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+123774.0,1281378.0,33513.0,493460.0,0.0,2.0,365243.0,-540.0,-4971.0,3.0,1.0,0.7049,0.7481,0.6596,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+212832.0,158020.0,21111.0,151676.0,0.0,2.0,-2976.0,-823.0,-2697.0,,3.0,,0.7299,0.5797,1.0,Cash loans,N,Y,State servant,Higher education,House / apartment,Cleaning staff,Trade: type 7
+233744.0,462861.0,13893.0,430938.0,2.0,2.0,-1192.0,-24.0,-1922.0,4.0,3.0,,0.7232,0.5547,4.0,Cash loans,Y,Y,Pensioner,Lower secondary,Municipal apartment,Cooking staff,Industry: type 3
+275339.0,310623.0,12468.0,600542.0,0.0,2.0,-1856.0,-1231.0,-2708.0,,2.0,0.8254,0.5176,0.6038,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+301438.0,495916.0,23129.0,1108405.0,0.0,1.0,-5699.0,-330.0,-4716.0,7.0,2.0,,0.529,0.5598,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Government
+293122.0,125617.0,14544.0,166421.0,0.0,1.0,-4280.0,-4953.0,-1073.0,26.0,2.0,,0.6234,0.4767,3.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+125958.0,184699.0,46917.0,142474.0,0.0,4.0,-2499.0,-8653.0,-1481.0,3.0,2.0,,0.234,0.745,,Cash loans,Y,N,Working,Higher education,House / apartment,Laborers,Business Entity Type 2
+117674.0,271592.0,33583.0,445117.0,0.0,3.0,-664.0,-642.0,-392.0,,1.0,0.2838,0.3462,0.436,3.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+114175.0,1362644.0,42135.0,860493.0,0.0,3.0,-6053.0,-10176.0,-3893.0,,2.0,0.5932,0.6633,0.1676,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Housing
+112846.0,283580.0,11251.0,148657.0,2.0,2.0,-2533.0,-1574.0,-2412.0,,2.0,,0.7249,0.3719,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Industry: type 9
+154243.0,642982.0,48992.0,430347.0,0.0,1.0,-1362.0,-8554.0,-5004.0,,2.0,,0.6168,0.5406,1.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Secretaries,XNA
+149134.0,292045.0,22089.0,199159.0,0.0,4.0,-520.0,-8690.0,-4301.0,,2.0,,0.4188,,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Drivers,School
+76589.0,1006257.0,12518.0,1332386.0,0.0,2.0,-289.0,-8822.0,-3801.0,,1.0,0.1656,0.6946,0.3077,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Accountants,XNA
+279915.0,266743.0,8785.0,555586.0,0.0,2.0,-193.0,-3838.0,-1514.0,14.0,2.0,,0.6174,,1.0,Cash loans,Y,N,State servant,Higher education,House / apartment,Managers,Transport: type 4
+222877.0,262590.0,34751.0,399447.0,0.0,2.0,-743.0,-5063.0,-522.0,4.0,3.0,0.6908,0.6622,0.6012,0.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,,Medicine
+109388.0,601332.0,37603.0,534180.0,0.0,1.0,-4175.0,-933.0,-824.0,,3.0,0.8244,0.3472,0.228,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Government
+200349.0,477525.0,50504.0,248056.0,0.0,3.0,-678.0,-7043.0,-3392.0,23.0,2.0,,0.4875,0.6139,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Kindergarten
+298976.0,454034.0,31474.0,577598.0,0.0,1.0,-6781.0,-122.0,-961.0,11.0,2.0,,0.6917,0.7716,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Medicine
+116651.0,765453.0,39638.0,374657.0,0.0,3.0,365243.0,-9270.0,-4448.0,6.0,2.0,,0.3475,,2.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Managers,Police
+87840.0,200682.0,37045.0,609162.0,2.0,2.0,-1512.0,-1296.0,-4419.0,20.0,2.0,,0.625,0.5571,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+153751.0,1072677.0,17334.0,243089.0,0.0,1.0,365243.0,-3884.0,-2103.0,,2.0,0.3791,0.7317,,0.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,Rented apartment,,XNA
+113641.0,226073.0,8550.0,412036.0,0.0,1.0,-5492.0,-8491.0,-2282.0,4.0,2.0,,0.4311,0.2051,4.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+176479.0,931825.0,14084.0,364186.0,1.0,3.0,-1006.0,-6212.0,-4499.0,2.0,2.0,,0.2809,0.4585,,Cash loans,Y,Y,Working,Higher education,House / apartment,Core staff,Other
+94185.0,436746.0,29646.0,793993.0,0.0,2.0,-6001.0,-7776.0,-4234.0,0.0,2.0,,0.6106,0.7932,5.0,Cash loans,Y,N,Working,Secondary / secondary special,Municipal apartment,Managers,XNA
+196693.0,132759.0,18274.0,1362185.0,0.0,2.0,365243.0,-4938.0,-2377.0,,2.0,0.4602,0.3931,0.4212,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Accountants,XNA
+84332.0,484595.0,50765.0,590715.0,0.0,1.0,-1448.0,-1460.0,-2469.0,4.0,2.0,,0.539,0.3423,4.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,,Business Entity Type 1
+189160.0,580234.0,35556.0,410776.0,0.0,2.0,-1689.0,-8728.0,-1226.0,,2.0,,0.5445,,3.0,Revolving loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,IT staff,Government
+71760.0,239180.0,18214.0,528880.0,0.0,2.0,-2768.0,-11255.0,-4180.0,,2.0,0.4301,0.6313,0.6621,0.0,Cash loans,N,N,Working,Higher education,Municipal apartment,Private service staff,Business Entity Type 1
+181470.0,207163.0,32174.0,711584.0,0.0,2.0,365243.0,-1344.0,-1978.0,,2.0,0.2289,0.3448,,1.0,Revolving loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Industry: type 4
+92456.0,227461.0,22745.0,685557.0,0.0,3.0,365243.0,-9342.0,-2250.0,15.0,2.0,,0.7405,0.3272,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Managers,School
+224835.0,241655.0,15751.0,862006.0,0.0,1.0,-1938.0,-4006.0,-3487.0,,3.0,0.7611,0.5988,0.5112,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,School
+118321.0,535340.0,12279.0,189007.0,0.0,1.0,-813.0,-1755.0,-4900.0,,3.0,,0.596,0.4715,3.0,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+110492.0,561795.0,50148.0,150905.0,0.0,2.0,-5536.0,-315.0,-277.0,,2.0,,0.4131,0.2268,4.0,Cash loans,N,Y,Working,Higher education,House / apartment,Managers,Business Entity Type 3
+150119.0,928508.0,24909.0,157570.0,0.0,2.0,-236.0,-695.0,-3739.0,,3.0,,0.3284,,,Cash loans,N,Y,Pensioner,Higher education,House / apartment,,XNA
+280624.0,281296.0,15251.0,218873.0,0.0,2.0,365243.0,-889.0,-2684.0,,2.0,,0.3414,,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Secretaries,Business Entity Type 2
+156567.0,156408.0,27911.0,249206.0,0.0,2.0,-1572.0,-10066.0,-4604.0,7.0,2.0,0.4279,0.7149,0.7941,5.0,Cash loans,Y,N,Working,Incomplete higher,House / apartment,Laborers,Business Entity Type 3
+231898.0,261859.0,54140.0,475314.0,1.0,2.0,-394.0,-5522.0,-3380.0,,2.0,,0.5117,,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 2
+251102.0,232208.0,31182.0,334929.0,0.0,3.0,-869.0,-4253.0,-3813.0,8.0,2.0,0.5695,0.1819,0.5465,1.0,Cash loans,Y,N,Working,Higher education,House / apartment,Laborers,Security Ministries
+122720.0,435189.0,26875.0,169780.0,1.0,2.0,-1058.0,-10160.0,-1272.0,,2.0,,0.134,,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Restaurant
+223025.0,160924.0,43836.0,1276232.0,0.0,1.0,-6806.0,-5239.0,-984.0,14.0,2.0,0.8246,0.5938,0.7776,5.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Cooking staff,Transport: type 4
+184841.0,611165.0,13409.0,1228771.0,1.0,1.0,-6555.0,-7520.0,-4551.0,14.0,2.0,0.1908,0.7455,0.6205,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Accountants,Trade: type 7
+124821.0,913884.0,46472.0,212155.0,2.0,2.0,-1035.0,-6763.0,-4279.0,,2.0,,0.4788,0.1435,1.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Business Entity Type 2
+190655.0,784867.0,28068.0,649900.0,1.0,2.0,-3106.0,-805.0,-1054.0,4.0,2.0,0.8454,0.3442,0.7134,0.0,Cash loans,Y,N,Working,Higher education,House / apartment,Sales staff,Business Entity Type 3
+180734.0,335253.0,23868.0,160398.0,0.0,2.0,-1967.0,-2292.0,-894.0,13.0,2.0,,0.3402,,1.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+71844.0,173197.0,31482.0,1337398.0,0.0,1.0,365243.0,-2583.0,-3546.0,,2.0,,0.6917,0.5628,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+250956.0,353894.0,10301.0,994349.0,0.0,2.0,-1353.0,-3289.0,-4237.0,27.0,2.0,0.3881,0.5927,,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+116750.0,743156.0,51498.0,635592.0,0.0,2.0,-3843.0,-8794.0,-3985.0,,1.0,,0.4969,,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Business Entity Type 3
+232215.0,223471.0,50333.0,261989.0,0.0,3.0,-2074.0,-446.0,-97.0,6.0,3.0,0.496,0.2591,0.7863,3.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Laborers,Business Entity Type 2
+259875.0,250998.0,15717.0,719053.0,0.0,2.0,-1815.0,-620.0,-880.0,6.0,2.0,0.463,0.3591,0.5814,,Cash loans,Y,Y,Working,Higher education,House / apartment,,School
+121180.0,120129.0,12546.0,1190603.0,0.0,1.0,-2978.0,-534.0,-3711.0,,2.0,0.2556,0.7458,0.456,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Transport: type 2
+93797.0,1315707.0,26501.0,563290.0,2.0,3.0,-820.0,-2838.0,-2703.0,,2.0,0.4576,0.2189,0.5982,0.0,Revolving loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,High skill tech staff,XNA
+110008.0,552836.0,18755.0,523846.0,1.0,2.0,-1036.0,-181.0,-756.0,16.0,1.0,,0.6498,0.3918,1.0,Cash loans,Y,Y,Working,Incomplete higher,House / apartment,,Other
+185394.0,226300.0,16915.0,424467.0,0.0,2.0,-1199.0,-9508.0,-2807.0,7.0,1.0,,0.6211,,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+117811.0,179747.0,20873.0,366585.0,0.0,1.0,365243.0,-452.0,-4817.0,,2.0,0.5711,0.6815,0.6522,1.0,Cash loans,N,N,Working,Higher education,House / apartment,Core staff,Business Entity Type 3
+238710.0,224400.0,12791.0,481079.0,0.0,1.0,-708.0,-2202.0,-2078.0,,3.0,0.2379,0.7343,0.5496,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+116506.0,715250.0,19256.0,637021.0,0.0,2.0,-3460.0,-522.0,-4673.0,,2.0,,0.5105,0.3688,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+81596.0,1110826.0,21324.0,680816.0,0.0,1.0,-1239.0,-10557.0,-3567.0,,2.0,0.4879,0.4399,0.6882,,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+200556.0,602795.0,16842.0,467635.0,0.0,2.0,-4585.0,-686.0,-1116.0,26.0,2.0,0.4835,0.5874,0.4961,0.0,Revolving loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Trade: type 7
+113855.0,543776.0,40550.0,187419.0,0.0,2.0,365243.0,-4903.0,-4181.0,,2.0,,0.5408,,3.0,Revolving loans,N,N,Commercial associate,Higher education,House / apartment,,Trade: type 7
+207603.0,727908.0,51319.0,194870.0,0.0,2.0,-921.0,-9713.0,-2637.0,,2.0,0.6892,0.2687,0.4423,4.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Medicine
+180042.0,462409.0,45362.0,289024.0,0.0,1.0,-436.0,-11081.0,-2363.0,,3.0,0.4608,0.2127,0.5251,,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,XNA
+86419.0,272725.0,14071.0,519901.0,0.0,2.0,-2292.0,-1914.0,-3895.0,,2.0,,0.7611,,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+216026.0,572170.0,18983.0,167513.0,0.0,4.0,-1469.0,-5482.0,-3947.0,16.0,2.0,,0.5881,0.6707,,Cash loans,Y,Y,Working,Higher education,House / apartment,,Self-employed
+78406.0,206325.0,28764.0,728477.0,0.0,3.0,-271.0,-9394.0,-4595.0,,2.0,0.8091,0.1897,0.4703,2.0,Revolving loans,N,Y,Commercial associate,Higher education,House / apartment,Sales staff,Business Entity Type 3
+170511.0,454703.0,20442.0,178086.0,1.0,4.0,365243.0,-3882.0,-3866.0,19.0,2.0,,0.7268,,5.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Self-employed
+261939.0,139178.0,30700.0,296530.0,0.0,1.0,365243.0,-4092.0,-4345.0,,2.0,0.3661,0.1845,0.2601,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 1
+100770.0,618425.0,11309.0,545445.0,0.0,2.0,-4584.0,-2987.0,-4737.0,,2.0,0.8511,0.7442,0.2158,5.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Construction
+175115.0,168211.0,17667.0,453310.0,2.0,2.0,-671.0,-3927.0,-2477.0,21.0,2.0,,0.7613,0.2826,1.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,Laborers,Self-employed
+260074.0,883334.0,28439.0,162355.0,1.0,4.0,-181.0,-8447.0,-3366.0,,2.0,,0.3521,0.6783,,Cash loans,N,N,Pensioner,Higher education,House / apartment,Cleaning staff,Police
+260841.0,210071.0,45843.0,816894.0,0.0,2.0,365243.0,-3854.0,-4885.0,3.0,2.0,0.387,0.1188,0.3188,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Medicine
+86405.0,776362.0,47096.0,548938.0,1.0,1.0,-3305.0,-1386.0,-2375.0,0.0,1.0,0.5029,0.5587,,0.0,Cash loans,Y,Y,State servant,Higher education,House / apartment,Sales staff,Business Entity Type 3
+156616.0,381602.0,32265.0,238134.0,1.0,2.0,-921.0,-10907.0,-486.0,,3.0,,0.2159,0.4727,4.0,Cash loans,N,Y,Working,Higher education,House / apartment,,Other
+96316.0,274733.0,36901.0,1029837.0,0.0,2.0,-120.0,-4741.0,-1226.0,,2.0,0.6452,0.1768,0.3458,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Government
+129513.0,325824.0,43642.0,899648.0,1.0,2.0,-3691.0,-3736.0,-2618.0,18.0,2.0,,0.6926,0.7686,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 1
+152748.0,1141403.0,29571.0,233904.0,0.0,2.0,-2991.0,-8294.0,-2753.0,,2.0,,0.1064,0.4558,2.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,Laborers,Business Entity Type 3
+224618.0,471521.0,36263.0,312023.0,0.0,2.0,-5848.0,-4337.0,-4373.0,,2.0,,0.6922,0.407,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+293972.0,442026.0,26059.0,900055.0,2.0,4.0,-1722.0,-7240.0,-211.0,,2.0,0.3185,0.6998,0.6113,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Core staff,XNA
+129166.0,473784.0,19611.0,311540.0,1.0,1.0,-295.0,-419.0,-3379.0,,2.0,0.7496,0.7457,0.2443,0.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,Trade: type 7
+106073.0,958685.0,28998.0,1008542.0,0.0,2.0,-2351.0,-7177.0,-4452.0,,2.0,0.5036,0.3348,0.4816,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Realty agents,XNA
+108840.0,607708.0,20754.0,546525.0,3.0,2.0,-1450.0,-8587.0,-1130.0,15.0,2.0,,0.6939,0.3657,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Laborers,Kindergarten
+89251.0,1352892.0,32497.0,1091906.0,0.0,4.0,-6565.0,-1696.0,-1841.0,5.0,2.0,,0.5265,0.3638,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,School
+166670.0,207722.0,17248.0,557413.0,0.0,1.0,-4720.0,-239.0,-4671.0,19.0,2.0,,0.4987,,1.0,Cash loans,Y,N,Working,Higher education,House / apartment,Drivers,Trade: type 3
+81913.0,419718.0,35590.0,1233177.0,0.0,1.0,365243.0,-3977.0,-3918.0,,2.0,0.1412,0.6244,0.3405,1.0,Cash loans,N,N,Working,Higher education,With parents,,Business Entity Type 2
+155967.0,440289.0,35465.0,149014.0,0.0,2.0,-4483.0,-5415.0,-2653.0,7.0,2.0,0.6918,0.4702,0.5098,0.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,,XNA
+129892.0,211992.0,12185.0,249130.0,0.0,2.0,365243.0,-4902.0,-2828.0,,2.0,,0.6154,0.6069,5.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,High skill tech staff,Hotel
+71529.0,692558.0,17800.0,503715.0,0.0,2.0,-1891.0,-2533.0,-291.0,,2.0,,0.7508,,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Laborers,Bank
+100416.0,110480.0,44624.0,690198.0,0.0,2.0,-5897.0,-2337.0,-2447.0,,3.0,,0.6193,,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+115814.0,617811.0,17188.0,318951.0,0.0,2.0,-4667.0,-3087.0,-3976.0,,3.0,0.5136,0.5327,0.7057,4.0,Cash loans,N,N,Pensioner,Higher education,House / apartment,Laborers,Other
+95286.0,446331.0,22109.0,839503.0,0.0,2.0,-70.0,-1068.0,-1049.0,,2.0,,0.469,0.6615,,Revolving loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Laborers,Other
+106514.0,719949.0,20878.0,312042.0,1.0,1.0,-3560.0,-425.0,-3470.0,,2.0,,0.5817,0.7092,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+151603.0,123335.0,33460.0,417286.0,0.0,1.0,-1011.0,-2991.0,-2066.0,,2.0,,0.4965,0.4502,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Sales staff,Kindergarten
+148807.0,521280.0,7781.0,1151947.0,2.0,2.0,-908.0,-9051.0,-4859.0,27.0,1.0,,0.4473,0.3563,0.0,Revolving loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Kindergarten
+78312.0,1213091.0,22897.0,291984.0,2.0,3.0,365243.0,-2235.0,-4452.0,,2.0,0.655,0.6143,0.5133,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,Transport: type 4
+91766.0,783507.0,30439.0,174161.0,1.0,2.0,-1484.0,-2356.0,-4351.0,25.0,2.0,,0.584,0.5415,3.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+128144.0,270708.0,47956.0,1058643.0,0.0,2.0,-1839.0,-4424.0,-3032.0,,3.0,,0.1395,0.145,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+82574.0,361136.0,7783.0,1110515.0,0.0,2.0,365243.0,-10900.0,-3168.0,,3.0,,0.1083,,2.0,Cash loans,N,N,Pensioner,Higher education,Office apartment,,Services
+134633.0,714081.0,24774.0,158870.0,0.0,3.0,-149.0,-1369.0,-1439.0,,2.0,0.1938,0.4072,0.7243,3.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Restaurant
+220514.0,557955.0,31753.0,193528.0,0.0,2.0,-3773.0,-2463.0,-4835.0,13.0,2.0,,0.6156,,2.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,,Self-employed
+152110.0,293496.0,29864.0,1172273.0,0.0,1.0,365243.0,-4362.0,-2525.0,,3.0,0.5231,0.5513,0.1381,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+104948.0,164687.0,43866.0,391013.0,0.0,4.0,365243.0,-6379.0,-2714.0,,2.0,,0.6722,0.6594,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,XNA
+156604.0,864855.0,42631.0,237972.0,1.0,2.0,365243.0,-8256.0,-3210.0,,1.0,,0.4823,0.6585,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 1
+78344.0,450345.0,16593.0,310039.0,0.0,2.0,-412.0,-595.0,-3060.0,1.0,2.0,,0.3644,,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+119321.0,182506.0,25742.0,157784.0,0.0,3.0,-3666.0,-1206.0,-2874.0,24.0,2.0,0.4116,0.1575,0.1789,,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+203579.0,1130416.0,21595.0,451665.0,2.0,1.0,-581.0,-9385.0,-179.0,14.0,2.0,,0.474,0.2322,2.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+111217.0,705866.0,21522.0,956565.0,1.0,4.0,-697.0,-47.0,-4801.0,,3.0,,0.5216,0.6052,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,Trade: type 2
+266736.0,118590.0,9467.0,466197.0,0.0,1.0,365243.0,-656.0,-2676.0,,1.0,,0.3187,,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Managers,Restaurant
+175422.0,1142721.0,15388.0,991931.0,0.0,3.0,-4996.0,-11018.0,-2527.0,,2.0,,0.7087,,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,Security Ministries
+73573.0,147064.0,21809.0,847348.0,0.0,1.0,-2810.0,-5407.0,-4935.0,6.0,2.0,,0.704,0.7634,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 2
+208402.0,1026312.0,22481.0,218971.0,0.0,2.0,-622.0,-6519.0,-1522.0,,2.0,,0.108,0.617,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Security Ministries
+101287.0,1029286.0,7796.0,364494.0,1.0,1.0,-581.0,-1787.0,-3632.0,,2.0,,0.1074,0.6927,3.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Private service staff,Business Entity Type 3
+171488.0,477121.0,38597.0,305227.0,0.0,2.0,365243.0,-6214.0,-2772.0,24.0,2.0,0.7077,0.64,0.7178,0.0,Cash loans,Y,Y,Working,Incomplete higher,House / apartment,Managers,XNA
+279568.0,384390.0,9141.0,268579.0,0.0,2.0,-2459.0,-5668.0,-1209.0,,2.0,,0.4124,,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Construction
+164120.0,586707.0,20825.0,419778.0,1.0,2.0,-2117.0,-1264.0,-3062.0,10.0,2.0,,0.7284,0.6618,2.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Secretaries,Security
+103732.0,224623.0,45482.0,351337.0,0.0,1.0,-2686.0,-10983.0,-3751.0,,3.0,0.1595,0.389,0.5919,,Cash loans,N,Y,Working,Secondary / secondary special,Rented apartment,,Trade: type 2
+150655.0,243689.0,9610.0,154166.0,0.0,3.0,-596.0,-4026.0,-2254.0,,2.0,,0.7277,0.7555,2.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Low-skill Laborers,XNA
+299787.0,504700.0,25841.0,882269.0,0.0,2.0,-366.0,-1806.0,-864.0,,2.0,,0.5823,0.7622,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Government
+118601.0,305888.0,15660.0,239338.0,0.0,2.0,-2503.0,-1399.0,-4025.0,,2.0,0.5645,0.6777,0.7285,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Self-employed
+80341.0,995319.0,11060.0,657602.0,0.0,2.0,-668.0,-5153.0,-1194.0,,2.0,0.5266,0.6801,0.6007,0.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Drivers,Business Entity Type 3
+239931.0,1051067.0,36790.0,404201.0,0.0,1.0,-6948.0,-5145.0,-91.0,4.0,2.0,,0.1881,0.2017,0.0,Cash loans,Y,N,State servant,Higher education,House / apartment,Sales staff,Construction
+271381.0,973958.0,15737.0,1214026.0,2.0,2.0,-95.0,-2128.0,-3021.0,,2.0,,0.3287,,4.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Medicine
+95459.0,514645.0,28901.0,955176.0,1.0,1.0,-3106.0,-7127.0,-1075.0,11.0,1.0,0.162,0.5364,0.1405,,Cash loans,Y,Y,Working,Higher education,House / apartment,Sales staff,Industry: type 3
+83012.0,378210.0,22310.0,608795.0,0.0,2.0,-3096.0,-5430.0,-2292.0,,2.0,0.3965,0.4994,0.1426,5.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Trade: type 7
+153562.0,338256.0,14846.0,553713.0,0.0,3.0,-372.0,-4014.0,-3883.0,,3.0,,0.7038,0.5363,1.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,High skill tech staff,Business Entity Type 1
+168223.0,385388.0,41788.0,787045.0,0.0,2.0,365243.0,-1133.0,-1837.0,,2.0,0.717,0.6691,0.4352,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Managers,XNA
+221789.0,569299.0,27316.0,641804.0,0.0,1.0,-3415.0,-5022.0,-2750.0,7.0,2.0,0.6591,0.6233,0.7376,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Drivers,Construction
+155866.0,555045.0,34834.0,1191836.0,0.0,2.0,-6874.0,-6287.0,-3429.0,2.0,2.0,,0.7607,,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,XNA
+65333.0,130114.0,36069.0,622886.0,2.0,3.0,-2762.0,-4213.0,-2226.0,,2.0,,0.509,,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,With parents,Laborers,Military
+135441.0,839425.0,12997.0,174259.0,0.0,2.0,-2302.0,-6293.0,-4412.0,,2.0,0.6743,0.4501,0.4049,5.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Trade: type 7
+215596.0,605256.0,14888.0,857296.0,0.0,3.0,-2930.0,-761.0,-4234.0,,2.0,,0.3559,,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,XNA
+263360.0,119344.0,36234.0,436160.0,0.0,2.0,-1176.0,-1865.0,-642.0,,3.0,,0.6203,0.3787,2.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,,Self-employed
+190304.0,739662.0,21780.0,423561.0,0.0,1.0,365243.0,-4423.0,-1975.0,,2.0,,0.4247,0.7978,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+128472.0,1116067.0,26720.0,497231.0,2.0,2.0,365243.0,-7723.0,-4905.0,,2.0,,0.2244,0.7607,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Drivers,XNA
+170750.0,703225.0,23775.0,151618.0,0.0,1.0,-6440.0,-2993.0,-3624.0,,2.0,0.2764,0.3252,0.5026,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Other
+204927.0,480000.0,35832.0,400596.0,1.0,2.0,-3276.0,-485.0,-4263.0,15.0,2.0,0.4231,0.093,0.3445,5.0,Cash loans,Y,Y,Working,Higher education,Office apartment,Laborers,Agriculture
+239081.0,285349.0,19716.0,404175.0,0.0,3.0,365243.0,-3817.0,-4238.0,19.0,2.0,,0.7316,0.2587,,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+130562.0,483061.0,17290.0,449800.0,0.0,2.0,-2764.0,-2213.0,-4881.0,,2.0,,0.5232,0.33,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Security staff,Self-employed
+67679.0,880315.0,27607.0,529428.0,0.0,2.0,-6826.0,-1241.0,-4733.0,9.0,2.0,,0.5168,0.2236,0.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 2
+163369.0,713279.0,41750.0,989424.0,0.0,2.0,-2583.0,-3458.0,-4619.0,,2.0,,0.3,0.1527,1.0,Cash loans,N,N,State servant,Incomplete higher,House / apartment,,Industry: type 9
+114102.0,710547.0,15629.0,688106.0,0.0,2.0,365243.0,-4829.0,-2454.0,,2.0,0.6769,0.3561,0.7215,0.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Other
+92433.0,1227167.0,35973.0,328514.0,0.0,3.0,-4625.0,-2709.0,-3050.0,,2.0,0.5802,0.6127,0.732,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Sales staff,School
+102677.0,746756.0,15363.0,301372.0,2.0,2.0,-6124.0,-4695.0,-4457.0,,2.0,0.7261,0.0998,0.5228,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+118011.0,1196821.0,30872.0,503273.0,0.0,2.0,-57.0,-6225.0,-4352.0,,2.0,,0.1204,0.2375,,Cash loans,N,Y,Working,Higher education,House / apartment,Drivers,Telecom
+66322.0,290987.0,20551.0,143826.0,0.0,4.0,-1157.0,-952.0,-4754.0,,2.0,0.2978,0.6481,0.4543,,Cash loans,N,Y,State servant,Secondary / secondary special,Municipal apartment,Managers,Restaurant
+88439.0,195659.0,19980.0,701273.0,0.0,1.0,-299.0,-4151.0,-2784.0,,2.0,,0.7505,0.548,3.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Sales staff,Restaurant
+98708.0,281182.0,15494.0,760113.0,1.0,4.0,-1387.0,-1415.0,-4384.0,11.0,2.0,0.7898,0.5741,0.7295,2.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Industry: type 5
+179544.0,122171.0,8684.0,442183.0,0.0,2.0,-6572.0,-4821.0,-4313.0,15.0,1.0,,0.6516,,5.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Accountants,Self-employed
+74216.0,182080.0,45884.0,1072072.0,0.0,2.0,-2394.0,-1755.0,-4390.0,9.0,2.0,,0.6347,0.5155,1.0,Cash loans,Y,Y,Working,Higher education,With parents,Secretaries,Transport: type 4
+106674.0,1178538.0,30835.0,180051.0,0.0,2.0,-412.0,-3799.0,-4834.0,0.0,2.0,,0.2579,0.4891,1.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,,Transport: type 4
+82399.0,119734.0,8685.0,607143.0,1.0,1.0,-5366.0,-3660.0,-265.0,,2.0,,0.1409,0.4732,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,With parents,Drivers,Medicine
+77603.0,179456.0,26125.0,245798.0,0.0,2.0,365243.0,-9844.0,-4070.0,17.0,2.0,0.6264,0.5675,0.7868,0.0,Revolving loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 2
+203184.0,744533.0,16645.0,260778.0,1.0,4.0,-107.0,-8896.0,-465.0,,2.0,0.3451,0.5545,0.5229,0.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,Drivers,Kindergarten
+69577.0,1233080.0,18980.0,504258.0,0.0,1.0,-1622.0,-3035.0,-4948.0,26.0,3.0,0.3648,0.6098,0.5424,0.0,Revolving loans,Y,Y,Working,Lower secondary,House / apartment,,XNA
+268270.0,810001.0,45680.0,209600.0,0.0,2.0,-430.0,-8724.0,-3066.0,6.0,3.0,,0.7505,0.4224,3.0,Cash loans,Y,N,Working,Lower secondary,House / apartment,Accountants,Agriculture
+101342.0,856421.0,24814.0,216839.0,1.0,2.0,-2409.0,-6435.0,-4997.0,,2.0,,0.4463,0.5307,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Trade: type 7
+116566.0,802859.0,33481.0,179831.0,0.0,2.0,365243.0,-802.0,-3919.0,,2.0,0.3804,0.5308,,4.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,School
+134869.0,200382.0,9436.0,159486.0,0.0,1.0,-2642.0,-1942.0,-4024.0,,2.0,,0.4527,0.1615,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,Municipal apartment,Security staff,Business Entity Type 3
+265095.0,418145.0,20849.0,671566.0,0.0,2.0,365243.0,-7451.0,-4237.0,17.0,2.0,,0.1027,,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+237991.0,156582.0,36524.0,223987.0,0.0,3.0,-520.0,-6523.0,-3671.0,,2.0,,0.7363,0.5905,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Trade: type 7
+131083.0,1223916.0,24968.0,212045.0,0.0,1.0,-627.0,-312.0,-3955.0,7.0,2.0,0.847,0.7432,0.4753,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Other
+87273.0,429849.0,26737.0,496574.0,0.0,4.0,-1807.0,-393.0,-3888.0,5.0,2.0,0.4137,0.5692,0.541,5.0,Cash loans,Y,N,Working,Incomplete higher,House / apartment,,Other
+166336.0,743139.0,31397.0,446728.0,0.0,2.0,365243.0,-1076.0,-906.0,22.0,2.0,,0.1548,0.7959,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Legal Services
+209911.0,1250628.0,25621.0,606596.0,1.0,3.0,365243.0,-374.0,-3034.0,8.0,2.0,,0.1467,0.7259,4.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+117319.0,238875.0,9403.0,545593.0,1.0,2.0,-905.0,-109.0,-4863.0,10.0,2.0,0.154,0.4319,0.6767,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+111112.0,528643.0,19287.0,190723.0,0.0,1.0,-5984.0,-1849.0,-3248.0,6.0,2.0,,0.4721,0.7141,0.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,,XNA
+285848.0,289260.0,9873.0,646418.0,1.0,1.0,365243.0,-5060.0,-3831.0,7.0,2.0,0.5512,0.4191,0.4037,1.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Restaurant
+148648.0,594031.0,28104.0,256737.0,2.0,1.0,365243.0,-555.0,-1044.0,10.0,1.0,0.8334,0.7073,0.716,1.0,Cash loans,Y,N,Commercial associate,Lower secondary,House / apartment,,Business Entity Type 3
+110053.0,290883.0,52664.0,569946.0,0.0,3.0,365243.0,-4150.0,-1048.0,24.0,2.0,0.7324,0.5593,0.6448,,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Core staff,Government
+100150.0,891077.0,23848.0,189805.0,2.0,1.0,-1972.0,-4482.0,-1562.0,10.0,2.0,0.4004,0.547,0.1869,0.0,Revolving loans,Y,N,Commercial associate,Higher education,With parents,Laborers,Industry: type 9
+195593.0,119832.0,8558.0,1100534.0,1.0,2.0,365243.0,-6037.0,-1330.0,,1.0,0.6445,0.0973,0.4408,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Secretaries,Business Entity Type 3
+172779.0,218197.0,47572.0,362051.0,0.0,2.0,-966.0,-6129.0,-221.0,,2.0,0.6059,0.608,0.6909,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Business Entity Type 1
+187126.0,156236.0,24784.0,279010.0,0.0,3.0,365243.0,-6662.0,-2124.0,10.0,2.0,,0.6766,0.5185,1.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Other
+99443.0,240919.0,27816.0,652855.0,0.0,4.0,-1841.0,-2991.0,-4806.0,10.0,2.0,,0.7527,0.6546,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Core staff,Insurance
+133303.0,549053.0,27100.0,137071.0,1.0,3.0,365243.0,-4055.0,-4715.0,,2.0,,0.3714,0.6581,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+111999.0,954560.0,22421.0,1256937.0,1.0,2.0,365243.0,-829.0,-2183.0,,2.0,,0.6128,0.779,0.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,Other
+119660.0,567447.0,17074.0,412488.0,0.0,3.0,-341.0,-5165.0,-444.0,,2.0,,0.7214,0.1777,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,XNA
+165973.0,1145571.0,27833.0,231731.0,0.0,1.0,-2130.0,-521.0,-5018.0,,2.0,,0.1697,0.7253,4.0,Cash loans,N,Y,State servant,Higher education,House / apartment,Cleaning staff,Business Entity Type 3
+166004.0,720349.0,10799.0,1143178.0,2.0,2.0,-327.0,-1425.0,-883.0,,3.0,,0.5579,0.6864,0.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,Transport: type 2
+102357.0,530563.0,33312.0,423842.0,0.0,1.0,-2214.0,-6191.0,-3121.0,,3.0,,0.6062,,3.0,Cash loans,N,N,Working,Higher education,House / apartment,Laborers,Kindergarten
+153699.0,448868.0,10780.0,172891.0,0.0,1.0,-3549.0,-657.0,-2589.0,,2.0,,0.3424,0.4848,1.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,HR staff,Medicine
+223424.0,271853.0,19931.0,1025626.0,0.0,3.0,-4789.0,-5695.0,-4017.0,0.0,2.0,,0.682,0.5118,0.0,Cash loans,Y,Y,Pensioner,Higher education,House / apartment,,Business Entity Type 3
+186202.0,697601.0,14159.0,1195532.0,0.0,2.0,-483.0,-790.0,-4706.0,,2.0,,0.7272,0.5128,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Self-employed
+109885.0,1146909.0,24327.0,210252.0,0.0,2.0,-565.0,-317.0,-3761.0,,2.0,0.4094,0.1543,0.7013,2.0,Cash loans,N,Y,Working,Secondary / secondary special,Office apartment,Sales staff,Other
+74136.0,893149.0,50225.0,197183.0,0.0,2.0,-756.0,-544.0,-145.0,6.0,2.0,,0.5755,0.3823,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Other
+86980.0,727700.0,21661.0,376630.0,0.0,2.0,-2710.0,-2699.0,-1859.0,3.0,3.0,,0.2927,,5.0,Revolving loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+161510.0,166781.0,17419.0,566217.0,0.0,1.0,-2038.0,-5512.0,-1765.0,,3.0,,0.1804,0.2573,,Cash loans,N,N,Pensioner,Higher education,House / apartment,,XNA
+78359.0,976838.0,26772.0,908477.0,1.0,2.0,365243.0,-9173.0,-3264.0,8.0,2.0,,0.5988,0.4268,,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+76818.0,548683.0,40863.0,147180.0,0.0,3.0,-399.0,-2537.0,-3743.0,,3.0,,0.6581,0.7319,0.0,Cash loans,N,N,Commercial associate,Higher education,House / apartment,,XNA
+180729.0,825626.0,19718.0,612304.0,0.0,2.0,365243.0,-4460.0,-685.0,,2.0,,0.5153,0.7966,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Medicine
+119574.0,279826.0,13341.0,339293.0,0.0,2.0,-1120.0,-3879.0,-2216.0,2.0,1.0,,0.4654,0.4608,0.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+123060.0,511577.0,28678.0,204033.0,0.0,1.0,-3080.0,-5919.0,-3124.0,,2.0,,0.5732,0.6726,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,XNA
+71743.0,1195155.0,31989.0,845126.0,0.0,1.0,365243.0,-8132.0,-1129.0,18.0,2.0,,0.6287,0.5441,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,XNA
+95431.0,1194637.0,49550.0,630727.0,1.0,2.0,365243.0,-125.0,-3994.0,,2.0,,0.1346,0.6265,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+68649.0,466224.0,30762.0,517837.0,0.0,2.0,365243.0,-3461.0,-1534.0,,2.0,,0.3331,0.5621,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Core staff,Business Entity Type 3
+221448.0,268224.0,19364.0,288839.0,0.0,2.0,-4602.0,-7169.0,-2368.0,5.0,2.0,0.5263,0.5687,0.7261,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Sales staff,XNA
+110997.0,837801.0,17753.0,1111078.0,0.0,2.0,-202.0,-323.0,-3219.0,,1.0,,0.3262,0.7759,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Trade: type 3
+189900.0,1089085.0,39534.0,160160.0,1.0,2.0,-3281.0,-3877.0,-3070.0,,2.0,,0.1475,0.655,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Government
+158671.0,137397.0,20974.0,261097.0,0.0,1.0,365243.0,-8731.0,-2310.0,,3.0,,0.7572,0.6355,,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Self-employed
+185806.0,289089.0,30413.0,735814.0,0.0,2.0,-1789.0,-702.0,-2157.0,,2.0,0.4843,0.6829,0.7486,1.0,Cash loans,N,N,Pensioner,Secondary / secondary special,With parents,Managers,Other
+102908.0,116197.0,19023.0,349927.0,2.0,3.0,-1620.0,-4492.0,-2904.0,,2.0,,0.5945,0.5174,1.0,Revolving loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+128937.0,972942.0,15837.0,508927.0,0.0,3.0,-5961.0,-7826.0,-4355.0,,2.0,0.5617,0.4379,,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,XNA
+154790.0,432738.0,28994.0,222900.0,1.0,2.0,-1809.0,-2563.0,-4501.0,,2.0,0.4822,0.7373,0.3184,1.0,Cash loans,N,N,Working,Higher education,House / apartment,Low-skill Laborers,Self-employed
+105367.0,253513.0,15526.0,574884.0,0.0,2.0,-5120.0,-781.0,-1777.0,,2.0,0.197,0.6612,0.6129,0.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Sales staff,Trade: type 3
+102270.0,720056.0,22856.0,411243.0,1.0,2.0,-757.0,-10806.0,-2604.0,,2.0,,0.1952,0.2194,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 1
+296912.0,637904.0,39540.0,1016729.0,0.0,3.0,-2684.0,-7876.0,-5011.0,,2.0,,0.6501,0.6043,,Cash loans,N,Y,Working,Secondary / secondary special,With parents,,Housing
+76408.0,789065.0,44807.0,150833.0,0.0,4.0,365243.0,-9609.0,-910.0,8.0,2.0,0.4819,0.6364,0.7228,3.0,Cash loans,Y,N,Working,Secondary / secondary special,Municipal apartment,,Government
+141891.0,648273.0,49627.0,1087072.0,0.0,2.0,-926.0,-3095.0,-2637.0,,2.0,0.8257,0.4416,,1.0,Cash loans,N,N,Working,Higher education,Office apartment,Laborers,Trade: type 7
+202709.0,810433.0,24284.0,230150.0,0.0,2.0,-1717.0,-1644.0,-4065.0,4.0,2.0,,0.4768,0.6859,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+121001.0,209004.0,9177.0,159602.0,1.0,3.0,-446.0,-10249.0,-4428.0,3.0,2.0,,0.5959,,2.0,Cash loans,Y,Y,Commercial associate,Higher education,Municipal apartment,Secretaries,Self-employed
+294254.0,466933.0,25404.0,219466.0,1.0,2.0,-2511.0,-2682.0,-228.0,,2.0,0.1403,0.5396,0.5135,0.0,Cash loans,N,Y,Commercial associate,Higher education,With parents,Sales staff,Business Entity Type 3
+134081.0,155471.0,24293.0,176881.0,0.0,2.0,365243.0,-3931.0,-1211.0,20.0,2.0,,0.718,0.1651,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Security staff,Business Entity Type 2
+237380.0,372865.0,22530.0,135345.0,0.0,3.0,365243.0,-3973.0,-2040.0,,2.0,0.459,0.1247,0.5384,0.0,Cash loans,N,Y,Working,Incomplete higher,House / apartment,Drivers,Business Entity Type 3
+283405.0,186683.0,26903.0,203460.0,0.0,2.0,365243.0,-5839.0,-1469.0,,2.0,0.1768,0.3357,0.5327,5.0,Cash loans,N,N,Working,Secondary / secondary special,Rented apartment,,XNA
+183638.0,354138.0,15939.0,981377.0,0.0,3.0,365243.0,-8443.0,-1856.0,,2.0,,0.7188,0.6656,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,XNA
+307818.0,699865.0,21999.0,201807.0,1.0,2.0,-978.0,-2447.0,-3816.0,12.0,2.0,,0.634,0.4136,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Insurance
+152293.0,1305166.0,43380.0,476504.0,2.0,2.0,-661.0,-11531.0,-1372.0,,2.0,,0.5772,0.1988,0.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,With parents,,Industry: type 3
+181139.0,1112800.0,48815.0,726702.0,0.0,2.0,-2261.0,-4810.0,-1035.0,,1.0,0.5475,0.5974,0.5696,5.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Self-employed
+125846.0,456077.0,47891.0,483608.0,0.0,2.0,365243.0,-2445.0,-4003.0,,2.0,0.8429,0.5309,,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+110405.0,569386.0,8825.0,980009.0,1.0,3.0,365243.0,-9492.0,-3413.0,13.0,2.0,,0.4549,0.5632,,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,,XNA
+102071.0,712834.0,47251.0,269832.0,0.0,3.0,-1887.0,-11317.0,-3528.0,,2.0,0.1868,0.679,0.546,,Cash loans,N,N,Pensioner,Higher education,House / apartment,Core staff,Other
+134586.0,227066.0,36222.0,613471.0,0.0,2.0,-3590.0,-7556.0,-4642.0,5.0,2.0,,0.5799,0.3093,,Cash loans,Y,Y,Working,Higher education,House / apartment,Core staff,Transport: type 4
+117423.0,498906.0,26983.0,247859.0,3.0,3.0,-4759.0,-613.0,-1360.0,,2.0,0.5139,0.4876,0.5931,2.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Government
+305804.0,406200.0,14327.0,748475.0,0.0,2.0,-2541.0,-388.0,-196.0,2.0,2.0,,0.7297,0.6117,1.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+135464.0,285767.0,20717.0,264119.0,0.0,1.0,-1177.0,-4406.0,-2638.0,,3.0,,0.4473,0.4354,5.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Core staff,Government
+241799.0,1103925.0,10219.0,379993.0,1.0,1.0,365243.0,-8472.0,-3555.0,2.0,1.0,0.5125,0.6619,0.6945,5.0,Cash loans,Y,N,Working,Secondary / secondary special,With parents,Laborers,Military
+224124.0,635932.0,9379.0,143137.0,0.0,4.0,-701.0,-10515.0,-4218.0,,2.0,,0.3126,0.1737,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,Private service staff,Government
+109473.0,639160.0,20922.0,1111196.0,0.0,3.0,365243.0,-1840.0,-4068.0,,2.0,0.3436,0.3203,0.6046,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+142301.0,544873.0,34781.0,426452.0,1.0,2.0,-1594.0,-1292.0,-3910.0,,2.0,,0.1834,,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,High skill tech staff,Self-employed
+176225.0,870963.0,23159.0,447327.0,3.0,3.0,-3068.0,-3077.0,-3915.0,,1.0,0.2859,0.5135,0.2231,4.0,Cash loans,N,N,Working,Higher education,House / apartment,Medicine staff,Transport: type 4
+94009.0,184964.0,13521.0,365831.0,0.0,1.0,-3054.0,-7979.0,-4023.0,,3.0,0.2123,0.7087,,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+148286.0,1210488.0,23897.0,367770.0,1.0,3.0,365243.0,-3373.0,-3534.0,,2.0,,0.5354,0.5454,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,XNA
+97734.0,204173.0,27141.0,428692.0,1.0,4.0,365243.0,-3286.0,-1931.0,,2.0,0.403,0.7363,0.2689,2.0,Cash loans,N,N,Working,Secondary / secondary special,Municipal apartment,Sales staff,Business Entity Type 3
+220382.0,474195.0,10227.0,161724.0,0.0,2.0,-1379.0,-6785.0,-2946.0,3.0,2.0,,0.7563,0.269,1.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,Core staff,Business Entity Type 3
+128683.0,265846.0,35695.0,1033106.0,1.0,1.0,-3544.0,-3650.0,-4333.0,,2.0,,0.4549,0.3419,3.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,Laborers,School
+103380.0,1274732.0,31056.0,205431.0,1.0,2.0,365243.0,-3529.0,-5006.0,,3.0,,0.6899,0.6067,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Housing
+76090.0,120104.0,17806.0,808006.0,0.0,2.0,365243.0,-4370.0,-2564.0,,3.0,,0.6599,0.2568,3.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+160634.0,650618.0,44379.0,581704.0,1.0,2.0,365243.0,-2399.0,-4776.0,,2.0,,0.5177,0.648,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Government
+271395.0,156921.0,12016.0,175975.0,0.0,1.0,-2829.0,-2363.0,-871.0,,2.0,0.2839,0.097,0.3015,0.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+184968.0,1113532.0,23130.0,1178929.0,0.0,1.0,365243.0,-7321.0,-1142.0,1.0,2.0,,0.6426,0.5411,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Government
+268455.0,215596.0,15132.0,423069.0,1.0,1.0,-3345.0,-2292.0,-3976.0,,2.0,0.1476,0.721,0.2801,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Private service staff,Government
+140832.0,162168.0,23061.0,139349.0,0.0,1.0,-4523.0,-544.0,-2777.0,,2.0,0.6287,0.6893,0.3972,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,Rented apartment,Security staff,Insurance
+100699.0,803597.0,13880.0,405786.0,1.0,2.0,-719.0,-1228.0,-486.0,25.0,2.0,,0.4382,,3.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,Municipal apartment,Sales staff,Transport: type 4
+182776.0,584531.0,26635.0,166448.0,0.0,3.0,-2221.0,-484.0,-4429.0,,2.0,0.2005,0.6999,0.6487,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Medicine
+266800.0,146682.0,11914.0,883350.0,0.0,1.0,-1580.0,-5451.0,-4684.0,21.0,3.0,,0.1098,0.2834,3.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+88710.0,254159.0,38424.0,596754.0,0.0,2.0,-3002.0,-9724.0,-2230.0,,3.0,,0.5846,0.148,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+207617.0,190443.0,34967.0,1079697.0,0.0,3.0,-790.0,-6703.0,-4251.0,,2.0,,0.3302,0.2666,2.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,,Housing
+267472.0,921230.0,48069.0,156231.0,0.0,1.0,-838.0,-1773.0,-2084.0,,2.0,,0.3032,,1.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,,Industry: type 11
+151068.0,127182.0,23394.0,371506.0,3.0,1.0,365243.0,-1594.0,-4671.0,5.0,1.0,,0.2317,0.3017,5.0,Revolving loans,Y,Y,Pensioner,Higher education,House / apartment,Laborers,Government
+150232.0,161545.0,17244.0,851609.0,1.0,3.0,-1183.0,-615.0,-1064.0,14.0,2.0,,0.4535,0.562,1.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+120750.0,730006.0,15399.0,881021.0,0.0,1.0,-2436.0,-4198.0,-4373.0,,2.0,,0.677,0.6878,1.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,,Construction
+309889.0,154951.0,22397.0,170343.0,2.0,2.0,-2114.0,-2615.0,-4288.0,,2.0,0.559,0.6797,0.3161,4.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,XNA
+164702.0,1236421.0,42223.0,259865.0,0.0,1.0,-6018.0,-3185.0,-3636.0,14.0,3.0,,0.6659,,0.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+179933.0,340351.0,30955.0,367571.0,0.0,2.0,-433.0,-5032.0,-4963.0,,2.0,,0.447,0.5999,0.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,Security staff,XNA
+152174.0,662231.0,27449.0,840882.0,1.0,2.0,-783.0,-7194.0,-4820.0,,2.0,,0.3686,,1.0,Revolving loans,N,Y,Working,Higher education,House / apartment,,Self-employed
+131812.0,435053.0,29982.0,476609.0,0.0,3.0,-6306.0,-2604.0,-3280.0,,2.0,,0.543,0.7234,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Accountants,Self-employed
+66633.0,254128.0,25890.0,1054872.0,0.0,2.0,-6429.0,-6472.0,-4562.0,0.0,2.0,,0.6779,0.399,0.0,Cash loans,Y,N,Working,Higher education,House / apartment,Managers,XNA
+90020.0,964302.0,26112.0,138124.0,0.0,1.0,-103.0,-3365.0,-4892.0,,2.0,,0.725,0.5019,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+120000.0,975212.0,29463.0,410406.0,0.0,2.0,-413.0,-2144.0,-4196.0,,2.0,,0.5282,0.5296,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,,University
+118887.0,257264.0,17496.0,1330206.0,0.0,2.0,-3353.0,-10280.0,-279.0,23.0,2.0,,0.4963,0.7244,0.0,Cash loans,Y,N,Working,Higher education,House / apartment,Core staff,Business Entity Type 3
+170732.0,457720.0,23767.0,241616.0,0.0,2.0,-1464.0,-1513.0,-2466.0,,1.0,,0.1593,0.6523,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Low-skill Laborers,Trade: type 3
+154312.0,137239.0,22292.0,879687.0,0.0,1.0,365243.0,-10440.0,-3849.0,4.0,2.0,0.7996,0.1821,0.632,2.0,Cash loans,Y,N,Working,Higher education,House / apartment,,Self-employed
+263824.0,172316.0,15457.0,194499.0,0.0,2.0,-847.0,-5682.0,-1323.0,,2.0,0.8196,0.5676,0.2687,1.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,Laborers,XNA
+88462.0,501506.0,21587.0,472071.0,0.0,3.0,-3975.0,-10802.0,-2134.0,,2.0,0.4692,0.6397,0.6723,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Security staff,Security
+143021.0,241058.0,21925.0,545808.0,0.0,2.0,-2049.0,-8862.0,-2692.0,,2.0,,0.2987,0.1554,5.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Accountants,Medicine
+152822.0,279475.0,34419.0,557704.0,2.0,2.0,-2074.0,-2022.0,-2566.0,,2.0,,0.1302,0.5643,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Advertising
+200767.0,215139.0,19219.0,519683.0,2.0,2.0,-4987.0,-4701.0,-3331.0,,2.0,,0.1701,0.7146,0.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,Drivers,Other
+106670.0,391529.0,35413.0,656335.0,0.0,1.0,-1335.0,-2987.0,-1034.0,,2.0,0.7707,0.489,0.2745,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,,Business Entity Type 3
+157344.0,1216871.0,48102.0,262012.0,3.0,3.0,-3827.0,-1299.0,-3172.0,,2.0,,0.6564,0.3234,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Managers,Kindergarten
+85316.0,1341455.0,26493.0,314137.0,0.0,2.0,-786.0,-727.0,-1160.0,,2.0,,0.6937,0.681,5.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Managers,XNA
+152555.0,529588.0,34884.0,442784.0,0.0,4.0,-1632.0,-550.0,-205.0,,2.0,0.145,0.4549,0.5141,5.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,XNA
+176360.0,1221953.0,9490.0,1043007.0,1.0,2.0,-1900.0,-2078.0,-4905.0,,2.0,0.4185,0.6286,0.566,,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Laborers,Telecom
+305033.0,878762.0,9151.0,940591.0,1.0,3.0,-1425.0,-3943.0,-2934.0,12.0,2.0,,0.6836,0.4933,5.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Industry: type 9
+171023.0,469265.0,48543.0,579695.0,0.0,2.0,-3885.0,-10530.0,-4118.0,,3.0,,,0.7216,0.0,Revolving loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Trade: type 3
+92934.0,246226.0,22080.0,158332.0,1.0,4.0,-1167.0,-8667.0,-4459.0,,2.0,,0.694,0.6215,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+160042.0,307774.0,7665.0,211218.0,0.0,4.0,-6232.0,-4374.0,-4232.0,,2.0,,0.5794,0.199,,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Laborers,Medicine
+174570.0,109314.0,28537.0,213350.0,0.0,4.0,-1564.0,-1464.0,-1613.0,3.0,2.0,0.3936,0.667,0.7988,0.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,,XNA
+163641.0,1133650.0,32553.0,846317.0,0.0,3.0,-2632.0,-3255.0,-2962.0,,2.0,,0.7337,0.5841,3.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 2
+309546.0,122630.0,15433.0,743348.0,0.0,1.0,-2102.0,-6632.0,-2244.0,17.0,1.0,,0.7546,0.5646,5.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+129938.0,816872.0,34654.0,1180377.0,1.0,2.0,365243.0,-5920.0,-4919.0,0.0,2.0,0.5277,0.5754,,,Cash loans,Y,N,State servant,Secondary / secondary special,House / apartment,Laborers,Government
+157799.0,256894.0,19812.0,1336846.0,0.0,1.0,365243.0,-218.0,-4817.0,,2.0,,0.6526,0.7822,0.0,Revolving loans,N,Y,Pensioner,Higher education,House / apartment,Laborers,Medicine
+221504.0,824633.0,11758.0,411142.0,0.0,2.0,-1884.0,-398.0,-2870.0,,2.0,,0.7261,0.265,1.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,Municipal apartment,Laborers,Business Entity Type 3
+105643.0,491238.0,32158.0,403012.0,0.0,1.0,-2732.0,-3818.0,-4506.0,4.0,2.0,0.8046,0.666,,2.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+149384.0,364870.0,17923.0,482259.0,0.0,4.0,365243.0,-10455.0,-1212.0,8.0,1.0,0.6775,0.4356,0.7041,0.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,Accountants,Security Ministries
+157640.0,1030130.0,31836.0,432649.0,0.0,1.0,365243.0,-4579.0,-168.0,,2.0,0.7149,0.6022,0.3846,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Sales staff,Medicine
+278547.0,372842.0,23565.0,831518.0,0.0,4.0,365243.0,-8682.0,-648.0,9.0,2.0,,0.725,0.6564,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Managers,Other
+113183.0,219712.0,28719.0,384912.0,0.0,3.0,-1029.0,-1134.0,-4902.0,,3.0,0.7428,0.3934,0.5731,,Cash loans,N,N,Pensioner,Higher education,House / apartment,Realty agents,Services
+79526.0,201882.0,26362.0,1108630.0,0.0,1.0,-536.0,-9764.0,-745.0,2.0,1.0,0.7886,0.2402,,3.0,Revolving loans,Y,Y,Working,Higher education,House / apartment,Cleaning staff,Self-employed
+84123.0,278450.0,40254.0,165755.0,0.0,2.0,-752.0,-2016.0,-4584.0,,2.0,,0.5563,0.6811,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Drivers,Trade: type 7
+220211.0,177120.0,25060.0,519988.0,0.0,2.0,-2907.0,-1816.0,-3415.0,6.0,2.0,,0.7234,0.309,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+89408.0,466822.0,37413.0,873017.0,0.0,1.0,365243.0,-7003.0,-4941.0,,3.0,0.5504,0.4467,0.5477,0.0,Cash loans,N,N,Working,Secondary / secondary special,With parents,,Self-employed
+108294.0,770378.0,10095.0,403786.0,2.0,1.0,-5948.0,-2653.0,-2171.0,6.0,3.0,0.4615,0.5409,0.7584,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Other
+274851.0,320139.0,15444.0,221267.0,1.0,2.0,365243.0,-1299.0,-4631.0,,1.0,,0.2651,0.4285,0.0,Cash loans,N,N,Working,Higher education,House / apartment,,Business Entity Type 2
+141790.0,566394.0,19540.0,531544.0,1.0,1.0,-1525.0,-7013.0,-2535.0,,2.0,,0.6838,0.7772,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 3
+110601.0,259992.0,27584.0,408264.0,2.0,1.0,-1642.0,-3439.0,-1703.0,12.0,1.0,,0.4614,0.3769,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,School
+120378.0,619601.0,33562.0,934993.0,0.0,2.0,365243.0,-427.0,-727.0,17.0,2.0,,0.7078,0.6207,5.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Cleaning staff,XNA
+78920.0,515901.0,39600.0,463505.0,1.0,2.0,-1483.0,-10322.0,-4661.0,14.0,3.0,0.6028,0.753,0.4909,4.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,High skill tech staff,Medicine
+202543.0,576400.0,18330.0,474057.0,0.0,2.0,-3519.0,-2500.0,-217.0,,2.0,,0.5726,0.588,0.0,Revolving loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+105250.0,125951.0,13216.0,136285.0,0.0,4.0,-2140.0,-609.0,-1688.0,2.0,2.0,0.701,0.7532,0.4616,1.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+98108.0,594197.0,19944.0,809065.0,1.0,2.0,365243.0,-3562.0,-4255.0,7.0,2.0,,0.41,0.2084,2.0,Cash loans,Y,N,Commercial associate,Higher education,House / apartment,Laborers,Bank
+174490.0,487928.0,14147.0,1096279.0,1.0,1.0,365243.0,-3746.0,-3630.0,,2.0,,0.4588,0.2923,3.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Managers,XNA
+160449.0,551067.0,13270.0,286690.0,2.0,2.0,-1961.0,-6222.0,-4877.0,,2.0,,0.2655,0.5793,4.0,Cash loans,N,N,Pensioner,Secondary / secondary special,Municipal apartment,Laborers,Restaurant
+94268.0,592697.0,43409.0,545673.0,2.0,1.0,-922.0,-38.0,-3423.0,,2.0,,0.4221,0.6607,3.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,Managers,Business Entity Type 3
+131032.0,695741.0,33827.0,251812.0,0.0,3.0,-206.0,-9067.0,-4002.0,4.0,1.0,,0.5407,,3.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Core staff,Medicine
+255803.0,523284.0,19750.0,187825.0,0.0,2.0,365243.0,-3388.0,-4632.0,4.0,2.0,0.6624,0.4762,0.453,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,XNA
+154179.0,1121022.0,33509.0,173507.0,0.0,2.0,-1388.0,-2374.0,-1477.0,4.0,2.0,0.2044,0.5404,0.3791,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+124497.0,378938.0,37053.0,450452.0,0.0,1.0,-181.0,-2772.0,-4973.0,,3.0,,0.641,0.4226,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Cleaning staff,Industry: type 9
+155743.0,816298.0,26216.0,1336653.0,0.0,2.0,-834.0,-9086.0,-4484.0,,2.0,0.3452,0.318,0.5674,1.0,Cash loans,N,N,Working,Secondary / secondary special,Rented apartment,Accountants,Business Entity Type 3
+106798.0,703522.0,16611.0,213824.0,1.0,2.0,-2284.0,-10792.0,-4108.0,,2.0,,0.4715,0.4639,3.0,Cash loans,N,Y,Working,Lower secondary,House / apartment,Laborers,Self-employed
+75672.0,456204.0,14408.0,221964.0,0.0,1.0,-1916.0,-10338.0,-1575.0,1.0,2.0,0.3966,0.6317,,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Private service staff,Business Entity Type 3
+90241.0,505559.0,12903.0,243936.0,2.0,2.0,365243.0,-779.0,-5005.0,,2.0,0.5398,0.7232,,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 3
+213948.0,965185.0,44165.0,383301.0,0.0,1.0,-4841.0,-39.0,-4488.0,27.0,2.0,,0.6001,,,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Government
+121258.0,1113236.0,25445.0,1229475.0,0.0,1.0,365243.0,-4420.0,-3427.0,13.0,2.0,,0.7126,0.4062,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Industry: type 3
+173599.0,1364231.0,52236.0,1122940.0,0.0,2.0,-89.0,-3597.0,-2231.0,,2.0,,0.4436,0.5097,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Housing
+253057.0,256327.0,12280.0,483696.0,0.0,4.0,-6275.0,-5002.0,-1495.0,,2.0,,0.4869,0.635,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Drivers,Industry: type 7
+153040.0,194095.0,26275.0,243414.0,1.0,2.0,365243.0,-7271.0,-155.0,,2.0,0.8019,0.4913,,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Construction
+76561.0,1241834.0,27056.0,,0.0,2.0,-1584.0,-4775.0,-4872.0,,3.0,0.7391,0.5964,,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+204333.0,451542.0,36516.0,161425.0,0.0,2.0,-2041.0,-5683.0,-1928.0,,1.0,,0.2093,,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,XNA
+156133.0,801117.0,8787.0,313913.0,0.0,3.0,-442.0,-1772.0,-1773.0,1.0,2.0,0.7369,0.6876,0.4845,,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+224781.0,684022.0,43359.0,820231.0,1.0,1.0,-1626.0,-5444.0,-340.0,,2.0,,0.5917,0.5207,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+79758.0,569887.0,26460.0,1004579.0,0.0,2.0,-6420.0,-6946.0,-3661.0,,3.0,,0.3059,0.5615,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,High skill tech staff,Business Entity Type 3
+274737.0,462248.0,30844.0,250663.0,0.0,4.0,365243.0,-1633.0,-2772.0,,1.0,,0.6619,0.3341,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+211093.0,110551.0,16602.0,785565.0,0.0,4.0,365243.0,-4300.0,-1080.0,,2.0,,0.3037,0.5651,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Transport: type 4
+100660.0,367239.0,48943.0,250262.0,1.0,3.0,-5904.0,-4423.0,-2585.0,,2.0,,0.0928,0.2761,3.0,Revolving loans,N,Y,Commercial associate,Incomplete higher,House / apartment,Laborers,Business Entity Type 3
+156311.0,568055.0,13562.0,187093.0,1.0,2.0,-1844.0,-649.0,-1609.0,5.0,1.0,,0.7195,0.4715,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+110909.0,1061721.0,28493.0,1257093.0,2.0,4.0,-3278.0,-3444.0,-3814.0,,2.0,,0.4964,0.5596,3.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+114292.0,932370.0,30810.0,1187580.0,0.0,3.0,365243.0,-5744.0,-1165.0,,2.0,0.7433,0.7535,0.7743,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Security staff,Trade: type 3
+238477.0,549711.0,15263.0,194255.0,0.0,3.0,-2287.0,-11506.0,-475.0,,2.0,,0.4114,0.1346,2.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Security staff,Business Entity Type 3
+117531.0,599057.0,26384.0,1209516.0,0.0,2.0,-316.0,-11550.0,-312.0,,2.0,0.554,0.7166,0.1426,,Cash loans,N,Y,Pensioner,Higher education,Municipal apartment,Drivers,Business Entity Type 3
+250409.0,561209.0,51858.0,515258.0,0.0,4.0,365243.0,-777.0,-1949.0,15.0,2.0,,0.6571,0.4588,3.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 2
+161058.0,839441.0,29659.0,482433.0,0.0,1.0,-384.0,-4321.0,-4138.0,,2.0,,,0.1961,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Other
+153480.0,699095.0,23971.0,613219.0,1.0,1.0,-859.0,-5578.0,-2860.0,7.0,2.0,,0.4959,0.4598,1.0,Revolving loans,Y,Y,Working,Higher education,House / apartment,Core staff,Other
+82140.0,140379.0,34582.0,169266.0,0.0,2.0,-2987.0,-8798.0,-3670.0,,2.0,0.624,0.2947,0.7283,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Trade: type 3
+309705.0,129102.0,9436.0,196529.0,0.0,2.0,-1364.0,-6812.0,-4382.0,,2.0,,0.6894,0.4761,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Business Entity Type 3
+207062.0,868580.0,13244.0,618528.0,0.0,1.0,365243.0,-1529.0,-4641.0,8.0,2.0,0.3346,0.1849,,4.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,School
+182039.0,883410.0,26368.0,1204034.0,0.0,1.0,365243.0,-1420.0,-3839.0,,2.0,0.7437,0.6255,0.3736,1.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,High skill tech staff,Business Entity Type 2
+179058.0,980409.0,13639.0,705432.0,0.0,2.0,-1405.0,-1870.0,-1896.0,,2.0,0.8011,0.2283,0.3389,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+126686.0,561283.0,29947.0,798589.0,0.0,2.0,-1585.0,-1797.0,-3391.0,26.0,2.0,0.5841,0.6787,0.6266,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 3
+82498.0,454866.0,10081.0,186895.0,0.0,2.0,365243.0,-649.0,-4529.0,1.0,2.0,0.3433,0.3579,,4.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Accountants,Business Entity Type 1
+108542.0,521472.0,32775.0,483859.0,1.0,3.0,365243.0,-6414.0,-1103.0,,3.0,,0.7247,,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+284974.0,369422.0,47484.0,236800.0,0.0,3.0,-2696.0,-3158.0,-4367.0,,2.0,0.5347,0.4836,0.5991,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,High skill tech staff,Business Entity Type 3
+213620.0,1146406.0,46735.0,153379.0,1.0,1.0,-3383.0,-10673.0,-762.0,,2.0,0.4006,0.1891,0.3835,1.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,,Medicine
+132714.0,788141.0,51731.0,870348.0,0.0,2.0,-2284.0,-4472.0,-3640.0,,2.0,,0.636,0.5211,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Government
+223573.0,363545.0,14008.0,166319.0,0.0,1.0,-469.0,-4015.0,-1868.0,,3.0,,0.5695,0.57,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Trade: type 7
+105558.0,1132097.0,15524.0,1031500.0,0.0,1.0,-2431.0,-4385.0,-2217.0,,2.0,0.4755,0.3256,,4.0,Cash loans,N,Y,Working,Higher education,House / apartment,Drivers,Police
+196707.0,170816.0,47829.0,656960.0,0.0,1.0,-1676.0,-6299.0,-2299.0,,2.0,,0.6146,0.6539,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+156087.0,157669.0,24703.0,523903.0,0.0,2.0,365243.0,-751.0,-4317.0,,2.0,0.6475,0.5303,0.3039,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Other
+243882.0,734981.0,25318.0,515721.0,0.0,2.0,365243.0,-6224.0,-4269.0,,1.0,,0.6457,0.4677,2.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,University
+156598.0,271188.0,22139.0,613974.0,0.0,3.0,-2641.0,-11083.0,-4128.0,,2.0,,0.4565,0.2007,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Trade: type 2
+215944.0,382330.0,35601.0,207690.0,0.0,1.0,-251.0,-4796.0,-4057.0,,2.0,,0.7479,0.692,,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 3
+120360.0,173886.0,7549.0,416498.0,0.0,3.0,-2123.0,-9141.0,-346.0,3.0,2.0,0.6421,0.6821,0.746,,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+293721.0,199824.0,30126.0,1028359.0,3.0,1.0,365243.0,-220.0,-2958.0,0.0,2.0,0.3122,0.6785,0.5684,2.0,Cash loans,Y,Y,State servant,Higher education,House / apartment,Sales staff,Business Entity Type 2
+170457.0,640512.0,12216.0,225674.0,0.0,3.0,-6315.0,-3812.0,-1680.0,,3.0,0.2139,0.1157,0.2152,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+149561.0,502477.0,10348.0,745967.0,2.0,1.0,-4013.0,-7085.0,-3580.0,,2.0,,0.6589,,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+76212.0,434340.0,23266.0,1047593.0,0.0,2.0,-1882.0,-912.0,-304.0,6.0,2.0,,0.5118,0.6305,0.0,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+284433.0,400209.0,51917.0,639024.0,0.0,1.0,365243.0,-2499.0,-168.0,2.0,2.0,,0.6159,0.4448,3.0,Cash loans,Y,N,Working,Higher education,Municipal apartment,,Industry: type 7
+73454.0,712683.0,43866.0,516624.0,0.0,2.0,-2062.0,-27.0,-4934.0,14.0,2.0,0.8479,0.1403,0.6186,1.0,Cash loans,Y,Y,Pensioner,Higher education,House / apartment,Sales staff,Construction
+114858.0,130437.0,35943.0,599524.0,1.0,2.0,-6515.0,-11478.0,-1320.0,,2.0,,0.1717,0.5711,3.0,Revolving loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+179373.0,635231.0,26825.0,787912.0,0.0,3.0,-6839.0,-3237.0,-1245.0,,2.0,,0.1935,0.4916,1.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+123143.0,639488.0,25955.0,353593.0,0.0,1.0,-834.0,-5147.0,-1567.0,,2.0,,0.6387,0.2969,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 3
+96933.0,973255.0,22844.0,177354.0,0.0,2.0,-2134.0,-6382.0,-4703.0,,2.0,0.6268,0.6023,0.426,0.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Industry: type 3
+177463.0,185642.0,38516.0,781092.0,1.0,2.0,-65.0,-3472.0,-3948.0,,2.0,,0.5189,0.543,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+151372.0,850683.0,13847.0,426183.0,2.0,2.0,-2031.0,-2980.0,-230.0,,1.0,,0.7199,0.4222,3.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Self-employed
+196972.0,422203.0,23574.0,903116.0,0.0,2.0,-3073.0,-3424.0,-2239.0,,3.0,,0.6923,0.5355,1.0,Cash loans,N,N,Pensioner,Higher education,House / apartment,,Police
+224468.0,616743.0,25089.0,443091.0,0.0,3.0,-945.0,-8599.0,-1487.0,11.0,3.0,,0.2464,0.7834,3.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Other
+110256.0,936018.0,28060.0,511703.0,0.0,2.0,-2114.0,-2082.0,-653.0,,1.0,0.6577,0.3162,0.5499,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Private service staff,Transport: type 3
+167280.0,1015753.0,27978.0,137426.0,0.0,2.0,-5529.0,-4906.0,-4898.0,1.0,2.0,,0.7138,0.7482,,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Cleaning staff,Kindergarten
+286152.0,126114.0,15538.0,203382.0,1.0,2.0,365243.0,-2405.0,-683.0,,2.0,0.1467,0.6976,0.649,3.0,Cash loans,N,Y,Working,Incomplete higher,House / apartment,Laborers,XNA
+122638.0,801522.0,25383.0,1047658.0,0.0,3.0,365243.0,-842.0,-4072.0,,3.0,0.1506,0.7325,0.5594,1.0,Cash loans,N,N,Working,Higher education,House / apartment,Laborers,Business Entity Type 1
+194175.0,259981.0,49388.0,522757.0,0.0,2.0,-2264.0,-8408.0,-4091.0,,3.0,0.2711,0.2343,0.4003,5.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,Self-employed
+117538.0,500779.0,10799.0,346334.0,0.0,1.0,-4915.0,-6276.0,-4495.0,,2.0,,0.1686,,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Security staff,XNA
+167348.0,1288682.0,31240.0,1131852.0,0.0,2.0,-6902.0,-2294.0,-3963.0,,2.0,,0.6935,,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,Laborers,Business Entity Type 3
+125066.0,440336.0,15398.0,330419.0,0.0,2.0,-519.0,-1806.0,-1780.0,,2.0,,0.3337,0.4164,,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+173694.0,762735.0,33344.0,193682.0,0.0,2.0,-2663.0,-2640.0,-4624.0,,2.0,,0.4898,0.6287,2.0,Cash loans,N,N,Working,Higher education,House / apartment,Managers,Trade: type 7
+217901.0,786319.0,36142.0,422789.0,0.0,2.0,-2815.0,-2456.0,-610.0,,1.0,,0.6223,,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Postal
+119814.0,422801.0,21529.0,614109.0,0.0,2.0,-2051.0,-6405.0,-2169.0,,3.0,,0.2702,0.2356,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,XNA
+275086.0,885562.0,17536.0,224166.0,2.0,3.0,-3170.0,-5411.0,-4879.0,,2.0,0.3497,0.4737,0.7671,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+145877.0,918326.0,19700.0,151649.0,0.0,2.0,-2704.0,-2367.0,-1329.0,,3.0,,0.353,0.4302,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Security Ministries
+81019.0,694836.0,41241.0,191780.0,0.0,2.0,-2333.0,-1735.0,-3269.0,,3.0,0.6796,0.4988,0.4494,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,Government
+151428.0,905250.0,24506.0,443058.0,0.0,1.0,-887.0,-2128.0,-4098.0,23.0,2.0,,0.6591,0.5742,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+123700.0,505571.0,19364.0,409062.0,1.0,3.0,-574.0,-3975.0,-809.0,14.0,2.0,,0.5419,0.4563,2.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+302912.0,746411.0,23466.0,1289000.0,1.0,3.0,-2327.0,-2550.0,-3645.0,10.0,3.0,,0.6006,0.4308,5.0,Revolving loans,Y,N,Working,Higher education,House / apartment,,XNA
+185547.0,425624.0,10399.0,199838.0,0.0,2.0,-1976.0,-8266.0,-2160.0,4.0,3.0,0.5344,0.2901,0.795,5.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Security Ministries
+108548.0,140606.0,7580.0,634255.0,1.0,2.0,-2430.0,-8408.0,-4366.0,7.0,2.0,0.2736,0.7367,,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Medicine staff,Other
+105299.0,667561.0,36883.0,237361.0,0.0,2.0,-5445.0,-3938.0,-4650.0,,2.0,,0.5019,0.3243,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+106795.0,275492.0,11034.0,250263.0,1.0,3.0,-6072.0,-1433.0,-4344.0,14.0,2.0,,0.7485,0.3704,2.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Drivers,Medicine
+157541.0,923040.0,20601.0,452525.0,0.0,3.0,365243.0,-121.0,-3505.0,14.0,2.0,,0.472,0.3941,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Business Entity Type 3
+170682.0,198304.0,33313.0,169724.0,0.0,3.0,-1116.0,-9460.0,-1737.0,27.0,2.0,,0.2116,0.639,3.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,Managers,Construction
+224642.0,490415.0,42272.0,263081.0,0.0,3.0,-1692.0,-3174.0,-3455.0,,2.0,0.6719,0.4354,0.7234,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+285699.0,597294.0,48148.0,755538.0,0.0,4.0,-862.0,-2890.0,-313.0,,2.0,0.5857,0.5631,0.6879,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,XNA
+86355.0,1029052.0,27802.0,180201.0,0.0,2.0,-6194.0,-8997.0,-4540.0,14.0,2.0,,0.7371,0.4245,0.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Private service staff,Government
+73807.0,1327233.0,20572.0,718000.0,2.0,2.0,-749.0,-615.0,-4379.0,,2.0,,0.4922,0.4679,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+207566.0,875584.0,20582.0,169623.0,3.0,3.0,-1166.0,-6454.0,-3987.0,,2.0,0.3803,0.7142,0.6797,4.0,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+74125.0,468949.0,10579.0,149166.0,1.0,4.0,365243.0,-2024.0,-1062.0,,2.0,,0.4892,0.5457,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+107339.0,1003685.0,25470.0,1294525.0,0.0,2.0,-1360.0,-7975.0,-3919.0,,2.0,0.6191,0.7053,0.7179,2.0,Revolving loans,N,Y,Working,Higher education,House / apartment,,XNA
+243952.0,435232.0,18354.0,298571.0,1.0,1.0,-1916.0,-8916.0,-4794.0,,1.0,,0.7352,0.5029,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,Municipal apartment,,Self-employed
+150170.0,216385.0,27805.0,356739.0,0.0,4.0,365243.0,-120.0,-3785.0,,2.0,0.1696,0.1409,0.714,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,Accountants,Trade: type 3
+78903.0,839689.0,18428.0,433777.0,3.0,3.0,-464.0,-2950.0,-1796.0,10.0,2.0,0.4088,0.4562,0.3971,4.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,Rented apartment,Laborers,Industry: type 12
+76759.0,850001.0,23340.0,796124.0,2.0,2.0,-1191.0,-5537.0,-3407.0,,3.0,,0.7028,0.5157,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,XNA
+199079.0,283947.0,10606.0,472465.0,0.0,2.0,365243.0,-11038.0,-4823.0,,2.0,,0.3499,0.7648,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Core staff,XNA
+155440.0,581226.0,13954.0,234383.0,1.0,1.0,-6347.0,-6955.0,-3845.0,,2.0,,0.3423,0.4014,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Self-employed
+214895.0,300765.0,19695.0,184900.0,0.0,1.0,365243.0,-3389.0,-954.0,12.0,2.0,0.5387,0.4446,0.6683,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Government
+82638.0,270094.0,19636.0,470099.0,0.0,2.0,-1340.0,-11421.0,-161.0,,1.0,,0.6442,0.6212,0.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Medicine staff,Industry: type 4
+293644.0,279552.0,29577.0,788046.0,0.0,1.0,-1914.0,-2295.0,-722.0,21.0,2.0,0.3272,0.4574,0.7732,2.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Laborers,Transport: type 3
+81763.0,300727.0,22271.0,164155.0,0.0,4.0,365243.0,-6145.0,-4913.0,,2.0,,0.3877,0.5112,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,With parents,Laborers,Business Entity Type 2
+276538.0,699961.0,7544.0,245544.0,1.0,1.0,-1902.0,-10348.0,-1466.0,12.0,2.0,0.7162,0.6621,,2.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Trade: type 7
+189984.0,641498.0,37596.0,950301.0,2.0,3.0,-1220.0,-9646.0,-280.0,,3.0,0.2806,0.6244,0.6433,,Revolving loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+210819.0,699325.0,29954.0,151372.0,0.0,1.0,365243.0,-10901.0,-2141.0,18.0,2.0,0.5929,0.6243,,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Government
+218673.0,568915.0,10572.0,818003.0,0.0,2.0,-3263.0,-1756.0,-3061.0,1.0,1.0,0.8094,0.4528,,0.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+149684.0,387915.0,47699.0,391986.0,0.0,2.0,-1799.0,-7852.0,-345.0,,2.0,,0.5741,,5.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Core staff,Trade: type 6
+127952.0,654468.0,12602.0,184273.0,0.0,2.0,365243.0,-10487.0,-419.0,,3.0,,0.7002,0.7804,4.0,Cash loans,N,Y,State servant,Secondary / secondary special,Office apartment,,Business Entity Type 3
+119012.0,1093826.0,41748.0,141629.0,0.0,2.0,-982.0,-917.0,-4754.0,,2.0,0.845,0.1339,0.7477,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Government
+220520.0,514057.0,27680.0,196009.0,1.0,2.0,-492.0,-7682.0,-3996.0,27.0,2.0,,0.5708,0.6297,,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,,Trade: type 7
+158916.0,840460.0,12628.0,737141.0,2.0,2.0,-2716.0,-2586.0,-1641.0,,1.0,,0.3861,0.7983,,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Trade: type 7
+142324.0,1062934.0,34755.0,1328186.0,2.0,1.0,-2549.0,-11248.0,-4565.0,,2.0,0.2615,0.5343,,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+99550.0,129714.0,34743.0,439252.0,1.0,1.0,-897.0,-896.0,-2514.0,,2.0,0.5406,0.7384,0.6042,1.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,Secretaries,XNA
+108235.0,436766.0,49887.0,636037.0,0.0,2.0,-1278.0,-7449.0,-4156.0,24.0,2.0,0.761,0.626,0.3368,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Cooking staff,XNA
+304685.0,267849.0,25013.0,382274.0,3.0,2.0,-2747.0,-4928.0,-4286.0,,2.0,0.6781,0.4602,0.5852,0.0,Cash loans,N,Y,Pensioner,Higher education,House / apartment,,Business Entity Type 3
+215407.0,882367.0,33369.0,435191.0,0.0,2.0,-5788.0,-4021.0,-1365.0,,2.0,,0.6598,0.3757,1.0,Cash loans,N,Y,Working,Secondary / secondary special,With parents,Core staff,Restaurant
+113657.0,650108.0,23171.0,559116.0,1.0,2.0,-2088.0,-2986.0,-1770.0,,2.0,0.4707,0.599,0.748,3.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+255864.0,598541.0,39867.0,1110619.0,0.0,2.0,-1260.0,-6896.0,-4406.0,,2.0,0.3572,0.7618,0.348,1.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+306319.0,488962.0,20472.0,255514.0,0.0,2.0,-3663.0,-2646.0,-264.0,,2.0,,0.6646,,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Advertising
+290397.0,1083551.0,27687.0,267666.0,1.0,2.0,-658.0,-3695.0,-2335.0,,3.0,,0.7333,0.1644,1.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Laborers,Business Entity Type 3
+220792.0,1156287.0,17678.0,153594.0,0.0,2.0,-699.0,-9471.0,-4628.0,,2.0,,0.3782,0.5691,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 3
+218047.0,418000.0,40710.0,621625.0,0.0,2.0,-3422.0,-3898.0,-1095.0,,3.0,0.7555,0.5816,0.2899,1.0,Cash loans,N,N,Working,Higher education,House / apartment,Core staff,Postal
+124587.0,1195392.0,43015.0,482048.0,0.0,1.0,-914.0,-1651.0,-4885.0,,2.0,,0.7202,,0.0,Cash loans,N,Y,Working,Higher education,With parents,,Business Entity Type 3
+205453.0,295962.0,14532.0,202531.0,0.0,2.0,-3496.0,-7641.0,-871.0,0.0,1.0,0.2178,0.689,0.3435,3.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Security staff,Services
+214939.0,823749.0,17614.0,729978.0,0.0,1.0,-207.0,-2153.0,-2251.0,,2.0,,0.3692,0.4779,5.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Industry: type 11
+108767.0,1200852.0,13220.0,539486.0,0.0,1.0,-183.0,-9436.0,-2880.0,,2.0,0.6536,0.5991,,5.0,Cash loans,N,Y,Working,Higher education,House / apartment,Sales staff,Business Entity Type 3
+110415.0,639185.0,30706.0,409352.0,0.0,2.0,-1024.0,-9847.0,-501.0,,2.0,0.6083,0.2778,0.5982,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+216108.0,1277521.0,11027.0,361156.0,0.0,4.0,-965.0,-9069.0,-3737.0,9.0,2.0,0.6318,0.7313,0.3507,2.0,Cash loans,Y,N,Working,Secondary / secondary special,House / apartment,,Business Entity Type 3
+237127.0,402511.0,11797.0,156806.0,0.0,2.0,-872.0,-7953.0,-87.0,,2.0,0.663,0.7346,,2.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Medicine staff,Business Entity Type 3
+200756.0,358604.0,17803.0,257331.0,0.0,2.0,-252.0,-801.0,-4287.0,14.0,2.0,,0.239,,0.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Medicine
+127572.0,230792.0,47383.0,155688.0,0.0,2.0,-6011.0,-762.0,-4855.0,,2.0,0.6184,0.5971,0.181,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Security staff,Housing
+236258.0,367127.0,24475.0,781171.0,1.0,2.0,-787.0,-2636.0,-1626.0,,2.0,,0.417,0.3486,1.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,XNA
+132918.0,1040877.0,30525.0,590888.0,0.0,3.0,365243.0,-583.0,-1776.0,,2.0,0.1788,0.649,,,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Other
+65516.0,111551.0,36228.0,935824.0,0.0,2.0,-266.0,-8795.0,-263.0,,2.0,,0.1361,0.5537,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+271132.0,208675.0,15917.0,668250.0,0.0,1.0,-1115.0,-6895.0,-4429.0,,2.0,,0.4905,0.2029,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,Business Entity Type 3
+199777.0,169331.0,17131.0,470186.0,1.0,2.0,365243.0,-7463.0,-2468.0,,2.0,,0.5869,0.4315,1.0,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,Core staff,Government
+108638.0,362848.0,10167.0,359387.0,1.0,1.0,-392.0,-3846.0,-4178.0,,2.0,0.5233,0.5613,0.4297,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Security staff,Business Entity Type 3
+128116.0,171047.0,9100.0,801747.0,0.0,1.0,365243.0,-130.0,-2867.0,,2.0,,0.5273,0.2043,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Accountants,Transport: type 4
+133042.0,1219314.0,35502.0,203992.0,0.0,2.0,-2291.0,-1330.0,-3437.0,8.0,2.0,0.471,0.7199,0.3892,1.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,School
+160919.0,540361.0,52348.0,142845.0,0.0,1.0,365243.0,-6988.0,-2538.0,,2.0,,0.5394,0.2827,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,High skill tech staff,Construction
+284047.0,859323.0,14061.0,739158.0,0.0,1.0,-1262.0,-10184.0,-4468.0,,2.0,,0.7406,,,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Managers,Government
+80197.0,603750.0,7520.0,202888.0,1.0,2.0,-952.0,-8922.0,-3490.0,,2.0,,0.4853,0.783,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Medicine staff,Business Entity Type 3
+83320.0,142821.0,27421.0,264620.0,0.0,1.0,365243.0,-5203.0,-4945.0,,2.0,0.3073,0.4448,0.6578,0.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Managers,XNA
+283383.0,628943.0,27197.0,394226.0,0.0,1.0,365243.0,-4030.0,-1313.0,,2.0,0.5833,0.1449,0.2068,3.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 3
+312892.0,204462.0,48329.0,1081610.0,2.0,2.0,-857.0,-5570.0,-3218.0,,2.0,,0.4,,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+229745.0,709141.0,9261.0,319829.0,0.0,1.0,-2041.0,-5366.0,-3735.0,,2.0,,0.7056,,4.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Government
+111990.0,114341.0,22743.0,256661.0,1.0,2.0,-132.0,-677.0,-1128.0,,2.0,,0.6502,0.5721,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+83705.0,650845.0,21789.0,505812.0,0.0,2.0,-3208.0,-3356.0,-3512.0,,2.0,0.6553,0.2057,0.5671,3.0,Cash loans,N,Y,Working,Higher education,House / apartment,Medicine staff,Government
+86243.0,844155.0,20962.0,212447.0,1.0,4.0,-1171.0,-9298.0,-4852.0,,2.0,,0.5993,0.402,5.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+191564.0,576258.0,34559.0,199832.0,0.0,3.0,-3275.0,-5255.0,-1756.0,2.0,2.0,0.5191,0.3433,0.4822,0.0,Cash loans,Y,N,Working,Higher education,House / apartment,Core staff,Business Entity Type 3
+205550.0,480969.0,50530.0,952820.0,0.0,3.0,-635.0,-10360.0,-4398.0,,2.0,0.5273,0.7309,0.4364,,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Accountants,XNA
+147006.0,1109641.0,12586.0,203092.0,0.0,2.0,-465.0,-6595.0,-2478.0,,2.0,0.689,0.4291,0.4837,3.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Cleaning staff,Other
+98731.0,694093.0,25092.0,729387.0,0.0,2.0,-6037.0,-8982.0,-2266.0,,2.0,,0.7599,0.4334,4.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Drivers,Business Entity Type 3
+118404.0,1330641.0,36573.0,177543.0,0.0,4.0,-3156.0,-331.0,-1650.0,,2.0,,0.5946,0.2245,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,School
+155746.0,243686.0,42134.0,464728.0,1.0,2.0,-2151.0,-409.0,-3008.0,8.0,2.0,,0.6587,0.6711,5.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,Laborers,Industry: type 10
+122421.0,804791.0,21147.0,827163.0,0.0,4.0,-1182.0,-8572.0,-4267.0,,2.0,0.1947,0.5585,0.4093,1.0,Cash loans,N,Y,Working,Higher education,House / apartment,Laborers,Agriculture
+93217.0,1092498.0,17167.0,170679.0,0.0,1.0,-4865.0,-4298.0,-102.0,,2.0,,0.6977,0.5413,2.0,Cash loans,N,N,Working,Incomplete higher,House / apartment,,Postal
+191285.0,130614.0,11636.0,895733.0,0.0,2.0,-180.0,-1352.0,-4197.0,,2.0,0.2501,0.3164,0.2837,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+101555.0,234710.0,9827.0,208018.0,2.0,1.0,365243.0,-1267.0,-2713.0,,2.0,0.6153,0.2044,0.4151,,Cash loans,N,Y,Pensioner,Incomplete higher,House / apartment,,XNA
+268106.0,300706.0,11178.0,181888.0,0.0,1.0,-429.0,-87.0,-1069.0,,2.0,0.3514,0.3534,0.1623,4.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Accountants,Trade: type 2
+298321.0,250142.0,16294.0,194040.0,0.0,2.0,-650.0,-2751.0,-4779.0,,1.0,,0.638,0.3094,1.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Agriculture
+271324.0,261812.0,37114.0,618647.0,1.0,2.0,-3236.0,-3161.0,-2550.0,,2.0,0.3135,0.749,0.5926,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Drivers,Kindergarten
+89831.0,1357395.0,19965.0,153807.0,1.0,1.0,-3693.0,-297.0,-1480.0,,2.0,,0.7112,0.2156,0.0,Cash loans,N,N,Pensioner,Incomplete higher,House / apartment,Laborers,Trade: type 3
+81777.0,347545.0,22008.0,781242.0,1.0,4.0,-472.0,-2744.0,-351.0,12.0,2.0,,0.2722,0.4808,,Cash loans,Y,Y,Working,Higher education,With parents,,Other
+102344.0,226009.0,52863.0,197473.0,0.0,2.0,365243.0,-5954.0,-4712.0,,2.0,0.282,0.7235,0.2898,1.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,Self-employed
+131865.0,186799.0,31056.0,167972.0,2.0,2.0,-6478.0,-11131.0,-2459.0,,1.0,,0.4151,0.7575,5.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Construction
+66353.0,258978.0,33088.0,921675.0,1.0,1.0,-404.0,-1174.0,-4917.0,19.0,2.0,,0.2928,,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Managers,XNA
+127289.0,667225.0,32487.0,425716.0,0.0,1.0,365243.0,-6089.0,-2849.0,,2.0,,0.4123,0.4583,1.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+81990.0,1057813.0,32051.0,506469.0,0.0,1.0,-4201.0,-2921.0,-4280.0,,2.0,,0.1865,,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+177171.0,226293.0,24383.0,377110.0,0.0,1.0,-2639.0,-8380.0,-1854.0,,2.0,0.5422,0.5586,0.1719,3.0,Cash loans,N,N,Pensioner,Secondary / secondary special,Rented apartment,,XNA
+165908.0,443287.0,36326.0,805782.0,0.0,2.0,-3049.0,-3814.0,-2144.0,18.0,2.0,,0.7019,0.5866,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+75020.0,277439.0,22406.0,1182209.0,1.0,2.0,-3031.0,-823.0,-4849.0,,2.0,,0.7252,0.5752,3.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+63732.0,774446.0,24162.0,135453.0,0.0,2.0,-242.0,-2774.0,-4486.0,,2.0,0.4273,0.431,,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+78737.0,241904.0,46426.0,406220.0,0.0,3.0,-1431.0,-4750.0,-1476.0,9.0,1.0,,0.2958,,0.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,,Business Entity Type 3
+242279.0,120414.0,30449.0,1301049.0,0.0,1.0,365243.0,-8184.0,-4759.0,,2.0,,0.7539,0.7695,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Government
+149906.0,372009.0,45933.0,167453.0,0.0,1.0,-1560.0,-11458.0,-1369.0,,2.0,,0.1471,0.8036,3.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Industry: type 9
+68209.0,284605.0,20573.0,215928.0,2.0,1.0,-2768.0,-2697.0,-1724.0,,2.0,0.3828,0.3441,0.5918,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+223364.0,322595.0,13496.0,391456.0,0.0,1.0,365243.0,-6153.0,-2783.0,26.0,3.0,0.3929,0.2293,0.3552,1.0,Cash loans,Y,N,Working,Higher education,House / apartment,,Trade: type 7
+217278.0,1121722.0,16198.0,1292722.0,0.0,1.0,-6144.0,-548.0,-624.0,15.0,2.0,,0.6321,,,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Self-employed
+173494.0,542526.0,41986.0,754150.0,2.0,2.0,-1188.0,-4895.0,-4013.0,14.0,3.0,,0.5508,0.2831,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,Municipal apartment,,Housing
+93180.0,158006.0,22763.0,380448.0,0.0,2.0,-1947.0,-4121.0,-2293.0,,2.0,,0.3085,0.4467,,Revolving loans,N,N,Working,Secondary / secondary special,House / apartment,,Security
+106507.0,1346207.0,20252.0,665927.0,0.0,2.0,365243.0,-1023.0,-2608.0,,2.0,0.418,0.7283,0.3543,0.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,Medicine staff,Housing
+161058.0,803010.0,39204.0,258090.0,1.0,2.0,-989.0,-843.0,-3256.0,24.0,2.0,0.4404,0.7242,0.3565,3.0,Cash loans,Y,N,Commercial associate,Incomplete higher,House / apartment,Sales staff,Trade: type 3
+200151.0,1270575.0,51918.0,329498.0,0.0,2.0,-1687.0,-7717.0,-4069.0,3.0,2.0,,0.6927,0.5487,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Core staff,Business Entity Type 1
+155629.0,502953.0,24949.0,218987.0,0.0,2.0,-1057.0,-3591.0,-2726.0,,3.0,,0.465,,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,High skill tech staff,Trade: type 2
+97628.0,1196128.0,24928.0,709916.0,1.0,3.0,-1087.0,-5048.0,-4364.0,7.0,2.0,0.1869,0.7196,0.4347,2.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,Managers,XNA
+107182.0,206630.0,20619.0,521106.0,0.0,2.0,-4332.0,-11268.0,-4185.0,10.0,2.0,,0.5527,0.4531,,Cash loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,XNA
+182033.0,114814.0,36521.0,339693.0,0.0,3.0,-374.0,-11327.0,-1428.0,,2.0,,0.1063,,3.0,Revolving loans,N,N,Working,Secondary / secondary special,Rented apartment,,Business Entity Type 3
+104771.0,122759.0,36188.0,172554.0,0.0,1.0,-2701.0,-7005.0,-3298.0,,3.0,0.6036,0.6072,0.1513,,Revolving loans,N,N,Working,Higher education,Rented apartment,,Transport: type 4
+168328.0,1130926.0,37246.0,718323.0,0.0,2.0,-1321.0,-113.0,-304.0,6.0,2.0,0.5681,0.2539,0.6587,1.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Other
+198120.0,335539.0,18070.0,1223423.0,1.0,2.0,-2132.0,-5158.0,-2540.0,6.0,2.0,,0.1652,,,Cash loans,Y,N,Working,Incomplete higher,House / apartment,,Business Entity Type 3
+82024.0,184065.0,37274.0,264887.0,0.0,1.0,-1530.0,-9962.0,-4342.0,,1.0,,0.1655,,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+143380.0,218207.0,25146.0,139964.0,1.0,3.0,-4675.0,-10454.0,-3444.0,,2.0,0.758,0.528,0.5526,3.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Medicine staff,Trade: type 7
+125398.0,823556.0,51035.0,265750.0,0.0,2.0,-255.0,-6752.0,-4528.0,,2.0,0.1409,0.5991,0.5838,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Business Entity Type 3
+177383.0,234686.0,14256.0,952701.0,0.0,4.0,365243.0,-169.0,-3996.0,,2.0,0.6679,0.5904,0.7316,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+65943.0,840105.0,48006.0,437236.0,0.0,3.0,-1770.0,-9238.0,-3735.0,3.0,2.0,,0.6724,0.6967,1.0,Cash loans,Y,Y,Commercial associate,Higher education,House / apartment,High skill tech staff,Other
+122878.0,1065235.0,42739.0,819391.0,0.0,1.0,-6976.0,-1428.0,-4592.0,,2.0,,0.7489,0.6418,0.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+129044.0,217756.0,23145.0,209183.0,1.0,1.0,-1781.0,-6960.0,-4368.0,,2.0,,0.5996,0.5204,1.0,Cash loans,N,N,Pensioner,Secondary / secondary special,House / apartment,,XNA
+85884.0,219361.0,43014.0,877119.0,0.0,1.0,-5313.0,-252.0,-852.0,10.0,2.0,,0.2032,0.2612,,Revolving loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Medicine
+171654.0,1365345.0,25760.0,265820.0,0.0,2.0,-3037.0,-8931.0,-3863.0,,3.0,,0.1708,0.7315,,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,,Construction
+103712.0,234188.0,30218.0,252456.0,0.0,1.0,-3355.0,-4097.0,-2776.0,11.0,2.0,0.2429,0.7422,,2.0,Cash loans,Y,Y,Working,Higher education,Municipal apartment,Laborers,Industry: type 3
+71349.0,550655.0,8677.0,569164.0,1.0,2.0,365243.0,-4606.0,-3599.0,21.0,3.0,0.4514,0.4906,0.8016,2.0,Cash loans,Y,Y,Commercial associate,Secondary / secondary special,House / apartment,,Industry: type 11
+189603.0,326694.0,15425.0,374809.0,0.0,2.0,-158.0,-4329.0,-4362.0,,2.0,,0.5324,0.4204,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Business Entity Type 3
+118456.0,208251.0,29196.0,304278.0,0.0,2.0,-875.0,-6612.0,-408.0,,2.0,0.5279,0.3523,0.4171,0.0,Cash loans,N,N,State servant,Secondary / secondary special,House / apartment,High skill tech staff,Industry: type 3
+126501.0,209067.0,7757.0,211707.0,0.0,2.0,-268.0,-2643.0,-3846.0,,2.0,,0.2087,0.6198,,Cash loans,N,Y,Working,Higher education,House / apartment,Sales staff,XNA
+130926.0,303954.0,17033.0,442177.0,2.0,2.0,-2954.0,-4976.0,-2566.0,10.0,3.0,0.1997,0.114,0.5586,,Cash loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,Laborers,XNA
+201553.0,482108.0,12653.0,157468.0,0.0,2.0,-1165.0,-79.0,-1246.0,,2.0,,0.1865,,1.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,,Industry: type 11
+283783.0,523599.0,45694.0,673290.0,0.0,2.0,-2615.0,-173.0,-4864.0,,2.0,,0.443,,,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,,XNA
+118419.0,230143.0,16520.0,421739.0,0.0,2.0,-510.0,-1163.0,-4657.0,,1.0,0.319,0.7194,0.4426,2.0,Cash loans,N,N,Working,Secondary / secondary special,House / apartment,,XNA
+218714.0,537101.0,27644.0,196656.0,1.0,2.0,-3324.0,-8875.0,-1062.0,,2.0,,0.5411,0.1355,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+131269.0,163495.0,39518.0,480404.0,1.0,2.0,-995.0,-10352.0,-4442.0,5.0,2.0,,0.5768,0.6003,1.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+111750.0,498183.0,46768.0,497558.0,0.0,2.0,-459.0,-8799.0,-1551.0,2.0,2.0,0.8631,0.6761,0.6591,0.0,Cash loans,Y,Y,Working,Secondary / secondary special,With parents,Sales staff,Self-employed
+152307.0,209049.0,54121.0,176252.0,0.0,1.0,-101.0,-5914.0,-2607.0,4.0,3.0,,0.2796,0.3731,4.0,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Trade: type 7
+197644.0,208123.0,25461.0,655296.0,0.0,2.0,-1614.0,-8039.0,-2844.0,,2.0,0.2149,0.1119,0.1667,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Self-employed
+104316.0,373379.0,17644.0,1241596.0,1.0,1.0,-5886.0,-3405.0,-4688.0,,2.0,,0.7256,0.7343,3.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Core staff,Self-employed
+74098.0,592476.0,17643.0,388104.0,1.0,2.0,-2670.0,-9908.0,-1475.0,2.0,2.0,0.7513,0.5637,0.7573,0.0,Cash loans,Y,N,Pensioner,Higher education,House / apartment,,Business Entity Type 3
+113328.0,884613.0,45997.0,749461.0,0.0,1.0,-789.0,-7914.0,-4213.0,,1.0,,0.7237,0.2672,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Drivers,XNA
+283706.0,874887.0,33297.0,453393.0,0.0,2.0,-1492.0,-117.0,-3687.0,,2.0,0.2873,0.1995,0.7771,0.0,Revolving loans,N,N,Working,Higher education,House / apartment,Managers,Government
+273284.0,485256.0,23993.0,415627.0,1.0,2.0,-1049.0,-3616.0,-3154.0,,2.0,0.8614,0.2188,0.5657,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Sales staff,Self-employed
+132577.0,1164177.0,16262.0,1241168.0,0.0,4.0,-1421.0,-4997.0,-3282.0,,2.0,0.3606,0.6274,0.7135,3.0,Cash loans,N,Y,Working,Incomplete higher,House / apartment,Managers,Transport: type 3
+91563.0,1159673.0,25394.0,216123.0,2.0,2.0,-255.0,-1840.0,-2221.0,,2.0,0.5436,0.496,0.6827,1.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Security
+214300.0,320241.0,38276.0,141170.0,0.0,2.0,365243.0,-6644.0,-1918.0,,2.0,0.1325,0.6917,,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+100250.0,292441.0,21874.0,271130.0,0.0,3.0,365243.0,-944.0,-3103.0,,2.0,,0.66,0.5986,1.0,Cash loans,N,N,Working,Higher education,House / apartment,Core staff,Services
+105854.0,1248957.0,16519.0,253546.0,0.0,2.0,-539.0,-1081.0,-2297.0,3.0,2.0,,0.1002,0.8026,0.0,Cash loans,Y,Y,State servant,Secondary / secondary special,House / apartment,Secretaries,Business Entity Type 3
+192652.0,346559.0,13996.0,292156.0,0.0,1.0,365243.0,-4082.0,-2588.0,,2.0,,0.1679,0.1515,1.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Cooking staff,Trade: type 6
+164005.0,749338.0,33713.0,886778.0,2.0,4.0,365243.0,-4400.0,-4341.0,,2.0,,0.7219,0.4781,0.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,,Business Entity Type 3
+133566.0,459517.0,46042.0,949710.0,3.0,2.0,365243.0,-8931.0,-2812.0,,1.0,0.4753,0.1963,0.2209,2.0,Cash loans,N,N,Commercial associate,Secondary / secondary special,House / apartment,Drivers,Government
+189004.0,737040.0,15547.0,189518.0,1.0,1.0,-3593.0,-7106.0,-165.0,,1.0,0.3122,0.5852,0.4285,0.0,Cash loans,N,Y,Pensioner,Secondary / secondary special,House / apartment,,Realtor
+118610.0,345821.0,18169.0,162175.0,1.0,4.0,-1742.0,-4402.0,-4334.0,6.0,3.0,,0.7371,0.1886,1.0,Cash loans,Y,N,Commercial associate,Secondary / secondary special,House / apartment,High skill tech staff,University
+195522.0,954746.0,50402.0,637113.0,0.0,1.0,-1198.0,-526.0,-1105.0,10.0,3.0,,0.7172,0.1818,0.0,Revolving loans,Y,Y,Working,Secondary / secondary special,House / apartment,Laborers,Self-employed
+157680.0,880927.0,10817.0,434601.0,1.0,1.0,-439.0,-10521.0,-2851.0,3.0,2.0,,0.5897,0.7997,3.0,Revolving loans,Y,N,Pensioner,Secondary / secondary special,House / apartment,,Hotel
+163092.0,448734.0,16202.0,547065.0,0.0,2.0,-683.0,-9139.0,-4725.0,,3.0,0.3491,0.6153,,1.0,Cash loans,N,Y,Commercial associate,Higher education,House / apartment,Private service staff,XNA
+109448.0,1313424.0,14010.0,165555.0,1.0,2.0,-1806.0,-420.0,-3699.0,,2.0,,0.1302,0.2832,,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Business Entity Type 3
+158025.0,271870.0,9625.0,213119.0,1.0,2.0,-838.0,-8164.0,-4539.0,,2.0,0.134,0.4906,0.4003,5.0,Cash loans,N,N,Working,Higher education,House / apartment,High skill tech staff,Business Entity Type 3
+123012.0,1151531.0,24292.0,256662.0,0.0,2.0,-306.0,-7655.0,-3595.0,,2.0,,0.6899,0.656,4.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Accountants,School
+275397.0,662927.0,10407.0,139324.0,0.0,3.0,-2302.0,-7814.0,-4411.0,26.0,1.0,,0.5154,0.3149,0.0,Cash loans,Y,Y,Working,Higher education,House / apartment,,Bank
+154344.0,782637.0,42978.0,639846.0,0.0,3.0,-2429.0,-538.0,-4774.0,,2.0,,0.7518,0.5138,1.0,Cash loans,N,N,State servant,Secondary / secondary special,Municipal apartment,Managers,XNA
+170317.0,1001863.0,38513.0,904636.0,0.0,1.0,-4644.0,-5455.0,-3942.0,7.0,2.0,,0.7393,0.5322,4.0,Cash loans,Y,N,Pensioner,Higher education,With parents,Waiters/barmen staff,Services
+80372.0,480227.0,16131.0,584593.0,0.0,2.0,-4401.0,-4618.0,-485.0,,3.0,0.6289,0.6314,0.3708,2.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,Police
+181057.0,566960.0,33665.0,275945.0,0.0,1.0,-5588.0,-5316.0,-2003.0,,3.0,,0.7103,0.5048,5.0,Cash loans,N,N,Working,Higher education,House / apartment,Laborers,Business Entity Type 3
+285017.0,274620.0,18799.0,893999.0,2.0,4.0,-757.0,-10877.0,-3795.0,23.0,1.0,,0.39,0.5172,2.0,Revolving loans,Y,N,Working,Secondary / secondary special,House / apartment,Drivers,Industry: type 7
+194080.0,239374.0,27341.0,406212.0,0.0,3.0,-976.0,-2579.0,-2319.0,4.0,3.0,,0.1193,,,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Managers,School
+161590.0,177734.0,35215.0,939560.0,0.0,1.0,-1085.0,-7184.0,-695.0,26.0,2.0,0.4283,0.5211,0.5892,,Cash loans,Y,Y,Pensioner,Secondary / secondary special,House / apartment,Laborers,Other
+178366.0,132096.0,46439.0,190320.0,0.0,2.0,-5359.0,-3398.0,-4097.0,,3.0,,0.3221,0.7576,2.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Sales staff,Other
+92538.0,573553.0,31558.0,446064.0,1.0,2.0,-652.0,-1289.0,-4488.0,,2.0,,0.6591,0.1436,5.0,Cash loans,N,Y,Working,Incomplete higher,House / apartment,,Construction
+103209.0,1316031.0,17374.0,164767.0,0.0,1.0,-5602.0,-5808.0,-4387.0,,2.0,0.3582,0.7034,0.3506,0.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,Managers,Security
+151050.0,435332.0,9540.0,611915.0,0.0,3.0,365243.0,-10059.0,-3889.0,,2.0,,0.5829,0.5892,0.0,Cash loans,N,Y,Working,Lower secondary,House / apartment,Sales staff,Industry: type 9
+79502.0,710548.0,35349.0,240178.0,0.0,1.0,-1889.0,-1886.0,-4716.0,,2.0,,0.3148,0.7925,3.0,Cash loans,N,Y,Commercial associate,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+99031.0,209962.0,42444.0,490111.0,1.0,1.0,-3131.0,-5851.0,-1432.0,,2.0,0.6882,0.3644,0.2332,0.0,Cash loans,N,Y,State servant,Secondary / secondary special,House / apartment,Laborers,Business Entity Type 3
+205722.0,1102572.0,26744.0,619671.0,0.0,4.0,-2664.0,-5726.0,-4766.0,,2.0,,0.6486,0.566,0.0,Cash loans,N,Y,State servant,Higher education,House / apartment,Drivers,Other
+76180.0,234680.0,14504.0,252103.0,0.0,3.0,365243.0,-1226.0,-440.0,,2.0,,0.4919,0.2582,5.0,Cash loans,N,Y,Working,Secondary / secondary special,House / apartment,,XNA
+85573.0,239634.0,11378.0,583045.0,0.0,3.0,-2961.0,-6384.0,-3316.0,2.0,2.0,,0.7386,0.1921,2.0,Cash loans,Y,Y,Working,Higher education,House / apartment,Core staff,Postal
