@@ -72,3 +72,27 @@ def test_model_and_fairness_page_loads():
     assert not page.exception and not page.error
     assert [t.label for t in page.tabs] == ["Sex", "Age band", "Family status", "Education"]
     assert page.metric[0].value == "XGBoost"
+
+
+def monitoring_page() -> AppTest:
+    return AppTest.from_file(str(ROOT / "pages" / "3_Monitoring.py"), default_timeout=120).run()
+
+
+def test_monitoring_page_normal_sample_is_stable():
+    page = monitoring_page()
+    assert not page.exception and not page.error
+    assert page.success and "look like the training data" in page.success[0].value
+
+
+def test_monitoring_page_shifted_sample_alerts():
+    page = monitoring_page()
+    page.radio[0].set_value(page.radio[0].options[1]).run()
+    assert not page.exception
+    assert page.error and "shifted a lot" in page.error[0].value
+    assert {m.label: m.value for m in page.metric}["Alert"] != "0"
+
+
+def test_monitoring_page_asks_for_an_upload():
+    page = monitoring_page()
+    page.radio[0].set_value(page.radio[0].options[2]).run()
+    assert not page.exception and "Upload a file" in page.info[0].value
