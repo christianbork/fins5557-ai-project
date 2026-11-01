@@ -69,8 +69,11 @@ def test_no_explainer_for_logistic_regression(trained):
 
 
 def test_predict_returns_reasons_and_shap(saved_model_dir, xgb_model):
-    artifacts = load_artifacts(saved_model_dir / "model.joblib", saved_model_dir / "metadata.json",
-                               saved_model_dir / "reference_stats.json")
+    artifacts = load_artifacts(
+        saved_model_dir / "model.joblib",
+        saved_model_dir / "metadata.json",
+        saved_model_dir / "reference_stats.json",
+    )
     artifacts.update(model=xgb_model, explainer=build_explainer(xgb_model))
     applicant = make_fake(1, seed=3).drop(columns=TARGET).iloc[0].to_dict()
     out = predict(applicant, artifacts)

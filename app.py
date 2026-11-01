@@ -16,19 +16,20 @@ import pandas as pd
 import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
+from src.app_logging import get_logger
 from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
-from src.config import DATA_DIR, LLM_BACKEND, MODEL_NAMES, OLLAMA_MODEL
+from src.audit import log_assessment, log_letter
+from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
+from src.formatting import money, pct, score
+from src.labels import decision_label, model_label
 from src.llm import draft_letter
 from src.predict import load_artifacts, predict
 from src.validation import validate_applicant
 
 SAMPLE_PATH = DATA_DIR / "sample" / "sample_applicants.csv"
-DECISIONS = {
-    "approve": ("Approve", "green"),
-    "refer": ("Refer to an analyst", "orange"),
-    "decline": ("Decline", "red"),
-}
+log = get_logger("app.screening")
+BADGE_COLOURS = {"approve": "green", "refer": "orange", "decline": "red"}
 INT_FIELDS = {
     "CNT_CHILDREN",
     "CNT_FAM_MEMBERS",
@@ -113,8 +114,11 @@ def categories(field: str) -> list[str]:
 # ---- Page ----------------------------------------------------------------------------------
 try:
     artifacts = get_artifacts()
-except (FileNotFoundError, ValueError) as e:
-    st.error(f"The model couldn't be loaded, so applicants can't be scored right now. Details: {e}")
+except (FileNotFoundError, ValueError):
+    log.exception("Model files couldn't be loaded")
+    st.error(
+        "The model couldn't be loaded, so applicants can't be scored right now. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 meta = artifacts["metadata"]
 threshold, band = meta["threshold"], meta["refer_band"]
@@ -125,7 +129,7 @@ with st.sidebar:
     st.markdown(
         "1. Load an example applicant, or enter one yourself.\n"
         "2. Press **Assess applicant**.\n"
-        "3. Read the PD, the decision and the reasons.\n"
+        "3. Read the probability of default (PD), the decision and the reasons.\n"
         "4. For a decline or refer, draft the letter, **check and edit it**, then download it."
     )
     st.header("Scope")
@@ -136,11 +140,12 @@ with st.sidebar:
     )
     st.header("Model")
     st.markdown(
-        f"- {MODEL_NAMES[meta['chosen_model']]}, calibrated ({meta['calibration']['method']})\n"
-        f"- Test AUC {meta['test_metrics']['auc']:.3f}\n"
-        f"- Decline above PD {threshold + band:.1%}, approve below {threshold - band:.1%}, refer in between\n"
-        f"- Break-even PD {assumptions['break_even_pd']:.0%} (LGD {assumptions['lgd']:.0%}, "
-        f"margin {assumptions['margin']:.0%})\n"
+        f"- {model_label(meta['chosen_model'])}, calibrated ({meta['calibration']['method']})\n"
+        f"- Test AUC {score(meta['test_metrics']['auc'])}\n"
+        f"- Decline above a PD of {pct(threshold + band)}, approve below {pct(threshold - band)}, "
+        "refer in between\n"
+        f"- Break-even PD {pct(assumptions['break_even_pd'])} (loss given default, LGD, "
+        f"{pct(assumptions['lgd'])}; margin {pct(assumptions['margin'])})\n"
         f"- Trained {meta['trained_at'][:10]}"
     )
     st.caption(
@@ -207,13 +212,18 @@ if submitted:
         try:
             with st.spinner("Scoring the applicant..."):
                 st.session_state["result"] = predict(applicant, artifacts)
+                st.session_state["assessment_id"] = log_assessment(
+                    applicant, st.session_state["result"], meta
+                )
                 st.session_state["ead"] = applicant["AMT_CREDIT"]
-        except Exception as e:  # noqa: BLE001 (show any scoring failure instead of crashing the page)
-            st.error(f"Something went wrong while scoring this applicant: {e}")
+        except Exception:  # show any scoring failure instead of crashing the page
+            log.exception("Scoring one applicant failed")
+            st.error(
+                "Something went wrong while scoring this applicant, so no decision was made. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+            )
 
 if "result" in st.session_state:
     result = st.session_state["result"]
-    decision_label, color = DECISIONS[result["decision"]]
     ead = st.session_state["ead"]
     expected_loss = result["pd"] * assumptions["lgd"] * ead
     expected_profit = (1 - result["pd"]) * assumptions["margin"] * ead - expected_loss
@@ -223,23 +233,27 @@ if "result" in st.session_state:
     pd_col, decision_col, el_col, profit_col = st.columns(4)
     pd_col.metric(
         "Probability of default",
-        f"{result['pd']:.1%}",
+        pct(result["pd"]),
         help="Calibrated: of 100 applicants with this PD, about this many have payment difficulties.",
     )
     with decision_col:
         st.markdown("**Decision**")
-        st.badge(decision_label, color=color)
-    el_col.metric("Expected loss", f"{expected_loss:,.0f}", help="PD × LGD × EAD (EAD = loan amount).")
+        st.badge(decision_label(result["decision"]), color=BADGE_COLOURS[result["decision"]])
+    el_col.metric(
+        "Expected loss",
+        money(expected_loss),
+        help="PD × LGD × EAD: loss given default × exposure at default (the loan amount).",
+    )
     profit_col.metric(
         "Expected profit",
-        f"{expected_profit:,.0f}",
+        money(expected_profit),
         help="(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
     )
 
     if result["decision"] == "approve":
         st.success("Expected to be profitable at the lender's assumptions: approve.")
     elif result["decision"] == "decline":
-        st.error(f"PD is above {threshold + band:.1%}: the expected loss outweighs the margin, so decline.")
+        st.error(f"PD is above {pct(threshold + band)}: the expected loss outweighs the margin, so decline.")
     for warning in result["warnings"]:
         st.warning(
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
@@ -247,8 +261,9 @@ if "result" in st.session_state:
         )
     if result["decision"] == "refer" and not result["warnings"]:
         st.warning(
-            f"PD is within {band:.0%} of the {threshold:.1%} cut-off: too close to call, so an analyst decides."
+            f"PD is within {pct(band)} of the {pct(threshold)} cut-off: too close to call, so an analyst decides."
         )
+    st.caption(CURRENCY_NOTE)
 
     reasons_col, chart_col = st.columns([1, 2])
     with reasons_col:
@@ -286,6 +301,7 @@ if "result" in st.session_state:
             wait = " This can take up to a minute." if LLM_BACKEND == "ollama" else ""
             with st.spinner(f"Drafting the letter with {writer}...{wait}"):
                 letter = draft_letter(result["decision"], result["reasons"])
+            log_letter(st.session_state.get("assessment_id"), letter["backend"])
             st.session_state["letter"] = letter
             st.session_state["letter_text"] = letter["text"]
         if "letter" in st.session_state:

@@ -33,7 +33,8 @@ Behind that sit a **fairness audit** (outcomes by gender, age band, family statu
 | Models | Logistic regression (baseline), random forest, XGBoost. Pick on validation results. If XGBoost isn't clearly better than logistic regression, say so and justify the choice. |
 | Threshold | From expected loss, not 0.5: EL = PD × LGD × EAD. Assumptions in `src/config.py`: LGD 60%, net margin over the loan's life 15%, EAD = loan amount (`AMT_CREDIT`), so break-even PD = 20%. The code picks the cut-off that maximises realised profit on validation, with a ±2-point refer band; the report compares it with the break-even PD and shows a sensitivity table (LGD 40–80%, margin 10–20%). |
 | Generative AI | Only for the decline letter (and the tax-statement reader, if built). All LLM calls go through `src/llm.py` with `LLM_BACKEND` = `template` (default, no AI), `ollama` or `gemini`. **Decided (28 Oct): hybrid.** Closed environment for real customer data: `ollama` running locally, so no customer data leaves our machines (the professor leans towards closed). The public Streamlit Cloud demo can't run Ollama and only handles example applicants, so it uses `template` (or `gemini`). The report explains this choice. Build the template first, then Ollama. |
-| App | Streamlit. `app.py` = screening page; extra pages in `pages/`. Deployed on Streamlit Community Cloud with `LLM_BACKEND=template`. The deployed app needs the trained model file but never the raw data; example applicants shown in the app must be invented or heavily altered, not copied rows from the Kaggle file. |
+| Currency | **Decided (29 Oct): amounts are displayed in USD as a stated assumption.** Home Credit's data doesn't say which currency it uses; we show USD for readability and say so once on every page that shows money (a footnote), in the README and in the report. No conversion is applied: the numbers are the dataset's own. |
+| App | Streamlit. `app.py` = screening page; extra pages in `pages/`. Deployed on Streamlit Community Cloud (fins5557-loan-screener.streamlit.app) with `LLM_BACKEND=gemini` (decided 29 Oct, see Step 8). The deployed app needs the trained model file but never the raw data; example applicants shown in the app must be invented or heavily altered, not copied rows from the Kaggle file. |
 | Notebooks | **One notebook only:** `notebooks/project.ipynb`, with a section per step. Don't create new notebooks; add sections. |
 
 ### Not decided yet (don't build unless asked)
@@ -196,6 +197,32 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] `.github/workflows/ci.yml` that runs `pip install -r requirements-dev.txt`, `ruff check .` and `pytest -q` on every pull request (Python 3.12). CI must not need the raw data or an API key: use small fixtures.
 - [x] CI badge in the README.
 - **Checks:** green tick on a pull request. Passed on PR #12 (29 Oct, 183 passed).
+
+### Step 13b: Engineering polish (from the 29 Oct project review) [done]
+**Why:** the review ("Project Review: Loan Default Screener", section 3) found the codebase well structured and tested, but missing the extras that make a repo look professionally run, and found formatting and labels handled differently on every page. This step is code and engineering only; the visual redesign (theme, navigation, charts) comes later. Work on branch `feat/engineering-polish`, small commits, tests and ruff after each part.
+
+- [x] **Formatting module** `src/formatting.py`, used by every page, table, chart label and CSV export (no ad-hoc f-string formats left in `app.py` or `pages/`):
+    - `money(x)` -> `"$450,000"`; `money_short(x)` -> `"$3.62bn"`, `"$128.4k"`; negatives as `"-$92,951"`. Currency symbol and code in `config.py` (`CURRENCY_SYMBOL = "$"`, `CURRENCY_CODE = "USD"`), plus `CURRENCY_NOTE` = "Amounts in USD (display assumption: Home Credit's data doesn't state its currency)."
+    - `pct(x)` one decimal everywhere (`"0.5%"`, `"47.5%"`); `pct_points(x)` for gaps (`"+4.3 pts"`); `ratio(x)` two decimals; `score(x)` three decimals (AUC, Gini, KS, Brier).
+    - `count(n, noun)` -> `"1 applicant"`, `"6 applicants"` (no "(s)").
+    - `missing()` -> en dash for empty values; tables never show `None` or `nan`.
+    - Unit tests for each function, including negatives, zero, NaN and very large numbers.
+- [x] **Labels module** `src/labels.py`: one source for display text:
+    - Decisions always capitalised: `Approve`, `Refer`, `Decline` (badges, tables, filter chips, batch CSV, monitoring). Keep the lower-case codes internally.
+    - Model display names (`Logistic regression`, `Random forest`, `XGBoost`) used in legends, tables and the model-choice sentence (no `xgboost has the highest...`; build that sentence from display names, and fix `choose_model`'s reason text too).
+    - Column headers for every table shown in the app (no `rule`, `group`, `example`, `pd`): e.g. `Rule`, `Group`, `Example applicant`, `PD`.
+    - Fairness attribute and group names, monitoring status words (`Stable`, `Watch`, `Alert`).
+    - A test that walks the app's tables and checks no raw column names or lower-case decisions are displayed (or at least that every displayed column has a label).
+- [x] **Apply both modules** across `app.py` and `pages/`, and add the `CURRENCY_NOTE` as a caption on every page that shows money (Screening, Batch scoring, Model and fairness). Spell out PD and LGD at first use on each page.
+- [x] **Friendly errors and logging:** never show raw exception text to users (`Details: {e}` in `app.py` and the batch page). Log the detail with Python's `logging` (module-level loggers, configured once) and show a short, actionable message. Same for scoring and letter failures.
+- [x] **Decision log** `src/audit.py`: append one JSON line per assessed applicant to `logs/decisions.jsonl` (gitignored): timestamp, model version (`trained_at` + chosen model), inputs, PD, decision, reasons, warnings, letter backend. Controlled by `DECISION_LOG` in config (on locally, **off** on the public demo via Secrets). Tests with a temp path. Mention in the README as the audit trail a real lender would keep.
+- [x] **Model card** `docs/MODEL_CARD.md`, generated by `python -m src.reporting model-card` (or a small script) from `models/metadata.json` and `reports/`: intended use and scope (second-stage screen), data and terms, inputs and excluded fields, protected attributes, training and tuning, metrics (validation and test), calibration, cut-off and assumptions, fairness summary, limitations, version history link, owners. Regenerated by `python -m src.train`. Link it from the README.
+- [x] **Quality tooling** (ask Christian before installing; pin new packages in `requirements-dev.txt`):
+    - `pytest-cov`: CI prints coverage; add the figure (or a badge) to the README. Aim for 85%+ on `src/`.
+    - `pre-commit` with ruff (lint + format) and a secret scanner (e.g. `detect-secrets` or gitleaks); document `pre-commit install` in the README.
+    - Optional: `mypy` on `src/` in CI (non-blocking at first). Skipped for now: mostly noise on pandas code.
+- [x] **Repo hygiene:** README gets the live URL, the currency note, a coverage line and links to the model card and model history; fix any stale references (e.g. `LLM_BACKEND=template` for the public demo). Check `.gitignore` covers `logs/`.
+- **Checks:** `pytest -q` and `ruff check .` pass in CI; coverage reported; no `None`/`nan`, lower-case decisions or raw column names visible on any page (click through all four pages locally); every money value shows `$`; the deployed app still works after merging.
 
 ### Step 14: Finish
 - [ ] README complete: overview, live URL, video link, screenshots, setup, architecture, team, data citation, licence. Done 29 Oct except the live URL, video link, screenshots and teammates' names (placeholders).

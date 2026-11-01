@@ -1,4 +1,5 @@
 """Tests for src/predict.py, using the fake model saved by conftest.py."""
+
 import pytest
 
 from src.config import TARGET
@@ -8,8 +9,11 @@ from tests.test_data import make_fake
 
 @pytest.fixture(scope="module")
 def artifacts(saved_model_dir):
-    return load_artifacts(saved_model_dir / "model.joblib", saved_model_dir / "metadata.json",
-                          saved_model_dir / "reference_stats.json")
+    return load_artifacts(
+        saved_model_dir / "model.joblib",
+        saved_model_dir / "metadata.json",
+        saved_model_dir / "reference_stats.json",
+    )
 
 
 @pytest.fixture

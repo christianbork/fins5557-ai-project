@@ -10,6 +10,7 @@ venv/
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
+.coverage
 
 # Jupyter
 .ipynb_checkpoints/
@@ -26,6 +27,9 @@ data/*
 !models/*.json
 # Earlier model versions kept for comparison (docs/MODEL_HISTORY.md).
 !archive/*/model.joblib
+
+# Decision log written by the app (src/audit.py): local only
+logs/
 
 # OS / editor
 .DS_Store

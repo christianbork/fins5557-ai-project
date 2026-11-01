@@ -3,7 +3,8 @@
 The deployed app never has the Kaggle data, so everything the page shows is written here as
 aggregates only (group rates, curve points), with no applicant rows:
 
-    python -m src.reporting      # also run at the end of python -m src.train
+    python -m src.reporting              # also run at the end of python -m src.train
+    python -m src.reporting model-card   # docs/MODEL_CARD.md only (src/model_card.py)
 
 Writes to reports/:
     fairness.csv     fairness audit on the test split (src/fairness.py); groups smaller than
@@ -22,6 +23,7 @@ from sklearn.metrics import roc_curve
 
 from src.config import REPORTS_DIR, TARGET
 from src.fairness import fairness_table
+from src.labels import model_label
 
 FPR_GRID = np.linspace(0, 1, 101)
 
@@ -68,8 +70,8 @@ def write_app_reports(
     models = [c for c in val_predictions.columns if c not in (TARGET, "calibrated_pd")]
     roc_points(val_predictions, models).round(4).to_csv(out_dir / "roc_points.csv", index=False)
     scores = {
-        f"{chosen} (raw score)": val_predictions[chosen],
-        "calibrated PD": val_predictions["calibrated_pd"],
+        f"{model_label(chosen)} (raw score)": val_predictions[chosen],
+        "Calibrated PD": val_predictions["calibrated_pd"],
     }
     reliability_points(val_predictions[TARGET], scores).round(4).to_csv(
         out_dir / "reliability.csv", index=False
@@ -77,6 +79,13 @@ def write_app_reports(
 
 
 if __name__ == "__main__":
+    import sys
+
+    if sys.argv[1:] == ["model-card"]:  # needs only models/ and reports/, not the Kaggle data
+        from src.model_card import write_model_card
+
+        print(f"Wrote {write_model_card()}")
+        sys.exit()
     from src.data import features_target, load_clean, split
     from src.predict import load_artifacts
 

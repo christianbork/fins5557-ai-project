@@ -31,16 +31,16 @@ FIELDS = {
     # Loan
     "NAME_CONTRACT_TYPE": ("Loan type", "Cash loan (fixed amount) or revolving loan (credit line)."),
     "AMT_CREDIT": (
-        "Loan amount",
+        "Loan amount ($)",
         "Amount to be lent. Also the exposure at default (EAD) in the profit calculation.",
     ),
-    "AMT_ANNUITY": ("Regular repayment", "Repayment per instalment. Can't be larger than the loan."),
+    "AMT_ANNUITY": ("Regular repayment ($)", "Repayment per instalment. Can't be larger than the loan."),
     "AMT_GOODS_PRICE": (
-        "Price of goods financed",
+        "Price of goods financed ($)",
         "For consumer loans: the price of what the loan pays for. Leave blank for cash loans with no goods.",
     ),
     # Income and employment
-    "AMT_INCOME_TOTAL": ("Annual income", "Total yearly income before tax."),
+    "AMT_INCOME_TOTAL": ("Annual income ($)", "Total yearly income before tax."),
     "NAME_INCOME_TYPE": ("Income type", "Main source of income."),
     NOT_EMPLOYED: ("Not employed (e.g. pensioner)", "Tick if the applicant has no current job."),
     "YEARS_EMPLOYED": ("Years in current job", "Ignored if 'Not employed' is ticked."),

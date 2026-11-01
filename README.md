@@ -4,7 +4,9 @@
 
 > An AI credit-screening app for a consumer lender: a machine-learning model estimates each applicant's probability of default (PD), a cost-based rule turns it into approve / refer / decline, SHAP explains the main reasons, and a language model drafts the letter, with a fairness audit and drift monitoring behind it. FINS5557 Applied AI in Finance, UNSW, T3 2026 (Track A).
 
-**Live app:** _add Streamlit Cloud URL_ | **Demo video:** _add link_
+**Live app:** https://fins5557-loan-screener.streamlit.app | **Demo video:** _add link_
+
+**Docs:** [model card](docs/MODEL_CARD.md) (scope, metrics, fairness, limitations) · [model history](docs/MODEL_HISTORY.md) (v0 to v2) · [build plan](docs/BUILD_PLAN.md) (steps and decisions)
 
 ## Overview
 - **Problem:** a consumer lender has to decide quickly and consistently which loan applicants to approve, explain every decline, and show that its decisions are profitable, fair and still valid as the applicant population changes.
@@ -14,7 +16,8 @@
   - **Decision rule from the lender's economics:** expected loss = PD × LGD × EAD; the cut-off (21.0%) maximises profit and sits next to the 20% break-even PD (LGD 60%, margin 15%); a ±2-point band is referred to an analyst.
   - **Explainable AI:** SHAP gives the top reasons behind each score, in plain English.
   - **Generative AI:** Google Gemini (public demo) or a local Ollama model (real customer data) drafts the decline or refer letter, behind guardrails: the prompt holds no applicant data, outputs are checked, and any failure falls back to a fixed template. The letter is a draft for the analyst to check.
-- **Governance:** input validation, a guard that refers applicants outside the training range (the model only saw loans Home Credit had already approved), a fairness audit by sex, age, family status and education, and PSI drift monitoring.
+- **Governance:** input validation, a guard that refers applicants outside the training range (the model only saw loans Home Credit had already approved), a fairness audit by sex, age, family status and education, PSI drift monitoring, a decision log, and a [model card](docs/MODEL_CARD.md).
+- **Currency:** amounts are shown in USD as a display assumption. Home Credit's data doesn't state its currency, so no conversion is applied: the numbers are the dataset's own.
 
 ## Using the app
 | Page | What it does |
@@ -48,9 +51,9 @@ reports/                Model comparison, tuning, profit curve, cut-offs, fairne
 archive/                Earlier model versions; see docs/MODEL_HISTORY.md
 data/sample/            Invented example applicants and synthetic monitoring batches (data/raw/ is not committed)
 notebooks/project.ipynb The analysis notebook, one section per step
-docs/                   BUILD_PLAN.md (steps and decisions), MODEL_HISTORY.md
+docs/                   MODEL_CARD.md (generated), MODEL_HISTORY.md, BUILD_PLAN.md (steps and decisions)
 tests/                  pytest suite (fake data; no Kaggle file or API key needed)
-.github/workflows/      CI: ruff and pytest on every pull request
+.github/workflows/      CI: ruff, secret scan, pytest with coverage on every pull request
 ```
 
 ## Run locally
@@ -63,10 +66,14 @@ streamlit run app.py
 ```
 Decline letters use the standard template by default. To have a local language model draft them instead (customer data stays on your machine), install [Ollama](https://ollama.com), run `ollama pull llama3.2:3b`, and set `LLM_BACKEND=ollama` in a `.env` file. To use Google Gemini instead (the public demo's setting), create a free API key at [Google AI Studio](https://aistudio.google.com) and put `LLM_BACKEND=gemini` and `GOOGLE_API_KEY=...` in `.env`. Model-written letters are drafts for the analyst to check before sending. Whichever backend is used, the prompt contains only the decision and fixed reason phrases, never applicant data, and any failure falls back to the template.
 
-To retrain or run the notebook, install the dev tools (`pip install -r requirements-dev.txt`) and get the data (see **Data**). Tests: `pytest -q`; lint: `ruff check .`.
+**Decision log.** Every assessment is appended to `logs/decisions.jsonl` (gitignored), one JSON line each: time, model version, inputs, PD, decision, reasons, warnings, and which backend wrote any letter. It is the audit trail a real lender would keep, so any decision can be traced and explained later. It is on by default; set `DECISION_LOG=off` to turn it off.
+
+To retrain or run the notebook, install the dev tools (`pip install -r requirements-dev.txt`) and get the data (see **Data**). Retraining (`python -m src.train`) also regenerates the reports and the model card (`python -m src.reporting model-card` regenerates the card on its own).
+
+**Development checks.** Tests: `pytest -q` (with coverage: `pytest -q --cov`; **94%** of `src/` is covered, and CI prints the report). Lint and format: `ruff check .` and `ruff format .`. Once per clone, run `pre-commit install`: every commit then runs ruff, a secret scan (detect-secrets) and a 50 MB file-size check.
 
 ## Deployment
-Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "gemini"` and `GOOGLE_API_KEY` in the app's Secrets settings: the public demo drafts letters with Gemini's free tier, which is acceptable because it only handles invented example applicants and the prompt holds no applicant data. Real customer data would use the local Ollama backend instead (closed environment). No keys are stored in the code.
+Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "gemini"`, `GOOGLE_API_KEY` and `DECISION_LOG = "off"` in the app's Secrets settings (the public demo keeps no log of what visitors type in): the public demo drafts letters with Gemini's free tier, which is acceptable because it only handles invented example applicants and the prompt holds no applicant data. Real customer data would use the local Ollama backend instead (closed environment). No keys are stored in the code.
 
 ## Team
 | Name | zID | Role |

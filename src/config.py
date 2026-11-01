@@ -4,6 +4,7 @@ Locally, keys come from a .env file (see .env.example).
 On Streamlit Cloud, add the same keys under App settings -> Secrets.
 Keys are never hardcoded or printed.
 """
+
 import os
 import sys
 from pathlib import Path
@@ -98,7 +99,9 @@ FEATURE_SET = "full"  # change this one setting to train on a different feature 
 RARE_CATEGORY_SHARE = 0.01  # categories rarer than 1% of training rows are grouped together
 
 # ---- Training ---------------------------------------------------------------
-CV_FOLDS = 3  # stratified K-fold on the training split, used for tuning only (3 keeps it to minutes on 184k rows)
+CV_FOLDS = (
+    3  # stratified K-fold on the training split, used for tuning only (3 keeps it to minutes on 184k rows)
+)
 N_ITER = 30  # random settings tried per tree model (RandomizedSearchCV); logistic regression uses a full grid
 # CV scores for tuning: refit (choose settings) on AUC, also record PR-AUC, which focuses on the
 # rare defaulters. Model v2 (Step 5c); v1 used small fixed grids and fixed class weights.
@@ -107,7 +110,6 @@ TUNING_SCORING = {"roc_auc": "roc_auc", "pr_auc": "average_precision"}
 # regression if it beats it by at least this much. Otherwise the simpler, more explainable
 # model wins (easier to justify to a regulator and to explain to a declined customer).
 MIN_AUC_GAIN = 0.01
-MODEL_NAMES = {"logistic_regression": "Logistic regression", "random_forest": "Random forest", "xgboost": "XGBoost"}  # for display in the app
 
 # ---- Credit decision assumptions (stated in the report) ---------------------------
 # Profit of approving one loan: no default -> earn MARGIN x EAD over the loan's life;
@@ -119,6 +121,11 @@ MARGIN = 0.15  # net margin over the loan's life, after funding and operating co
 EAD_COLUMN = "AMT_CREDIT"  # exposure at default = the loan amount (conservative: no repayments yet)
 # Break-even PD = MARGIN / (MARGIN + LGD) = 20%: above it, a loan is expected to lose money.
 REFER_BAND = 0.02  # PDs within +/- 2 points of the cut-off go to an analyst (check the share after training)
+# Display only (decided 29 Oct): Home Credit's data doesn't state its currency, so amounts are shown in USD
+# for readability, with this note on every page that shows money. No conversion is applied.
+CURRENCY_SYMBOL = "$"
+CURRENCY_CODE = "USD"
+CURRENCY_NOTE = "Amounts in USD (display assumption: Home Credit's data doesn't state its currency)."
 CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier score is used
 
 # ---- Input validation and the out-of-range guard ---------------------------------
@@ -175,3 +182,9 @@ OLLAMA_URL = get_secret("OLLAMA_URL", "http://localhost:11434")
 OLLAMA_MODEL = get_secret("OLLAMA_MODEL", "llama3.2:3b")  # pulled once with: ollama pull llama3.2:3b
 LLM_TIMEOUT_SECONDS = 60  # a small local model on a laptop CPU takes about 10-30 s per letter
 LENDER_NAME = "Example Consumer Finance"  # invented: the app is a demo, not a real lender
+
+# ---- Decision log (src/audit.py) ---------------------------------------------------------------
+# One JSON line per assessed applicant: on locally, off on the public demo (DECISION_LOG = "off" in
+# the app's Secrets), where it would only collect what visitors type in.
+DECISION_LOG = str(get_secret("DECISION_LOG", "on")).strip().lower() in ("on", "true", "1", "yes")
+DECISION_LOG_PATH = ROOT / "logs" / "decisions.jsonl"  # gitignored

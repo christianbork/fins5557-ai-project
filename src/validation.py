@@ -36,6 +36,8 @@ from src.config import (
     RAW_INPUTS,
     REFERENCE_STATS_PATH,
 )
+from src.formatting import money
+from src.labels import MONEY_FIELDS, input_label
 from src.monitoring import psi_bins
 
 # field: (lowest allowed, highest allowed or None, required, whole number)
@@ -219,10 +221,11 @@ def out_of_range(df: pd.DataFrame, reference: dict) -> pd.Series:
         if field == "DAYS_EMPLOYED":
             values = values.where(values != DAYS_EMPLOYED_SENTINEL)
         outside = (values < stats["low"]) | (values > stats["high"])
+        show = money if field in MONEY_FIELDS else _number
         for pos in np.flatnonzero(outside.to_numpy()):
             warnings[pos].append(
-                f"{field} ({_number(values.iloc[pos])}) is outside the range of past approved applicants "
-                f"({_number(stats['low'])} to {_number(stats['high'])})"
+                f"{input_label(field)} ({show(values.iloc[pos])}) is outside the range of past approved "
+                f"applicants ({show(stats['low'])} to {show(stats['high'])})"
             )
     return pd.Series(warnings, index=df.index, dtype=object)
 

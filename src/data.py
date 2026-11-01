@@ -17,6 +17,7 @@ Getting the data (each teammate does this with their own Kaggle account; the fil
 
 The competition rules don't allow redistribution, so the file is gitignored and never committed.
 """
+
 from __future__ import annotations
 
 import shutil
@@ -141,9 +142,7 @@ def split(df: pd.DataFrame, seed: int = RANDOM_STATE):
     validation or test rows leaks into training. Stratifying keeps the ~8% default rate the
     same in all three parts.
     """
-    train, temp = train_test_split(
-        df, test_size=TEST_SIZE + VAL_SIZE, stratify=df[TARGET], random_state=seed
-    )
+    train, temp = train_test_split(df, test_size=TEST_SIZE + VAL_SIZE, stratify=df[TARGET], random_state=seed)
     val, test = train_test_split(
         temp, test_size=TEST_SIZE / (TEST_SIZE + VAL_SIZE), stratify=temp[TARGET], random_state=seed
     )

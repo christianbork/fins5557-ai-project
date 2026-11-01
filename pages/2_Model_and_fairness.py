@@ -10,19 +10,24 @@ import json
 import pandas as pd
 import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
+from matplotlib.ticker import FuncFormatter
 
+from src.app_logging import get_logger
 from src.config import (
+    CURRENCY_NOTE,
     DI_THRESHOLD,
     DP_THRESHOLD,
     EO_THRESHOLD,
     METADATA_PATH,
     MIN_GROUP_SIZE,
-    MODEL_NAMES,
     REPORTS_DIR,
     ROOT,
 )
+from src.formatting import count, format_table, money, money_short, number, pct, ratio, score
+from src.labels import RULES, flag_text, headers, model_choice_reason, model_label
 
 V1_METADATA = ROOT / "archive" / "v1-home-credit-baseline" / "metadata.json"
+log = get_logger("app.model")
 
 st.set_page_config(page_title="Model and fairness", page_icon="⚖️", layout="wide")
 
@@ -44,8 +49,11 @@ def load_reports() -> dict:
 
 try:
     r = load_reports()
-except FileNotFoundError as e:
-    st.error(f"A report file is missing, so this page can't be shown. Run `python -m src.reporting`. ({e})")
+except FileNotFoundError:
+    log.exception("A report file is missing (regenerate with python -m src.reporting)")
+    st.error(
+        "A summary file behind this page is missing, so it can't be shown right now. Try reloading the page; if it keeps happening, the app's maintainers can see the details in its log."
+    )
     st.stop()
 meta, comparison = r["meta"], r["comparison"]
 chosen, test = meta["chosen_model"], meta["test_metrics"]
@@ -59,35 +67,29 @@ st.caption(
 # ---- Model choice -------------------------------------------------------------------------
 st.header("1. Which model, and why")
 cols = st.columns(4)
-cols[0].metric("Chosen model", MODEL_NAMES[chosen])
+cols[0].metric("Chosen model", model_label(chosen))
 cols[1].metric(
     "Test AUC",
-    f"{test['auc']:.3f}",
+    score(test["auc"]),
     help="Chance the model ranks a random defaulter above a random good customer.",
 )
 cols[2].metric(
     "Test PR-AUC",
-    f"{test['pr_auc']:.3f}",
+    score(test["pr_auc"]),
     help="Ranking quality focused on the rare defaulters. Random = the default rate, about 0.08.",
 )
 cols[3].metric(
-    "Test Brier score", f"{test['brier']:.3f}", help="Accuracy of the calibrated PDs (lower is better)."
+    "Test Brier score",
+    score(test["brier"]),
+    help="Accuracy of the calibrated probabilities of default (PDs): lower is better.",
 )
-st.write(meta["reason"])
+st.write(model_choice_reason(comparison))
 
-table = comparison[["cv_auc", "auc", "pr_auc", "ks", "tpr", "tnr", "precision"]].rename(
-    columns={
-        "cv_auc": "CV AUC",
-        "auc": "Validation AUC",
-        "pr_auc": "PR-AUC",
-        "ks": "KS",
-        "tpr": "Defaulters caught",
-        "tnr": "Good customers approved",
-        "precision": "Precision",
-    }
+table = headers(
+    comparison[["cv_auc", "auc", "pr_auc", "ks", "tpr", "tnr", "precision"]].rename(index=model_label)
 )
 st.dataframe(
-    table.style.format("{:.3f}").highlight_max(subset=["Validation AUC"], color="#d5f5e3"), width="stretch"
+    table.style.format(score).highlight_max(subset=["Validation AUC"], color="#d5f5e3"), width="stretch"
 )
 st.caption(
     "Validation split. Defaulters caught, good customers approved and precision are at each model's "
@@ -101,23 +103,17 @@ if r["v1"] is not None:
         st.dataframe(
             pd.DataFrame(
                 {
-                    "v1 (28 Oct)": [
-                        v1["chosen_model"],
-                        v1t["auc"],
-                        v1["threshold"],
-                        v1t["approval_rate"],
-                        v1t["default_rate_approved"],
-                    ],
-                    "v2 (29 Oct)": [
-                        chosen,
-                        test["auc"],
-                        meta["threshold"],
-                        test["approval_rate"],
-                        test["default_rate_approved"],
-                    ],
+                    version: [
+                        model_label(m["chosen_model"]),
+                        score(t["auc"]),
+                        pct(m["threshold"]),
+                        pct(t["approval_rate"]),
+                        pct(t["default_rate_approved"]),
+                    ]
+                    for version, m, t in [("Model v1 (28 Oct)", v1, v1t), ("Model v2 (29 Oct)", meta, test)]
                 },
                 index=["Model", "Test AUC", "Cut-off", "Approval rate", "Default rate among approved"],
-            ).astype(str)
+            )
         )
         st.write(
             "v2 searched 30 settings per model, including how strongly to weight the rare defaulters. It "
@@ -133,10 +129,10 @@ with roc_col:
         ax.plot(
             points["fpr"],
             points["tpr"],
-            label=f"{model.replace('_', ' ')} (AUC {comparison.loc[model, 'auc']:.3f})",
+            label=f"{model_label(model)} (AUC {score(comparison.loc[model, 'auc'])})",
             linewidth=2.2 if model == chosen else 1.2,
         )
-    ax.plot([0, 1], [0, 1], "--", color="grey", label="random (0.500)")
+    ax.plot([0, 1], [0, 1], "--", color="grey", label=f"Random ({score(0.5)})")
     ax.set(
         xlabel="Good customers declined (false positive rate)",
         ylabel="Defaulters caught (true positive rate)",
@@ -148,9 +144,11 @@ with rel_col:
     fig = Figure(figsize=(5, 4.2))
     ax = fig.subplots()
     for series, points in r["reliability"].groupby("series", sort=False):
-        ax.plot(points["mean_predicted"], points["observed"], "o-", label=series)
+        # older report files name the series by model code, e.g. "xgboost (raw score)"
+        label = series.replace(chosen, model_label(chosen))
+        ax.plot(points["mean_predicted"], points["observed"], "o-", label=label[:1].upper() + label[1:])
     top = r["reliability"][["mean_predicted", "observed"]].to_numpy().max()
-    ax.plot([0, top], [0, top], "--", color="grey", label="perfect calibration")
+    ax.plot([0, top], [0, top], "--", color="grey", label="Perfect calibration")
     ax.set(
         xlabel="Predicted probability of default",
         ylabel="Observed default rate",
@@ -159,8 +157,9 @@ with rel_col:
     ax.legend(fontsize=8)
     st.pyplot(fig, clear_figure=True)
 st.caption(
-    f"Calibration ({meta['calibration']['method']}) turns the model's scores into PDs that match observed "
-    f"default rates: mean test PD {test['mean_pd']:.1%} vs actual {test['default_rate_all']:.1%}."
+    f"Calibration ({meta['calibration']['method']}) turns the model's scores into probabilities of default "
+    f"(PDs) that match observed default rates: mean test PD {pct(test['mean_pd'])} vs actual "
+    f"{pct(test['default_rate_all'])}."
 )
 
 # ---- Cut-off --------------------------------------------------------------------------------
@@ -168,53 +167,47 @@ st.header("2. Where the cut-off comes from")
 a = meta["assumptions"]
 cutoffs = r["cutoffs"]
 st.write(
-    f"Approving a loan earns the margin ({a['margin']:.0%}) if the customer repays and loses LGD ({a['lgd']:.0%}) "
-    f"if they default, so lending breaks even at PD = margin / (margin + LGD) = **{a['break_even_pd']:.0%}**. "
-    f"The cut-off that earned the most on the validation split is **{meta['threshold']:.1%}**. Applicants within "
-    f"{meta['refer_band']:.0%} of it are referred to an analyst."
+    f"Approving a loan earns the margin ({pct(a['margin'])}) if the customer repays and loses the loss given "
+    f"default (LGD, {pct(a['lgd'])}) if they default, so lending breaks even at PD = margin / (margin + LGD) = "
+    f"**{pct(a['break_even_pd'])}**. The cut-off that earned the most on the validation split is "
+    f"**{pct(meta['threshold'])}**. Applicants within {pct(meta['refer_band'])} of it are referred to an analyst."
 )
 fig = Figure(figsize=(9, 3.6))
 ax = fig.subplots()
 profit = r["profit"]
-ax.plot(profit["threshold"], profit["realised_profit"] / 1e9, color="#1f618d")
+ax.plot(profit["threshold"], profit["realised_profit"], color="#1f618d")
+ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: money_short(v)))
+ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _: pct(v)))
 ax.axvline(
-    meta["threshold"], color="#1e8449", label=f"profit cut-off ({meta['threshold']:.1%}, used by the app)"
+    meta["threshold"], color="#1e8449", label=f"Profit cut-off ({pct(meta['threshold'])}, used by the app)"
 )
 ax.axvline(
     cutoffs.loc["balanced_accuracy", "cutoff"],
     color="#b9770e",
     linestyle="--",
-    label=f"balanced-accuracy cut-off ({cutoffs.loc['balanced_accuracy', 'cutoff']:.1%})",
+    label=f"Balanced-accuracy cut-off ({pct(cutoffs.loc['balanced_accuracy', 'cutoff'])})",
 )
-ax.axvline(a["break_even_pd"], color="grey", linestyle=":", label=f"break-even PD ({a['break_even_pd']:.0%})")
+ax.axvline(
+    a["break_even_pd"], color="grey", linestyle=":", label=f"Break-even PD ({pct(a['break_even_pd'])})"
+)
 ax.set(
     xlabel="Cut-off: decline when PD is at or above",
-    ylabel="Realised profit (bn)",
+    ylabel="Realised profit",
     xlim=(0, 0.5),
     title="Profit on the validation split at each cut-off",
 )
 ax.legend(fontsize=8)
 st.pyplot(fig, clear_figure=True)
 
-shown = cutoffs.rename(index={"profit": "Profit (app)", "balanced_accuracy": "Balanced accuracy"}).rename(
-    columns={
-        "cutoff": "Cut-off",
-        "approval_rate": "Approval rate",
-        "tpr": "Defaulters caught",
-        "tnr": "Good customers approved",
-        "precision": "Declined who would default",
-        "balanced_accuracy": "Balanced accuracy",
-        "realised_profit": "Profit",
-    }
-)
+shown = headers(cutoffs.rename(index=RULES).rename(columns={"precision": "Declined who would default"}))
 st.dataframe(
-    shown.style.format({"Profit": "{:,.0f}"} | {c: "{:.1%}" for c in shown.columns if c != "Profit"}),
+    shown.style.format({c: money if c == "Profit" else pct for c in shown.columns}),
     width="stretch",
 )
 st.caption(
     "Test split. Balanced accuracy treats one missed defaulter as costing as much as about 11 wrongly declined "
     "good customers (the ratio of good customers to defaulters); the lender's economics say LGD / margin = 4. "
-    "So the balanced-accuracy rule declines far more people and earns less."
+    "So the balanced-accuracy rule declines far more people and earns less. " + CURRENCY_NOTE
 )
 
 # ---- Fairness ---------------------------------------------------------------------------------
@@ -227,11 +220,11 @@ st.write(
 with st.expander("How to read the table"):
     st.markdown(
         f"- **Disparate-impact ratio**: the group's approval rate ÷ the most-approved group's. Flagged below "
-        f"{DI_THRESHOLD} (the four-fifths rule).\n"
+        f"{ratio(DI_THRESHOLD)} (the four-fifths rule).\n"
         f"- **Parity gap**: how many points fewer are approved than in the most-approved group. Flagged above "
-        f"{DP_THRESHOLD:.0%}.\n"
+        f"{pct(DP_THRESHOLD)}.\n"
         f"- **Equalised-odds gap**: the larger gap in *good customers approved* or *defaulters approved*. Flagged "
-        f"above {EO_THRESHOLD:.0%}. Good customers approved is the equal-opportunity view: are creditworthy "
+        f"above {pct(EO_THRESHOLD)}. Good customers approved is the equal-opportunity view: are creditworthy "
         "applicants treated alike?\n"
         "- **Mean PD vs default rate**: if they match, the PDs are accurate for that group, and a lower approval "
         "rate reflects higher measured risk rather than a biased score.\n"
@@ -242,7 +235,7 @@ fairness = r["fairness"]
 tabs = st.tabs(list(fairness["attribute"].unique()))
 for tab, (attribute, groups) in zip(tabs, fairness.groupby("attribute", sort=False), strict=True):
     with tab:
-        view = groups.set_index("group")[
+        view = groups.assign(flags=groups["flags"].fillna("").map(flag_text)).set_index("group")[
             [
                 "n",
                 "approval_rate",
@@ -255,53 +248,30 @@ for tab, (attribute, groups) in zip(tabs, fairness.groupby("attribute", sort=Fal
                 "default_rate",
                 "flags",
             ]
-        ].rename(
-            columns={
-                "n": "Applicants",
-                "approval_rate": "Approval rate",
-                "di_ratio": "Disparate-impact ratio",
-                "dp_gap": "Parity gap",
-                "good_customers_approved": "Good customers approved",
-                "defaulters_approved": "Defaulters approved",
-                "eo_gap": "Equalised-odds gap",
-                "mean_pd": "Mean PD",
-                "default_rate": "Default rate",
-                "flags": "Flags",
-            }
-        )
-        pct = [
-            "Approval rate",
-            "Parity gap",
-            "Good customers approved",
-            "Defaulters approved",
-            "Equalised-odds gap",
-            "Mean PD",
-            "Default rate",
         ]
+        rates = {c: pct for c in view.columns if c not in ("n", "di_ratio", "flags")}
         st.dataframe(
-            view.style.format(
-                {c: "{:.1%}" for c in pct} | {"Disparate-impact ratio": "{:.2f}", "Applicants": "{:,}"},
-                na_rep="–",
-            ),
+            headers(format_table(view, rates | {"n": number, "di_ratio": ratio})),
             width="stretch",
         )
         judged = groups[groups["judged"]]
         worst = judged.loc[judged["di_ratio"].idxmin()]
         st.caption(
-            f"Lowest disparate-impact ratio: {worst['group']} at {worst['di_ratio']:.2f} "
-            f"({'below' if worst['di_ratio'] < DI_THRESHOLD else 'above'} the {DI_THRESHOLD} threshold). "
-            f"Largest gap between mean PD and actual default rate: {judged['pd_gap'].abs().max():.1%}."
+            f"Lowest disparate-impact ratio: {worst['group']} at {ratio(worst['di_ratio'])} "
+            f"({'below' if worst['di_ratio'] < DI_THRESHOLD else 'above'} the {ratio(DI_THRESHOLD)} threshold). "
+            f"Largest gap between mean PD and actual default rate: {pct(judged['pd_gap'].abs().max())}."
         )
 judged = fairness[fairness["judged"]]
 below = judged[judged["di_ratio"] < DI_THRESHOLD]
 four_fifths = (
     "No group falls below the four-fifths rule"
     if below.empty
-    else f"{len(below)} group(s) fall below the four-fifths rule ({', '.join(below['group'])})"
+    else f"{count(len(below), 'group falls', 'groups fall')} below the four-fifths rule "
+    f"({', '.join(below['group'])})"
 )
 st.info(
     f"**What this shows.** {four_fifths}, and the largest gap between mean PD and the actual default rate in any "
-    f"group is {judged['pd_gap'].abs().max():.1%}, so the PDs are accurate within every group. The approval gaps "
+    f"group is {pct(judged['pd_gap'].abs().max())}, so the PDs are accurate within every group. The approval gaps "
     "follow real differences in default rates, and when default rates differ a model can't be both accurate "
     "within every group and equal on error rates. Even so, creditworthy younger applicants are declined more "
     "often than older ones. Most of that comes through the external credit scores, which are correlated with age "
