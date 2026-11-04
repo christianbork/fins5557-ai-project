@@ -83,6 +83,22 @@ def test_letter_shows_the_fixed_prompt_and_the_guardrail_checks(app, monkeypatch
     assert any("Passed 6 of 6 checks" in m.value for m in app.markdown)
 
 
+def test_policy_breach_is_declined_before_the_model(app):
+    """The $1m loan on a $30k income at $500 per instalment (user test, 4 Nov) is declined by policy."""
+    app.selectbox(key="example").set_value(EXAMPLES[0]).run()
+    app.number_input(key="f_AMT_CREDIT").set_value(1_000_000.0)
+    app.number_input(key="f_AMT_GOODS_PRICE").set_value(1_000_000.0)
+    app.number_input(key="f_AMT_ANNUITY").set_value(500.0)
+    app.number_input(key="f_AMT_INCOME_TOTAL").set_value(30_000.0)
+    app.button(key="FormSubmitter:applicant-Assess applicant").click().run()
+    assert not app.exception
+    assert ":red-badge[Decline]" in [m.value for m in app.markdown]
+    assert any(
+        "Declined by the lending policy" in e.value and "2,000 instalments" in e.value for e in app.error
+    )
+    assert not any("Referred for review" in w.value for w in app.warning)
+
+
 def test_invalid_input_shows_an_error_not_a_crash(app):
     app.number_input(key="f_AMT_CREDIT").set_value(0.0)  # form values only apply on submit
     app.button(key="FormSubmitter:applicant-Assess applicant").click().run()

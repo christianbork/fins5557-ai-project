@@ -17,7 +17,7 @@ import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.app_logging import get_logger
-from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
+from src.applicant import FIELDS, NO_SCORE, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
 from src.audit import log_assessment, log_letter
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
@@ -211,12 +211,14 @@ with st.form("applicant"):
     loan, income, credit, household = st.columns(4)
     with loan:
         st.subheader("Loan")
+        st.caption("From the application.")
         choice("NAME_CONTRACT_TYPE", categories("NAME_CONTRACT_TYPE"))
         number("AMT_CREDIT")
         number("AMT_ANNUITY", step=100.0)
         number("AMT_GOODS_PRICE")
     with income:
         st.subheader("Income and employment")
+        st.caption("From the application, checked against payslips or statements.")
         number("AMT_INCOME_TOTAL")
         choice("NAME_INCOME_TYPE", categories("NAME_INCOME_TYPE"))
         st.checkbox(FIELDS[NOT_EMPLOYED][0], key=f"f_{NOT_EMPLOYED}", help=FIELDS[NOT_EMPLOYED][1])
@@ -226,11 +228,16 @@ with st.form("applicant"):
         choice("NAME_EDUCATION_TYPE", categories("NAME_EDUCATION_TYPE"))
     with credit:
         st.subheader("Credit history")
-        for field in ("EXT_SOURCE_1", "EXT_SOURCE_2", "EXT_SOURCE_3"):
+        st.caption(
+            "From the credit check the lender runs with the applicant's consent, not typed in by them."
+        )
+        for field, no_score in NO_SCORE.items():
             number(field, step=0.01, high=1.0, fmt="%.2f")
+            st.checkbox(FIELDS[no_score][0], key=f"f_{no_score}", help=FIELDS[no_score][1])
         number("AMT_REQ_CREDIT_BUREAU_YEAR", high=100)
     with household:
         st.subheader("Household and stability")
+        st.caption("From the application and the lender's records (region rating).")
         number("CNT_CHILDREN", high=20)
         number("CNT_FAM_MEMBERS", low=1, high=25)
         choice("NAME_HOUSING_TYPE", categories("NAME_HOUSING_TYPE"))
@@ -276,32 +283,50 @@ if "result" in st.session_state:
     st.subheader("Assessment")
     pd_col, decision_col, el_col, profit_col = st.columns(4)
     pd_col.metric(
-        "Probability of default",
+        "PD (information only)" if result.get("policy") else "Probability of default",
         pct(result["pd"]),
         help="Calibrated: of 100 applicants with this PD, about this many have payment difficulties.",
     )
     with decision_col:
         st.markdown("**Decision**")
         st.badge(decision_label(result["decision"]), color=BADGE_COLOURS[result["decision"]])
+    policy = result.get("policy", [])
+    not_used = "Not used: the application was declined by the lending policy before the model's PD counts."
     el_col.metric(
         "Expected loss",
-        money(expected_loss),
-        help="PD × LGD × EAD: loss given default × exposure at default (the loan amount).",
+        "–" if policy else money(expected_loss),
+        help=not_used
+        if policy
+        else "PD × LGD × EAD: loss given default × exposure at default (the loan amount).",
     )
     profit_col.metric(
         "Expected profit",
-        money(expected_profit),
-        help="(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
+        "–" if policy else money(expected_profit),
+        help=not_used
+        if policy
+        else "(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
     )
 
-    if result["decision"] == "approve":
+    if policy:
+        st.error(
+            "**Declined by the lending policy (stage 1), before the model is used.** The application breaks "
+            + ("this rule" if len(policy) == 1 else "these rules")
+            + ":\n\n"
+            + "\n".join(f"- {f['message']}".replace("$", "\\$") for f in policy)  # $ would start LaTeX
+        )
+        st.caption(
+            "The model's PD is shown for information only. It learnt from loans Home Credit approved, and a tree "
+            "model can't extrapolate beyond them, so for an application this far outside that range its PD isn't "
+            "meaningful. That is why the policy limits are checked first."
+        )
+    elif result["decision"] == "approve":
         st.success("Expected to be profitable at the lender's assumptions: approve.")
     elif result["decision"] == "decline":
         st.error(f"PD is above {pct(threshold + band)}: the expected loss outweighs the margin, so decline.")
-    for warning in result["warnings"]:
+    for warning in [] if policy else result["warnings"]:
         st.warning(
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
-            "relied on for applicants unlike them."
+            "relied on for applicants unlike them.".replace("$", "\\$")  # $ amounts would start LaTeX
         )
     if result["decision"] == "refer" and not result["warnings"]:
         st.warning(
@@ -311,13 +336,18 @@ if "result" in st.session_state:
 
     reasons_col, chart_col = st.columns([1, 2])
     with reasons_col:
-        st.markdown("**Main reasons**" if result["decision"] != "approve" else "**Main risk factors**")
+        if policy:
+            st.markdown("**Main reasons (policy rules)**")
+        else:
+            st.markdown("**Main reasons**" if result["decision"] != "approve" else "**Main risk factors**")
         if result["reasons"]:
             st.markdown("\n".join(f"{i}. {r}" for i, r in enumerate(result["reasons"], 1)))
         else:
             st.write("No factor raised this applicant's risk above average.")
         st.caption(
-            "Factors that raised the risk most (SHAP). They name what mattered, not whether it was high or low."
+            "The policy rules this application breaks; the chart shows the model's view, for information."
+            if policy
+            else "Factors that raised the risk most (SHAP). They name what mattered, not whether it was high or low."
         )
     with chart_col:
         by_reason = contributions_by_reason(result["shap"]).head(8).iloc[::-1]
@@ -328,7 +358,12 @@ if "result" in st.session_state:
         )
         ax.axvline(0, color="grey", linewidth=0.8)
         ax.set_xlabel("Effect on the risk score (log-odds): right = riskier, left = safer")
-        ax.set_title("What moved this applicant's score", fontsize=11)
+        ax.set_title(
+            "What moved the model's score (for information)"
+            if policy
+            else "What moved this applicant's score",
+            fontsize=11,
+        )
         ax.spines[["top", "right"]].set_visible(False)
         st.pyplot(fig, clear_figure=True)
 

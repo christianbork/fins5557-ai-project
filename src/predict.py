@@ -23,6 +23,7 @@ import pandas as pd
 
 from src.config import METADATA_PATH, MODEL_PATH, REFERENCE_STATS_PATH
 from src.explain import build_explainer, explain, top_reasons
+from src.policy import check_policy, policy_reasons
 from src.threshold import decide
 from src.validation import load_reference_stats, out_of_range
 
@@ -57,11 +58,13 @@ def _check_columns(df: pd.DataFrame, required: list[str]) -> None:
         raise ValueError(f"Missing applicant fields: {', '.join(missing)}")
 
 
-def _score(df: pd.DataFrame, artifacts: dict) -> tuple[np.ndarray, np.ndarray, pd.Series]:
-    """PDs, decisions and out-of-range warnings for every row of df, in one vectorised call.
+def _score(df: pd.DataFrame, artifacts: dict) -> tuple[np.ndarray, np.ndarray, pd.Series, pd.Series]:
+    """PDs, decisions, out-of-range warnings and policy failures for every row of df, in one call.
 
-    An applicant with an input outside the training range is never approved automatically:
-    the model hasn't seen anyone like them (selection bias), so an approve becomes a refer.
+    Two stages decide: an applicant who breaks a lending policy rule (src/policy.py) is declined,
+    whatever the PD. Otherwise the PD and the cut-off decide, and an applicant with an input
+    outside the training range is never approved automatically: the model hasn't seen anyone like
+    them (selection bias), so an approve becomes a refer.
     """
     meta = artifacts["metadata"]
     required = meta["input_columns"]
@@ -70,15 +73,19 @@ def _score(df: pd.DataFrame, artifacts: dict) -> tuple[np.ndarray, np.ndarray, p
     decisions = decide(pds, meta["threshold"], meta["refer_band"])
     warnings = out_of_range(df, artifacts["reference"])
     decisions = np.where((decisions == "approve") & (warnings.str.len() > 0).to_numpy(), "refer", decisions)
-    return pds, decisions, warnings
+    policy = check_policy(df)
+    decisions = np.where((policy.str.len() > 0).to_numpy(), "decline", decisions)
+    return pds, decisions, warnings, policy
 
 
 def predict(applicant: dict, artifacts: dict) -> dict:
     """Score one applicant.
 
     Returns {"pd": float, "decision": "approve" | "refer" | "decline", "reasons": [...], "shap": {...},
-    "warnings": [...]}. "warnings" lists inputs outside the training range (an approve becomes refer).
-    "reasons" are the top 3 factors that raised the risk (src/explain.py); "shap" is each input's
+    "warnings": [...], "policy": [...]}. "policy" lists the lending policy rules the applicant breaks
+    (each {"rule", "reason", "message"}); if any, the decision is decline and "reasons" are the
+    rules' reason phrases. "warnings" lists inputs outside the training range (an approve becomes
+    refer). Otherwise "reasons" are the top 3 factors that raised the risk (src/explain.py); "shap" is each input's
     contribution in log-odds, for the app's waterfall chart. Both stay empty if the model has no
     explainer (a non-tree model).
     Run src.validation.validate_applicant first for clear input errors; here a missing field
@@ -87,29 +94,39 @@ def predict(applicant: dict, artifacts: dict) -> dict:
     if not isinstance(applicant, dict):
         raise TypeError("applicant must be a dict of field name -> value")
     df = pd.DataFrame([applicant])
-    pds, decisions, warnings = _score(df, artifacts)
+    pds, decisions, warnings, policy = _score(df, artifacts)
     reasons, contributions = [], {}
     if artifacts.get("explainer") is not None:
         row = explain(df[artifacts["metadata"]["input_columns"]], artifacts["explainer"]).iloc[0]
         reasons, contributions = top_reasons(row), row.round(4).to_dict()
+    failures = policy.iloc[0]
+    if failures:  # declined by policy: the letter names the broken rules, not the model's factors
+        reasons = policy_reasons(failures)
     return {
         "pd": float(pds[0]),
         "decision": str(decisions[0]),
         "reasons": reasons,
         "shap": contributions,
         "warnings": warnings.iloc[0],
+        "policy": failures,
     }
 
 
 def predict_batch(df: pd.DataFrame, artifacts: dict, with_reasons: bool = False) -> pd.DataFrame:
-    """Score many applicants at once. Returns a copy of df with "pd", "decision" and "warnings"
-    (out-of-range inputs, joined with "; ") columns added.
+    """Score many applicants at once. Returns a copy of df with "pd", "decision", "warnings"
+    (out-of-range inputs, joined with "; ") and "policy" (broken lending policy rules, joined with
+    "; "; those rows are declined) columns added.
 
     with_reasons=True also adds "reasons" (top 3, joined with "; ") for refer and decline rows,
     the ones that need an explanation; SHAP runs only on those rows, so it stays quick.
     """
-    pds, decisions, warnings = _score(df, artifacts)
-    out = df.assign(pd=pds, decision=decisions, warnings=warnings.str.join("; "))
+    pds, decisions, warnings, policy = _score(df, artifacts)
+    out = df.assign(
+        pd=pds,
+        decision=decisions,
+        warnings=warnings.str.join("; "),
+        policy=[" ".join(f["message"] for f in failures) for failures in policy],
+    )
     if with_reasons:
         out["reasons"] = ""
         needs = out["decision"].ne("approve").to_numpy()
@@ -117,4 +134,6 @@ def predict_batch(df: pd.DataFrame, artifacts: dict, with_reasons: bool = False)
             rows = df.loc[needs, artifacts["metadata"]["input_columns"]]
             contrib = explain(rows, artifacts["explainer"])
             out.loc[needs, "reasons"] = ["; ".join(top_reasons(row)) for _, row in contrib.iterrows()]
+        broke = policy.str.len().gt(0).to_numpy()
+        out.loc[broke, "reasons"] = ["; ".join(policy_reasons(f)) for f in policy[broke]]
     return out

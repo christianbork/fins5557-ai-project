@@ -26,6 +26,8 @@ from src.config import (
     METADATA_PATH,
     MIN_GROUP_SIZE,
     NUMERIC_INPUTS,
+    POLICY_MAX_INSTALMENTS,
+    POLICY_MAX_LOAN_TO_INCOME,
     PROTECTED,
     REPORTS_DIR,
     ROOT,
@@ -174,6 +176,10 @@ actual default rate {pct(test["default_rate_all"])}.
   {pct(threshold + band)}. Test split: {pct(shares["approve"])} approve, {pct(shares["refer"])} refer,
   {pct(shares["decline"])} decline; realised profit {money_short(test["realised_profit"])}.
 - LGD and margin are stated assumptions, not estimated from the data.
+- **Lending policy limits (stage 1, before the model):** an application is declined by policy if the loan
+  would take more than {POLICY_MAX_INSTALMENTS} instalments to repay, the repayment is larger than income, or the
+  loan is more than {POLICY_MAX_LOAN_TO_INCOME:g} times income. They sit just beyond the range of Home Credit's
+  approved loans, because the model can't extrapolate there; the test results above are the model's alone.
 
 ## Fairness (test split, automatic decisions)
 {_fairness_summary(fairness)}

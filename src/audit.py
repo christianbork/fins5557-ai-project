@@ -55,7 +55,9 @@ def _write(entries: list[dict], path: Path | None, enabled: bool | None) -> bool
         return False
 
 
-def _entry(inputs: dict, pd_: float, decision: str, reasons, warnings, metadata: dict, source: str) -> dict:
+def _entry(
+    inputs: dict, pd_: float, decision: str, reasons, warnings, metadata: dict, source: str, policy=()
+) -> dict:
     return {
         "event": "assessment",
         "id": uuid.uuid4().hex,
@@ -67,6 +69,7 @@ def _entry(inputs: dict, pd_: float, decision: str, reasons, warnings, metadata:
         "decision": decision,
         "reasons": list(reasons),
         "warnings": list(warnings),
+        "policy": list(policy),  # lending policy rules broken (stage 1); any one means decline
     }
 
 
@@ -80,7 +83,14 @@ def log_assessment(
 ) -> str | None:
     """Log one assessment (src.predict.predict's result). Returns its id, or None if not logged."""
     entry = _entry(
-        applicant, result["pd"], result["decision"], result["reasons"], result["warnings"], metadata, source
+        applicant,
+        result["pd"],
+        result["decision"],
+        result["reasons"],
+        result["warnings"],
+        metadata,
+        source,
+        policy=[f["message"] for f in result.get("policy", [])],
     )
     return entry["id"] if _write([entry], path, enabled) else None
 
@@ -94,6 +104,7 @@ def log_batch(
     """Log every row of a scored batch (src.predict.predict_batch's output). Returns the lines written."""
     inputs = scored[metadata["input_columns"]].to_dict("records")
     reasons = scored["reasons"] if "reasons" in scored else pd.Series("", index=scored.index)
+    policy = scored["policy"] if "policy" in scored else pd.Series("", index=scored.index)
     entries = [
         _entry(
             row,
@@ -103,9 +114,10 @@ def log_batch(
             [w for w in warning.split("; ") if w],
             metadata,
             "batch",
+            policy=[rule] if rule else [],
         )
-        for row, pd_, decision, reason, warning in zip(
-            inputs, scored["pd"], scored["decision"], reasons, scored["warnings"], strict=True
+        for row, pd_, decision, reason, warning, rule in zip(
+            inputs, scored["pd"], scored["decision"], reasons, scored["warnings"], policy, strict=True
         )
     ]
     return len(entries) if _write(entries, path, enabled) else 0
