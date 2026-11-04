@@ -294,11 +294,24 @@ if "result" in st.session_state:
         help="(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
     )
 
-    if result["decision"] == "approve":
+    policy = result.get("policy", [])
+    if policy:
+        st.error(
+            "**Declined by the lending policy (stage 1), before the model is used.** The application breaks "
+            + ("this rule" if len(policy) == 1 else "these rules")
+            + ":\n\n"
+            + "\n".join(f"- {f['message']}" for f in policy)
+        )
+        st.caption(
+            "The model's PD is shown for information only. It learnt from loans Home Credit approved, and a tree "
+            "model can't extrapolate beyond them, so for an application this far outside that range its PD isn't "
+            "meaningful. That is why the policy limits are checked first."
+        )
+    elif result["decision"] == "approve":
         st.success("Expected to be profitable at the lender's assumptions: approve.")
     elif result["decision"] == "decline":
         st.error(f"PD is above {pct(threshold + band)}: the expected loss outweighs the margin, so decline.")
-    for warning in result["warnings"]:
+    for warning in [] if policy else result["warnings"]:
         st.warning(
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
             "relied on for applicants unlike them."
@@ -311,13 +324,18 @@ if "result" in st.session_state:
 
     reasons_col, chart_col = st.columns([1, 2])
     with reasons_col:
-        st.markdown("**Main reasons**" if result["decision"] != "approve" else "**Main risk factors**")
+        if policy:
+            st.markdown("**Main reasons (policy rules)**")
+        else:
+            st.markdown("**Main reasons**" if result["decision"] != "approve" else "**Main risk factors**")
         if result["reasons"]:
             st.markdown("\n".join(f"{i}. {r}" for i, r in enumerate(result["reasons"], 1)))
         else:
             st.write("No factor raised this applicant's risk above average.")
         st.caption(
-            "Factors that raised the risk most (SHAP). They name what mattered, not whether it was high or low."
+            "The policy rules this application breaks; the chart shows the model's view, for information."
+            if policy
+            else "Factors that raised the risk most (SHAP). They name what mattered, not whether it was high or low."
         )
     with chart_col:
         by_reason = contributions_by_reason(result["shap"]).head(8).iloc[::-1]
@@ -328,7 +346,12 @@ if "result" in st.session_state:
         )
         ax.axvline(0, color="grey", linewidth=0.8)
         ax.set_xlabel("Effect on the risk score (log-odds): right = riskier, left = safer")
-        ax.set_title("What moved this applicant's score", fontsize=11)
+        ax.set_title(
+            "What moved the model's score (for information)"
+            if policy
+            else "What moved this applicant's score",
+            fontsize=11,
+        )
         ax.spines[["top", "right"]].set_visible(False)
         st.pyplot(fig, clear_figure=True)
 

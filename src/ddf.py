@@ -48,7 +48,8 @@ DDF_STATIONS: list[dict] = [
         "role": "Train, validate and stress-test against acceptance criteria; answer 'so what?'",
         "what_we_do": (
             "Compare logistic regression, random forest and XGBoost with cross-validation; calibrate the PDs; "
-            "set the approve / refer / decline cut-off from the lender's economics; audit fairness."
+            "set the approve / refer / decline cut-off from the lender's economics, behind hard lending policy "
+            "limits checked first; audit fairness."
         ),
         "checks": (
             "A complex model must beat the logistic baseline by 0.01 AUC; calibration checked by Brier score; "
@@ -58,6 +59,7 @@ DDF_STATIONS: list[dict] = [
             "src/train.py",
             "src/metrics.py",
             "src/threshold.py",
+            "src/policy.py",
             "src/fairness.py",
             "src/reporting.py",
             "src/model_card.py",

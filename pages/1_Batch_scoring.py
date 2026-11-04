@@ -146,7 +146,13 @@ cols[4].metric(
     help="Sum of PD × LGD × loan amount (LGD = loss given default).",
 )
 st.caption(CURRENCY_NOTE)
-guarded = (scored["warnings"] != "").sum()
+declined_by_policy = (scored["policy"] != "").sum()
+if declined_by_policy:
+    st.error(
+        f"{count(declined_by_policy, 'applicant')} broke a lending policy rule and "
+        f"{'was' if declined_by_policy == 1 else 'were'} declined before the model was used (see the Policy column)."
+    )
+guarded = ((scored["warnings"] != "") & (scored["policy"] == "")).sum()
 if guarded:
     st.warning(
         f"{count(guarded, 'applicant')} had an input outside the range of past approved applicants and "
@@ -158,10 +164,10 @@ decisions = st.multiselect("Show", list(DECISIONS), default=list(DECISIONS), for
 id_cols = [
     c
     for c in scored.columns
-    if c not in RAW_INPUTS and c not in ("pd", "decision", "warnings", "reasons", "expected_loss")
+    if c not in RAW_INPUTS and c not in ("pd", "decision", "warnings", "policy", "reasons", "expected_loss")
 ]
 view = scored[scored["decision"].isin(decisions)][
-    [*id_cols, "AMT_CREDIT", "pd", "decision", "reasons", "warnings"]
+    [*id_cols, "AMT_CREDIT", "pd", "decision", "reasons", "policy", "warnings"]
 ].assign(pd=lambda d: d["pd"] * 100, decision=lambda d: d["decision"].map(decision_label))
 st.dataframe(
     headers(view.head(500)),
@@ -175,7 +181,7 @@ st.dataframe(
 if len(view) > 500:
     st.caption(f"Showing the first 500 of {len(view):,} rows; the download has all of them.")
 # The input columns keep their codes, so the file can be uploaded again; the added columns get headers.
-added = ["pd", "decision", "reasons", "warnings", "expected_loss"]
+added = ["pd", "decision", "reasons", "policy", "warnings", "expected_loss"]
 results = scored.assign(decision=scored["decision"].map(decision_label)).rename(
     columns={c: COLUMNS[c] for c in added}
 )
@@ -184,5 +190,5 @@ st.download_button(
     results.round(4).to_csv(index=False),
     file_name="batch_results.csv",
     type="primary",
-    help="Your columns plus PD, decision, reasons, warnings and expected loss (USD display assumption).",
+    help="Your columns plus PD, decision, reasons, policy rule, warnings and expected loss (USD display assumption).",
 )

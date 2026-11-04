@@ -42,6 +42,7 @@ COLUMNS = {
     "decision": "Decision",
     "reasons": "Main reasons (refer / decline)",
     "warnings": "Warnings",
+    "policy": "Policy rule broken",
     "expected_loss": "Expected loss",
     "csv_line": "Line in file",
     "field": "Column",

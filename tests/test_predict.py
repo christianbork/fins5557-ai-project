@@ -23,7 +23,7 @@ def applicant():
 
 def test_predict_valid_applicant(artifacts, applicant):
     out = predict(applicant, artifacts)
-    assert set(out) == {"pd", "decision", "reasons", "shap", "warnings"}
+    assert set(out) == {"pd", "decision", "reasons", "shap", "warnings", "policy"}
     assert 0 <= out["pd"] <= 1
     assert out["decision"] in {"approve", "refer", "decline"}
 
@@ -46,7 +46,7 @@ def test_predict_batch_of_100(artifacts):
     assert len(out) == 100
     assert out["pd"].between(0, 1).all()
     assert set(out["decision"]) <= {"approve", "refer", "decline"}
-    assert list(out.columns[:-3]) == list(df.columns)  # input columns kept, unchanged
+    assert list(out.columns[:-4]) == list(df.columns)  # input columns kept, unchanged
 
 
 def test_predict_with_missing_optional_values(artifacts, applicant):
@@ -73,3 +73,22 @@ def test_predict_batch_adds_reasons_only_where_needed(artifacts):
     assert (out.loc[out["decision"] == "approve", "reasons"] == "").all()
     if artifacts.get("explainer") is not None:  # the fake model may be logistic regression (no explainer)
         assert (out.loc[out["decision"] != "approve", "reasons"] != "").all()
+
+
+def test_policy_breach_is_declined_whatever_the_pd(artifacts, applicant):
+    """Stage 1: a $1m loan on a $30k income at $500 per instalment is declined by policy."""
+    applicant.update(
+        AMT_CREDIT=1_000_000, AMT_ANNUITY=500, AMT_GOODS_PRICE=1_000_000, AMT_INCOME_TOTAL=30_000
+    )
+    out = predict(applicant, artifacts)
+    assert out["decision"] == "decline"
+    assert [f["rule"] for f in out["policy"]] == ["instalments", "loan_to_income"]
+    assert out["reasons"] == ["Length of the loan", "Loan size relative to income"]
+
+
+def test_batch_marks_policy_declines(artifacts):
+    df = make_fake(20, seed=5).drop(columns=TARGET)
+    df.loc[df.index[0], ["AMT_CREDIT", "AMT_ANNUITY", "AMT_INCOME_TOTAL"]] = [1_000_000, 500, 30_000]
+    out = predict_batch(df, artifacts, with_reasons=True)
+    assert out["decision"].iloc[0] == "decline" and "2,000 instalments" in out["policy"].iloc[0]
+    assert "Length of the loan" in out["reasons"].iloc[0]

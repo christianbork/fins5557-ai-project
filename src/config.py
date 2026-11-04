@@ -128,6 +128,18 @@ CURRENCY_CODE = "USD"
 CURRENCY_NOTE = "Amounts in USD (display assumption: Home Credit's data doesn't state its currency)."
 CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier score is used
 
+# ---- Stage 1: lending policy limits, checked before the model (src/policy.py) ----------
+# Hard rules a lender applies to every application before any scoring. An application that breaks
+# one is declined by policy, whatever the model says: a tree model can't extrapolate, so for a loan
+# unlike anything Home Credit approved (e.g. a $1m loan repaid at $500 per instalment) its PD can be
+# meaninglessly low. Decided (4 Nov): limits just beyond the range of Home Credit's approved loans,
+# so the rules only catch applications the model has no evidence about and leave the model's
+# reported test results unchanged. A real lender would set them from its own responsible-lending
+# policy (affordability, NCCP Act).
+POLICY_MAX_INSTALMENTS = 48  # loan / repayment; Home Credit's approved loans needed at most 45
+POLICY_MAX_REPAYMENT_TO_INCOME = 1.0  # a repayment larger than the applicant's income can't be afforded
+POLICY_MAX_LOAN_TO_INCOME = 30.0  # loan more than 30x income (0.0075% of approved loans)
+
 # ---- Input validation and the out-of-range guard ---------------------------------
 # The model only saw loans Home Credit had already approved (selection bias, see BUILD_PLAN).
 # An input below the lowest or above the highest value in the training data is outside what the
