@@ -5,6 +5,7 @@ import pytest
 
 from src.applicant import (
     FIELDS,
+    NO_SCORE,
     NOT_EMPLOYED,
     YEAR_FIELDS,
     friendly_error,
@@ -19,7 +20,7 @@ from tests.test_data import make_fake
 def test_every_model_input_has_a_form_field():
     form_fields = {YEAR_FIELDS.get(f, f) for f in RAW_INPUTS}
     assert form_fields <= set(FIELDS)
-    assert set(FIELDS) == form_fields | {NOT_EMPLOYED}
+    assert set(FIELDS) == form_fields | {NOT_EMPLOYED} | set(NO_SCORE.values())
 
 
 def test_years_become_negative_days():
@@ -61,7 +62,26 @@ def test_example_applicants_are_complete():
 
 def test_errors_use_form_labels():
     assert friendly_error("EXT_SOURCE_2: must be between 0 and 1 (got 1.3)") == (
-        "External credit score 2: must be between 0 and 1 (got 1.3)"
+        "External credit score 2 (0 to 1): must be between 0 and 1 (got 1.3)"
     )
     assert label("DAYS_EMPLOYED") == "Years in current job"
     assert friendly_error("Something else went wrong") == "Something else went wrong"
+
+
+def test_no_score_tick_blanks_the_score():
+    model = to_model_inputs({"EXT_SOURCE_1": 0.4, NO_SCORE["EXT_SOURCE_1"]: True, "EXT_SOURCE_2": 0.6})
+    assert model["EXT_SOURCE_1"] is None and model["EXT_SOURCE_2"] == 0.6
+
+
+def test_example_without_a_score_ticks_no_score():
+    form = to_form_values({"EXT_SOURCE_1": None, "EXT_SOURCE_2": 0.5, "EXT_SOURCE_3": None})
+    assert (
+        form[NO_SCORE["EXT_SOURCE_1"]]
+        and not form[NO_SCORE["EXT_SOURCE_2"]]
+        and form[NO_SCORE["EXT_SOURCE_3"]]
+    )
+
+
+def test_car_age_is_ignored_without_a_car():
+    assert to_model_inputs({"FLAG_OWN_CAR": "N", "OWN_CAR_AGE": 0})["OWN_CAR_AGE"] is None
+    assert to_model_inputs({"FLAG_OWN_CAR": "Y", "OWN_CAR_AGE": 4})["OWN_CAR_AGE"] == 4

@@ -17,7 +17,7 @@ import streamlit as st
 from matplotlib.figure import Figure  # not pyplot: Streamlit serves each session in its own thread
 
 from src.app_logging import get_logger
-from src.applicant import FIELDS, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
+from src.applicant import FIELDS, NO_SCORE, NOT_EMPLOYED, friendly_error, to_form_values, to_model_inputs
 from src.audit import log_assessment, log_letter
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
@@ -211,12 +211,14 @@ with st.form("applicant"):
     loan, income, credit, household = st.columns(4)
     with loan:
         st.subheader("Loan")
+        st.caption("From the application.")
         choice("NAME_CONTRACT_TYPE", categories("NAME_CONTRACT_TYPE"))
         number("AMT_CREDIT")
         number("AMT_ANNUITY", step=100.0)
         number("AMT_GOODS_PRICE")
     with income:
         st.subheader("Income and employment")
+        st.caption("From the application, checked against payslips or statements.")
         number("AMT_INCOME_TOTAL")
         choice("NAME_INCOME_TYPE", categories("NAME_INCOME_TYPE"))
         st.checkbox(FIELDS[NOT_EMPLOYED][0], key=f"f_{NOT_EMPLOYED}", help=FIELDS[NOT_EMPLOYED][1])
@@ -226,11 +228,16 @@ with st.form("applicant"):
         choice("NAME_EDUCATION_TYPE", categories("NAME_EDUCATION_TYPE"))
     with credit:
         st.subheader("Credit history")
-        for field in ("EXT_SOURCE_1", "EXT_SOURCE_2", "EXT_SOURCE_3"):
+        st.caption(
+            "From the credit check the lender runs with the applicant's consent, not typed in by them."
+        )
+        for field, no_score in NO_SCORE.items():
             number(field, step=0.01, high=1.0, fmt="%.2f")
+            st.checkbox(FIELDS[no_score][0], key=f"f_{no_score}", help=FIELDS[no_score][1])
         number("AMT_REQ_CREDIT_BUREAU_YEAR", high=100)
     with household:
         st.subheader("Household and stability")
+        st.caption("From the application and the lender's records (region rating).")
         number("CNT_CHILDREN", high=20)
         number("CNT_FAM_MEMBERS", low=1, high=25)
         choice("NAME_HOUSING_TYPE", categories("NAME_HOUSING_TYPE"))

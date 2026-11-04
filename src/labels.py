@@ -97,11 +97,16 @@ def status_label(code: str) -> str:
 
 
 def input_label(field: str) -> str:
-    """Display name of a model input: the form label (without its "($)": the values show $), or the
-    days wording for the stored day fields."""
+    """Display name of a model input: the form label without its unit hint ("($)", "(0 to 1)": the
+    values show the unit), or the days wording for the stored day fields."""
     if field in DAY_FIELDS:
         return DAY_FIELDS[field]
-    return label(field).removesuffix(" ($)") if field in FIELDS else field
+    if field not in FIELDS:
+        return field
+    name = label(field)
+    for unit in (" ($)", " ($ per instalment)", " (0 to 1)"):
+        name = name.removesuffix(unit)
+    return name
 
 
 def column_label(code: str) -> str:
