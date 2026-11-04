@@ -1,4 +1,4 @@
-"""Step 10: the summary files behind the app's "Model and fairness" page.
+"""Station 3 (Model Design). The summary files behind the app's "Model and fairness" page.
 
 The deployed app never has the Kaggle data, so everything the page shows is written here as
 aggregates only (group rates, curve points), with no applicant rows:

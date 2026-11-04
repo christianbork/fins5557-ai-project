@@ -224,6 +224,15 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] **Repo hygiene:** README gets the live URL, the currency note, a coverage line and links to the model card and model history; fix any stale references (e.g. `LLM_BACKEND=template` for the public demo). Check `.gitignore` covers `logs/`.
 - **Checks:** `pytest -q` and `ruff check .` pass in CI; coverage reported; no `None`/`nan`, lower-case decisions or raw column names visible on any page (click through all four pages locally); every money value shows `$`; the deployed app still works after merging.
 
+### Step 13c: Final polish from the 4 Nov project review [done]
+**Why:** the review against the brief, the rubric and the lecturer's in-class advice asked for the course's DDF framing, a "You are a ... Agent" prompt in the course style, and the fixed LLM input made visible for the demo video. Branch `feat/final-polish`.
+- [x] Letter prompt rewritten as a role-based **Letter Agent** brief: ROLE, TASK, RULES, OUTPUT FORMAT, then INPUT (Code Bank W06-05, W04-07). Same rules and guardrails as before.
+- [x] `run_checks()` returns each of the six guardrail checks; `draft_letter()` also returns the prompt sent and the checks.
+- [x] Screening page: two panels under the letter, the agent's fixed input and the guardrail results.
+- [x] `src/ddf.py`: the codebase mapped to the four DDF stations (ETL, Feature Engineering, Model Design, Implementation; previously numbered 1-5 in docstrings), shown as section 4 of the Model and fairness page and in the README. `tests/test_ddf.py` fails if a module has no station.
+- [x] README: Letter Agent, DDF table, known issues and limitations, planned enhancements, AI tools.
+- **Checks:** 305 tests pass, ruff clean. Gemini couldn't be reached from the test sandbox, so the live letter check is done on the deployed app.
+
 ### Step 14: Finish
 - [ ] README complete: overview, live URL, video link, screenshots, setup, architecture, team, data citation, licence. Done 29 Oct except the live URL, video link, screenshots and teammates' names (placeholders).
 - [x] Fresh clone + install + run works. Checked 29 Oct: a fresh clone of `main` with only `requirements.txt` runs all four pages without errors.

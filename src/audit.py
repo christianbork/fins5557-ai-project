@@ -1,4 +1,5 @@
-"""Decision log: one JSON line per assessed applicant, the audit trail a real lender would keep.
+"""Station 4 (Implementation). Decision log: one JSON line per assessed applicant, the audit trail a real
+lender would keep.
 
     from src.audit import log_assessment, log_letter
     entry_id = log_assessment(applicant, result, metadata, source="screening")

@@ -1,4 +1,5 @@
-"""Monitoring page: has a new batch of applicants drifted away from the training population?
+"""Station 4 (Implementation). Monitoring page: has a new batch of applicants drifted away from the
+training population?
 
 Compares each input's distribution with training (PSI, src/monitoring.py) and shows how the
 model's PDs and decisions for the batch compare with the test split. Works on the deployed app:

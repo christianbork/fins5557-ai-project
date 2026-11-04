@@ -1,4 +1,4 @@
-"""Loan default screener: the screening page (Streamlit entry point).
+"""Station 4 (Implementation). Loan default screener: the screening page (Streamlit entry point).
 
 Run locally:  streamlit run app.py
 
@@ -23,7 +23,7 @@ from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
 from src.formatting import money, pct, score
 from src.labels import decision_label, model_label
-from src.llm import draft_letter
+from src.llm import build_prompt, draft_letter
 from src.predict import load_artifacts, predict
 from src.validation import validate_applicant
 
@@ -45,6 +45,50 @@ st.set_page_config(page_title="Loan default screener", page_icon="🏦", layout=
 def get_artifacts() -> dict:
     """Model, metadata, training ranges and SHAP explainer: loaded once per server, not on every rerun."""
     return load_artifacts()
+
+
+def show_letter_agent(letter: dict, result: dict) -> None:
+    """Show how the letter was made: the fixed input the language model gets and the guardrail checks.
+    This is the AI part of the letter made visible, so an analyst (or a reviewer) can see that no
+    applicant data reaches the model and why a model letter was accepted or replaced."""
+    prompt = letter.get("prompt") or build_prompt(result["decision"], result["reasons"])
+    with st.expander("What the language model sees: the Letter Agent's fixed input"):
+        if letter.get("prompt") is None:
+            st.caption(
+                "The standard template wrote this letter, so nothing was sent to a model. This is what a model would get."
+            )
+        st.markdown(
+            "Everything above **INPUT** is the same for every applicant: the agent's role, task, rules and "
+            "output format. The **INPUT** holds only the decision and reason phrases from a fixed list. "
+            "No PD, amounts, name or personal details are sent, so no applicant data reaches the model "
+            "provider, and nothing typed into the form can change the model's instructions."
+        )
+        st.code(prompt, language=None, wrap_lines=True)
+    with st.expander("Guardrail checks on the model's letter"):
+        checks = letter.get("checks")
+        if not checks:
+            st.write(
+                "No model letter to check: the standard template wording was used. It is fixed text that "
+                "compliance can sign off once."
+            )
+            return
+        passed = sum(c["passed"] for c in checks)
+        outcome = (
+            "so the model's letter is shown."
+            if passed == len(checks)
+            else "so the standard letter is shown instead."
+        )
+        st.markdown(f"**Passed {passed} of {len(checks)} checks**, {outcome}")
+        st.markdown(
+            "\n".join(
+                f"- {'✅' if c['passed'] else '❌'} {c['check']}"
+                + ("" if c["passed"] else f": {c['problem']}")
+                for c in checks
+            )
+        )
+        st.caption(
+            "Plain rules, not another language model: they behave the same way every time and are tested."
+        )
 
 
 @st.cache_data
@@ -315,3 +359,4 @@ if "result" in st.session_state:
             st.download_button(
                 "Download letter (.txt)", st.session_state["letter_text"], file_name="letter.txt"
             )
+            show_letter_agent(letter, result)

@@ -63,6 +63,26 @@ def test_decline_letter_is_a_draft_with_fallback_note(app):
     assert any("draft" in c.value.lower() for c in app.caption)
 
 
+def test_letter_shows_the_fixed_prompt_and_the_guardrail_checks(app, monkeypatch):
+    """With a model letter that passes, the page shows the exact prompt sent and all six checks passed."""
+    good = (
+        "Dear Applicant,\n\nWe can't approve your loan this time. The main factors were your external credit "
+        "scores and the loan requested. You can ask which credit information we used and ask for a review by "
+        "a credit officer.\n\n" + llm.SIGN_OFF
+    )
+    original = llm.draft_letter
+    monkeypatch.setattr(llm, "_call_ollama", lambda prompt: good)
+    monkeypatch.setattr(llm, "draft_letter", lambda d, r: original(d, r, backend="ollama"))
+    assess(app, EXAMPLES[2])
+    next(b for b in app.button if b.label == "Draft letter").click().run()
+    assert not app.exception
+    labels = [e.label for e in app.expander]
+    assert any("fixed input" in label for label in labels)
+    assert any("Guardrail checks" in label for label in labels)
+    assert any(c.value.startswith("ROLE\nYou are the Letter Agent") for c in app.code)
+    assert any("Passed 6 of 6 checks" in m.value for m in app.markdown)
+
+
 def test_invalid_input_shows_an_error_not_a_crash(app):
     app.number_input(key="f_AMT_CREDIT").set_value(0.0)  # form values only apply on submit
     app.button(key="FormSubmitter:applicant-Assess applicant").click().run()

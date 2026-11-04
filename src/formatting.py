@@ -1,4 +1,5 @@
-"""How numbers are written in the app: one function per kind of number, used by every page,
+"""Station 4 (Implementation). How numbers are written in the app: one function per kind of number, used by
+every page,
 table, chart label and CSV export, so the same value always looks the same.
 
     money(450000)        -> "$450,000"      money_short(3.62e9) -> "$3.62bn"

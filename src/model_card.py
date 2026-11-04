@@ -1,4 +1,5 @@
-"""The model card (docs/MODEL_CARD.md): what the model is for, how it was built and checked, and
+"""Station 3 (Model Design). The model card (docs/MODEL_CARD.md): what the model is for, how it was built
+and checked, and
 where it should not be trusted, generated from models/metadata.json and reports/ so it always
 matches the deployed model.
 

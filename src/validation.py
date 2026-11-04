@@ -1,4 +1,4 @@
-"""Step 7 (input validation): catch bad input before it reaches the model, with clear messages.
+"""Station 4 (Implementation). Catch bad input before it reaches the model, with clear messages.
 
 Two levels:
 - **Errors** (validate_applicant, validate_batch): values that are impossible or that the model

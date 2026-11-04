@@ -15,16 +15,16 @@
   - **Machine learning:** logistic regression (scorecard baseline), random forest and XGBoost, tuned with cross-validation; XGBoost chosen (test AUC 0.757), with isotonic calibration so the scores are real PDs (mean test PD 8.2% vs 8.1% actual).
   - **Decision rule from the lender's economics:** expected loss = PD × LGD × EAD; the cut-off (21.0%) maximises profit and sits next to the 20% break-even PD (LGD 60%, margin 15%); a ±2-point band is referred to an analyst.
   - **Explainable AI:** SHAP gives the top reasons behind each score, in plain English.
-  - **Generative AI:** Google Gemini (public demo) or a local Ollama model (real customer data) drafts the decline or refer letter, behind guardrails: the prompt holds no applicant data, outputs are checked, and any failure falls back to a fixed template. The letter is a draft for the analyst to check.
+  - **Generative AI:** a **Letter Agent** (Google Gemini in the public demo, a local Ollama model for real customer data) drafts the decline or refer letter. Its prompt is a fixed, role-based brief (role, task, rules, output format) plus only the decision and reason phrases from a fixed list, so no applicant data reaches the model. Six rule-based **guardrail checks** run on every letter, any failure falls back to a fixed template, and the screening page shows both the exact prompt and the check results. The letter is a draft for the analyst to check.
 - **Governance:** input validation, a guard that refers applicants outside the training range (the model only saw loans Home Credit had already approved), a fairness audit by sex, age, family status and education, PSI drift monitoring, a decision log, and a [model card](docs/MODEL_CARD.md).
 - **Currency:** amounts are shown in USD as a display assumption. Home Credit's data doesn't state its currency, so no conversion is applied: the numbers are the dataset's own.
 
 ## Using the app
 | Page | What it does |
 |---|---|
-| **Screening** (`app.py`) | Enter one applicant, or load one of 6 invented examples, then **Assess applicant**: PD, decision, expected loss and profit, the main reasons and a chart of what moved the score. For a decline or refer, **Draft letter**, check and edit it, then download it. |
+| **Screening** (`app.py`) | Enter one applicant, or load one of 6 invented examples, then **Assess applicant**: PD, decision, expected loss and profit, the main reasons and a chart of what moved the score. For a decline or refer, **Draft letter**, check and edit it, then download it. Two panels under the letter show the Letter Agent's fixed input and the guardrail checks. |
 | **Batch scoring** | Upload a CSV (or use the examples): rows with errors are listed by line, the rest are scored; download the results with PD, decision, reasons and expected loss. |
-| **Model and fairness** | How the model was chosen (v1 vs v2), ROC and reliability charts, the profit curve with the profit and balanced-accuracy cut-offs, and the fairness table with flags. |
+| **Model and fairness** | How the model was chosen (v1 vs v2), ROC and reliability charts, the profit curve with the profit and balanced-accuracy cut-offs, the fairness table with flags, and the system mapped to the course's four DDF stations. |
 | **Monitoring** | PSI per input for a new batch against the training data (a normal and a shifted synthetic sample are built in), plus how the model's decisions for the batch compare with the test split. |
 
 _Screenshots: add once deployed._
@@ -40,6 +40,15 @@ applicant (form or CSV)
 offline: src/data.py -> src/features.py -> src/train.py (tuning, calibration, cut-off)
          -> src/fairness.py, src/reporting.py, src/monitoring.py -> models/ and reports/ (aggregates only)
 ```
+
+The project follows the course's **Digital Data Factory (DDF)**: four stations, each accountable for its own checks (map in `src/ddf.py`, also shown on the app's Model and fairness page).
+
+| DDF station | What we do | Checks owned here | Code |
+|---|---|---|---|
+| **1. ETL** (gate keepers) | Load the Home Credit applications, check and clean them, split 60/20/20 (stratified) before anything is fitted | Source and terms documented, raw data never committed, split first to prevent leakage, selection bias recorded | `src/data.py` |
+| **2. Feature Engineering** | Nine credit-risk ratios, missing-value flags, training medians, one-hot encoding in one sklearn pipeline | Sex, age and family status never used as inputs; proxies analysed | `src/features.py` |
+| **3. Model Design** | Compare logistic regression, random forest and XGBoost; calibrate; set the cut-off from the lender's economics; audit fairness | 0.01 AUC rule over the baseline, Brier score, four-fifths rule, model card | `src/train.py`, `threshold.py`, `fairness.py`, `metrics.py`, `reporting.py`, `model_card.py` |
+| **4. Implementation** | The app: validation, scoring, SHAP reasons, the Letter Agent with guardrails, batch scoring, PSI monitoring, decision log | Unusual applicants referred, no applicant data sent to a model, analyst checks every letter, PSI alerts trigger review | `app.py`, `pages/`, `src/predict.py`, `validation.py`, `explain.py`, `llm.py`, `monitoring.py`, `audit.py` |
 
 ## Project structure
 ```
@@ -74,6 +83,26 @@ To retrain or run the notebook, install the dev tools (`pip install -r requireme
 
 ## Deployment
 Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "gemini"`, `GOOGLE_API_KEY` and `DECISION_LOG = "off"` in the app's Secrets settings (the public demo keeps no log of what visitors type in): the public demo drafts letters with Gemini's free tier, which is acceptable because it only handles invented example applicants and the prompt holds no applicant data. Real customer data would use the local Ollama backend instead (closed environment). No keys are stored in the code.
+
+## Known issues and limitations
+- **Selection bias.** Home Credit only observed repayment for loans it had already approved, so the model has never seen the applicants its earlier policy turned away. The app is scoped as a second-stage screen, and applicants outside the training range are referred to an analyst.
+- **No application dates.** The data has no dates, so there is no out-of-time test, and the monitoring page uses synthetic batches built from the training statistics.
+- **Assumed economics.** The cut-off and profit figures rest on stated assumptions (LGD 60%, a 15% lifetime margin, exposure = loan amount). The data doesn't state its currency; amounts are shown in USD as a display assumption.
+- **Moderate recall.** At the profit-maximising cut-off the model declines 25.5% of eventual defaulters. That is the profitable trade-off under these assumptions, not a fraud filter.
+- **Fairness.** Every group passes the four-fifths rule and PDs are accurate within each group, but creditworthy applicants under 30 are approved less often than those over 60 (about 87% vs 99%), mostly through the external credit scores. Accepted and documented as a policy decision, not hidden.
+- **Letters.** The guardrails catch hard violations (numbers, protected attributes, judged reasons, a missing review right), but softer wording can still get through, so every model letter is a draft the analyst must check.
+- **Free-tier hosting.** Gemini's free tier can hit its rate limit (the app then uses the template and says so), and Streamlit Community Cloud puts the app to sleep after inactivity, so the first visit can take a minute.
+
+## Planned enhancements
+- Add Home Credit's bureau and previous-application tables, which carry the alternative data that matters most for thin-file applicants.
+- Out-of-time validation and reject inference once dated data, including declined applications, is available.
+- Scheduled PSI monitoring with alerts, and comparison of predicted PDs with realised defaults as loans mature.
+- Analyst log-in with roles, and a database for the decision log instead of a local file.
+- A small fine-tuned local model for letters (the Week 4 "SLM-first" idea), so real customer data never leaves the lender.
+- Fairness options for the policy owner to choose from, such as reviewing referrals for younger applicants by hand.
+
+## AI tools
+We used Claude Code (Anthropic) as a coding assistant for parts of the code, tests and documentation; every change was reviewed, run and tested by the team. The report's AI-use statement describes which tasks it helped with. Google Gemini is part of the app itself (the Letter Agent).
 
 ## Team
 | Name | zID | Role |
