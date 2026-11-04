@@ -1,4 +1,4 @@
-"""Station 3 (models): train, tune and compare three credit-default models, then calibrate and save
+"""Station 3 (Model Design). Train, tune and compare three credit-default models, then calibrate and save
 the chosen one.
 
 Run from the project root (about 30 minutes on the 184k training rows, see Step 5c):

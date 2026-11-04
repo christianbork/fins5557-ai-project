@@ -1,4 +1,5 @@
-"""Batch scoring page: upload a CSV of applicants, score every valid row, download the results.
+"""Station 4 (Implementation). Batch scoring page: upload a CSV of applicants, score every valid row,
+download the results.
 
 Uses the same validation, out-of-range guard, model and reasons as the screening page
 (src/validation.py, src/predict.py), so a batch is judged exactly like single applicants. Rows

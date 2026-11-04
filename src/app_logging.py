@@ -1,4 +1,4 @@
-"""Logging for the app: error details go to the server log, never onto the page.
+"""Station 4 (Implementation). Logging for the app: error details go to the server log, never onto the page.
 
     from src.app_logging import get_logger
     log = get_logger("pages.batch")

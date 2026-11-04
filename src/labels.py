@@ -1,4 +1,5 @@
-"""Display text in one place: decisions, model names, input names, table headers and statuses.
+"""Station 4 (Implementation). Display text in one place: decisions, model names, input names, table
+headers and statuses.
 
 The code keeps short lower-case codes ("approve", "xgboost", "approval_rate"); anything a user
 sees goes through this module, so the same thing is always called the same:

@@ -1,4 +1,5 @@
-"""Model and fairness page: how the model was chosen, how good its PDs are, where the cut-off
+"""Station 4 (Implementation). Model and fairness page: how the model was chosen, how good its PDs are,
+where the cut-off
 comes from, and whether its decisions treat groups of applicants differently.
 
 Reads only the summary files in models/ and reports/ (no applicant data), so it works on the
@@ -23,6 +24,7 @@ from src.config import (
     REPORTS_DIR,
     ROOT,
 )
+from src.ddf import DDF_STATIONS
 from src.formatting import count, format_table, money, money_short, number, pct, ratio, score
 from src.labels import RULES, flag_text, headers, model_choice_reason, model_label
 
@@ -278,3 +280,15 @@ st.info(
     "(a longer credit history scores better), then loan length, job tenure and time since the ID was renewed. "
     "Whether to accept, reduce or offset it is a policy decision, discussed in the report."
 )
+
+# ---- How it is built: the Digital Data Factory ---------------------------------------------
+st.header("4. How the system is built: the Digital Data Factory")
+st.caption(
+    "The course's DDF framework: four stations, each accountable for its own checks. An error at an early "
+    "station can't be fixed later, so the checks start with the data, not the model."
+)
+for station in DDF_STATIONS:
+    with st.expander(f"Station {station['station']}: {station['name']} ({station['role']})"):
+        st.markdown(f"**What we do.** {station['what_we_do']}")
+        st.markdown(f"**Checks owned here.** {station['checks']}")
+        st.caption("Code: " + ", ".join(f"`{m}`" for m in station["modules"]))

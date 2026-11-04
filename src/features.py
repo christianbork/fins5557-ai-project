@@ -1,4 +1,4 @@
-"""Station 2 (features): engineered credit-risk features and the preprocessing pipeline.
+"""Station 2 (Feature Engineering). Engineered credit-risk features and the preprocessing pipeline.
 
 Typical use (notebooks and src/train.py):
 

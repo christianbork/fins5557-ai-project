@@ -1,4 +1,4 @@
-"""Station 1 (ETL): load, check, clean and split the Home Credit application data.
+"""Station 1 (ETL). Load, check, clean and split the Home Credit application data.
 
 Typical use (notebooks and src/train.py):
 

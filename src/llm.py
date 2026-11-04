@@ -1,4 +1,4 @@
-"""Step 8 (decline letter): draft the letter sent to an applicant from the decision and its reasons.
+"""Station 4 (Implementation). Draft the letter sent to an applicant from the decision and its reasons.
 
 A language-model letter is a **draft for the analyst to check and edit**, never sent automatically.
 Tested on llama3.2:3b (28 Oct): the guardrails below catch hard violations (one in six letters

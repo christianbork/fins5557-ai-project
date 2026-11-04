@@ -1,4 +1,4 @@
-"""Step 10 (fairness): does the model's decision treat groups of applicants differently?
+"""Station 3 (Model Design). Does the model's decision treat groups of applicants differently?
 
 Course reference: Code Bank W04-06 (demographic parity and equalised odds).
 

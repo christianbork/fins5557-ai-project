@@ -1,4 +1,4 @@
-"""Step 9 (screening page): translate between the analyst's form and the model's input fields.
+"""Station 4 (Implementation). Translate between the analyst's form and the model's input fields.
 
 The model uses Home Credit's field names and units, e.g. DAYS_EMPLOYED = -2,190 (days, counted
 backwards from the application) or 365243 for "not employed". An analyst thinks in years, so the

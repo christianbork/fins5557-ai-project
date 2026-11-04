@@ -1,4 +1,5 @@
-"""Credit-scoring metrics shared by model comparison (train.py) and the final test report (threshold.py)."""
+"""Station 3 (Model Design). Credit-scoring metrics shared by model comparison (train.py) and the final
+test report (threshold.py)."""
 
 from __future__ import annotations
 

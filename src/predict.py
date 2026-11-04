@@ -1,4 +1,4 @@
-"""Station 5 (inference): score applicants with the saved, calibrated model.
+"""Station 4 (Implementation). Score applicants with the saved, calibrated model.
 
 This is the only module the app needs for scoring:
 

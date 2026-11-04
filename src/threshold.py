@@ -1,4 +1,4 @@
-"""Station 4 (decision): turn model scores into calibrated PDs and approve / refer / decline decisions.
+"""Station 3 (Model Design). Turn model scores into calibrated PDs and approve / refer / decline decisions.
 
 Called by `python -m src.train` after the model is chosen:
 
