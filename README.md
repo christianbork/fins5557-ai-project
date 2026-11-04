@@ -13,6 +13,7 @@
 - **Target users:** credit analysts at a consumer lender (cash and revolving loans).
 - **AI/ML techniques:**
   - **Machine learning:** logistic regression (scorecard baseline), random forest and XGBoost, tuned with cross-validation; XGBoost chosen (test AUC 0.757), with isotonic calibration so the scores are real PDs (mean test PD 8.2% vs 8.1% actual).
+  - **Lending policy limits first (stage 1):** an application is declined before the model is used if the loan would take more than 48 instalments to repay, the repayment is larger than income, or the loan is more than 30 times income. The model can't extrapolate beyond the loans Home Credit approved, so these hard rules stop it scoring impossible applications (user testing found a $1m loan on a $30k income at $500 per instalment scored a PD of 7%).
   - **Decision rule from the lender's economics:** expected loss = PD × LGD × EAD; the cut-off (21.0%) maximises profit and sits next to the 20% break-even PD (LGD 60%, margin 15%); a ±2-point band is referred to an analyst.
   - **Explainable AI:** SHAP gives the top reasons behind each score, in plain English.
   - **Generative AI:** a **Letter Agent** (Google Gemini in the public demo, a local Ollama model for real customer data) drafts the decline or refer letter. Its prompt is a fixed, role-based brief (role, task, rules, output format) plus only the decision and reason phrases from a fixed list, so no applicant data reaches the model. Six rule-based **guardrail checks** run on every letter, any failure falls back to a fixed template, and the screening page shows both the exact prompt and the check results. The letter is a draft for the analyst to check.
@@ -34,6 +35,7 @@ _Screenshots: add once deployed._
 applicant (form or CSV)
   -> src/applicant.py    form in years -> model fields
   -> src/validation.py   input errors; out-of-range guard (refer, never auto-approve)
+  -> src/policy.py       stage 1: lending policy limits (instalments, repayment vs income, loan vs income) -> decline
   -> src/predict.py      calibrated XGBoost pipeline -> PD -> approve / refer / decline (src/threshold.py)
   -> src/explain.py      SHAP -> top 3 reasons
   -> src/llm.py          letter: template | Ollama (local) | Gemini (demo), with guardrails
@@ -85,6 +87,8 @@ To retrain or run the notebook, install the dev tools (`pip install -r requireme
 Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.py`, Python 3.12) with `LLM_BACKEND = "gemini"`, `GOOGLE_API_KEY` and `DECISION_LOG = "off"` in the app's Secrets settings (the public demo keeps no log of what visitors type in): the public demo drafts letters with Gemini's free tier, which is acceptable because it only handles invented example applicants and the prompt holds no applicant data. Real customer data would use the local Ollama backend instead (closed environment). No keys are stored in the code.
 
 ## Known issues and limitations
+- **Policy limits are set from the data, not from a real lender's policy.** They sit just beyond the range of Home Credit's approved loans: on the test split they affect 9 of 61,503 applicants (0.015%, 8 of whom repaid), so the reported test results are unchanged at one decimal place. A real lender would set them from its responsible-lending policy and affordability assessment (NCCP Act).
+- **Inputs come from a foreign lender's data.** Some fields are Home Credit's own (the region risk rating, its employer-type codes, anonymised external scores whose providers aren't named). The form explains each one, but a deployment would map them to the lender's own data, e.g. bureau scores rescaled to 0 to 1 and the region rating looked up from the address.
 - **Selection bias.** Home Credit only observed repayment for loans it had already approved, so the model has never seen the applicants its earlier policy turned away. The app is scoped as a second-stage screen, and applicants outside the training range are referred to an analyst.
 - **No application dates.** The data has no dates, so there is no out-of-time test, and the monitoring page uses synthetic batches built from the training statistics.
 - **Assumed economics.** The cut-off and profit figures rest on stated assumptions (LGD 60%, a 15% lifetime margin, exposure = loan amount). The data doesn't state its currency; amounts are shown in USD as a display assumption.

@@ -233,6 +233,13 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] README: Letter Agent, DDF table, known issues and limitations, planned enhancements, AI tools.
 - **Checks:** 305 tests pass, ruff clean. Gemini couldn't be reached from the test sandbox, so the live letter check is done on the deployed app.
 
+### Step 13d: Fixes from user testing (4 Nov) [done]
+**Why:** Christian's test on the live app: a $1,000,000 cash loan for a student on $30,000 a year, repaid at $500 per instalment, with low external scores, came out as Refer. The model's PD was 7.4% (approve territory): 2,000 instalments is far beyond the 8 to 45 in Home Credit's approved loans, and a tree model can't extrapolate, so the case landed in a low-risk leaf; only the out-of-range guard turned it into a refer. The form was also unclear outside the example data (what an external score is, region rating, blanks not possible). Branch `feat/policy-and-form`.
+- [x] `src/policy.py`: stage 1 lending policy limits checked before the model, in `config.py`: more than 48 instalments, repayment above income, loan above 30x income. A broken rule means decline, with the rule's reason phrase (from the fixed list, so the Letter Agent can use it). **Decided (4 Nov): limits just beyond Home Credit's approved range**, so they only catch what the model has no evidence about. Test split: 9 of 61,503 applicants hit (0.015%; 1 defaulted), decision shares unchanged at one decimal.
+- [x] Screening page explains a policy decline and shows the model's PD as information only; batch results get a Policy column; the decision log records the rules; model card lists the limits.
+- [x] Form: 'No score from source N' ticks for the external scores; help text on what the scores are and where they come from; region risk rating, repayment per instalment, employer codes, registration and ID explained; each section says where its data comes from; car age ignored without a car.
+- **Checks:** 316 tests pass, ruff clean; the tested applicant is declined by policy (two rules); the six examples keep their decisions.
+
 ### Step 14: Finish
 - [ ] README complete: overview, live URL, video link, screenshots, setup, architecture, team, data citation, licence. Done 29 Oct except the live URL, video link, screenshots and teammates' names (placeholders).
 - [x] Fresh clone + install + run works. Checked 29 Oct: a fresh clone of `main` with only `requirements.txt` runs all four pages without errors.
