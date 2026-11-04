@@ -5,7 +5,14 @@ Tested on llama3.2:3b (28 Oct): the guardrails below catch hard violations (one 
 judged a reason, "longer than we consider suitable", and fell back to the template), but softer
 wording ("might not be the most suitable option") still gets through. A human stays in the loop.
 
-Course reference: Code Bank W06-03 (one function over several LLM providers, with a fallback).
+Course references: Code Bank W06-03 (one function over several LLM providers, with a fallback),
+W04-07 (specialist agents briefed with "You are a ... Agent" prompts) and W06-05 (the four prompt
+parts: role, task, format, constraints).
+
+The language model works as one agent in the pipeline: the **Letter Agent**. It only communicates a
+decision the model and the cost rule have already made, and its letter goes through a second, rule-based
+step, the **guardrail checks** (`run_checks`), before the analyst sees it. In DDF terms this is
+Station 4 (Implementation): packaging the model's output for the people it affects.
 
     letter = draft_letter("decline", result["reasons"])
     letter["text"]      # the letter
@@ -23,8 +30,8 @@ Whatever the backend, the prompt contains no applicant data at all (see below), 
 identifies an applicant can reach a model provider.
 
 Guardrails around the language model:
-- Input: the prompt only gets the decision and the reason phrases, which must come from the fixed
-  list in src/explain.py. Never the PD, the applicant's inputs or protected attributes, and no
+- Input: the prompt is fixed text plus the decision and the reason phrases, which must come from the
+  fixed list in src/explain.py. Never the PD, the applicant's inputs or protected attributes, and no
   free text that could carry instructions (prompt injection).
 - A timeout, and any error falls back to the template, with a warning the app shows.
 - Output: the letter is rejected (and the template used) if it is empty or too long, contains a
@@ -104,41 +111,71 @@ def template_letter(decision: str, reasons: list[str]) -> str:
     )
 
 
-# ---- Language model (Ollama, local) ------------------------------------------------------
+# ---- The Letter Agent's brief (the fixed input every language model gets) ---------------------
+AGENT_ROLE = (
+    f"You are the Letter Agent for {LENDER_NAME}, a consumer lender. You write short, clear and polite "
+    "letters to loan applicants. You are the last step in a credit-screening pipeline: the assessment has "
+    "already been made by a credit model and a lending rule, and your only job is to explain it to the "
+    "applicant. You never make, change or hint at a different decision."
+)
+AGENT_RULES = (
+    (
+        "Name each reason below as a factor the assessment looked at, in plain, friendly English. Do not say "
+        "whether it was too high, too low, too long or too short, or that it did not meet requirements: the "
+        "reasons say what mattered most, not a verdict on each one. Do not add any other reasons."
+    ),
+    (
+        "Do not add facts about interest, fees, credit bureaus or how the lender works, and do not say the "
+        "decision is not about their credit."
+    ),
+    "Do not use any numbers, percentages, scores, rates or deadlines.",
+    (
+        "Do not mention or guess anything personal about the applicant, such as their age, sex, family, health, "
+        "background or beliefs."
+    ),
+    "Do not promise that a future application will be approved.",
+    "Say that they can ask which credit information was used and ask for a review by a credit officer.",
+)
+
+
 def build_prompt(decision: str, reasons: list[str]) -> str:
-    """The only text the language model sees: the decision and the reason phrases, nothing else."""
+    """The only text the language model sees: a fixed brief, the decision and the reason phrases.
+
+    Laid out in the four parts taught in the course (Code Bank W06-05): ROLE (who the agent is),
+    TASK (what to write), RULES (constraints) and OUTPUT FORMAT, followed by the INPUT. Everything
+    except the INPUT is the same for every applicant, and the INPUT only holds a decision word and
+    phrases from the fixed list in src/explain.py: no PD, amounts, personal details or free text.
+    """
     if decision == "decline":
         task = (
             "Write a letter telling the applicant that their loan application was declined, and which "
             "factors the decision was mainly based on."
         )
+        decision_line = "Decline"
     else:
         task = (
             "Write a letter telling the applicant that no decision has been made yet: a credit officer will "
             "review their application and may contact them for more information."
         )
+        decision_line = "Refer to a credit officer (no decision yet)"
         reasons = []  # nothing decided yet, so the model isn't given reasons it could present as final
     listed = "\n".join(f"- {r}" for r in reasons) or "- Overall assessment of the application"
+    rules = "".join(f"- {rule}\n" for rule in AGENT_RULES)
     return (
-        "You write short, clear and polite letters to loan applicants for a consumer lender.\n"
-        f"{task}\n\n"
-        "Rules:\n"
-        "- Name each reason below as a factor the assessment looked at, in plain, friendly English. Do not "
-        "say whether it was too high, too low, too long or too short, or that it did not meet requirements: "
-        "the reasons say what mattered most, not a verdict on each one. Do not add any other reasons.\n"
-        "- Do not add facts about interest, fees, credit bureaus or how the lender works, and do not say the "
-        "decision is not about their credit.\n"
-        "- Do not use any numbers, percentages, scores, rates or deadlines.\n"
-        "- Do not mention or guess anything personal about the applicant, such as their age, sex, family, "
-        "health, background or beliefs.\n"
-        "- Do not promise that a future application will be approved.\n"
-        "- Say that they can ask which credit information was used and ask for a review by a credit officer.\n"
-        "- Keep it under 150 words. Start with 'Dear Applicant,' and end with exactly:\n"
+        f"ROLE\n{AGENT_ROLE}\n\n"
+        f"TASK\n{task}\n\n"
+        f"RULES\n{rules}\n"
+        "OUTPUT FORMAT\n"
+        "- Plain text, no markdown such as bold text or headings. A simple list of the factors is fine.\n"
+        "- Keep it under 150 words.\n"
+        "- Start with 'Dear Applicant,' and end with exactly:\n"
         f"{SIGN_OFF}\n\n"
+        f"INPUT\nDecision: {decision_line}\n"
         f"Reasons:\n{listed}\n"
     )
 
 
+# ---- Language model (Ollama, local) ------------------------------------------------------
 def _call_ollama(prompt: str) -> str:
     """One request to the local Ollama server (standard library only, no extra package)."""
     body = json.dumps(
@@ -228,27 +265,65 @@ def _gemini_problem(e: Exception) -> str:
     return f"unexpected error from Gemini ({type(e).__name__})"
 
 
+# ---- Guardrail checks (rule-based, run on every model-written letter) ------------------------
+def run_checks(text: str) -> list[dict]:
+    """Run every output guardrail on a letter. Returns one entry per check, in order:
+    {"check": what is checked, "passed": True/False, "problem": why it failed, or None}.
+
+    These are plain rules, not another language model, so they behave the same every time and can be
+    tested and signed off. They are shown in the app so the analyst can see why a letter was accepted.
+    """
+    protected = PROTECTED_WORDS.search(text)
+    judged = DIRECTION_WORDS.search(text)
+    results = [
+        ("Not empty", bool(text.strip()), "the letter was empty"),
+        (
+            f"Under {MAX_LETTER_CHARS:,} characters",
+            len(text) <= MAX_LETTER_CHARS,
+            f"the letter was too long ({len(text):,} characters)",
+        ),
+        (
+            "No numbers or percentages (no invented scores, rates or deadlines)",
+            not re.search(r"\d|%", text),
+            "the letter contained a number or percentage",
+        ),
+        (
+            "No protected attributes (age, sex, family status, race, religion, health...)",
+            protected is None,
+            f"the letter mentioned a protected attribute ('{protected.group(0)}')" if protected else None,
+        ),
+        (
+            "Names the factors without judging them ('too long', 'did not meet'...)",
+            judged is None,
+            f"the letter judged a reason ('{judged.group(0)}'), which may not be true for this applicant"
+            if judged
+            else None,
+        ),
+        (
+            "Tells the applicant they can ask for a review by a credit officer",
+            "credit officer" in text.lower(),
+            "the letter didn't mention the right to a review by a credit officer",
+        ),
+    ]
+    return [
+        {"check": check, "passed": passed, "problem": None if passed else problem}
+        for check, passed, problem in results
+    ]
+
+
 def check_letter(text: str) -> str | None:
-    """Why a generated letter can't be sent (None if it passes the output guardrails)."""
-    if not text.strip():
-        return "the letter was empty"
-    if len(text) > MAX_LETTER_CHARS:
-        return f"the letter was too long ({len(text):,} characters)"
-    if re.search(r"\d|%", text):
-        return "the letter contained a number or percentage"
-    if match := PROTECTED_WORDS.search(text):
-        return f"the letter mentioned a protected attribute ('{match.group(0)}')"
-    if match := DIRECTION_WORDS.search(text):
-        return f"the letter judged a reason ('{match.group(0)}'), which may not be true for this applicant"
-    if "credit officer" not in text.lower():
-        return "the letter didn't mention the right to a review by a credit officer"
-    return None
+    """Why a generated letter can't be sent: the first failed guardrail check (None if all pass)."""
+    return next((c["problem"] for c in run_checks(text) if not c["passed"]), None)
 
 
 # ---- One entry point for the app ------------------------------------------------------------
 def draft_letter(decision: str, reasons: list[str], backend: str = LLM_BACKEND) -> dict:
     """Draft a decline or refer letter. Never raises because a backend failed: it falls back to the
-    template and says why in "warning", so the app always has a letter to show."""
+    template and says why in "warning", so the app always has a letter to show.
+
+    Returns {"text", "backend", "warning", "prompt", "checks"}: "prompt" is what was sent to the language
+    model (None for the template backend) and "checks" the guardrail results for the model's letter
+    (None if no model letter came back)."""
     if decision not in ("decline", "refer"):
         raise ValueError(f"Letters are only drafted for 'decline' or 'refer', not '{decision}'")
     unknown = [r for r in reasons if r not in REASON_PHRASES.values()]
@@ -256,18 +331,27 @@ def draft_letter(decision: str, reasons: list[str], backend: str = LLM_BACKEND) 
         raise ValueError(f"Unknown reasons (only phrases from src/explain.py are allowed): {unknown}")
 
     if backend == "template":
-        return {"text": template_letter(decision, reasons), "backend": "template", "warning": None}
+        return {
+            "text": template_letter(decision, reasons),
+            "backend": "template",
+            "warning": None,
+            "prompt": None,
+            "checks": None,
+        }
+    prompt, checks = None, None
     if backend not in BACKENDS:
         problem = f"unknown LLM_BACKEND '{backend}' (options: {', '.join(BACKENDS)})"
     else:
         call, describe = (
             (_call_ollama, _ollama_problem) if backend == "ollama" else (_call_gemini, _gemini_problem)
         )
+        prompt = build_prompt(decision, reasons)
         try:
-            text = call(build_prompt(decision, reasons))
-            problem = check_letter(text)
+            text = call(prompt)
+            checks = run_checks(text)
+            problem = next((c["problem"] for c in checks if not c["passed"]), None)
             if problem is None:
-                return {"text": text, "backend": backend, "warning": None}
+                return {"text": text, "backend": backend, "warning": None, "prompt": prompt, "checks": checks}
         except Exception as e:  # noqa: BLE001 (any backend failure falls back to the template, explained)
             problem = describe(e)
             # The type only: a Gemini error's text could echo request details (see _gemini_problem)
@@ -277,4 +361,6 @@ def draft_letter(decision: str, reasons: list[str], backend: str = LLM_BACKEND) 
         "text": template_letter(decision, reasons),
         "backend": "template",
         "warning": f"Standard letter used because {problem}.",
+        "prompt": prompt,
+        "checks": checks,
     }

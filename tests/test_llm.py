@@ -11,7 +11,7 @@ from google.genai import errors as genai_errors
 
 from src import llm
 from src.config import PROTECTED
-from src.llm import SIGN_OFF, build_prompt, check_letter, draft_letter
+from src.llm import AGENT_RULES, SIGN_OFF, build_prompt, check_letter, draft_letter, run_checks
 
 REASONS = ["External credit scores", "Length of the loan", "Size of the loan requested"]
 GOOD_LETTER = (
@@ -97,7 +97,50 @@ def test_letters_that_judge_reasons_or_skip_the_review_right_are_replaced(monkey
 def test_good_model_letter_is_used(monkeypatch):
     monkeypatch.setattr(llm, "_call_ollama", fake_ollama(GOOD_LETTER))
     letter = draft_letter("decline", REASONS, backend="ollama")
-    assert letter == {"text": GOOD_LETTER, "backend": "ollama", "warning": None}
+    assert {k: letter[k] for k in ("text", "backend", "warning")} == {
+        "text": GOOD_LETTER,
+        "backend": "ollama",
+        "warning": None,
+    }
+    assert letter["prompt"] == build_prompt("decline", REASONS)  # the app shows exactly what was sent
+    assert len(letter["checks"]) == 6 and all(c["passed"] for c in letter["checks"])
+
+
+def test_prompt_is_a_role_based_agent_brief():
+    prompt = build_prompt("decline", REASONS)
+    sections = ["ROLE\n", "TASK\n", "RULES\n", "OUTPUT FORMAT\n", "INPUT\n"]
+    positions = [prompt.index(section) for section in sections]
+    assert positions == sorted(positions)  # the four course prompt parts, then the input, in order
+    assert "You are the Letter Agent" in prompt
+    assert all(rule in prompt for rule in AGENT_RULES)
+
+
+def test_only_the_input_changes_between_applicants():
+    fixed = build_prompt("decline", REASONS).split("INPUT\n")[0]
+    assert build_prompt("decline", ["Size of the loan requested"]).split("INPUT\n")[0] == fixed
+
+
+def test_template_backend_sends_nothing_to_a_model():
+    letter = draft_letter("decline", REASONS, backend="template")
+    assert letter["prompt"] is None and letter["checks"] is None
+
+
+def test_run_checks_reports_every_check_and_the_first_failure():
+    checks = run_checks("Dear Applicant, at your age the loan was too long.")
+    failed = [c["check"] for c in checks if not c["passed"]]
+    assert len(checks) == 6
+    assert len(failed) == 3  # protected attribute, a judged reason, no review right
+    assert check_letter("Dear Applicant, at your age the loan was too long.") == next(
+        c["problem"] for c in checks if not c["passed"]
+    )
+    assert all(c["problem"] is None for c in run_checks(GOOD_LETTER))
+
+
+def test_rejected_model_letter_keeps_its_checks_for_the_app(monkeypatch):
+    monkeypatch.setattr(llm, "_call_ollama", fake_ollama("Dear Applicant, your PD is 38%."))
+    letter = draft_letter("decline", REASONS, backend="ollama")
+    assert letter["backend"] == "template" and letter["prompt"] is not None
+    assert any(not c["passed"] for c in letter["checks"])
 
 
 @pytest.mark.parametrize(
@@ -168,7 +211,8 @@ def test_ollama_request_uses_timeout_and_no_streaming(monkeypatch):
 # ---- Gemini (public demo backend) ------------------------------------------------------------
 def test_gemini_good_letter_is_used(monkeypatch):
     monkeypatch.setattr(llm, "_call_gemini", fake_ollama(GOOD_LETTER))
-    assert draft_letter("decline", REASONS, backend="gemini") == {
+    letter = draft_letter("decline", REASONS, backend="gemini")
+    assert {k: letter[k] for k in ("text", "backend", "warning")} == {
         "text": GOOD_LETTER,
         "backend": "gemini",
         "warning": None,
