@@ -283,31 +283,36 @@ if "result" in st.session_state:
     st.subheader("Assessment")
     pd_col, decision_col, el_col, profit_col = st.columns(4)
     pd_col.metric(
-        "Probability of default",
+        "PD (information only)" if result.get("policy") else "Probability of default",
         pct(result["pd"]),
         help="Calibrated: of 100 applicants with this PD, about this many have payment difficulties.",
     )
     with decision_col:
         st.markdown("**Decision**")
         st.badge(decision_label(result["decision"]), color=BADGE_COLOURS[result["decision"]])
+    policy = result.get("policy", [])
+    not_used = "Not used: the application was declined by the lending policy before the model's PD counts."
     el_col.metric(
         "Expected loss",
-        money(expected_loss),
-        help="PD × LGD × EAD: loss given default × exposure at default (the loan amount).",
+        "–" if policy else money(expected_loss),
+        help=not_used
+        if policy
+        else "PD × LGD × EAD: loss given default × exposure at default (the loan amount).",
     )
     profit_col.metric(
         "Expected profit",
-        money(expected_profit),
-        help="(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
+        "–" if policy else money(expected_profit),
+        help=not_used
+        if policy
+        else "(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
     )
 
-    policy = result.get("policy", [])
     if policy:
         st.error(
             "**Declined by the lending policy (stage 1), before the model is used.** The application breaks "
             + ("this rule" if len(policy) == 1 else "these rules")
             + ":\n\n"
-            + "\n".join(f"- {f['message']}" for f in policy)
+            + "\n".join(f"- {f['message']}".replace("$", "\\$") for f in policy)  # $ would start LaTeX
         )
         st.caption(
             "The model's PD is shown for information only. It learnt from loans Home Credit approved, and a tree "
@@ -321,7 +326,7 @@ if "result" in st.session_state:
     for warning in [] if policy else result["warnings"]:
         st.warning(
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
-            "relied on for applicants unlike them."
+            "relied on for applicants unlike them.".replace("$", "\\$")  # $ amounts would start LaTeX
         )
     if result["decision"] == "refer" and not result["warnings"]:
         st.warning(
