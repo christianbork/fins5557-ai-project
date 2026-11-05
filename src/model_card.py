@@ -195,7 +195,7 @@ actual default rate {pct(test["default_rate_all"])}.
 - **Drift:** a static model; the Monitoring page checks each input with PSI, and calibration should be
   rechecked on recent outcomes before relying on it after a shift.
 - **Target:** "payment difficulties" as defined by Home Credit, not a regulatory default definition.
-- **Currency and period:** the dataset's currency and dates aren't stated; amounts are shown in USD as a
+- **Currency and period:** the dataset's currency and dates aren't stated; amounts are shown in currency units (CU) as a
   display assumption.
 - **Letters:** drafted by a template or a language model with guardrails; always a draft for an analyst.
 """

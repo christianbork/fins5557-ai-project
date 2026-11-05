@@ -1,0 +1,4 @@
+# Streamlit settings checked into the repo (secrets stay in secrets.toml, which is never committed).
+[server]
+# Matches MAX_UPLOAD_MB in src/config.py, so the upload box says 5 MB instead of Streamlit's default 200 MB.
+maxUploadSize = 5

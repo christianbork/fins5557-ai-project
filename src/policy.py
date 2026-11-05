@@ -4,8 +4,8 @@ Every application is checked against hard rules before the model's PD is used. A
 that breaks a rule is declined by policy, and the model's PD is shown for information only.
 
 Why: the model learnt only from loans Home Credit had already approved, and tree models can't
-extrapolate. For an application far outside that range, such as a $1,000,000 loan on a $30,000
-income repaid at $500 per instalment (2,000 instalments), the model returned a PD of about 7%,
+extrapolate. For an application far outside that range, such as a CU 1,000,000 loan on a CU 30,000
+income repaid at CU 500 per instalment (2,000 instalments), the model returned a PD of about 7%,
 because nothing in its training data looks like that. The out-of-range guard (src/validation.py)
 only refers such cases to an analyst; a lender's own responsible-lending rules would decline them
 outright. Splitting the decision into policy rules (stage 1) and the model (stage 2) is how

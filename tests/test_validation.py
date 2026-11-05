@@ -167,7 +167,7 @@ def test_guard_flags_values_outside_training_range(batch, reference):
     batch = batch.copy()
     batch.loc[batch.index[0], "AMT_INCOME_TOTAL"] = reference["numeric"]["AMT_INCOME_TOTAL"]["high"] * 10
     warnings = out_of_range(batch, reference)
-    assert warnings.iloc[0][0].startswith("Income ($")
+    assert warnings.iloc[0][0].startswith("Income (CU")
     assert "outside the range of past approved applicants" in warnings.iloc[0][0]
 
 
@@ -297,3 +297,23 @@ def test_scale_note_for_an_amount_outside_the_middle_98_percent(reference):
     row["AMT_INCOME_TOTAL"] = reference["numeric"]["AMT_INCOME_TOTAL"]["typical_low"] / 2
     notes = scale_notes(row, reference)
     assert len(notes) == 1 and "lower than 99% of past applicants" in notes[0]
+
+
+def test_model_view_shows_the_ratios_the_model_uses():
+    from src.validation import model_view
+
+    line = model_view(
+        {
+            "AMT_CREDIT": 120_000,
+            "AMT_ANNUITY": 2_500,
+            "AMT_GOODS_PRICE": 60_000,
+            "AMT_INCOME_TOTAL": 26_000,
+            "EXT_SOURCE_1": None,
+            "EXT_SOURCE_2": None,
+            "EXT_SOURCE_3": None,
+        }
+    )
+    assert line == (
+        "48 instalments · loan 2.00 times the goods price · repayment 9.6% of income · "
+        "loan 4.6 times income · no external credit score"
+    )

@@ -18,7 +18,7 @@
   - **Explainable AI:** SHAP gives the top reasons behind each score, in plain English.
   - **Generative AI:** a **Letter Agent** (Google Gemini in the public demo, a local Ollama model for real customer data) drafts the decline or refer letter. Its prompt is a fixed, role-based brief (role, task, rules, output format) plus only the decision and reason phrases from a fixed list, so no applicant data reaches the model. Six rule-based **guardrail checks** run on every letter, any failure falls back to a fixed template, and the screening page shows both the exact prompt and the check results. The letter is a draft for the analyst to check.
 - **Governance:** input validation, a guard that refers applicants outside the training range (the model only saw loans Home Credit had already approved), a fairness audit by sex, age, family status and education, PSI drift monitoring, a decision log, and a [model card](docs/MODEL_CARD.md).
-- **Currency:** amounts are shown in USD as a display assumption. Home Credit's data doesn't state its currency, so no conversion is applied: the numbers are the dataset's own.
+- **Currency:** amounts are shown in neutral currency units (CU). Home Credit's data doesn't state its currency, so no conversion is applied: the numbers are the dataset's own. (Until 5 Nov they were shown with a $ sign; user testing showed that made people enter US-dollar amounts on the wrong scale.)
 
 ## Using the app
 | Page | What it does |
@@ -91,7 +91,7 @@ Deployed on Streamlit Community Cloud from the `main` branch (entry point `app.p
 - **Inputs come from a foreign lender's data.** Some fields are Home Credit's own (the region risk rating, its employer-type codes, anonymised external scores whose providers aren't named). The form explains each one, but a deployment would map them to the lender's own data, e.g. bureau scores rescaled to 0 to 1 and the region rating looked up from the address.
 - **Selection bias.** Home Credit only observed repayment for loans it had already approved, so the model has never seen the applicants its earlier policy turned away. The app is scoped as a second-stage screen, and applicants outside the training range are referred to an analyst.
 - **No application dates.** The data has no dates, so there is no out-of-time test, and the monitoring page uses synthetic batches built from the training statistics.
-- **Assumed economics.** The cut-off and profit figures rest on stated assumptions (LGD 60%, a 15% lifetime margin, exposure = loan amount). The data doesn't state its currency; amounts are shown in USD as a display assumption.
+- **Assumed economics.** The cut-off and profit figures rest on stated assumptions (LGD 60%, a 15% lifetime margin, exposure = loan amount). The data doesn't state its currency; amounts are shown in currency units (CU).
 - **Moderate recall.** At the profit-maximising cut-off the model declines 25.5% of eventual defaulters. That is the profitable trade-off under these assumptions, not a fraud filter.
 - **Fairness.** Every group passes the four-fifths rule and PDs are accurate within each group, but creditworthy applicants under 30 are approved less often than those over 60 (about 87% vs 99%), mostly through the external credit scores. Accepted and documented as a policy decision, not hidden.
 - **Letters.** The guardrails catch hard violations (numbers, protected attributes, judged reasons, a missing review right), but softer wording can still get through, so every model letter is a draft the analyst must check.

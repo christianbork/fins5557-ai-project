@@ -29,7 +29,7 @@ hand: rerun the command (it also runs at the end of `python -m src.train`)._
 - Split (stratified, seed 100): 184,506 rows training,
   61,502 rows validation (model choice, calibration, cut-off), 61,503 rows
   test (reported once).
-- Amounts in USD (display assumption: Home Credit's data doesn't state its currency).
+- Amounts in currency units (CU): Home Credit's data doesn't state its currency, so amounts are the dataset's own numbers, not dollars.
 
 ## Inputs
 - **23 raw inputs**, all known at the time of
@@ -81,9 +81,9 @@ actual default rate 8.1%.
 - Decision rule: **Cost ratio 5:1 (Hofmann, 1994)**, cut-off **16.7%**. PDs within
   2.0 pts of it are referred to an analyst: approve below 14.7%, decline above
   18.7%. Test split: 84.9% approve, 6.8% refer,
-  8.3% decline; realised profit $3.59bn.
+  8.3% decline; realised profit CU 3.59bn.
 - LGD and margin are stated assumptions, not estimated from the data. Three decision rules were compared on the
-  test split (reports/threshold_comparison.csv): Profit, 4:1 (Thomas, 2000): cut-off 21.0%, 25.5% of defaulters caught, 94.8% of good customers approved, profit $3.62bn; Cost ratio 5:1 (Hofmann, 1994) (used): cut-off 16.7%, 41.3% of defaulters caught, 88.7% of good customers approved, profit $3.59bn; Balanced accuracy (Brodersen et al., 2010): cut-off 8.7%, 67.1% of defaulters caught, 71.2% of good customers approved, profit $3.18bn.
+  test split (reports/threshold_comparison.csv): Profit, 4:1 (Thomas, 2000): cut-off 21.0%, 25.5% of defaulters caught, 94.8% of good customers approved, profit CU 3.62bn; Cost ratio 5:1 (Hofmann, 1994) (used): cut-off 16.7%, 41.3% of defaulters caught, 88.7% of good customers approved, profit CU 3.59bn; Balanced accuracy (Brodersen et al., 2010): cut-off 8.7%, 67.1% of defaulters caught, 71.2% of good customers approved, profit CU 3.18bn.
 - **Lending policy limits (stage 1, before the model):** an application is declined by policy if the loan
   would take more than 45 instalments to repay, the repayment is larger than income, or the
   loan is more than 30 times income. They sit just beyond the range of Home Credit's
@@ -109,6 +109,6 @@ actual default rate 8.1%.
 - **Drift:** a static model; the Monitoring page checks each input with PSI, and calibration should be
   rechecked on recent outcomes before relying on it after a shift.
 - **Target:** "payment difficulties" as defined by Home Credit, not a regulatory default definition.
-- **Currency and period:** the dataset's currency and dates aren't stated; amounts are shown in USD as a
+- **Currency and period:** the dataset's currency and dates aren't stated; amounts are shown in currency units (CU) as a
   display assumption.
 - **Letters:** drafted by a template or a language model with guardrails; always a draft for an analyst.

@@ -135,17 +135,22 @@ DECISION_RULES = ("profit", "cost_ratio", "balanced_accuracy")
 DECISION_RULE = "cost_ratio"
 COST_RATIO = 5.0  # Hofmann (1994): misclassifying a bad customer as good costs 5, a good one as bad costs 1
 REFER_BAND = 0.02  # PDs within +/- 2 points of the cut-off go to an analyst (check the share after training)
-# Display only (decided 29 Oct): Home Credit's data doesn't state its currency, so amounts are shown in USD
+# Display only. Home Credit's data doesn't state its currency. Until 5 Nov amounts were shown in USD; user
+# testing showed the $ sign made people type US-dollar amounts on the wrong scale, so amounts are now shown in
+# neutral currency units (CU). Earlier note: amounts were shown in USD
 # for readability, with this note on every page that shows money. No conversion is applied.
-CURRENCY_SYMBOL = "$"
-CURRENCY_CODE = "USD"
-CURRENCY_NOTE = "Amounts in USD (display assumption: Home Credit's data doesn't state its currency)."
+CURRENCY_SYMBOL = "CU "
+CURRENCY_CODE = "CU"
+CURRENCY_NOTE = (
+    "Amounts in currency units (CU): Home Credit's data doesn't state its currency, so amounts are the "
+    "dataset's own numbers, not dollars."
+)
 CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier score is used
 
 # ---- Stage 1: lending policy limits, checked before the model (src/policy.py) ----------
 # Hard rules a lender applies to every application before any scoring. An application that breaks
 # one is declined by policy, whatever the model says: a tree model can't extrapolate, so for a loan
-# unlike anything Home Credit approved (e.g. a $1m loan repaid at $500 per instalment) its PD can be
+# unlike anything Home Credit approved (e.g. a CU 1m loan repaid at CU 500 per instalment) its PD can be
 # meaninglessly low. Decided (4 Nov): limits just beyond the range of Home Credit's approved loans,
 # so the rules only catch applications the model has no evidence about and leave the model's
 # reported test results unchanged. A real lender would set them from its own responsible-lending

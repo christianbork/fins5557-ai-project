@@ -21,7 +21,7 @@ def test_model_card_has_every_section_and_no_raw_values(tmp_path):
         "Limitations",
     ]:
         assert f"## {section}" in card
-    assert "MODEL_HISTORY.md" in card and "Amounts in USD" in card
+    assert "MODEL_HISTORY.md" in card and "Amounts in currency units (CU)" in card
     assert not re.search(r"\b(None|nan)\b|xgboost|logistic_regression", card)
 
 

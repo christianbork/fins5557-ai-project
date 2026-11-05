@@ -34,14 +34,14 @@ def test_count_and_blank_text_show_a_dash():
 @pytest.mark.parametrize(
     ("value", "expected"),
     [
-        (450000, "$450,000"),
-        (0, "$0"),
-        (-92951, "-$92,951"),
-        (-0.4, "$0"),  # rounds to zero: no "-$0"
-        (1407.4, "$1,407"),
-        (np.int64(65741), "$65,741"),
-        (3.621925180e9, "$3,621,925,180"),
-        (1e15, "$1,000,000,000,000,000"),
+        (450000, "CU 450,000"),
+        (0, "CU 0"),
+        (-92951, "-CU 92,951"),
+        (-0.4, "CU 0"),  # rounds to zero: no "-$0"
+        (1407.4, "CU 1,407"),
+        (np.int64(65741), "CU 65,741"),
+        (3.621925180e9, "CU 3,621,925,180"),
+        (1e15, "CU 1,000,000,000,000,000"),
     ],
 )
 def test_money(value, expected):
@@ -49,21 +49,21 @@ def test_money(value, expected):
 
 
 def test_money_decimals():
-    assert money(12.345, decimals=2) == "$12.35"
+    assert money(12.345, decimals=2) == "CU 12.35"
 
 
 @pytest.mark.parametrize(
     ("value", "expected"),
     [
-        (3.62e9, "$3.62bn"),
-        (3_178_209_835, "$3.18bn"),
-        (128_400, "$128.4k"),
-        (4_500_000, "$4.50m"),
-        (950, "$950"),
-        (0, "$0"),
-        (-92_951, "-$93.0k"),
-        (999_999, "$1.00m"),  # rounds up into the next unit, not "$1000.0k"
-        (2.5e13, "$25,000.00bn"),
+        (3.62e9, "CU 3.62bn"),
+        (3_178_209_835, "CU 3.18bn"),
+        (128_400, "CU 128.4k"),
+        (4_500_000, "CU 4.50m"),
+        (950, "CU 950"),
+        (0, "CU 0"),
+        (-92_951, "-CU 93.0k"),
+        (999_999, "CU 1.00m"),  # rounds up into the next unit, not "$1000.0k"
+        (2.5e13, "CU 25,000.00bn"),
     ],
 )
 def test_money_short(value, expected):
@@ -113,3 +113,13 @@ def test_format_table_shows_text_and_dashes_never_none():
     out = format_table(df, {"rate": pct, "n": number})
     assert out.to_dict("list") == {"rate": ["50.0%", "–"], "group": ["Female", "–"], "n": ["10", "1"]}
     assert df["rate"].isna().sum() == 1  # the input is not changed
+
+
+def test_money_approx_rounds_to_two_significant_figures():
+    from src.formatting import money_approx
+
+    assert money_approx(1_133_748) == "CU 1,100,000"
+    assert money_approx(11_074) == "CU 11,000"
+    assert money_approx(81_000) == "CU 81,000"
+    assert money_approx(0) == "CU 0"
+    assert money_approx(None) == "–"
