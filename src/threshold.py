@@ -71,6 +71,20 @@ def compare_calibration(model, X_val, y_val, methods=CALIBRATION_METHODS, folds:
 # ---- 2. Profit and threshold -----------------------------------------------------
 
 
+def display_margin(meta: dict) -> float:
+    """Margin for the expected-profit figure on the screening page, consistent with the decision rule.
+
+    Under the 5:1 cost ratio a default costs LGD and a declined good customer forgoes LGD / 5, so the
+    margin the rule implies is 0.60 / 5 = 12%: expected profit is then negative exactly above the
+    16.7% cut-off. Under the profit rule it is the assumed MARGIN (15%). Without this, the page showed a
+    profit at the 15% margin next to a decision made at 5:1, which could contradict it near the cut-off.
+    """
+    assumptions = meta["assumptions"]
+    if meta.get("decision_rule") == "cost_ratio" and meta.get("cost_ratio"):
+        return assumptions["lgd"] / meta["cost_ratio"]
+    return assumptions["margin"]
+
+
 def break_even_pd(lgd: float = LGD, margin: float = MARGIN) -> float:
     """PD at which approving is expected to break even: (1 - PD) x margin = PD x LGD."""
     return margin / (margin + lgd)

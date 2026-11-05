@@ -46,8 +46,10 @@ FIELDS = {
     "AMT_ANNUITY": (
         "Regular repayment ($ per instalment)",
         (
-            "Amount of each repayment. Loan amount ÷ repayment = number of instalments: past approved loans "
-            "needed 8 to 45, and the lending policy declines anything over 48."
+            "Amount of each repayment, on the same basis as income (Home Credit's data doesn't state the "
+            "period). A typical repayment is about 16% of income. Loan amount ÷ repayment = number of "
+            "instalments: past approved loans needed 8 to 45, the lending policy declines anything over 45, "
+            "and more than 38 is referred to an analyst."
         ),
     ),
     "AMT_GOODS_PRICE": (
@@ -56,9 +58,10 @@ FIELDS = {
     ),
     # Income and employment
     "AMT_INCOME_TOTAL": (
-        "Annual income ($)",
+        "Income ($)",
         (
-            "Total yearly income before tax, as stated and verified on the application. The lending policy "
+            "Income before tax, as stated and verified on the application, in the data's own units and on the "
+            "same basis as the repayment (Home Credit's data doesn't state the period). The lending policy "
             "declines a repayment larger than income or a loan more than 30 times income."
         ),
     ),

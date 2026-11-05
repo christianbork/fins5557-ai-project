@@ -41,3 +41,10 @@ def test_reasons_come_from_the_fixed_phrase_list():
 
 def test_missing_values_do_not_break_a_rule():
     assert rules(None, 500, 30_000) == []  # validation reports the missing loan; policy stays silent
+
+
+def test_second_user_test_is_declined_by_policy():
+    """Mathilde's case (5 Nov): $120,000 at $2,500 per instalment = 48 instalments, beyond the 45 any
+    past approved loan needed. It was approved at a PD of 2.8% before the limit was lowered from 48."""
+    assert POLICY_MAX_INSTALMENTS == 45
+    assert rules(120_000, 2_500, 26_000) == ["instalments"]

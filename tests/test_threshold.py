@@ -126,3 +126,14 @@ def test_comparison_reports_every_rule_with_shares():
         assert table.loc[code, "approval_rate"] == pytest.approx(np.mean(pd_ < table.loc[code, "cutoff"]))
     shares = table[["approve_share", "refer_share", "decline_share"]].sum(axis=1)
     assert np.allclose(shares.astype(float), 1.0)
+
+
+def test_display_margin_follows_the_decision_rule():
+    """Expected profit on the screening page turns negative exactly at the rule's cut-off."""
+    from src.threshold import display_margin
+
+    meta = {"assumptions": {"lgd": 0.6, "margin": 0.15}, "decision_rule": "cost_ratio", "cost_ratio": 5.0}
+    m = display_margin(meta)
+    assert m == pytest.approx(0.12)
+    assert m / (m + 0.6) == pytest.approx(1 / 6)  # break-even PD = the 16.7% cut-off
+    assert display_margin({**meta, "decision_rule": "profit"}) == 0.15

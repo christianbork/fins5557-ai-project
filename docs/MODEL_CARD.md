@@ -33,7 +33,7 @@ hand: rerun the command (it also runs at the end of `python -m src.train`)._
 
 ## Inputs
 - **23 raw inputs**, all known at the time of
-  application: Annual income, Loan amount, Regular repayment, Price of goods financed, Children, Household size, Days in current job, Days since registration details changed, Days since ID document was renewed, Car age (years), Region risk rating (lender's own), External credit score 1, External credit score 2, External credit score 3, Credit bureau enquiries (last year), Loan type, Owns a car, Owns property, Income type, Education, Housing, Occupation, Type of employer.
+  application: Income, Loan amount, Regular repayment, Price of goods financed, Children, Household size, Days in current job, Days since registration details changed, Days since ID document was renewed, Car age (years), Region risk rating (lender's own), External credit score 1, External credit score 2, External credit score 3, Credit bureau enquiries (last year), Loan type, Owns a car, Owns property, Income type, Education, Housing, Occupation, Type of employer.
 - **9 engineered features** from them (`src/features.py`): affordability
   ratios, loan term, job tenure, the mean and number of missing external scores, income per person.
 - **Deliberately excluded:** defaults in the applicant's social circle (judging someone by their friends is
@@ -85,7 +85,7 @@ actual default rate 8.1%.
 - LGD and margin are stated assumptions, not estimated from the data. Three decision rules were compared on the
   test split (reports/threshold_comparison.csv): Profit, 4:1 (Thomas, 2000): cut-off 21.0%, 25.5% of defaulters caught, 94.8% of good customers approved, profit $3.62bn; Cost ratio 5:1 (Hofmann, 1994) (used): cut-off 16.7%, 41.3% of defaulters caught, 88.7% of good customers approved, profit $3.59bn; Balanced accuracy (Brodersen et al., 2010): cut-off 8.7%, 67.1% of defaulters caught, 71.2% of good customers approved, profit $3.18bn.
 - **Lending policy limits (stage 1, before the model):** an application is declined by policy if the loan
-  would take more than 48 instalments to repay, the repayment is larger than income, or the
+  would take more than 45 instalments to repay, the repayment is larger than income, or the
   loan is more than 30 times income. They sit just beyond the range of Home Credit's
   approved loans, because the model can't extrapolate there; the test results above are the model's alone.
 
