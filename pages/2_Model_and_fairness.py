@@ -25,7 +25,7 @@ from src.config import (
     ROOT,
 )
 from src.ddf import DDF_STATIONS
-from src.formatting import count, format_table, money, money_short, number, pct, ratio, score
+from src.formatting import count, format_table, money, money_short, number, pct, pct_points, ratio, score
 from src.labels import RULES, flag_text, headers, model_choice_reason, model_label
 
 V1_METADATA = ROOT / "archive" / "v1-home-credit-baseline" / "metadata.json"
@@ -192,7 +192,7 @@ st.markdown(
 )
 st.info(
     f"**The app uses {RULES[rule]}**: cut-off {pct(meta['threshold'])}, with applicants within "
-    f"{pct(meta['refer_band'])} of it referred to an analyst. It is more cautious than the profit rule at a small "
+    f"{pct_points(meta['refer_band']).lstrip('+')} of it referred to an analyst. It is more cautious than the profit rule at a small "
     "cost in profit, and it also weighs the borrower's harm from a default, not only the lender's loss."
 )
 fig = Figure(figsize=(9, 3.6))
@@ -236,18 +236,23 @@ columns = [
     "lowest_di_ratio",
     "groups_below_four_fifths",
 ]
-shown = headers(cutoffs[[c for c in columns if c in cutoffs]].rename(index=RULES))
+# One column per rule, one row per measure: three columns fit the page, thirteen don't
+shown = headers(cutoffs[[c for c in columns if c in cutoffs]].rename(index=RULES)).T.rename_axis("Measure")
 counts = {"Cost at 5:1", "Groups below four-fifths"}
 ratios = {"Balanced accuracy", "Lowest disparate-impact ratio"}
-st.dataframe(
-    shown.style.format(
-        {
-            c: money if c == "Profit" else count_plain if c in counts else ratio if c in ratios else pct
-            for c in shown.columns
-        }
-    ),
-    width="stretch",
-)
+styler = shown.style
+for measure in shown.index:
+    fmt = (
+        money
+        if measure == "Profit"
+        else count_plain
+        if measure in counts
+        else ratio
+        if measure in ratios
+        else pct
+    )
+    styler = styler.format(fmt, subset=pd.IndexSlice[measure, :])
+st.dataframe(styler, width="stretch")
 st.caption(
     "Test split. Defaulters caught is the share of eventual defaulters at or above the cut-off; the approve, refer "
     "and decline shares and the automatic approvals include the refer band. Cost at 5:1 counts 5 per approved "

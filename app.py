@@ -170,12 +170,12 @@ assumptions = meta["assumptions"]
 rule = meta.get("decision_rule", "profit")
 # Why a PD above the cut-off means decline, under the decision rule the app uses (src/config.py)
 DECLINE_REASON = {
-    "profit": "the expected loss outweighs the margin",
+    "profit": "The expected loss outweighs the margin.",
     "cost_ratio": (
-        f"the lender treats a default as {meta.get('cost_ratio', 5):g} times as costly as turning away a good "
-        "customer, so the expected cost of approving is higher"
+        f"The lender treats a default as {meta.get('cost_ratio', 5):g} times as costly as turning away a good "
+        f"customer, so above a PD of {pct(threshold)} approving costs more than declining."
     ),
-    "balanced_accuracy": "it is above the balanced-accuracy cut-off",
+    "balanced_accuracy": "This is above the balanced-accuracy cut-off.",
 }[rule]
 
 with st.sidebar:
@@ -333,7 +333,7 @@ if "result" in st.session_state:
     elif result["decision"] == "approve":
         st.success(f"PD is below {pct(threshold - band)}, the lender's approval limit: approve.")
     elif result["decision"] == "decline":
-        st.error(f"PD is above {pct(threshold + band)}: {DECLINE_REASON}, so decline.")
+        st.error(f"PD is above {pct(threshold + band)}, so decline. {DECLINE_REASON}")
     for warning in [] if policy else result["warnings"]:
         st.warning(
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
