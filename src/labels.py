@@ -24,7 +24,7 @@ MODEL_NAMES = {
     "random_forest": "Random forest",
     "xgboost": "XGBoost",
 }
-MONEY_FIELDS = {"AMT_INCOME_TOTAL", "AMT_CREDIT", "AMT_ANNUITY", "AMT_GOODS_PRICE"}  # shown with $
+MONEY_FIELDS = {"AMT_INCOME_TOTAL", "AMT_CREDIT", "AMT_ANNUITY", "AMT_GOODS_PRICE"}  # shown in CU
 STATUSES = {"stable": "Stable", "watch": "Watch", "alert": "Alert"}
 # The model's day fields as Home Credit stores them (negative = before the application). The form
 # asks for years (src/applicant.py); monitoring compares the stored values, so it names them in days.
@@ -111,14 +111,14 @@ def status_label(code: str) -> str:
 
 
 def input_label(field: str) -> str:
-    """Display name of a model input: the form label without its unit hint ("($)", "(0 to 1)": the
+    """Display name of a model input: the form label without its unit hint ("(CU)", "(0 to 1)": the
     values show the unit), or the days wording for the stored day fields."""
     if field in DAY_FIELDS:
         return DAY_FIELDS[field]
     if field not in FIELDS:
         return field
     name = label(field)
-    for unit in (" ($)", " ($ per instalment)", " (0 to 1)"):
+    for unit in (" (CU)", " (CU per instalment)", " (0 to 1)"):
         name = name.removesuffix(unit)
     return name
 

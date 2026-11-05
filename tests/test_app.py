@@ -104,7 +104,7 @@ def test_invalid_input_shows_an_error_not_a_crash(app):
     app.number_input(key="f_AMT_CREDIT").set_value(0.0)  # form values only apply on submit
     app.button(key="FormSubmitter:applicant-Assess applicant").click().run()
     assert not app.exception
-    assert any("Loan amount ($): must be at least 1" in e.value for e in app.error)
+    assert any("Loan amount (CU): must be at least 1" in e.value for e in app.error)
     assert not app.metric  # nothing scored
 
 
@@ -251,14 +251,14 @@ def test_text_has_no_empty_markers_or_lower_case_decision_labels(app):
         assert not [t for t in labels if RAW_DECISION.search(t)]
 
 
-def test_every_money_value_shows_a_dollar_sign(app):
+def test_every_money_value_shows_currency_units(app):
     pages = every_page_in_use(app)
     screening, batch = pages[0], pages[1]
     money = [m.value for m in screening.metric if m.label.startswith("Expected")]
     money += [m.value for m in batch.metric if m.label == "Expected loss"]
-    assert len(money) == 3 and all(v.startswith(("$", "-$")) for v in money), money
+    assert len(money) == 3 and all(v.startswith(("CU ", "-CU ")) for v in money), money
     for page in pages[:3]:  # every page that shows money says which currency it is shown in
-        assert any("Amounts in USD" in c.value for c in page.caption)
+        assert any("Amounts in currency units (CU)" in c.value for c in page.caption)
 
 
 def test_assessment_and_letter_are_written_to_the_decision_log(app, monkeypatch, tmp_path):

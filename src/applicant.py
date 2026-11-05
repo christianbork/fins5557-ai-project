@@ -40,11 +40,11 @@ FIELDS = {
     # Loan
     "NAME_CONTRACT_TYPE": ("Loan type", "Cash loan (fixed amount) or revolving loan (credit line)."),
     "AMT_CREDIT": (
-        "Loan amount ($)",
+        "Loan amount (CU)",
         "Amount to be lent. Also the exposure at default (EAD) in the profit calculation.",
     ),
     "AMT_ANNUITY": (
-        "Regular repayment ($ per instalment)",
+        "Regular repayment (CU per instalment)",
         (
             "Amount of each repayment, on the same basis as income (Home Credit's data doesn't state the "
             "period). A typical repayment is about 16% of income. Loan amount ÷ repayment = number of "
@@ -53,12 +53,12 @@ FIELDS = {
         ),
     ),
     "AMT_GOODS_PRICE": (
-        "Price of goods financed ($)",
+        "Price of goods financed (CU)",
         "For consumer loans: the price of what the loan pays for. Leave blank for cash loans with no goods.",
     ),
     # Income and employment
     "AMT_INCOME_TOTAL": (
-        "Income ($)",
+        "Income (CU)",
         (
             "Income before tax, as stated and verified on the application, in the data's own units and on the "
             "same basis as the repayment (Home Credit's data doesn't state the period). The lending policy "

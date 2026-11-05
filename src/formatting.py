@@ -2,13 +2,13 @@
 every page,
 table, chart label and CSV export, so the same value always looks the same.
 
-    money(450000)        -> "$450,000"      money_short(3.62e9) -> "$3.62bn"
+    money(450000)        -> "CU 450,000"    money_short(3.62e9) -> "CU 3.62bn"
     pct(0.475)           -> "47.5%"         pct_points(0.043)   -> "+4.3 pts"
     ratio(0.853)         -> "0.85"          score(0.7571)       -> "0.757"
     count(6, "applicant") -> "6 applicants"
 
 Every function returns missing() (an en dash) for None or NaN, so tables never show None or nan.
-Amounts are in the dataset's own units, shown with a $ as a stated assumption (config.CURRENCY_NOTE).
+Amounts are in the dataset's own units, shown as currency units, CU (config.CURRENCY_NOTE).
 """
 
 from __future__ import annotations
@@ -40,15 +40,27 @@ def _is_missing(x) -> bool:
 
 
 def money(x, decimals: int = 0) -> str:
-    """450000 -> "$450,000"; -92951 -> "-$92,951"."""
+    """450000 -> "CU 450,000"; -92951 -> "-CU 92,951"."""
     if _is_missing(x):
         return MISSING
     sign = "-" if round(float(x), decimals) < 0 else ""
     return f"{sign}{CURRENCY_SYMBOL}{abs(float(x)):,.{decimals}f}"
 
 
+def money_approx(x) -> str:
+    """An amount rounded to two significant figures, for ranges people read at a glance:
+    1_133_748 -> "CU 1,100,000", 11_074 -> "CU 11,000"."""
+    if _is_missing(x):
+        return MISSING
+    value = float(x)
+    if value == 0:
+        return money(0)
+    digits = 1 - math.floor(math.log10(abs(value)))
+    return money(round(value, digits))
+
+
 def money_short(x) -> str:
-    """3.62e9 -> "$3.62bn", 128_400 -> "$128.4k", 950 -> "$950", for headline figures and chart axes."""
+    """3.62e9 -> "CU 3.62bn", 128_400 -> "CU 128.4k", 950 -> "CU 950", for headline figures and chart axes."""
     if _is_missing(x):
         return MISSING
     value = abs(float(x))

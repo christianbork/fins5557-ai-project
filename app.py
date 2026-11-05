@@ -21,12 +21,12 @@ from src.applicant import FIELDS, NO_SCORE, NOT_EMPLOYED, friendly_error, to_for
 from src.audit import log_assessment, log_letter
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
-from src.formatting import money, pct, score
+from src.formatting import money, money_approx, pct, score
 from src.labels import MONEY_FIELDS, RULES, decision_label, model_label
 from src.llm import build_prompt, draft_letter
 from src.predict import load_artifacts, predict
 from src.threshold import display_margin
-from src.validation import scale_notes, typical_range, validate_applicant
+from src.validation import model_view, scale_notes, typical_range, validate_applicant
 
 SAMPLE_PATH = DATA_DIR / "sample" / "sample_applicants.csv"
 log = get_logger("app.screening")
@@ -124,8 +124,8 @@ def number(field: str, step: float = 1000.0, low: float = 0.0, high: float | Non
     else:
         st.number_input(lbl, min_value=low, max_value=high, step=step, format=fmt, key=f"f_{field}", help=hlp)
     typical = typical_range(field, artifacts["reference"]) if field in MONEY_FIELDS else None
-    if typical:  # so amounts are entered on the data's scale (Home Credit's units, shown with $)
-        st.caption(f"Typical: {money(typical[0])} to {money(typical[1])}".replace("$", "\\$"))
+    if typical:  # so amounts are entered on the data's scale (Home Credit's own units, CU)
+        st.caption(f"Typical: {money_approx(typical[0])} to {money_approx(typical[1])}")
 
 
 def choice(field: str, options: list, optional: bool = False):
@@ -248,7 +248,8 @@ with st.form("applicant"):
     with credit:
         st.subheader("Credit history")
         st.caption(
-            "From the credit check the lender runs with the applicant's consent, not typed in by them."
+            "From the credit check the lender runs with the applicant's consent, not typed in by them. "
+            "Each score runs from 0 (highest risk) to 1 (lowest risk); four in five past applicants scored between 0.2 and 0.75."
         )
         for field, no_score in NO_SCORE.items():
             number(field, step=0.01, high=1.0, fmt="%.2f")
@@ -357,6 +358,8 @@ if "result" in st.session_state:
         st.warning(
             f"PD is within {pct(band)} of the {pct(threshold)} cut-off: too close to call, so an analyst decides."
         )
+    if not policy:
+        st.caption(f"What the model saw: {model_view(st.session_state.get('scored_applicant', {}))}.")
     st.caption(CURRENCY_NOTE)
 
     reasons_col, chart_col = st.columns([1, 2])

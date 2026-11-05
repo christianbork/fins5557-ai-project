@@ -155,7 +155,7 @@ if declined_by_policy:
 guarded = ((scored["warnings"] != "") & (scored["policy"] == "")).sum()
 if guarded:
     st.warning(
-        f"{count(guarded, 'applicant')} had an input outside the range of past approved applicants and "
+        f"{count(guarded, 'applicant')} had an input, or a combination of inputs, outside the range of past approved applicants and "
         f"{'was' if guarded == 1 else 'were'} referred to an analyst instead of approved (see the Warnings column)."
     )
 
@@ -190,5 +190,5 @@ st.download_button(
     results.round(4).to_csv(index=False),
     file_name="batch_results.csv",
     type="primary",
-    help="Your columns plus PD, decision, reasons, policy rule, warnings and expected loss (USD display assumption).",
+    help="Your columns plus PD, decision, reasons, policy rule, warnings and expected loss (in currency units, CU).",
 )

@@ -275,6 +275,34 @@ def _ratio(value: float) -> str:
     return f"{value:,.0f}" if abs(value) >= 10 else f"{value:.2f}"
 
 
+def model_view(applicant: dict) -> str:
+    """The figures the model works with but nobody types in, in one line for the analyst:
+    "48 instalments · loan 2.00 times the goods price · repayment 9.6% of income · loan 4.6 times
+    income · no external credit score". Unusual combinations are easy to spot this way."""
+    df = pd.DataFrame([applicant])
+    parts = []
+    term = guard_ratio(df, "instalments").iloc[0]
+    if pd.notna(term):
+        parts.append(f"{term:,.0f} instalments")
+    goods = guard_ratio(df, "loan_to_goods").iloc[0] if "AMT_GOODS_PRICE" in df else np.nan
+    if pd.notna(goods):
+        parts.append(f"loan {goods:.2f} times the goods price")
+    share = guard_ratio(df, "repayment_to_income").iloc[0]
+    if pd.notna(share):
+        parts.append(f"repayment {share:.1%} of income")
+    multiple = guard_ratio(df, "loan_to_income").iloc[0]
+    if pd.notna(multiple):
+        parts.append(f"loan {multiple:.1f} times income")
+    ext = [c for c in ("EXT_SOURCE_1", "EXT_SOURCE_2", "EXT_SOURCE_3") if c in df]
+    scores = pd.to_numeric(df[ext].iloc[0], errors="coerce").dropna()
+    parts.append(
+        "no external credit score"
+        if scores.empty
+        else f"{len(scores)} of 3 external credit scores (average {scores.mean():.2f})"
+    )
+    return " · ".join(parts)
+
+
 def typical_range(field: str, reference: dict) -> tuple[float, float] | None:
     """The middle 80% of past applicants for a numeric input (deciles 1 and 9), or None."""
     stats = reference["numeric"].get(field)
