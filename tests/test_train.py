@@ -92,5 +92,6 @@ def test_metadata_records_tuning_and_both_cut_offs(saved_model_dir):
         "random_forest",
         "xgboost",
     }
-    assert set(meta["threshold_comparison"]) == {"profit", "balanced_accuracy"}
-    assert meta["threshold_comparison"]["profit"]["cutoff"] == meta["threshold"]
+    assert set(meta["threshold_comparison"]) == {"profit", "cost_ratio", "balanced_accuracy"}
+    assert meta["threshold_comparison"][meta["decision_rule"]]["cutoff"] == meta["threshold"]
+    assert set(meta["cutoffs"]) == {"profit", "cost_ratio", "balanced_accuracy"}

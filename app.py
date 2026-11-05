@@ -22,7 +22,7 @@ from src.audit import log_assessment, log_letter
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
 from src.formatting import money, pct, score
-from src.labels import decision_label, model_label
+from src.labels import RULES, decision_label, model_label
 from src.llm import build_prompt, draft_letter
 from src.predict import load_artifacts, predict
 from src.validation import validate_applicant
@@ -167,6 +167,16 @@ except (FileNotFoundError, ValueError):
 meta = artifacts["metadata"]
 threshold, band = meta["threshold"], meta["refer_band"]
 assumptions = meta["assumptions"]
+rule = meta.get("decision_rule", "profit")
+# Why a PD above the cut-off means decline, under the decision rule the app uses (src/config.py)
+DECLINE_REASON = {
+    "profit": "the expected loss outweighs the margin",
+    "cost_ratio": (
+        f"the lender treats a default as {meta.get('cost_ratio', 5):g} times as costly as turning away a good "
+        "customer, so the expected cost of approving is higher"
+    ),
+    "balanced_accuracy": "it is above the balanced-accuracy cut-off",
+}[rule]
 
 with st.sidebar:
     st.header("How to use")
@@ -186,10 +196,11 @@ with st.sidebar:
     st.markdown(
         f"- {model_label(meta['chosen_model'])}, calibrated ({meta['calibration']['method']})\n"
         f"- Test AUC {score(meta['test_metrics']['auc'])}\n"
+        f"- Decision rule: {RULES[rule]}, cut-off {pct(threshold)}\n"
         f"- Decline above a PD of {pct(threshold + band)}, approve below {pct(threshold - band)}, "
         "refer in between\n"
-        f"- Break-even PD {pct(assumptions['break_even_pd'])} (loss given default, LGD, "
-        f"{pct(assumptions['lgd'])}; margin {pct(assumptions['margin'])})\n"
+        f"- Profit assumptions: loss given default (LGD) {pct(assumptions['lgd'])}, "
+        f"margin {pct(assumptions['margin'])} (break-even PD {pct(assumptions['break_even_pd'])})\n"
         f"- Trained {meta['trained_at'][:10]}"
     )
     st.caption(
@@ -320,9 +331,9 @@ if "result" in st.session_state:
             "meaningful. That is why the policy limits are checked first."
         )
     elif result["decision"] == "approve":
-        st.success("Expected to be profitable at the lender's assumptions: approve.")
+        st.success(f"PD is below {pct(threshold - band)}, the lender's approval limit: approve.")
     elif result["decision"] == "decline":
-        st.error(f"PD is above {pct(threshold + band)}: the expected loss outweighs the margin, so decline.")
+        st.error(f"PD is above {pct(threshold + band)}: {DECLINE_REASON}, so decline.")
     for warning in [] if policy else result["warnings"]:
         st.warning(
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "

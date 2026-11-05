@@ -1,3 +1,4 @@
-rule,cutoff,approval_rate,tpr,tnr,precision,balanced_accuracy,realised_profit
-profit,0.21,0.9314,0.2546,0.9478,0.2997,0.6012,3621925179.675
-balanced_accuracy,0.087,0.6814,0.6713,0.7123,0.1701,0.6918,3178209835.125
+rule,cutoff,approval_rate,tpr,tnr,precision,balanced_accuracy,default_rate_approved,approve_share,refer_share,decline_share,defaulters_auto_approved,good_auto_approved,realised_profit,cost_at_ratio,lowest_di_ratio,groups_below_four_fifths
+profit,0.21,0.9314,0.2546,0.9478,0.2997,0.6012,0.0646,0.9167,0.0203,0.063,0.7033,0.9354,3621925179.675,21458.0,0.8504,0.0
+cost_ratio,0.1667,0.8627,0.4133,0.887,0.2431,0.6501,0.0549,0.8488,0.0679,0.0833,0.5601,0.8741,3591891105.3,20955.0,0.7393,1.0
+balanced_accuracy,0.087,0.6814,0.6713,0.7123,0.1701,0.6918,0.0389,0.5734,0.1645,0.2621,0.2324,0.6034,3178209835.125,24424.0,0.5222,6.0

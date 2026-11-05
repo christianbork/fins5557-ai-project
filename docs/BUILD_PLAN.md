@@ -240,6 +240,14 @@ Already done on the `feat/home-credit` branch: `src/config.py` (inputs, protecte
 - [x] Form: 'No score from source N' ticks for the external scores; help text on what the scores are and where they come from; region risk rating, repayment per instalment, employer codes, registration and ID explained; each section says where its data comes from; car age ignored without a car.
 - **Checks:** 316 tests pass, ruff clean; the tested applicant is declined by policy (two rules); the six examples keep their decisions.
 
+### Step 13e: Three decision rules, 5 : 1 cost ratio in use (5 Nov) [done]
+**Why:** review of the draft report: at the 21% profit cut-off, 70.3% of eventual defaulters were approved automatically. The cut-off depends on how the lender weighs an approved defaulter against a declined good customer, so the code now computes three sourced rules and the app uses one. Branch `feat/decision-rules`.
+- [x] `config.DECISION_RULES` and `DECISION_RULE = "cost_ratio"`, `COST_RATIO = 5` (Hofmann, 1994, German credit cost matrix). `threshold.py`: `cost_ratio_threshold()` (1 / (1 + ratio) = 16.7%), `misclassification_cost()`, `choose_cutoffs()`, and `compare_thresholds()` now reports all three rules: cut-off, balanced accuracy, recall, decision shares with the refer band, automatic approvals of defaulters and good customers, profit, 5 : 1 cost and the lowest disparate-impact ratio.
+- [x] `python -m src.threshold` (`recut()`) re-applies `DECISION_RULE` to the saved model without retraining: metadata, test metrics, comparison, fairness table and model card. AUC, PR-AUC and Brier are unchanged.
+- [x] App: Model page section 2 explains the three rules with sources, marks them on the profit curve and compares them; screening page wording follows the rule. The refer example now has external scores 0.45 / 0.48 (PD 17.1%); the thin-file example (PD 17.6%) is now referred.
+- **Results (test, ±2-point band):** profit rule 21.0%: 70.3% of defaulters approved automatically, 93.5% of good customers, profit $3.62bn, lowest DI 0.85. **5 : 1 rule 16.7%: 56.0% / 87.4%, $3.59bn, lowest DI 0.74 (under 30s, the one group below four-fifths).** Balanced accuracy 8.7%: 23.2% / 60.3%, $3.18bn, six groups below four-fifths.
+- **Decided (5 Nov): 5 : 1.** Sourced, more cautious than the profit rule for under 1% of profit, keeps the profit-scoring logic (5 : 1 equals a 12% margin at LGD 60%). The under-30 disparity is disclosed, and borderline cases go to an analyst.
+
 ### Step 14: Finish
 - [ ] README complete: overview, live URL, video link, screenshots, setup, architecture, team, data citation, licence. Done 29 Oct except the live URL, video link, screenshots and teammates' names (placeholders).
 - [x] Fresh clone + install + run works. Checked 29 Oct: a fresh clone of `main` with only `requirements.txt` runs all four pages without errors.

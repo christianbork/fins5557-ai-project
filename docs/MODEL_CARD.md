@@ -61,11 +61,11 @@ longer credit history scores better).
 | PR-AUC | 0.240 | 0.236 |
 | Brier score (calibrated PDs) | 0.068 (fitted here) | 0.068 |
 
-At the cut-off on the test split: 93.1% approved, default rate among approved
-6.5% (vs 8.1% overall); 25.5% of defaulters
-declined, 94.8% of good customers approved. Confusion matrix: 53,585 approved and
-repaid, 3,701 approved and defaulted, 2,953 declined who would have
-repaid, 1,264 declined who would have defaulted.
+At the cut-off on the test split: 86.3% approved, default rate among approved
+5.5% (vs 8.1% overall); 41.3% of defaulters
+declined, 88.7% of good customers approved. Confusion matrix: 50,148 approved and
+repaid, 2,913 approved and defaulted, 6,390 declined who would have
+repaid, 2,052 declined who would have defaulted.
 
 ## Calibration
 Isotonic calibration on the validation split, chosen over sigmoid on the Brier
@@ -78,11 +78,12 @@ actual default rate 8.1%.
 - Expected loss = PD × LGD × EAD, with loss given default (LGD) 60.0%, a lifetime net margin of
   15.0%, and exposure at default (EAD) = the loan amount. Break-even PD = margin / (margin + LGD) =
   20.0%.
-- The cut-off that maximised realised profit on the validation split: **21.0%**. PDs within
-  2.0 pts of it are referred to an analyst: approve below 19.0%, decline above
-  23.0%. Test split: 91.7% approve, 2.0% refer,
-  6.3% decline; realised profit $3.62bn.
-- LGD and margin are stated assumptions, not estimated from the data.
+- Decision rule: **Cost ratio 5:1 (Hofmann, 1994)**, cut-off **16.7%**. PDs within
+  2.0 pts of it are referred to an analyst: approve below 14.7%, decline above
+  18.7%. Test split: 84.9% approve, 6.8% refer,
+  8.3% decline; realised profit $3.59bn.
+- LGD and margin are stated assumptions, not estimated from the data. Three decision rules were compared on the
+  test split (reports/threshold_comparison.csv): Profit, 4:1 (Thomas, 2000): cut-off 21.0%, 25.5% of defaulters caught, 94.8% of good customers approved, profit $3.62bn; Cost ratio 5:1 (Hofmann, 1994) (used): cut-off 16.7%, 41.3% of defaulters caught, 88.7% of good customers approved, profit $3.59bn; Balanced accuracy (Brodersen et al., 2010): cut-off 8.7%, 67.1% of defaulters caught, 71.2% of good customers approved, profit $3.18bn.
 - **Lending policy limits (stage 1, before the model):** an application is declined by policy if the loan
   would take more than 48 instalments to repay, the repayment is larger than income, or the
   loan is more than 30 times income. They sit just beyond the range of Home Credit's
@@ -91,12 +92,12 @@ actual default rate 8.1%.
 ## Fairness (test split, automatic decisions)
 | Attribute | Groups judged | Lowest disparate-impact ratio | Groups flagged |
 |---|---|---|---|
-| Sex | 2 | 0.95 (Male) | 1 |
-| Age band | 5 | 0.85 (Under 30) | 4 |
-| Family status | 5 | 0.93 (Single / not married) | 4 |
-| Education | 4 | 0.92 (Lower secondary) | 3 |
+| Sex | 2 | 0.92 (Male) | 1 |
+| Age band | 5 | 0.74 (Under 30) | 4 |
+| Family status | 5 | 0.88 (Single / not married) | 4 |
+| Education | 4 | 0.86 (Lower secondary) | 3 |
 
-No group falls below the four-fifths rule (disparate-impact ratio 0.80). 12 groups have an equalised-odds gap above 5.0% and 7 groups a parity gap above 5.0%. The largest gap between mean PD and the actual default rate in any group is 1.2%, so the PDs are calibrated within groups: the gaps follow real differences in default rates, and when default rates differ a model can't be both calibrated within groups and equal on error rates. Groups with fewer than 100 test applicants are listed but not judged.
+1 group falls below the four-fifths rule (disparate-impact ratio 0.80). 12 groups have an equalised-odds gap above 5.0% and 11 groups a parity gap above 5.0%. The largest gap between mean PD and the actual default rate in any group is 1.2%, so the PDs are calibrated within groups: the gaps follow real differences in default rates, and when default rates differ a model can't be both calibrated within groups and equal on error rates. Groups with fewer than 100 test applicants are listed but not judged.
 
 ## Limitations
 - **Selection bias:** trained only on approved loans; unreliable for applicants unlike past approved ones
