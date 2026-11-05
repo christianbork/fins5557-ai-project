@@ -25,11 +25,17 @@ from src.config import (
     ROOT,
 )
 from src.ddf import DDF_STATIONS
-from src.formatting import count, format_table, money, money_short, number, pct, ratio, score
+from src.formatting import count, format_table, money_short, number, pct, pct_points, ratio, score
 from src.labels import RULES, flag_text, headers, model_choice_reason, model_label
 
 V1_METADATA = ROOT / "archive" / "v1-home-credit-baseline" / "metadata.json"
 log = get_logger("app.model")
+
+
+def count_plain(value) -> str:
+    """A whole number with thousands separators (a cost or a count of groups)."""
+    return f"{value:,.0f}"
+
 
 st.set_page_config(page_title="Model and fairness", page_icon="⚖️", layout="wide")
 
@@ -168,11 +174,26 @@ st.caption(
 st.header("2. Where the cut-off comes from")
 a = meta["assumptions"]
 cutoffs = r["cutoffs"]
+rule = meta.get("decision_rule", "profit")
 st.write(
-    f"Approving a loan earns the margin ({pct(a['margin'])}) if the customer repays and loses the loss given "
-    f"default (LGD, {pct(a['lgd'])}) if they default, so lending breaks even at PD = margin / (margin + LGD) = "
-    f"**{pct(a['break_even_pd'])}**. The cut-off that earned the most on the validation split is "
-    f"**{pct(meta['threshold'])}**. Applicants within {pct(meta['refer_band'])} of it are referred to an analyst."
+    "The model gives a PD; the cut-off decides who is approved. Where it sits depends on how the lender weighs "
+    "**approving someone who defaults** against **declining someone who would have repaid**. The same model "
+    "gives very different decisions under three sourced answers to that question:"
+)
+st.markdown(
+    f"- **{RULES['profit']}**: the cut-off that earned the most on the validation split when a repaid loan earns "
+    f"the margin ({pct(a['margin'])}) and a default loses the loss given default (LGD, {pct(a['lgd'])}); "
+    f"break-even PD = margin / (margin + LGD) = {pct(a['break_even_pd'])}, a 4 : 1 cost ratio.\n"
+    f"- **{RULES['cost_ratio']}**: approving a defaulter counts as {meta.get('cost_ratio', 5):g} times as costly as "
+    "declining a good customer, the cost matrix of the German credit data. Approve while "
+    f"PD < 1 / (1 + {meta.get('cost_ratio', 5):g}) = {pct(cutoffs.loc['cost_ratio', 'cutoff'])}.\n"
+    f"- **{RULES['balanced_accuracy']}**: the cut-off that maximises (TPR + TNR) / 2 on the validation split, "
+    "the method taught in Big Data Analytics at CBS. With 8% defaulters it implies about 11 : 1."
+)
+st.info(
+    f"**The app uses {RULES[rule]}**: cut-off {pct(meta['threshold'])}, with applicants within "
+    f"{pct_points(meta['refer_band']).lstrip('+')} of it referred to an analyst. It is more cautious than the profit rule at a small "
+    "cost in profit, and it also weighs the borrower's harm from a default, not only the lender's loss."
 )
 fig = Figure(figsize=(9, 3.6))
 ax = fig.subplots()
@@ -180,18 +201,17 @@ profit = r["profit"]
 ax.plot(profit["threshold"], profit["realised_profit"], color="#1f618d")
 ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: money_short(v)))
 ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _: pct(v)))
-ax.axvline(
-    meta["threshold"], color="#1e8449", label=f"Profit cut-off ({pct(meta['threshold'])}, used by the app)"
-)
-ax.axvline(
-    cutoffs.loc["balanced_accuracy", "cutoff"],
-    color="#b9770e",
-    linestyle="--",
-    label=f"Balanced-accuracy cut-off ({pct(cutoffs.loc['balanced_accuracy', 'cutoff'])})",
-)
-ax.axvline(
-    a["break_even_pd"], color="grey", linestyle=":", label=f"Break-even PD ({pct(a['break_even_pd'])})"
-)
+styles = {"profit": ("#1f618d", "--"), "cost_ratio": ("#1e8449", "-"), "balanced_accuracy": ("#b9770e", "-.")}
+for code, (colour, line) in styles.items():
+    cut = cutoffs.loc[code, "cutoff"]
+    used = " (used by the app)" if code == rule else ""
+    ax.axvline(
+        cut,
+        color=colour,
+        linestyle=line,
+        linewidth=2 if used else 1.2,
+        label=f"{RULES[code]}: {pct(cut)}{used}",
+    )
 ax.set(
     xlabel="Cut-off: decline when PD is at or above",
     ylabel="Realised profit",
@@ -201,15 +221,44 @@ ax.set(
 ax.legend(fontsize=8)
 st.pyplot(fig, clear_figure=True)
 
-shown = headers(cutoffs.rename(index=RULES).rename(columns={"precision": "Declined who would default"}))
-st.dataframe(
-    shown.style.format({c: money if c == "Profit" else pct for c in shown.columns}),
-    width="stretch",
-)
+columns = [
+    "cutoff",
+    "balanced_accuracy",
+    "tpr",
+    "good_auto_approved",
+    "defaulters_auto_approved",
+    "approve_share",
+    "refer_share",
+    "decline_share",
+    "default_rate_approved",
+    "realised_profit",
+    "cost_at_ratio",
+    "lowest_di_ratio",
+    "groups_below_four_fifths",
+]
+# One column per rule, one row per measure: three columns fit the page, thirteen don't
+shown = headers(cutoffs[[c for c in columns if c in cutoffs]].rename(index=RULES)).T.rename_axis("Measure")
+counts = {"Cost at 5:1", "Groups below four-fifths"}
+ratios = {"Balanced accuracy", "Lowest disparate-impact ratio"}
+styler = shown.style
+for measure in shown.index:
+    fmt = (
+        money_short
+        if measure == "Profit"
+        else count_plain
+        if measure in counts
+        else ratio
+        if measure in ratios
+        else pct
+    )
+    styler = styler.format(fmt, subset=pd.IndexSlice[measure, :])
+st.dataframe(styler, width="stretch", height=35 * (len(shown) + 1) + 3)  # every measure visible
 st.caption(
-    "Test split. Balanced accuracy treats one missed defaulter as costing as much as about 11 wrongly declined "
-    "good customers (the ratio of good customers to defaulters); the lender's economics say LGD / margin = 4. "
-    "So the balanced-accuracy rule declines far more people and earns less. " + CURRENCY_NOTE
+    "Test split. Defaulters caught is the share of eventual defaulters at or above the cut-off; the approve, refer "
+    "and decline shares and the automatic approvals include the refer band. Cost at 5:1 counts 5 per approved "
+    "defaulter and 1 per declined good customer. The stricter the rule, the more defaulters it stops, but the more "
+    "good customers, and especially younger applicants, it turns away (lowest disparate-impact ratio). "
+    + CURRENCY_NOTE
 )
 
 # ---- Fairness ---------------------------------------------------------------------------------
@@ -278,7 +327,9 @@ st.info(
     "within every group and equal on error rates. Even so, creditworthy younger applicants are declined more "
     "often than older ones. Most of that comes through the external credit scores, which are correlated with age "
     "(a longer credit history scores better), then loan length, job tenure and time since the ID was renewed. "
-    "Whether to accept, reduce or offset it is a policy decision, discussed in the report."
+    "Whether to accept, reduce or offset it is a policy decision, discussed in the report. The stricter the decision "
+    "rule, the wider the gap: section 2 shows the lowest ratio under each rule, and borderline applicants are referred "
+    "to an analyst rather than declined automatically."
 )
 
 # ---- How it is built: the Digital Data Factory ---------------------------------------------

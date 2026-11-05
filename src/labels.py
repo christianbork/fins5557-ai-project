@@ -62,6 +62,15 @@ COLUMNS = {
     "approval_rate": "Approval rate",
     "balanced_accuracy": "Balanced accuracy",
     "realised_profit": "Profit",
+    "default_rate_approved": "Default rate among approved",
+    "approve_share": "Approve",
+    "refer_share": "Refer",
+    "decline_share": "Decline",
+    "defaulters_auto_approved": "Defaulters approved automatically",
+    "good_auto_approved": "Good customers approved automatically",
+    "cost_at_ratio": "Cost at 5:1",
+    "lowest_di_ratio": "Lowest disparate-impact ratio",
+    "groups_below_four_fifths": "Groups below four-fifths",
     # Fairness
     "attribute": "Attribute",
     "group": "Group",
@@ -81,7 +90,12 @@ COLUMNS = {
     "missing_train": "Missing (training)",
     "missing_batch": "Missing (batch)",
 }
-RULES = {"profit": "Profit (app)", "balanced_accuracy": "Balanced accuracy"}
+# Decision rules (config.DECISION_RULES), with the source of each assumption
+RULES = {
+    "profit": "Profit, 4:1 (Thomas, 2000)",
+    "cost_ratio": "Cost ratio 5:1 (Hofmann, 1994)",
+    "balanced_accuracy": "Balanced accuracy (Brodersen et al., 2010)",
+}
 
 
 def decision_label(code: str) -> str:

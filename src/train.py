@@ -19,7 +19,7 @@ Saves:
     reports/test_metrics.json           final test-split results
     reports/validation_predictions.csv  validation scores per model, for plots (gitignored)
     reports/tuning_results.csv          every tuning candidate's CV scores
-    reports/threshold_comparison.csv    profit vs balanced-accuracy cut-off on the test split
+    reports/threshold_comparison.csv    the three decision rules (profit, 5:1 cost ratio, balanced accuracy) on the test split
     reports/fairness.csv, roc_points.csv, reliability.csv   aggregates for the app (src/reporting.py)
 """
 
@@ -45,6 +45,7 @@ from sklearn.preprocessing import FunctionTransformer
 from xgboost import XGBClassifier
 
 from src.config import (
+    COST_RATIO,
     CV_FOLDS,
     EAD_COLUMN,
     FEATURE_SET,
@@ -278,6 +279,9 @@ def build_metadata(result: dict, decision: dict, input_columns: list[str], n_row
             "validation_brier": {k: round(float(v), 4) for k, v in decision["brier"].items()},
         },
         "threshold": decision["threshold"],
+        "decision_rule": decision["decision_rule"],
+        "cost_ratio": COST_RATIO,
+        "cutoffs": decision["cutoffs"],
         "refer_band": REFER_BAND,
         "assumptions": {
             "lgd": LGD,
@@ -362,7 +366,7 @@ def main() -> None:
         f"Test: AUC {t['auc']:.3f}, Brier {t['brier']:.4f}, approval rate {t['approval_rate']:.1%}, "
         f"default rate among approved {t['default_rate_approved']:.1%} (vs {t['default_rate_all']:.1%} overall)"
     )
-    print("\nCut-off rules on the test split (the app uses 'profit'):")
+    print(f"\nCut-off rules on the test split (the app uses '{decision['decision_rule']}'):")
     print(decision["threshold_comparison"].round(3).to_string())
     print(
         f"Saved {MODEL_PATH.relative_to(MODEL_PATH.parents[1])} and metadata "

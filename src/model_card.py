@@ -33,7 +33,7 @@ from src.config import (
     ROOT,
 )
 from src.formatting import count, money_short, pct, pct_points, ratio, score
-from src.labels import input_label, model_choice_reason, model_label
+from src.labels import RULES, input_label, model_choice_reason, model_label
 
 MODEL_CARD_PATH = ROOT / "docs" / "MODEL_CARD.md"
 PROTECTED_NAMES = {"CODE_GENDER": "sex", "DAYS_BIRTH": "age", "NAME_FAMILY_STATUS": "family status"}
@@ -171,11 +171,12 @@ actual default rate {pct(test["default_rate_all"])}.
 - Expected loss = PD × LGD × EAD, with loss given default (LGD) {pct(a["lgd"])}, a lifetime net margin of
   {pct(a["margin"])}, and exposure at default (EAD) = the loan amount. Break-even PD = margin / (margin + LGD) =
   {pct(a["break_even_pd"])}.
-- The cut-off that maximised realised profit on the validation split: **{pct(threshold)}**. PDs within
+- Decision rule: **{RULES[meta.get("decision_rule", "profit")]}**, cut-off **{pct(threshold)}**. PDs within
   {pct_points(band).lstrip("+")} of it are referred to an analyst: approve below {pct(threshold - band)}, decline above
   {pct(threshold + band)}. Test split: {pct(shares["approve"])} approve, {pct(shares["refer"])} refer,
   {pct(shares["decline"])} decline; realised profit {money_short(test["realised_profit"])}.
-- LGD and margin are stated assumptions, not estimated from the data.
+- LGD and margin are stated assumptions, not estimated from the data. Three decision rules were compared on the
+  test split (reports/threshold_comparison.csv): {_rules_summary(meta)}
 - **Lending policy limits (stage 1, before the model):** an application is declined by policy if the loan
   would take more than {POLICY_MAX_INSTALMENTS} instalments to repay, the repayment is larger than income, or the
   loan is more than {POLICY_MAX_LOAN_TO_INCOME:g} times income. They sit just beyond the range of Home Credit's
@@ -198,6 +199,18 @@ actual default rate {pct(test["default_rate_all"])}.
   display assumption.
 - **Letters:** drafted by a template or a language model with guardrails; always a draft for an analyst.
 """
+
+
+def _rules_summary(meta: dict) -> str:
+    """One clause per decision rule: cut-off, defaulters caught, good customers approved, profit."""
+    parts = []
+    for code, row in meta.get("threshold_comparison", {}).items():
+        used = " (used)" if code == meta.get("decision_rule") else ""
+        parts.append(
+            f"{RULES[code]}{used}: cut-off {pct(row['cutoff'])}, {pct(row['tpr'])} of defaulters caught, "
+            f"{pct(row['tnr'])} of good customers approved, profit {money_short(row['realised_profit'])}"
+        )
+    return "; ".join(parts) + "."
 
 
 def write_model_card(

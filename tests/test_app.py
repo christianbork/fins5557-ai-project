@@ -188,7 +188,8 @@ def test_batch_page_scores_the_examples():
     assert not page.exception and not page.error
     assert "Scored 6 applicants" in page.success[0].value
     results = page.dataframe[0].value
-    assert list(results["Decision"]) == ["Approve", "Refer", "Decline", "Approve", "Approve", "Refer"]
+    # The thin-file example (PD 17.6%) sits in the 5:1 rule's refer band, so an analyst decides
+    assert list(results["Decision"]) == ["Approve", "Refer", "Decline", "Refer", "Approve", "Refer"]
     assert (results.loc[results["Decision"] != "Approve", "Main reasons (refer / decline)"] != "").all()
 
 

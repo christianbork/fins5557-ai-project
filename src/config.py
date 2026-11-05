@@ -120,6 +120,20 @@ LGD = 0.60  # loss given default: share of the loan lost after recoveries (unsec
 MARGIN = 0.15  # net margin over the loan's life, after funding and operating costs, as a share of the loan
 EAD_COLUMN = "AMT_CREDIT"  # exposure at default = the loan amount (conservative: no repayments yet)
 # Break-even PD = MARGIN / (MARGIN + LGD) = 20%: above it, a loan is expected to lose money.
+# Which rule sets the cut-off. All three are computed and compared (reports/threshold_comparison.csv,
+# the Model and fairness page); DECISION_RULE is the one the app uses. Decided (5 Nov): "cost_ratio".
+# - "profit": the cut-off that maximises realised profit on the validation split under LGD and MARGIN
+#   (Thomas, 2000; Verbraken et al., 2014). Implied cost ratio LGD / MARGIN = 4 : 1.
+# - "cost_ratio": approving a defaulter is treated as COST_RATIO times as costly as declining a good
+#   customer, the cost matrix of the German credit data (Hofmann, 1994). Approve while
+#   PD x COST_RATIO < (1 - PD), i.e. below PD = 1 / (1 + COST_RATIO) = 16.7%. More conservative than
+#   "profit", and it also counts the borrower's harm from a default, not only the lender's loss.
+# - "balanced_accuracy": the cut-off that maximises (TPR + TNR) / 2 on the validation split
+#   (Brodersen et al., 2010), the method taught in Big Data Analytics at CBS (A. Sorensen). With 8%
+#   defaulters it implies a cost ratio of about 11 : 1, set by the class balance, not the economics.
+DECISION_RULES = ("profit", "cost_ratio", "balanced_accuracy")
+DECISION_RULE = "cost_ratio"
+COST_RATIO = 5.0  # Hofmann (1994): misclassifying a bad customer as good costs 5, a good one as bad costs 1
 REFER_BAND = 0.02  # PDs within +/- 2 points of the cut-off go to an analyst (check the share after training)
 # Display only (decided 29 Oct): Home Credit's data doesn't state its currency, so amounts are shown in USD
 # for readability, with this note on every page that shows money. No conversion is applied.

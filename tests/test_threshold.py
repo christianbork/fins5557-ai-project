@@ -5,10 +5,13 @@ import pytest
 
 from src.threshold import (
     break_even_pd,
+    choose_cutoffs,
     choose_threshold,
     compare_thresholds,
+    cost_ratio_threshold,
     decide,
     expected_profit,
+    misclassification_cost,
     profit_curve,
     realised_profit,
 )
@@ -78,10 +81,10 @@ def test_calibrate_and_set_threshold_result(trained):
     assert sum(decision["test"]["decision_shares"].values()) == pytest.approx(1)
 
 
-def test_threshold_comparison_reports_both_rules(trained):
+def test_threshold_comparison_reports_all_three_rules(trained):
     comparison = trained[1]["threshold_comparison"]
-    assert list(comparison.index) == ["profit", "balanced_accuracy"]
-    assert comparison.loc["profit", "cutoff"] == trained[1]["threshold"]
+    assert list(comparison.index) == ["profit", "cost_ratio", "balanced_accuracy"]
+    assert comparison.loc[trained[1]["decision_rule"], "cutoff"] == trained[1]["threshold"]
     assert {"approval_rate", "tpr", "tnr", "precision", "balanced_accuracy", "realised_profit"} <= set(
         comparison
     )
@@ -93,9 +96,33 @@ def test_balanced_accuracy_cut_off_declines_more_when_defaulters_are_rare():
     rng = np.random.default_rng(1)
     y = (rng.random(20_000) < 0.08).astype(int)
     pd_ = np.clip(rng.beta(2, 20, 20_000) + 0.12 * y, 0, 1)  # PDs that rank defaulters higher
-    profit_cut = choose_threshold(profit_curve(pd_, y, ead=1.0))
-    table = compare_thresholds(pd_, y, pd_, y, 1.0, profit_cut)
+    cutoffs = choose_cutoffs(pd_, y, 1.0)
+    table = compare_thresholds(cutoffs, pd_, y, 1.0)
     assert table.loc["balanced_accuracy", "cutoff"] < table.loc["profit", "cutoff"]
     assert table.loc["balanced_accuracy", "approval_rate"] < table.loc["profit", "approval_rate"]
     assert table.loc["balanced_accuracy", "tpr"] > table.loc["profit", "tpr"]
     assert table.loc["profit", "realised_profit"] >= table.loc["balanced_accuracy", "realised_profit"]
+
+
+def test_cost_ratio_cut_off_follows_from_the_ratio():
+    """Approve while PD x 5 < 1 - PD: below 1/6 at Hofmann's (1994) 5 : 1 cost matrix."""
+    assert cost_ratio_threshold(5.0) == pytest.approx(1 / 6, abs=1e-4)
+    assert cost_ratio_threshold(4.0) == pytest.approx(0.2)  # LGD 60% / margin 15%: the profit break-even
+
+
+def test_misclassification_cost_counts_both_errors():
+    pd_ = np.array([0.05, 0.10, 0.30, 0.40])
+    y = np.array([1, 0, 0, 1])  # cut-off 0.2: one approved defaulter (5), one declined good customer (1)
+    assert misclassification_cost(pd_, y, 0.2, ratio=5.0) == 6.0
+
+
+def test_comparison_reports_every_rule_with_shares():
+    rng = np.random.default_rng(2)
+    y = (rng.random(20_000) < 0.08).astype(int)
+    pd_ = np.clip(rng.beta(2, 20, 20_000) + 0.12 * y, 0, 1)
+    table = compare_thresholds(choose_cutoffs(pd_, y, 1.0), pd_, y, 1.0)
+    assert table.loc["cost_ratio", "cutoff"] == pytest.approx(1 / 6, abs=1e-4)
+    for code in ("profit", "cost_ratio", "balanced_accuracy"):  # a lower cut-off approves fewer people
+        assert table.loc[code, "approval_rate"] == pytest.approx(np.mean(pd_ < table.loc[code, "cutoff"]))
+    shares = table[["approve_share", "refer_share", "decline_share"]].sum(axis=1)
+    assert np.allclose(shares.astype(float), 1.0)
