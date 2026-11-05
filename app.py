@@ -286,7 +286,7 @@ if submitted:
                     applicant, st.session_state["result"], meta
                 )
                 st.session_state["ead"] = applicant["AMT_CREDIT"]
-                st.session_state["applicant"] = applicant
+                st.session_state["scored_applicant"] = applicant
         except Exception:  # show any scoring failure instead of crashing the page
             log.exception("Scoring one applicant failed")
             st.error(
@@ -349,7 +349,9 @@ if "result" in st.session_state:
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
             "relied on for applicants unlike them.".replace("$", "\\$")  # $ amounts would start LaTeX
         )
-    for note in [] if policy else scale_notes(st.session_state.get("applicant", {}), artifacts["reference"]):
+    for note in (
+        [] if policy else scale_notes(st.session_state.get("scored_applicant", {}), artifacts["reference"])
+    ):
         st.info(f"{note}.".replace("$", "\\$"))
     if result["decision"] == "refer" and not result["warnings"]:
         st.warning(

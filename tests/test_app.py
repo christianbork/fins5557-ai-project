@@ -46,6 +46,7 @@ def test_page_loads_without_errors(app):
 def test_examples_get_their_decision(app, example, badge):
     assess(app, example)
     assert not app.exception
+    assert not any("Something went wrong" in e.value for e in app.error)  # a caught scoring failure
     assert badge in [m.value for m in app.markdown]
 
 
@@ -269,3 +270,10 @@ def test_assessment_and_letter_are_written_to_the_decision_log(app, monkeypatch,
     assessment, letter = (json.loads(line) for line in path.read_text(encoding="utf-8").splitlines())
     assert assessment["decision"] == "decline" and assessment["inputs"]["AMT_CREDIT"] == 450000
     assert letter["assessment_id"] == assessment["id"] and letter["letter_backend"] == "template"
+
+
+def test_thin_file_example_is_referred_for_having_no_score(app):
+    """No external score from any source is outside what the model knows (5 Nov fix)."""
+    assess(app, EXAMPLES[3])
+    assert not any("Something went wrong" in e.value for e in app.error)
+    assert any("no external credit score" in w.value for w in app.warning)
