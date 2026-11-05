@@ -11,6 +11,8 @@ from src.validation import (
     build_reference_stats,
     out_of_range,
     read_csv_upload,
+    scale_notes,
+    typical_range,
     validate_applicant,
     validate_batch,
 )
@@ -38,7 +40,15 @@ def test_every_numeric_input_has_a_rule():
 
 
 def test_reference_stats_have_no_rows(reference):
-    assert set(reference) == {"rows", "guard_quantiles", "numeric", "categorical"}
+    assert set(reference) == {
+        "rows",
+        "guard_quantiles",
+        "ratio_guard_quantiles",
+        "numeric",
+        "ratios",
+        "no_score_share",
+        "categorical",
+    }
     assert set(reference["numeric"]) == set(NUMERIC_INPUTS)
     assert set(reference["categorical"]) == set(CATEGORICAL_INPUTS)
     assert all(len(s["deciles"]) == 9 for s in reference["numeric"].values())
@@ -157,7 +167,7 @@ def test_guard_flags_values_outside_training_range(batch, reference):
     batch = batch.copy()
     batch.loc[batch.index[0], "AMT_INCOME_TOTAL"] = reference["numeric"]["AMT_INCOME_TOTAL"]["high"] * 10
     warnings = out_of_range(batch, reference)
-    assert warnings.iloc[0][0].startswith("Annual income ($")
+    assert warnings.iloc[0][0].startswith("Income ($")
     assert "outside the range of past approved applicants" in warnings.iloc[0][0]
 
 
@@ -184,7 +194,7 @@ def test_guard_turns_approve_into_refer(saved_model_dir):
     applicant["AMT_INCOME_TOTAL"] = artifacts["reference"]["numeric"]["AMT_INCOME_TOTAL"]["high"] * 10
     out = predict(applicant, artifacts)
     assert out["decision"] == "refer"
-    assert out["warnings"] and out["warnings"][0].startswith("Annual income")
+    assert out["warnings"] and out["warnings"][0].startswith("Income")
 
 
 def test_guard_never_softens_a_decline(saved_model_dir):
@@ -201,3 +211,89 @@ def test_guard_never_softens_a_decline(saved_model_dir):
     assert not scored["decision"].eq("approve").any()
     assert isinstance(scored["warnings"].iloc[0], str) and scored["warnings"].iloc[0]
     pd.testing.assert_index_equal(scored.index, applicants.index)
+
+
+# ---- Ratio and no-score checks (5 Nov, after user testing) -----------------------------------
+def _ordinary(reference):
+    """A row whose fields and ratios all sit in the middle of the training data."""
+    num = reference["numeric"]
+    return {
+        "AMT_INCOME_TOTAL": num["AMT_INCOME_TOTAL"]["deciles"][4],
+        "AMT_CREDIT": num["AMT_CREDIT"]["deciles"][4],
+        "AMT_ANNUITY": num["AMT_CREDIT"]["deciles"][4] / 20,
+        "AMT_GOODS_PRICE": num["AMT_CREDIT"]["deciles"][4] / 1.1,
+        "EXT_SOURCE_1": None,
+        "EXT_SOURCE_2": 0.5,
+        "EXT_SOURCE_3": None,
+    }
+
+
+def _ratio_warnings(row, reference):
+    df = pd.DataFrame([row])
+    for col in NUMERIC_INPUTS:  # the other fields at their median, so only the tested change shows
+        if col not in df:
+            df[col] = reference["numeric"][col]["deciles"][4]
+    return out_of_range(df, reference).iloc[0]
+
+
+def test_reference_stats_hold_ratio_ranges(reference):
+    assert set(reference["ratios"]) == {
+        "instalments",
+        "loan_to_goods",
+        "repayment_to_income",
+        "loan_to_income",
+    }
+    for stats in reference["ratios"].values():
+        assert stats["low"] <= stats["high"]
+    assert 0 <= reference["no_score_share"] <= 1
+
+
+def test_ordinary_ratios_give_no_warning(reference):
+    assert _ratio_warnings(_ordinary(reference), reference) == []
+
+
+def test_unusual_combination_is_flagged_though_each_field_is_normal(reference):
+    """The tester's case: normal fields, but a loan twice the goods price."""
+    row = _ordinary(reference)
+    row["AMT_GOODS_PRICE"] = row["AMT_CREDIT"] / 2
+    assert any(
+        w.startswith("Loan relative to the price of the goods") for w in _ratio_warnings(row, reference)
+    )
+
+
+def test_too_many_instalments_is_flagged(reference):
+    row = _ordinary(reference)
+    row["AMT_ANNUITY"] = row["AMT_CREDIT"] / (reference["ratios"]["instalments"]["high"] * 1.2)
+    assert any(w.startswith("Number of instalments") for w in _ratio_warnings(row, reference))
+
+
+def test_blank_goods_price_is_not_a_ratio_warning(reference):
+    row = _ordinary(reference)
+    row["AMT_GOODS_PRICE"] = None
+    assert not any("goods" in w for w in _ratio_warnings(row, reference))
+
+
+def test_no_external_score_at_all_is_flagged(reference):
+    row = _ordinary(reference)
+    row["EXT_SOURCE_2"] = None
+    assert any("no external credit score" in w for w in _ratio_warnings(row, reference))
+
+
+def test_old_reference_files_without_ratios_still_work(reference):
+    old = {k: v for k, v in reference.items() if k not in ("ratios", "no_score_share")}
+    assert _ratio_warnings(_ordinary(reference), old) == []
+
+
+def test_typical_range_is_the_middle_80_percent(reference):
+    low, high = typical_range("AMT_INCOME_TOTAL", reference)
+    deciles = reference["numeric"]["AMT_INCOME_TOTAL"]["deciles"]
+    assert (low, high) == (deciles[0], deciles[-1])
+    assert typical_range("NOT_A_FIELD", reference) is None
+
+
+def test_scale_note_for_an_amount_outside_the_middle_98_percent(reference):
+    row = _ordinary(reference)
+    assert scale_notes(row, reference) == []
+    row["AMT_INCOME_TOTAL"] = reference["numeric"]["AMT_INCOME_TOTAL"]["typical_low"] / 2
+    notes = scale_notes(row, reference)
+    assert len(notes) == 1 and "lower than 99% of past applicants" in notes[0]

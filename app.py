@@ -22,10 +22,11 @@ from src.audit import log_assessment, log_letter
 from src.config import CURRENCY_NOTE, DATA_DIR, LLM_BACKEND, OLLAMA_MODEL
 from src.explain import contributions_by_reason
 from src.formatting import money, pct, score
-from src.labels import RULES, decision_label, model_label
+from src.labels import MONEY_FIELDS, RULES, decision_label, model_label
 from src.llm import build_prompt, draft_letter
 from src.predict import load_artifacts, predict
-from src.validation import validate_applicant
+from src.threshold import display_margin
+from src.validation import scale_notes, typical_range, validate_applicant
 
 SAMPLE_PATH = DATA_DIR / "sample" / "sample_applicants.csv"
 log = get_logger("app.screening")
@@ -122,6 +123,9 @@ def number(field: str, step: float = 1000.0, low: float = 0.0, high: float | Non
         )
     else:
         st.number_input(lbl, min_value=low, max_value=high, step=step, format=fmt, key=f"f_{field}", help=hlp)
+    typical = typical_range(field, artifacts["reference"]) if field in MONEY_FIELDS else None
+    if typical:  # so amounts are entered on the data's scale (Home Credit's units, shown with $)
+        st.caption(f"Typical: {money(typical[0])} to {money(typical[1])}".replace("$", "\\$"))
 
 
 def choice(field: str, options: list, optional: bool = False):
@@ -168,6 +172,7 @@ meta = artifacts["metadata"]
 threshold, band = meta["threshold"], meta["refer_band"]
 assumptions = meta["assumptions"]
 rule = meta.get("decision_rule", "profit")
+margin_shown = display_margin(meta)  # 12% under 5:1, so the expected profit agrees with the decision
 # Why a PD above the cut-off means decline, under the decision rule the app uses (src/config.py)
 DECLINE_REASON = {
     "profit": "The expected loss outweighs the margin.",
@@ -188,6 +193,8 @@ with st.sidebar:
     )
     st.header("Scope")
     st.info(
+        "**For credit analysts**, not applicants: the analyst enters an application the lender has received, "
+        "with the results of the lender's credit check. "
         "A **second-stage screen** for applicants who already pass the lender's basic policy checks. "
         "The model learnt from loans Home Credit had already approved, so it has never seen the applicants "
         "those checks turned away. Unusual inputs are referred to an analyst."
@@ -199,8 +206,8 @@ with st.sidebar:
         f"- Decision rule: {RULES[rule]}, cut-off {pct(threshold)}\n"
         f"- Decline above a PD of {pct(threshold + band)}, approve below {pct(threshold - band)}, "
         "refer in between\n"
-        f"- Profit assumptions: loss given default (LGD) {pct(assumptions['lgd'])}, "
-        f"margin {pct(assumptions['margin'])} (break-even PD {pct(assumptions['break_even_pd'])})\n"
+        f"- Loss given default (LGD) {pct(assumptions['lgd'])}; expected profit uses a margin of "
+        f"{pct(margin_shown)}, the margin the decision rule implies, so it turns negative at the cut-off\n"
         f"- Trained {meta['trained_at'][:10]}"
     )
     st.caption(
@@ -209,7 +216,8 @@ with st.sidebar:
 
 st.title("Loan default screener")
 st.caption(
-    "Probability of default, a credit decision and the reasons behind it, for one consumer loan applicant."
+    "For credit analysts: assess an application the lender has received. Get the probability of default, "
+    "a credit decision and the reasons behind it. The applicant never uses this screen."
 )
 
 examples = get_examples()["example"].tolist()
@@ -278,6 +286,7 @@ if submitted:
                     applicant, st.session_state["result"], meta
                 )
                 st.session_state["ead"] = applicant["AMT_CREDIT"]
+                st.session_state["applicant"] = applicant
         except Exception:  # show any scoring failure instead of crashing the page
             log.exception("Scoring one applicant failed")
             st.error(
@@ -288,7 +297,7 @@ if "result" in st.session_state:
     result = st.session_state["result"]
     ead = st.session_state["ead"]
     expected_loss = result["pd"] * assumptions["lgd"] * ead
-    expected_profit = (1 - result["pd"]) * assumptions["margin"] * ead - expected_loss
+    expected_profit = (1 - result["pd"]) * margin_shown * ead - expected_loss
 
     st.divider()
     st.subheader("Assessment")
@@ -315,7 +324,8 @@ if "result" in st.session_state:
         "–" if policy else money(expected_profit),
         help=not_used
         if policy
-        else "(1 − PD) × margin × EAD − expected loss. Negative above the break-even PD.",
+        else f"(1 − PD) × margin × EAD − expected loss, with the {pct(margin_shown)} margin implied by the "
+        "decision rule, so it is negative exactly where the rule declines.",
     )
 
     if policy:
@@ -339,6 +349,8 @@ if "result" in st.session_state:
             f"Referred for review: {warning}. The model learnt only from past approved loans, so it can't be "
             "relied on for applicants unlike them.".replace("$", "\\$")  # $ amounts would start LaTeX
         )
+    for note in [] if policy else scale_notes(st.session_state.get("applicant", {}), artifacts["reference"]):
+        st.info(f"{note}.".replace("$", "\\$"))
     if result["decision"] == "refer" and not result["warnings"]:
         st.warning(
             f"PD is within {pct(band)} of the {pct(threshold)} cut-off: too close to call, so an analyst decides."

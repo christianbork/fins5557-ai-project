@@ -150,7 +150,9 @@ CALIBRATION_METHODS = ["sigmoid", "isotonic"]  # the one with the lower Brier sc
 # so the rules only catch applications the model has no evidence about and leave the model's
 # reported test results unchanged. A real lender would set them from its own responsible-lending
 # policy (affordability, NCCP Act).
-POLICY_MAX_INSTALMENTS = 48  # loan / repayment; Home Credit's approved loans needed at most 45
+POLICY_MAX_INSTALMENTS = (
+    45  # loan / repayment; Home Credit's approved loans needed at most 45 (was 48 until 5 Nov)
+)
 POLICY_MAX_REPAYMENT_TO_INCOME = 1.0  # a repayment larger than the applicant's income can't be afforded
 POLICY_MAX_LOAN_TO_INCOME = 30.0  # loan more than 30x income (0.0075% of approved loans)
 
@@ -162,6 +164,22 @@ POLICY_MAX_LOAN_TO_INCOME = 30.0  # loan more than 30x income (0.0075% of approv
 # middle 99%, which would flag 1% per field even for ordinary applicants (7.8% of validation
 # applicants, who defaulted less than average) and triple the analysts' refer workload.
 GUARD_QUANTILES = (0.0, 1.0)
+# Decided (5 Nov, after user testing): the guard also checks the ratios the model uses, because every
+# typed field can be normal on its own while the combination is not (a tester's 48-instalment loan at
+# twice the goods price, with no credit scores, got a PD of 2.8%). Ratios outside the middle 99.8% of
+# past approved loans, or no external credit score from any source (0.06% of past applicants), are
+# referred to an analyst rather than approved.
+RATIO_GUARD_QUANTILES = (0.001, 0.999)
+# ratio name -> (numerator, denominator, label); the model's engineered features (src/features.py)
+GUARD_RATIOS = {
+    "instalments": ("AMT_CREDIT", "AMT_ANNUITY", "Number of instalments (loan ÷ repayment)"),
+    "loan_to_goods": ("AMT_CREDIT", "AMT_GOODS_PRICE", "Loan relative to the price of the goods"),
+    "repayment_to_income": ("AMT_ANNUITY", "AMT_INCOME_TOTAL", "Repayment relative to income"),
+    "loan_to_income": ("AMT_CREDIT", "AMT_INCOME_TOTAL", "Loan relative to income"),
+}
+# The form shows the middle 80% of past applicants under each amount (deciles 1 and 9), and a note
+# when an amount is outside the middle 98% (TYPICAL_QUANTILES), so amounts are entered on the data's scale.
+TYPICAL_QUANTILES = (0.01, 0.99)
 MAX_BATCH_ROWS = 10_000  # batch scoring limit, keeps the app responsive
 MAX_UPLOAD_MB = 5
 

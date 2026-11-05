@@ -30,11 +30,14 @@ from src.config import (
     CATEGORICAL_INPUTS,
     DAYS_EMPLOYED_SENTINEL,
     GUARD_QUANTILES,
+    GUARD_RATIOS,
     MAX_BATCH_ROWS,
     MAX_UPLOAD_MB,
     NUMERIC_INPUTS,
+    RATIO_GUARD_QUANTILES,
     RAW_INPUTS,
     REFERENCE_STATS_PATH,
+    TYPICAL_QUANTILES,
 )
 from src.formatting import money
 from src.labels import MONEY_FIELDS, input_label
@@ -72,9 +75,12 @@ def build_reference_stats(X: pd.DataFrame) -> dict:
         if col == "DAYS_EMPLOYED":  # the "not employed" code would distort the range
             values = values[values != DAYS_EMPLOYED_SENTINEL]
         low, high = values.quantile(list(GUARD_QUANTILES))
+        p_low, p_high = values.quantile(list(TYPICAL_QUANTILES))
         numeric[col] = {
             "low": float(low),
             "high": float(high),
+            "typical_low": float(p_low),
+            "typical_high": float(p_high),
             "deciles": [float(v) for v in values.quantile(np.arange(1, 10) / 10)],
             "missing_share": round(float(X[col].isna().mean()), 6),
             "psi_bins": psi_bins(X[col], DAYS_EMPLOYED_SENTINEL if col == "DAYS_EMPLOYED" else None),
@@ -83,12 +89,28 @@ def build_reference_stats(X: pd.DataFrame) -> dict:
         col: X[col].fillna("Unknown").value_counts(normalize=True).round(6).to_dict()
         for col in CATEGORICAL_INPUTS
     }
+    ratios = {}
+    for name in GUARD_RATIOS:
+        r_low, r_high = guard_ratio(X, name).dropna().quantile(list(RATIO_GUARD_QUANTILES))
+        ratios[name] = {"low": float(r_low), "high": float(r_high)}
+    ext = [c for c in NUMERIC_INPUTS if c.startswith("EXT_SOURCE")]
     return {
         "rows": len(X),
         "guard_quantiles": list(GUARD_QUANTILES),
+        "ratio_guard_quantiles": list(RATIO_GUARD_QUANTILES),
         "numeric": numeric,
+        "ratios": ratios,
+        "no_score_share": round(float(X[ext].isna().all(axis=1).mean()), 6),
         "categorical": categorical,
     }
+
+
+def guard_ratio(df: pd.DataFrame, name: str) -> pd.Series:
+    """One of the GUARD_RATIOS for every row (NaN where a value is blank or the denominator is 0)."""
+    top, bottom, _ = GUARD_RATIOS[name]
+    num = pd.to_numeric(df[top], errors="coerce")
+    den = pd.to_numeric(df[bottom], errors="coerce")
+    return num / den.where(den > 0)
 
 
 def save_reference_stats(stats: dict, path: Path = REFERENCE_STATS_PATH) -> None:
@@ -227,7 +249,57 @@ def out_of_range(df: pd.DataFrame, reference: dict) -> pd.Series:
                 f"{input_label(field)} ({show(values.iloc[pos])}) is outside the range of past approved "
                 f"applicants ({show(stats['low'])} to {show(stats['high'])})"
             )
+    # Combinations: each field can be normal while the ratio the model uses is not
+    for name, stats in reference.get("ratios", {}).items():
+        values = guard_ratio(df, name)
+        outside = (values < stats["low"]) | (values > stats["high"])
+        label = GUARD_RATIOS[name][2]
+        for pos in np.flatnonzero(outside.to_numpy()):
+            warnings[pos].append(
+                f"{label} ({_ratio(values.iloc[pos])}) is outside 99.8% of past approved loans "
+                f"({_ratio(stats['low'])} to {_ratio(stats['high'])})"
+            )
+    if "no_score_share" in reference:
+        ext = [c for c in NUMERIC_INPUTS if c.startswith("EXT_SOURCE")]
+        no_score = df[ext].apply(pd.to_numeric, errors="coerce").isna().all(axis=1)
+        for pos in np.flatnonzero(no_score.to_numpy()):
+            warnings[pos].append(
+                "There is no external credit score from any source, which only "
+                f"{reference['no_score_share']:.2%} of past approved applicants had"
+            )
     return pd.Series(warnings, index=df.index, dtype=object)
+
+
+def _ratio(value: float) -> str:
+    """Ratios as people read them: 48 instalments, 2.0 times, 0.16."""
+    return f"{value:,.0f}" if abs(value) >= 10 else f"{value:.2f}"
+
+
+def typical_range(field: str, reference: dict) -> tuple[float, float] | None:
+    """The middle 80% of past applicants for a numeric input (deciles 1 and 9), or None."""
+    stats = reference["numeric"].get(field)
+    if not stats or "deciles" not in stats:
+        return None
+    return stats["deciles"][0], stats["deciles"][-1]
+
+
+def scale_notes(applicant: dict, reference: dict) -> list[str]:
+    """Notes (not warnings: the decision is unchanged) for amounts outside the middle 98% of past
+    applicants, so that someone typing amounts in another scale sees it straight away."""
+    notes = []
+    for field in sorted(MONEY_FIELDS):
+        stats = reference["numeric"].get(field, {})
+        value = pd.to_numeric(pd.Series([applicant.get(field)]), errors="coerce").iloc[0]
+        if pd.isna(value) or "typical_low" not in stats:
+            continue
+        if value < stats["typical_low"] or value > stats["typical_high"]:
+            side = "lower" if value < stats["typical_low"] else "higher"
+            notes.append(
+                f"{input_label(field)} ({money(value)}) is {side} than 99% of past applicants "
+                f"(typical: {money(stats['deciles'][0])} to {money(stats['deciles'][-1])}). Check it is "
+                "entered on the same scale as the data"
+            )
+    return notes
 
 
 if __name__ == "__main__":
