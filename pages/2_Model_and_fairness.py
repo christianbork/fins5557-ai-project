@@ -25,7 +25,7 @@ from src.config import (
     ROOT,
 )
 from src.ddf import DDF_STATIONS
-from src.formatting import count, format_table, money, money_short, number, pct, pct_points, ratio, score
+from src.formatting import count, format_table, money_short, number, pct, pct_points, ratio, score
 from src.labels import RULES, flag_text, headers, model_choice_reason, model_label
 
 V1_METADATA = ROOT / "archive" / "v1-home-credit-baseline" / "metadata.json"
@@ -243,7 +243,7 @@ ratios = {"Balanced accuracy", "Lowest disparate-impact ratio"}
 styler = shown.style
 for measure in shown.index:
     fmt = (
-        money
+        money_short
         if measure == "Profit"
         else count_plain
         if measure in counts
@@ -252,7 +252,7 @@ for measure in shown.index:
         else pct
     )
     styler = styler.format(fmt, subset=pd.IndexSlice[measure, :])
-st.dataframe(styler, width="stretch")
+st.dataframe(styler, width="stretch", height=35 * (len(shown) + 1) + 3)  # every measure visible
 st.caption(
     "Test split. Defaulters caught is the share of eventual defaulters at or above the cut-off; the approve, refer "
     "and decline shares and the automatic approvals include the refer band. Cost at 5:1 counts 5 per approved "
