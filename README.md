@@ -4,7 +4,7 @@
 
 > An AI credit-screening app for a consumer lender: a machine-learning model estimates each applicant's probability of default (PD), a cost-based rule turns it into approve / refer / decline, SHAP explains the main reasons, and a language model drafts the letter, with a fairness audit and drift monitoring behind it. FINS5557 Applied AI in Finance, UNSW, T3 2026 (Track A).
 
-**Live app:** https://fins5557-loan-screener.streamlit.app | **Demo video:** _add link_
+**Live app:** https://fins5557-loan-screener.streamlit.app 
 
 **Docs:** [model card](docs/MODEL_CARD.md) (scope, metrics, fairness, limitations) · [model history](docs/MODEL_HISTORY.md) (v0 to v2) · [build plan](docs/BUILD_PLAN.md) (steps and decisions)
 
